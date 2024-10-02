@@ -7,7 +7,35 @@
         requires: ["pulsar", "trustgraph"],
         features: ["llm"],
 	args: [
-	]
+	    {
+		name: "ollama-max-output-tokens",
+                label: "Maximum output tokens",
+		type: "integer",
+		description: "Limit on number tokens to generate",
+                default: 4096,
+		required: true,
+            },
+	    {
+		name: "ollama-temperature",
+                label: "Temperature",
+		type: "slider",
+		description: "Controlling predictability / creativity balance",
+                min: 0,
+                max: 1,
+                step: 0.05,
+                default: 0.5,
+            },
+	    {
+		name: "ollama-url",
+                label: "URL",
+		type: "text",
+		width: 120,
+		description: "URL of the Ollama service",
+                default: "http://ollama:11434",
+		required: true,
+	    },
+	],
+        category: [ "llm" ],
     },
     module: "components/ollama.jsonnet",
 }

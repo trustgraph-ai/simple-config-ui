@@ -50,3 +50,4 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
 };
 
 export default ModelParameters;
+

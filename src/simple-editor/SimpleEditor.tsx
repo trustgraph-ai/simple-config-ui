@@ -1,165 +1,77 @@
 
+import React from 'react';
+
+import { Typography, Box } from '@mui/material';
+
+import ParamsForm from './ParamsForm';
+import Deployment from './Deployment';
+
 import './SimpleEditor.scss'
+/*
 
-import React, { useState } from 'react';
-import { Container, Typography, Box, Button, TextField } from '@mui/material';
+import { generateConfig } from './generate-config';
 
-import GraphStore from './GraphStore';
-import VectorDB from './VectorDB';
-import Chunker from './Chunker';
-import ModelDeployment from './ModelDeployment';
-import ModelParameters from './ModelParameters';
+import {
+    graphStore, vectorDB, chunkerType, chunkSize, chunkOverlap,
+    modelDeployment, modelName, temperature, maxOutputTokens,
+} from './state/ModelParams';
+*/
 
 const App: React.FC = () => {
 
-  const [graphStore, setGraphStore] = useState('cassandra');
-  const [vectorDB, setVectorDB] = useState('qdrant');
-  const [chunkerType, setChunkerType] = useState('chunker-recursive');
-  const [chunkSize, setChunkSize] = useState(1000);
-  const [chunkOverlap, setChunkOverlap] = useState(200);
-  const [modelDeployment, setModelDeployment] = useState('openai');
-  const [modelName, setModelName] = useState('gpt-3.5-turbo');
-  const [temperature, setTemperature] = useState(0.7);
-  const [maxOutputTokens, setMaxOutputTokens] = useState(1000);
-  const [deploymentConfig, setDeploymentConfig] = useState("");
+/*
+    const generate = () => {
 
-  const deploy = () => {
-  console.log(chunkerType);
-      let config =
-        [
-            {
-                "name": "pulsar",
-                "parameters": {}
-            },
-            {
-                "name": "trustgraph-base",
-                "parameters": {}
-            },
-            {
-                "name": "graph-rag-" + graphStore,
-                "parameters": {}
-            },
-            {
-                "name": modelDeployment,
-                "parameters": {}
-            },
-            {
-                "name": "grafana",
-                "parameters": {}
-            },
-            {
-                "name": "vector-store-" + vectorDB,
-                "parameters": {}
-            }
-        ];
-
-        if (chunkerType == "chunker-recursive") {
-            config.push({
-                "name": "override-recursive-chunker",
-                "parameters": {
-                    "chunk-size": chunkSize,
-                    "chunk-overlap": chunkOverlap,
-                }
-            });
-        } else {
-            config.push({
-                "name": "null",
-                "parameters": {
-                    "chunk-size": chunkSize,
-                    "chunk-overlap": chunkOverlap,
-                }
-            });
-        }
-
-        config.push({
-            name: "null",
-            parameters: {
-                [modelDeployment + "-temperature"]: temperature,
-                [modelDeployment + "-max-output-tokens"]: maxOutputTokens,
-                [modelDeployment + "-model"]: modelName,
-            }
-        });
-
-        const cnf = JSON.stringify(config, null, 4)
-      
-        fetch(
-            "/api/generate", {
-                body: cnf,
-                method: "POST",
-                headers: {
-                }
-             }
+        generateConfig(
+            graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
+            maxOutputTokens, modelName, chunkerType, temperature,
         ).then(
-            x => x.text()
-        ).then(
-            x => setDeploymentConfig(x)
+            (_x) => {
+            }
+        ).catch(
+            (err) => {
+                console.log("Could not generate config: " + err.toString());
+            }
         );
 
-  };
+    }
+*/
+    return (
 
-  return (
+        <Box className="editor">
 
-    <Container maxWidth="sm">
+            <Typography variant="h4" component="h1" gutterBottom>
+              Configuration Editor
+            </Typography>
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        Configuration Editor
-      </Typography>
+            <Box className="layout">
 
-      <Box my={4}>
-        <GraphStore value={graphStore} onChange={setGraphStore} />
+                <Box className="params">
+
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      Model parameters
+                    </Typography>
+
+                    <ParamsForm/>
+
+                </Box>
+
+                <Box className="deployment">
+
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      Deployment process
+                    </Typography>
+
+                    <Deployment/>
+
+                </Box>
+
+            </Box>
+
       </Box>
 
-      <Box my={4}>
-        <VectorDB value={vectorDB} onChange={setVectorDB} />
-      </Box>
+    );
 
-      <Box my={4}>
-        <Chunker
-          type={chunkerType}
-          chunkSize={chunkSize}
-          chunkOverlap={chunkOverlap}
-          onTypeChange={setChunkerType}
-          onChunkSizeChange={setChunkSize}
-          onChunkOverlapChange={setChunkOverlap}
-        />
-      </Box>
-
-      <Box my={4}>
-        <ModelDeployment value={modelDeployment} onChange={setModelDeployment} />
-      </Box>
-
-      <Box my={4}>
-        <ModelParameters
-          modelName={modelName}
-          temperature={temperature}
-          maxOutputTokens={maxOutputTokens}
-          onModelNameChange={setModelName}
-          onTemperatureChange={setTemperature}
-          onMaxOutputTokensChange={setMaxOutputTokens}
-        />
-      </Box>
-
-      <Box my={4}>
-      <Button variant="contained" onClick={() => deploy()}>Generate</Button>
-      </Box>
-
-      <Box my={4}>
-      <TextField
-          id="deployment-config-text"
-          minRows={30} maxRows={40}
-          slotProps={{
-            input: {
-              readOnly: true,
-            },
-          }}
-          defaultValue={deploymentConfig}
-          multiline
-        />
-        </Box>
-
-    </Container>
-
-  );
 };
 
 export default App;

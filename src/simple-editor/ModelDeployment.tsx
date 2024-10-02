@@ -19,6 +19,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
         <MenuItem value="bedrock">AWS Bedrock</MenuItem>
         <MenuItem value="azure">Azure</MenuItem>
         <MenuItem value="cohere">Cohere</MenuItem>
+        <MenuItem value="llamafile">Llamafile</MenuItem>
         <MenuItem value="ollama">Ollama</MenuItem>
         <MenuItem value="openai">OpenAI</MenuItem>
         <MenuItem value="vertexai">VertexAI</MenuItem>
@@ -28,3 +29,4 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
 };
 
 export default ModelDeployment;
+
