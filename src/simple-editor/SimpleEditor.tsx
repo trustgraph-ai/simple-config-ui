@@ -36,6 +36,7 @@ const App: React.FC = () => {
       </Box>
 
       <Box>
+          <Box>
           <TextField
               id="deployment-config-text"
               minRows={30} maxRows={40}
@@ -47,11 +48,14 @@ const App: React.FC = () => {
               defaultValue={deploymentConfig}
               multiline
           />
+          </Box>
+          <Box sx={{ mt: 3 }}>
                 <Button onClick={copyToClipboard} variant="outlined"
                     startIcon={<ContentPaste/>}
                 >
                     Copy to clipboard
                 </Button>
+                </Box>
 
       </Box>
 
