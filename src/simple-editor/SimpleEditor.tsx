@@ -3,6 +3,7 @@ import './SimpleEditor.scss'
 
 import React, { useState } from 'react';
 import { Container, Typography, Box, Button, TextField } from '@mui/material';
+import { generateConfig } from './generate-config';
 
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
@@ -24,78 +25,13 @@ const App: React.FC = () => {
   const [deploymentConfig, setDeploymentConfig] = useState("");
 
   const deploy = () => {
-  console.log(chunkerType);
-      let config =
-        [
-            {
-                "name": "pulsar",
-                "parameters": {}
-            },
-            {
-                "name": "trustgraph-base",
-                "parameters": {}
-            },
-            {
-                "name": "graph-rag-" + graphStore,
-                "parameters": {}
-            },
-            {
-                "name": modelDeployment,
-                "parameters": {}
-            },
-            {
-                "name": "grafana",
-                "parameters": {}
-            },
-            {
-                "name": "vector-store-" + vectorDB,
-                "parameters": {}
-            }
-        ];
 
-        if (chunkerType == "chunker-recursive") {
-            config.push({
-                "name": "override-recursive-chunker",
-                "parameters": {
-                    "chunk-size": chunkSize,
-                    "chunk-overlap": chunkOverlap,
-                }
-            });
-        } else {
-            config.push({
-                "name": "null",
-                "parameters": {
-                    "chunk-size": chunkSize,
-                    "chunk-overlap": chunkOverlap,
-                }
-            });
-        }
+      generateConfig(
+          graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
+          maxOutputTokens, modelName, chunkerType, temperature,
+      ).then((x) => setDeploymentConfig(x));
 
-        config.push({
-            name: "null",
-            parameters: {
-                [modelDeployment + "-temperature"]: temperature,
-                [modelDeployment + "-max-output-tokens"]: maxOutputTokens,
-                [modelDeployment + "-model"]: modelName,
-            }
-        });
-
-        const cnf = JSON.stringify(config, null, 4)
-      
-        fetch(
-            "/api/generate", {
-                body: cnf,
-                method: "POST",
-                headers: {
-                }
-             }
-        ).then(
-            x => x.text()
-        ).then(
-            x => setDeploymentConfig(x)
-        );
-
-  };
+  }
 
   return (
 
