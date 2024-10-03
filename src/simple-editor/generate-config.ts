@@ -71,8 +71,19 @@ export const generateConfig =
               headers: {
               }
            }
-      ).then(
-          x => x.text()
-      );
+      )
+
+/*
+
+.then(
+          x => {
+              if (x.ok) return x.text();
+              return Promise.reject(x.statusText);
+          }
+      )
+
+*/
+
+;
 
 };

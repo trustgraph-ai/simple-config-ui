@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
-import { Box, Button } from '@mui/material';
-import { generateConfig } from './generate-config';
+import React from 'react';
+
+import { Box } from '@mui/material';
 
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
@@ -9,76 +9,108 @@ import Chunker from './Chunker';
 import ModelDeployment from './ModelDeployment';
 import ModelParameters from './ModelParameters';
 
+import { useModelParamsStore } from './state/ModelParams';
+
 interface ParamsFormProps {
-    setDeploymentConfig : (c : string) => void;
 }
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
-    setDeploymentConfig
 }) => {
 
-  const [graphStore, setGraphStore] = useState('cassandra');
-  const [vectorDB, setVectorDB] = useState('qdrant');
-  const [chunkerType, setChunkerType] = useState('chunker-recursive');
-  const [chunkSize, setChunkSize] = useState(1000);
-  const [chunkOverlap, setChunkOverlap] = useState(200);
-  const [modelDeployment, setModelDeployment] = useState('openai');
-  const [modelName, setModelName] = useState('gpt-3.5-turbo');
-  const [temperature, setTemperature] = useState(0.7);
-  const [maxOutputTokens, setMaxOutputTokens] = useState(1000);
+    const graphStore
+        = useModelParamsStore((state) => state.graphStore);
 
-  const deploy = () => {
+    const vectorDB
+        = useModelParamsStore((state) => state.vectorDB);
 
-      generateConfig(
-          graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
-          maxOutputTokens, modelName, chunkerType, temperature,
-      ).then((x) => setDeploymentConfig(x));
+    const chunkerType
+        = useModelParamsStore((state) => state.chunkerType);
 
-  }
+    const chunkSize
+        = useModelParamsStore((state) => state.chunkSize);
 
-  return (
+    const chunkOverlap
+        = useModelParamsStore((state) => state.chunkOverlap);
 
-      <>
+    const modelDeployment
+        = useModelParamsStore((state) => state.modelDeployment);
 
-      <Box my={4}>
-        <GraphStore value={graphStore} onChange={setGraphStore} />
-      </Box>
+    const modelName
+        = useModelParamsStore((state) => state.modelName);
 
-      <Box my={4}>
-        <VectorDB value={vectorDB} onChange={setVectorDB} />
-      </Box>
+    const temperature
+        = useModelParamsStore((state) => state.temperature);
 
-      <Box my={4}>
-        <Chunker
-          type={chunkerType}
-          chunkSize={chunkSize}
-          chunkOverlap={chunkOverlap}
-          onTypeChange={setChunkerType}
-          onChunkSizeChange={setChunkSize}
-          onChunkOverlapChange={setChunkOverlap}
-        />
-      </Box>
+    const maxOutputTokens
+        = useModelParamsStore((state) => state.maxOutputTokens);
 
-      <Box my={4}>
-        <ModelDeployment value={modelDeployment} onChange={setModelDeployment} />
-      </Box>
+    const setGraphStore
+        = useModelParamsStore((state) => state.setGraphStore);
 
-      <Box my={4}>
-        <ModelParameters
-          modelName={modelName}
-          temperature={temperature}
-          maxOutputTokens={maxOutputTokens}
-          onModelNameChange={setModelName}
-          onTemperatureChange={setTemperature}
-          onMaxOutputTokensChange={setMaxOutputTokens}
-        />
-      </Box>
+    const setVectorDB
+        = useModelParamsStore((state) => state.setVectorDB);
 
-      <Box my={4}>
-      <Button variant="contained" onClick={() => deploy()}>Generate</Button>
-      </Box>
+    const setChunkerType
+        = useModelParamsStore((state) => state.setChunkerType);
 
-      </>
+    const setChunkSize
+        = useModelParamsStore((state) => state.setChunkSize);
+
+    const setChunkOverlap
+        = useModelParamsStore((state) => state.setChunkOverlap);
+
+    const setModelDeployment
+        = useModelParamsStore((state) => state.setModelDeployment);
+
+    const setModelName
+        = useModelParamsStore((state) => state.setModelName);
+
+    const setTemperature
+        = useModelParamsStore((state) => state.setTemperature);
+
+    const setMaxOutputTokens
+        = useModelParamsStore((state) => state.setMaxOutputTokens);
+
+
+    return (
+
+        <>
+
+            <Box my={4}>
+              <ModelDeployment value={modelDeployment} onChange={setModelDeployment} />
+            </Box>
+
+            <Box my={4}>
+              <GraphStore value={graphStore} onChange={setGraphStore} />
+            </Box>
+
+            <Box my={4}>
+              <VectorDB value={vectorDB} onChange={setVectorDB} />
+            </Box>
+
+            <Box my={4}>
+              <Chunker
+                type={chunkerType}
+                chunkSize={chunkSize}
+                chunkOverlap={chunkOverlap}
+                onTypeChange={setChunkerType}
+                onChunkSizeChange={setChunkSize}
+                onChunkOverlapChange={setChunkOverlap}
+              />
+            </Box>
+
+            <Box my={4}>
+              <ModelParameters
+                modelName={modelName}
+                temperature={temperature}
+                maxOutputTokens={maxOutputTokens}
+                onModelNameChange={setModelName}
+                onTemperatureChange={setTemperature}
+                onMaxOutputTokensChange={setMaxOutputTokens}
+              />
+            </Box>
+
+        </>
 
   );
 };

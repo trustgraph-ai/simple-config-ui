@@ -1,7 +1,29 @@
 
 #deployment-config-text {
-    width: 33rem;
+    width: 40rem;
     font-family: monospace;
     font-size: small;
+}
+
+.layout {
+    display: flex;
+
+    & > * {
+        margin: 1rem;
+    }
+
+}
+
+.editor {
+    width: 90vw;
+    margin: auto;
+}
+
+.params {
+    width: 24rem;
+}
+
+.deployment {
+    width: 35rem;
 }
 

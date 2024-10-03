@@ -1,69 +1,77 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 
-import { ContentPaste } from '@mui/icons-material';
-import {
-    Button, Container, Typography, Box, TextField, Stack
-} from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 import ParamsForm from './ParamsForm';
+import Deployment from './Deployment';
+
 import './SimpleEditor.scss'
+/*
+
+import { generateConfig } from './generate-config';
+
+import {
+    graphStore, vectorDB, chunkerType, chunkSize, chunkOverlap,
+    modelDeployment, modelName, temperature, maxOutputTokens,
+} from './state/ModelParams';
+*/
 
 const App: React.FC = () => {
 
-    const [deploymentConfig, setDeploymentConfig] = useState("");
+/*
+    const generate = () => {
 
-    const copyToClipboard = () => {
-        if (deploymentConfig) {
-            navigator.clipboard.writeText(deploymentConfig);
-        }
+        generateConfig(
+            graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
+            maxOutputTokens, modelName, chunkerType, temperature,
+        ).then(
+            (_x) => {
+            }
+        ).catch(
+            (err) => {
+                console.log("Could not generate config: " + err.toString());
+            }
+        );
+
     }
+*/
+    return (
 
-  return (
+        <Box className="editor">
 
-    <Container maxWidth="lg">
+            <Typography variant="h4" component="h1" gutterBottom>
+              Configuration Editor
+            </Typography>
 
-      <Stack direction="row" spacing={5}>
+            <Box className="layout">
 
-      <Box>
+                <Box className="params">
 
-          <Typography variant="h4" component="h1" gutterBottom>
-            Configuration Editor
-          </Typography>
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      Model parameters
+                    </Typography>
 
-          <ParamsForm setDeploymentConfig={setDeploymentConfig}/>
+                    <ParamsForm/>
 
-      </Box>
-
-      <Box>
-          <Box>
-          <TextField
-              id="deployment-config-text"
-              minRows={30} maxRows={40}
-              slotProps={{
-                input: {
-                  readOnly: true,
-                },
-              }}
-              defaultValue={deploymentConfig}
-              multiline
-          />
-          </Box>
-          <Box sx={{ mt: 3 }}>
-                <Button onClick={copyToClipboard} variant="outlined"
-                    startIcon={<ContentPaste/>}
-                >
-                    Copy to clipboard
-                </Button>
                 </Box>
 
+                <Box className="deployment">
+
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      Deployment process
+                    </Typography>
+
+                    <Deployment/>
+
+                </Box>
+
+            </Box>
+
       </Box>
 
-      </Stack>
+    );
 
-    </Container>
-
-  );
 };
 
 export default App;
