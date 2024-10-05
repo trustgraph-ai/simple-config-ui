@@ -50,8 +50,8 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
                         This affects the <code>grafana</code> and
                         <code>prometheus</code> directories.
                         
-                        <pre>chcon -Rt svirt_sandbox_file_t grafana prometheus
-                        chmod 755 prometheus/ grafana/ grafana/*/
+                        <pre>chcon -Rt svirt_sandbox_file_t grafana prometheus<br/>
+                        chmod 755 prometheus/ grafana/ grafana/*/<br/>
                         chmod 644 prometheus/* grafana/*/*
                         </pre>
 
