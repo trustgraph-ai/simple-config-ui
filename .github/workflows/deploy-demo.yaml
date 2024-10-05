@@ -58,7 +58,7 @@ jobs:
           command: up
           stack-name: demo
           work-dir: pulumi
-          cloud-url: gs://trustgraph-deploy/simple-config-ui/demo
+          cloud-url: gs://trustgraph-deploy/config-ui/demo
         env:
           PULUMI_CONFIG_PASSPHRASE: ""
           IMAGE_VERSION: ${{ steps.version.outputs.VERSION }}

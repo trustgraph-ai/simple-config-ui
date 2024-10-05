@@ -16,11 +16,11 @@ spec.loader.exec_module(version_module)
 version = version_module.__version__
 
 setuptools.setup(
-    name="simple-config-ui",
+    name="config-ui",
     version=version,
     author="trustgraph.ai",
     author_email="security@trustgraph.ai",
-    description="Simple configuration creator for trustgraph.ai",
+    description="Configuration creator for trustgraph.ai",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/trustgraph-ai/simple-config-ui",

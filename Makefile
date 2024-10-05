@@ -5,27 +5,27 @@ all: service-package container
 
 ui:
 	npm run build
-	rm -rf simple-config-ui/config_ui/ui/
-	cp -r dist/ simple-config-ui/config_ui/ui/
+	rm -rf config-ui/config_ui/ui/
+	cp -r dist/ config-ui/config_ui/ui/
 
 template-data:
-	rm -rf simple-config-ui/config_ui/templates
-	mkdir -p simple-config-ui/config_ui/templates
-	find templates -name '*.jsonnet' | cpio -pdm simple-config-ui/config_ui/
+	rm -rf config-ui/config_ui/templates
+	mkdir -p config-ui/config_ui/templates
+	find templates -name '*.jsonnet' | cpio -pdm config-ui/config_ui/
 
 resources-data:
-	rm -rf simple-config-ui/config_ui/resources
-	mkdir -p simple-config-ui/config_ui/resources
-	cp -r grafana simple-config-ui/config_ui/resources/
-	cp -r prometheus simple-config-ui/config_ui/resources/
+	rm -rf config-ui/config_ui/resources
+	mkdir -p config-ui/config_ui/resources
+	cp -r grafana config-ui/config_ui/resources/
+	cp -r prometheus config-ui/config_ui/resources/
 
 service-package: ui template-data resources-data update-package-versions
-	cd simple-config-ui && python3 setup.py sdist --dist-dir ../pkgs/
+	cd config-ui && python3 setup.py sdist --dist-dir ../pkgs/
 
 update-package-versions:
-	echo __version__ = \"${VERSION}\" > simple-config-ui/config_ui/version.py
+	echo __version__ = \"${VERSION}\" > config-ui/config_ui/version.py
 
-CONTAINER=docker.io/trustgraph/simple-config-ui
+CONTAINER=docker.io/trustgraph/config-ui
 DOCKER=podman
 
 container:
