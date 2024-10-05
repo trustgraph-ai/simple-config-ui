@@ -71,16 +71,16 @@ const localImageName = "localhost/config-ui:" + imageVersion;
 const imageName = repo + "/config-ui:" + imageVersion;
 
 const taggedImage = new local.Command(
-    "docker-tag-command",
+    "podman-tag-command",
     {
-	create: "docker tag " + localImageName + " " + imageName,
+	create: "podman tag " + localImageName + " " + imageName,
     }
 );
 
 const image = new local.Command(
-    "docker-push-command",
+    "podman-push-command",
     {
-	create: "docker push " + imageName,
+	create: "podman push " + imageName,
     },
     {
 	dependsOn: [taggedImage, artifactRepo],
