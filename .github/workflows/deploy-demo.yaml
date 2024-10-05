@@ -37,7 +37,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           token_format: access_token
-          workload_identity_provider: projects/583813057664/locations/global/workloadIdentityPools/deploy
+          workload_identity_provider: projects/583813057664/locations/global/workloadIdentityPools/deploy/providers/github
           service_account: deploy@trustgraph-demo.iam.gserviceaccount.com
           access_token_lifetime: 900s
           create_credentials_file: true
