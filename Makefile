@@ -1,7 +1,7 @@
 
 VERSION=0.1.0
 
-all: service-package
+all: service-package container
 
 ui:
 	npm run build
@@ -26,6 +26,7 @@ update-package-versions:
 	echo __version__ = \"${VERSION}\" > simple-config-ui/config_ui/version.py
 
 CONTAINER=docker.io/trustgraph/simple-config-ui
+DOCKER=podman
 
 container:
 	${DOCKER} build -f Containerfile -t ${CONTAINER}:${VERSION} \

@@ -15,7 +15,7 @@ logger.setLevel(logging.INFO)
 class Api:
     def __init__(self, **config):
 
-        self.port = int(config.get("port", "8081"))
+        self.port = int(config.get("port", "8080"))
         self.app = web.Application(middlewares=[])
 
         self.app.add_routes([web.post("/api/generate", self.generate)])

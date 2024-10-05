@@ -1,4 +1,6 @@
 
+import { useState } from 'react';
+
 import { Plumbing } from '@mui/icons-material';
 
 import {
@@ -29,31 +31,44 @@ const ConfigGeneration = () => {
     const maxOutputTokens
         = useModelParamsStore((state) => state.maxOutputTokens);
 
-//    const setDeploymentConfig
-//        = useModelParamsStore((state) => state.setDeploymentConfig);
-
     const setConfigUrl
         = useModelParamsStore((state) => state.setConfigUrl);
 
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const ErrorMessage = () => {
+        return (
+            <Typography color="error" variant="body2" sx={{mt: 2}}>
+                Configuration generation failed: {errorMessage}
+            </Typography>
+        );
+    };
+
     const generate = () => {
 
-      generateConfig(
-          graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
-          maxOutputTokens, modelName, chunkerType, temperature,
-      ).then(
-          response => {
-              if (response.ok) {
-                  return response.blob();
-              } else {
-                  throw response.statusText;
-              }
-          }
-      ).then(
+        generateConfig(
+            graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
+            maxOutputTokens, modelName, chunkerType, temperature,
+        ).then(
+            response => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw response.statusText;
+                }
+            }
+        ).then(
             blob => {
                 if (blob) {
                     var url = window.URL.createObjectURL(blob);
                     setConfigUrl(url);
                 }
+            }
+        ).catch(
+            err => {
+                console.log(err);
+                setConfigUrl("");
+                setErrorMessage(err);
             }
         );
 
@@ -72,6 +87,9 @@ const ConfigGeneration = () => {
                         you need, select to generate the configuration
                         package.  This will make it available to download.
                     </Typography>
+                    {
+                        errorMessage ? <ErrorMessage/> : ''
+                    }
                 </CardContent>
                 <CardActions>
                     <Button onClick={() => generate()}>Generate</Button>
