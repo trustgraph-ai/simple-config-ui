@@ -4,6 +4,7 @@ import yaml
 import zipfile
 from io import BytesIO
 import importlib.resources
+import json
 
 from . generator import Generator
 
@@ -67,6 +68,11 @@ class Api:
     def process(
             self, config, version="0.11.19", platform="docker-compose",
     ):
+
+        # This verifies/forces that the input is JSON.  Important because
+        # input is user-supplied, don't want to trust it.
+        dec = json.loads(config)
+        enc = json.dumps(dec)
 
         config = config.encode("utf-8")
 
