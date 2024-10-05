@@ -1,0 +1,14 @@
+encryptionsalt: v1:vQGk98eEeYI=:v1:tHg+f1b66tEydgA9:J1RGVNI0FssyjSXVhcKU7bfBofNFTg==
+config:
+  simple-config-ui:artifact-name: simple-config-ui
+  simple-config-ui:artifact-repo: us-central1-docker.pkg.dev/trustgraph-demo/simple-config-ui
+  simple-config-ui:artifact-repo-region: us-central1
+  simple-config-ui:cloud-run-region: us-central1
+  simple-config-ui:domain: demo.trustgraph.ai
+  simple-config-ui:environment: demo
+  simple-config-ui:gcp-project: trustgraph-demo
+  simple-config-ui:gcp-region: us-central1
+  simple-config-ui:hostname: simple-config-ui.demo.trustgraph.ai
+  simple-config-ui:managed-zone: demo
+  simple-config-ui:max-scale: "2"
+  simple-config-ui:min-scale: "0"
