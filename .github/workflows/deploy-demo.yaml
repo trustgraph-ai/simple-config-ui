@@ -34,8 +34,6 @@ jobs:
       - name: Build container
         run: make VERSION=${{ steps.version.outputs.VERSION }}
 
-      - run: podman images
-
       - id: auth
         name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
@@ -55,8 +53,6 @@ jobs:
 
       - name: Install Pulumi
         run: cd pulumi && npm install
-
-      - run: podman images
 
       - name: Applying infrastructure 🚀🙏
         uses: pulumi/actions@v3
