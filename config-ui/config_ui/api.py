@@ -66,7 +66,7 @@ class Api:
         return web.HTTPNotFound()
 
     def process(
-            self, config, version="0.11.19", platform="docker-compose",
+            self, config, version="0.11.20", platform="docker-compose",
     ):
 
         # This verifies/forces that the input is JSON.  Important because

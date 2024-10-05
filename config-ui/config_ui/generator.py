@@ -35,8 +35,8 @@ class Generator:
         if filename == "config.json" and dir == "":
             path = self.base.joinpath(dir, filename)
             return str(path), self.config
-
-        if filename == "version.jsonnet" and dir == "./templates/values/":
+        
+        if filename == "version.jsonnet":
             path = self.base.joinpath(dir, filename)
             return str(path), self.version
 
