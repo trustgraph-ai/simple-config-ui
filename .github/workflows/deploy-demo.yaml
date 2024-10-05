@@ -26,12 +26,6 @@ jobs:
         id: version
         run: echo VERSION=$(git describe --exact-match --tags | sed 's/^v//') >> $GITHUB_OUTPUT
 
-      - name: Install deps
-        run: npm install
-
-      - name: Build container
-        run: make
-
       #   uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
       #   with:
       #     registry: ghcr.io
@@ -47,6 +41,12 @@ jobs:
           service_account: deploy@trustgraph-demo.iam.gserviceaccount.com
           access_token_lifetime: 900s
           create_credentials_file: true
+
+      - name: Install deps
+        run: npm install
+
+      - name: Build container
+        run: make
 
       # - name: Login to Artifact Registry
       #   uses: docker/login-action@v1
