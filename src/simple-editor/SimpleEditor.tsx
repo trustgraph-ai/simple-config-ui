@@ -7,35 +7,9 @@ import ParamsForm from './ParamsForm';
 import Deployment from './Deployment';
 
 import './SimpleEditor.scss'
-/*
-
-import { generateConfig } from './generate-config';
-
-import {
-    graphStore, vectorDB, chunkerType, chunkSize, chunkOverlap,
-    modelDeployment, modelName, temperature, maxOutputTokens,
-} from './state/ModelParams';
-*/
 
 const App: React.FC = () => {
 
-/*
-    const generate = () => {
-
-        generateConfig(
-            graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
-            maxOutputTokens, modelName, chunkerType, temperature,
-        ).then(
-            (_x) => {
-            }
-        ).catch(
-            (err) => {
-                console.log("Could not generate config: " + err.toString());
-            }
-        );
-
-    }
-*/
     return (
 
         <Box className="editor">

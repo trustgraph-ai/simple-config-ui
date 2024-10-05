@@ -15,7 +15,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
         label="Model Deployment"
         onChange={(e) => onChange(e.target.value)}
       >
-        <MenuItem value="anthropic">Anthropic</MenuItem>
+        <MenuItem value="claude">Anthropic</MenuItem>
         <MenuItem value="bedrock">AWS Bedrock</MenuItem>
         <MenuItem value="azure">Azure</MenuItem>
         <MenuItem value="cohere">Cohere</MenuItem>

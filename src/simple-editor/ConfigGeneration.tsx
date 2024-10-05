@@ -1,12 +1,21 @@
 
+import { useState } from 'react';
+
 import { Plumbing } from '@mui/icons-material';
 
 import {
     Button, Typography, Card, CardContent, CardActions, CardHeader,
+    CircularProgress,
 } from '@mui/material';
 
 import { generateConfig } from './generate-config';
 import { useModelParamsStore } from './state/ModelParams';
+
+const Generating = () => {
+    return (
+        <CircularProgress sx={{mt: 2}}/>
+    );
+};
 
 const ConfigGeneration = () => {
 
@@ -29,31 +38,52 @@ const ConfigGeneration = () => {
     const maxOutputTokens
         = useModelParamsStore((state) => state.maxOutputTokens);
 
-//    const setDeploymentConfig
-//        = useModelParamsStore((state) => state.setDeploymentConfig);
-
     const setConfigUrl
         = useModelParamsStore((state) => state.setConfigUrl);
 
+    const [errorMessage, setErrorMessage] = useState("");
+    const [generating, setGenerating] = useState(false);
+
+        console.log("GENERATING...", generating);
+
+    const ErrorMessage = () => {
+        return (
+            <Typography color="error" variant="body2" sx={{mt: 2}}>
+                Configuration generation failed: {errorMessage}
+            </Typography>
+        );
+    };
+
     const generate = () => {
 
-      generateConfig(
-          graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
-          maxOutputTokens, modelName, chunkerType, temperature,
-      ).then(
-          response => {
-              if (response.ok) {
-                  return response.blob();
-              } else {
-                  throw response.statusText;
-              }
-          }
-      ).then(
+        setGenerating(true);
+        console.log("GENERATING...");
+
+        generateConfig(
+            graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
+            maxOutputTokens, modelName, chunkerType, temperature,
+        ).then(
+            response => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw response.statusText;
+                }
+            }
+        ).then(
             blob => {
+                setGenerating(false);
                 if (blob) {
                     var url = window.URL.createObjectURL(blob);
                     setConfigUrl(url);
                 }
+            }
+        ).catch(
+            err => {
+                setGenerating(false);
+                console.log(err);
+                setConfigUrl("");
+                setErrorMessage(err);
             }
         );
 
@@ -72,6 +102,10 @@ const ConfigGeneration = () => {
                         you need, select to generate the configuration
                         package.  This will make it available to download.
                     </Typography>
+                    {
+                        errorMessage ? <ErrorMessage/> : ''
+                    }
+                    { generating ? <Generating/> : '' }
                 </CardContent>
                 <CardActions>
                     <Button onClick={() => generate()}>Generate</Button>

@@ -9,14 +9,15 @@ import {
 import { useModelParamsStore } from './state/ModelParams';
 
 const getInstructions = (model : string) => {
-    if (model == "anthropic") {
+    if (model == "claude") {
         return <>
             <p>
                 To use Anthropic Claude, you need a Claude API key.
                 Provide the Claude API key in an environment variable
                 when runnging the Docker Compose configuration.
             </p>
-            <pre>export CLAUDE_KEY=&lt;TOKEN-GOES-HERE&gt;
+            <pre>export CLAUDE_KEY=
+            <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
         </>;
     } else if (model == "bedrock") {
@@ -26,8 +27,11 @@ const getInstructions = (model : string) => {
                 AWS Bedrock console.  You must also provide an
                 AWS access key ID and secret key.
             </p>
-            <pre>export AWS_ID_KEY=&lt;ID-KEY-HERE&gt;<br/>
-export AWS_SECRET_KEY=&lt;TOKEN-GOES-HERE&gt;
+            <pre>export AWS_ID_KEY=
+            <span className="variable">ID-KEY-HERE</span>
+            <br/>
+            export AWS_SECRET_KEY=
+            <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
         </>;
     } else if (model == "azure") {
@@ -37,15 +41,19 @@ export AWS_SECRET_KEY=&lt;TOKEN-GOES-HERE&gt;
                 endpoint deployed, and you must also provide an endpoint
                 token as an environment variable.
              </p>
-            <pre>export AZURE_ENDPOINT=&lt;https://ENDPOINT.API.HOST.GOES.HERE/&gt;<br/>
-export AZURE_TOKEN=&lt;TOKEN-GOES-HERE&gt;
+            <pre>export AZURE_ENDPOINT=
+            <span className="variable">https://ENDPOINT.API.HOST.GOES.HERE/</span>
+            <br/>
+            export AZURE_TOKEN=
+            <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
         </>;
     } else if (model == "cohere") {
         return <>
             <p>To use Cohere APIs, you need an API token which must
             be provided in an environment variable.</p>
-            <pre>export COHERE_KEY=&lt;TOKEN-GOES-HERE&gt;
+            <pre>export COHERE_KEY=
+            <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
         </>;
     } else if (model == "llamafile") {
@@ -53,7 +61,8 @@ export AZURE_TOKEN=&lt;TOKEN-GOES-HERE&gt;
             <p>To use Llamafile, you must have a Llamafile services running
             on an accessible host.  The Llamafile host must be provided
             in an environment variable.</p>
-            <pre>export LLAMAFILE_URL=&lt;LLAMAFILE-URL&gt;
+            <pre>export LLAMAFILE_URL=
+            <span className="variable">LLAMAFILE-URL</span>
             </pre>
         </>;
     } else if (model == "ollama") {
@@ -69,14 +78,19 @@ export AZURE_TOKEN=&lt;TOKEN-GOES-HERE&gt;
                 The Ollama service URL must be provided in an environment
                 variable.
             </p>
-            <pre>export OLLAMA_HOST=&lt;URL&gt;
+            <pre>export OLLAMA_HOST=
+            <span className="variable">http://ollama-host:11434</span>
             </pre>
+            <p>
+                Replace the URL with the URL of your Ollama service.
+            </p>
         </>;
     } else if (model == "openai") {
         return <>
             <p>To use OpenAI APIs, you need an API token which must
             be provided in an environment variable.</p>
-            <pre>export OPENAI_KEY=&lt;TOKEN-GOES-HERE&gt;
+            <pre>export OPENAI_KEY=
+            <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
         </>;
     } else if (model == "vertexai") {
