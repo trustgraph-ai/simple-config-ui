@@ -143,9 +143,9 @@ const service = new gcp.cloudrun.Service(
 		containers: [
 		    {
 			image: imageName,
-			commands: [
-			    "config-ui"
-			],
+//			commands: [
+//			    "config-ui"
+//			],
 			ports: [
                             {
 				"name": "http1", // Must be http1 or h2c.
@@ -169,7 +169,6 @@ const service = new gcp.cloudrun.Service(
     }
 );
 
-/*
 const allUsersPolicy = gcp.organizations.getIAMPolicy(
     {
 	bindings: [{
@@ -340,6 +339,3 @@ const availabilitySlo = new gcp.monitoring.Slo(
     }
 );
 
-
-
-*/
