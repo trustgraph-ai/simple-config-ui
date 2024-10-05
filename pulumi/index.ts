@@ -65,7 +65,7 @@ const artifactRepo = new gcp.artifactregistry.Repository(
 	provider: provider,
     }
 );
-/*
+
 const localImageName = "config-ui:" + imageVersion;
 
 const imageName = repo + "/config-ui:" + imageVersion;
@@ -98,6 +98,8 @@ const svcAccount = new gcp.serviceaccount.Account(
 	provider: provider,
     }
 );
+
+/*
 
 const vertexAiUserMember = new gcp.projects.IAMMember(
     "vertexai-user-role",
