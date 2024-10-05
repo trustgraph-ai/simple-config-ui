@@ -25,7 +25,7 @@ service-package: ui template-data resources-data update-package-versions
 update-package-versions:
 	echo __version__ = \"${VERSION}\" > config-ui/config_ui/version.py
 
-CONTAINER=docker.io/trustgraph/config-ui
+CONTAINER=config-ui
 DOCKER=podman
 
 container:
