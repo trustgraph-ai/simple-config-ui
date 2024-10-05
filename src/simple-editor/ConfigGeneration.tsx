@@ -5,10 +5,17 @@ import { Plumbing } from '@mui/icons-material';
 
 import {
     Button, Typography, Card, CardContent, CardActions, CardHeader,
+    CircularProgress,
 } from '@mui/material';
 
 import { generateConfig } from './generate-config';
 import { useModelParamsStore } from './state/ModelParams';
+
+const Generating = () => {
+    return (
+        <CircularProgress sx={{mt: 2}}/>
+    );
+};
 
 const ConfigGeneration = () => {
 
@@ -35,6 +42,9 @@ const ConfigGeneration = () => {
         = useModelParamsStore((state) => state.setConfigUrl);
 
     const [errorMessage, setErrorMessage] = useState("");
+    const [generating, setGenerating] = useState(false);
+
+        console.log("GENERATING...", generating);
 
     const ErrorMessage = () => {
         return (
@@ -45,6 +55,9 @@ const ConfigGeneration = () => {
     };
 
     const generate = () => {
+
+        setGenerating(true);
+        console.log("GENERATING...");
 
         generateConfig(
             graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
@@ -59,6 +72,7 @@ const ConfigGeneration = () => {
             }
         ).then(
             blob => {
+                setGenerating(false);
                 if (blob) {
                     var url = window.URL.createObjectURL(blob);
                     setConfigUrl(url);
@@ -66,6 +80,7 @@ const ConfigGeneration = () => {
             }
         ).catch(
             err => {
+                setGenerating(false);
                 console.log(err);
                 setConfigUrl("");
                 setErrorMessage(err);
@@ -90,6 +105,7 @@ const ConfigGeneration = () => {
                     {
                         errorMessage ? <ErrorMessage/> : ''
                     }
+                    { generating ? <Generating/> : '' }
                 </CardContent>
                 <CardActions>
                     <Button onClick={() => generate()}>Generate</Button>
