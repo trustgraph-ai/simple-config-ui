@@ -27,8 +27,6 @@ const repo = get("artifact-repo");
 const artifactRepoRegion = get("artifact-repo-region");
 const artifactName = get("artifact-name");
 const hostname = get("hostname");
-const hostname2 = get("hostname2");
-const hostname3 = get("hostname3");
 const managedZone = get("managed-zone");
 const project = get("gcp-project");
 const region = get("gcp-region");
@@ -211,40 +209,6 @@ const domainMapping = new gcp.cloudrun.DomainMapping(
     }
 );
 
-const domainMapping2 = new gcp.cloudrun.DomainMapping(
-    "domain-mapping-2",
-    {
-	name: hostname2,
-	location: cloudRunRegion,
-	metadata: {
-	    namespace: project,
-	},
-	spec: {
-	    routeName: service.name,
-	}
-    },
-    {
-	provider: provider
-    }
-);
-
-const domainMapping3 = new gcp.cloudrun.DomainMapping(
-    "domain-mapping-3",
-    {
-	name: hostname3,
-	location: cloudRunRegion,
-	metadata: {
-	    namespace: project,
-	},
-	spec: {
-	    routeName: service.name,
-	}
-    },
-    {
-	provider: provider
-    }
-);
-
 const zone = gcp.dns.getManagedZoneOutput(
     {
 	name: managedZone,
@@ -286,100 +250,6 @@ domainMapping.statuses.apply(
 		    "resource-record-" + tp,
 		    {
 			name: hostname + ".",
-			managedZone: zone.name,
-			type: tp,
-			ttl: 300,
-			rrdatas: mapping[tp],
-		    },
-		    {
-			provider: provider,
-		    }
-		);
-
-	    }
-
-	}
-
-    }
-);
-
-domainMapping2.statuses.apply(
-    ss => ss[0].resourceRecords
-).apply(
-    rrs => {
-	if (rrs) {
-
-	    let mapping : { [k : string] : string[] } = {};
-	    
-	    for(var i = 0; i < rrs.length; i++) {
-		if (rrs[i].rrdata) {
-
-		    const rr = rrs[i].rrdata;
-		    const tp = rrs[i].type;
-
-		    if (!rr || !tp) continue;
-
-		    if (mapping[tp])
-			mapping[tp].push(rr);
-		    else
-			mapping[tp] = [rr];
-
-		}
-	    }
-
-	    for (let tp in mapping) {
-
-		const recordSet = new gcp.dns.RecordSet(
-		    "resource-record-2-" + tp,
-		    {
-			name: hostname2 + ".",
-			managedZone: zone.name,
-			type: tp,
-			ttl: 300,
-			rrdatas: mapping[tp],
-		    },
-		    {
-			provider: provider,
-		    }
-		);
-
-	    }
-
-	}
-
-    }
-);
-
-domainMapping3.statuses.apply(
-    ss => ss[0].resourceRecords
-).apply(
-    rrs => {
-	if (rrs) {
-
-	    let mapping : { [k : string] : string[] } = {};
-	    
-	    for(var i = 0; i < rrs.length; i++) {
-		if (rrs[i].rrdata) {
-
-		    const rr = rrs[i].rrdata;
-		    const tp = rrs[i].type;
-
-		    if (!rr || !tp) continue;
-
-		    if (mapping[tp])
-			mapping[tp].push(rr);
-		    else
-			mapping[tp] = [rr];
-
-		}
-	    }
-
-	    for (let tp in mapping) {
-
-		const recordSet = new gcp.dns.RecordSet(
-		    "resource-record-3-" + tp,
-		    {
-			name: hostname3 + ".",
 			managedZone: zone.name,
 			type: tp,
 			ttl: 300,
