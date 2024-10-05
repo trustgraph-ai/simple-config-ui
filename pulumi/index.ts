@@ -113,6 +113,8 @@ const vertexAiUserMember = new gcp.projects.IAMMember(
     }
 );
 
+*/
+
 const service = new gcp.cloudrun.Service(
     "service",
     {
@@ -153,7 +155,7 @@ const service = new gcp.cloudrun.Service(
 			resources: {
                             limits: {
 				cpu: "1000m",
-				memory: "1024Mi",
+				memory: "128Mi",
                             }
 			},
 		    }
@@ -167,6 +169,7 @@ const service = new gcp.cloudrun.Service(
     }
 );
 
+/*
 const allUsersPolicy = gcp.organizations.getIAMPolicy(
     {
 	bindings: [{
