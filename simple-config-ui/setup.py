@@ -28,7 +28,7 @@ setuptools.setup(
         where='./',
     ),
     include_package_data=True,
-    package_data={'': ["ui/**", "templates/*"]},
+    package_data={'': ["ui/**", "templates/**", "resources/**"]},
     classifiers=[ 
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",

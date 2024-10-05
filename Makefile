@@ -11,9 +11,15 @@ ui:
 template-data:
 	rm -rf simple-config-ui/config_ui/templates
 	mkdir -p simple-config-ui/config_ui/templates
-	find templates -name '*.jsonnet' | cpio -pdm simple-config-ui/config_ui/templates
+	find templates -name '*.jsonnet' | cpio -pdm simple-config-ui/config_ui/
 
-service-package: ui template-data update-package-versions
+resources-data:
+	rm -rf simple-config-ui/config_ui/resources
+	mkdir -p simple-config-ui/config_ui/resources
+	cp -r grafana simple-config-ui/config_ui/resources/
+	cp -r prometheus simple-config-ui/config_ui/resources/
+
+service-package: ui template-data resources-data update-package-versions
 	cd simple-config-ui && python3 setup.py sdist --dist-dir ../pkgs/
 
 update-package-versions:

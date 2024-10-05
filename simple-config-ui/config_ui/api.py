@@ -7,6 +7,10 @@ import importlib.resources
 
 from . generator import Generator
 
+import logging
+logger = logging.getLogger("api")
+logger.setLevel(logging.INFO)
+
 class Api:
     def __init__(self, **config):
 
@@ -17,6 +21,8 @@ class Api:
         self.app.add_routes([web.get("/{tail:.*}", self.everything)])
 
         self.ui = importlib.resources.files().joinpath("ui")
+        self.templates = importlib.resources.files().joinpath("templates")
+        self.resources = importlib.resources.files().joinpath("resources")
 
     def open(self, path):
 
@@ -64,11 +70,12 @@ class Api:
 
         config = config.encode("utf-8")
 
-        gen = Generator(config, version=version)
+        gen = Generator(config, base=self.templates, version=version)
 
-
-        with open(f"./templates/config-to-{platform}.jsonnet", "r") as f:
-            wrapper = f.read()
+        path = self.templates.joinpath(
+            f"config-to-{platform}.jsonnet"
+        )
+        wrapper = path.read_text()
 
         processed = gen.process(wrapper)
 
@@ -98,27 +105,30 @@ class Api:
             output(fname, y)
 
             # Grafana config
-            with open("grafana/dashboards/dashboard.json") as f:
-                output(
-                    "grafana/dashboards/dashboard.json",
-                    f.read()
-                )
+            path = self.resources.joinpath(
+                "grafana/dashboards/dashboard.json"
+            )
+            res = path.read_text()
+            output("grafana/dashboards/dashboard.json", res)
 
-            with open("grafana/provisioning/dashboard.yml") as f:
-                output(
-                    "grafana/provisioning/dashboard.yml",
-                    f.read()
-                )
+            path = self.resources.joinpath(
+                "grafana/provisioning/dashboard.yml"
+            )
+            res = path.read_text()
+            output("grafana/provisioning/dashboard.yml", res)
 
-            with open("grafana/provisioning/datasource.yml") as f:
-                output(
-                    "grafana/provisioning/datasource.yml",
-                    f.read()
-                )
+            path = self.resources.joinpath(
+                "grafana/provisioning/datasource.yml"
+            )
+            res = path.read_text()
+            output("grafana/provisioning/datasource.yml", res)
 
             # Prometheus config
-            with open("prometheus/prometheus.yml") as f:
-                output("prometheus/prometheus.yml", f.read())
+            path = self.resources.joinpath(
+                "prometheus/prometheus.yml"
+            )
+            res = path.read_text()
+            output("prometheus/prometheus.yml", res)
 
         return web.Response(
             body=mem.getvalue(),

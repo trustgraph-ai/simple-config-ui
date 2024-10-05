@@ -2,12 +2,24 @@
 import _jsonnet as j
 import json
 import os
+import pathlib
+import logging
+
+logger = logging.getLogger("generator")
+logger.setLevel(logging.INFO)
 
 class Generator:
 
-    def __init__(self, config, base="./templates/", version="0.0.0"):
+    def __init__(
+            self, config, base=None, resources=None,
+            version="0.0.0"
+    ):
 
-        self.jsonnet_base = base
+        if base:
+            self.base = base
+        else:
+            self.base = pathlib.Path("templates")
+
         self.config = config
         self.version = f"\"{version}\"".encode("utf-8")
 
@@ -21,21 +33,21 @@ class Generator:
         logger.debug("Request jsonnet: %s %s", dir, filename)
 
         if filename == "config.json" and dir == "":
-            path = os.path.join(".", dir, filename)
+            path = self.base.joinpath(dir, filename)
             return str(path), self.config
 
         if filename == "version.jsonnet" and dir == "./templates/values/":
-            path = os.path.join(".", dir, filename)
+            path = self.base.joinpath(dir, filename)
             return str(path), self.version
 
         if dir:
             candidates = [
-                os.path.join(".", dir, filename),
-                os.path.join(".", filename)
+                self.base.joinpath(dir, filename),
+                self.base.joinpath(filename)
             ]
         else:
             candidates = [
-                os.path.join(".", filename)
+                self.base.joinpath(filename)
             ]
 
         try:
@@ -58,7 +70,7 @@ class Generator:
                 
         except:
 
-            path = os.path.join(self.jsonnet_base, filename)
+            path = os.path.join(self.base, filename)
             logger.debug("Try: %s", path)
             with open(path, "rb") as f:
                 logger.debug("Loaded: %s", path)
