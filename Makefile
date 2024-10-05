@@ -25,7 +25,7 @@ service-package: ui template-data resources-data update-package-versions
 update-package-versions:
 	echo __version__ = \"${VERSION}\" > config-ui/config_ui/version.py
 
-CONTAINER=config-ui
+CONTAINER=localhost/config-ui
 DOCKER=podman
 
 container:

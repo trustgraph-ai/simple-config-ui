@@ -66,7 +66,7 @@ const artifactRepo = new gcp.artifactregistry.Repository(
     }
 );
 
-const localImageName = "config-ui:" + imageVersion;
+const localImageName = "localhost/config-ui:" + imageVersion;
 
 const imageName = repo + "/config-ui:" + imageVersion;
 
