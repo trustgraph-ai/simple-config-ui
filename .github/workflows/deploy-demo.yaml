@@ -38,26 +38,15 @@ jobs:
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build container
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: .
-      #     push: false
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-      #     file: Containerfile
-      #     build-args: |
-      #       KIND=demo
-
-      # - id: auth
-      #   name: Authenticate with Google Cloud
-      #   uses: google-github-actions/auth@v0
-      #   with:
-      #     token_format: access_token
-      #     workload_identity_provider: projects/514167726704/locations/global/workloadIdentityPools/deploy/providers/deploy
-      #     service_account: deploy@kalntera-demo.iam.gserviceaccount.com
-      #     access_token_lifetime: 900s
-      #     create_credentials_file: true
+      - id: auth
+        name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          token_format: access_token
+          workload_identity_provider: projects/583813057664/locations/global/workloadIdentityPools/deploy
+          service_account: deploy@trustgraph-demo.iam.gserviceaccount.com
+          access_token_lifetime: 900s
+          create_credentials_file: true
 
       # - name: Login to Artifact Registry
       #   uses: docker/login-action@v1
