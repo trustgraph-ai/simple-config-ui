@@ -47,8 +47,8 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
                         If you are on Linux, running SELinux, you may need
                         to change permissions on files in the deploy bundle
                         so that they are accessible from within containers.
-                        This affects the <code>grafana</code> and
-                        <code>prometheus</code> directories.
+                        This affects
+                        the <code>grafana</code> and <code>prometheus</code> directories.
                         
                         <pre>chcon -Rt svirt_sandbox_file_t grafana prometheus<br/>
                         chmod 755 prometheus/ grafana/ grafana/*/<br/>
