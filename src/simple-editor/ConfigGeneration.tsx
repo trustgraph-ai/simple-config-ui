@@ -44,8 +44,6 @@ const ConfigGeneration = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [generating, setGenerating] = useState(false);
 
-        console.log("GENERATING...", generating);
-
     const ErrorMessage = () => {
         return (
             <Typography color="error" variant="body2" sx={{mt: 2}}>
@@ -57,7 +55,6 @@ const ConfigGeneration = () => {
     const generate = () => {
 
         setGenerating(true);
-        console.log("GENERATING...");
 
         generateConfig(
             graphStore, modelDeployment, vectorDB, chunkSize, chunkOverlap,
