@@ -7,6 +7,7 @@ ui:
 	npm run build
 	rm -rf config-ui/config_ui/ui/
 	cp -r dist/ config-ui/config_ui/ui/
+	cp public/tg.svg config-ui/config_ui/ui/
 
 template-data:
 	rm -rf config-ui/config_ui/templates
