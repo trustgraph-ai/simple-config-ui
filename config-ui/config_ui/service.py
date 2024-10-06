@@ -5,8 +5,12 @@ from . api import Api
 
 def run():
 
-    logger = logging.getLogger("service")
-    logger.setLevel(logging.INFO)
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s %(levelname)s %(message)s"
+    )
+
+    logging.info("Starting...")
 
     a = Api()
 

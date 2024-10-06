@@ -45,46 +45,47 @@ class Api:
 
     async def everything(self, request):
 
-        if request.path.endswith(".css"):
-            t = self.open(request.path)
-            return web.Response(
-                text=t, content_type="text/css"
-            )
+        try:
 
-        if request.path.endswith(".png"):
-            t = self.open(request.path)
-            return web.Response(
-                text=t, content_type="image/png"
-            )
+            if request.path.endswith(".css"):
+                t = self.open(request.path)
+                return web.Response(
+                    text=t, content_type="text/css"
+                )
 
-        if request.path.endswith(".svg"):
-            t = self.open(request.path)
-            return web.Response(
-                text=t, content_type="image/svg+xml"
-            )
+            if request.path.endswith(".png"):
+                t = self.open(request.path)
+                return web.Response(
+                    text=t, content_type="image/png"
+                )
 
-        if request.path.endswith(".js"):
-            t = self.open(request.path)
-            return web.Response(
-                text=t, content_type="text/javascript"
-            )
+            if request.path.endswith(".svg"):
+                t = self.open(request.path)
+                return web.Response(
+                    text=t, content_type="image/svg+xml"
+                )
 
-        if request.path == "/" or request.path.endswith(".html"):
-            t = self.open(request.path)
-            return web.Response(
-                text=t, content_type="text/html"
-            )
+            if request.path.endswith(".js"):
+                t = self.open(request.path)
+                return web.Response(
+                    text=t, content_type="text/javascript"
+                )
 
-        return web.HTTPNotFound()
+            if request.path == "/" or request.path.endswith(".html"):
+                t = self.open(request.path)
+                return web.Response(
+                    text=t, content_type="text/html"
+                )
+
+            return web.HTTPNotFound()
+
+        except Exception as e:
+            logging.error(f"Exception: {e}")
+            raise web.HTTPInternalServerError()
 
     def process(
             self, config, version="0.11.20", platform="docker-compose",
     ):
-
-        # This verifies/forces that the input is JSON.  Important because
-        # input is user-supplied, don't want to trust it.
-        dec = json.loads(config)
-        enc = json.dumps(dec)
 
         config = config.encode("utf-8")
 
@@ -101,57 +102,74 @@ class Api:
 
     async def generate(self, request):
 
-        print("Generate...")
+        logger.info("Generate...")
 
-        config = await request.text()
+        try:
 
-        print(config)
+            config = await request.text()
 
-        processed = self.process(config)
-        y = yaml.dump(processed)
+            # This verifies/forces that the input is JSON.  Important because
+            # input is user-supplied, don't want to trust it.
+            try:
+                dec = json.loads(config)
+                config = json.dumps(dec)
+            except:
+                # Incorrectly formatted stuff is not our problem,
+                return web.HTTPBadRequest()
 
-        mem = BytesIO()
+            logger.info(f"Config: {config}")
 
-        with zipfile.ZipFile(mem, mode='w') as out:
+            processed = self.process(config)
+            y = yaml.dump(processed)
 
-            def output(name, content):
-                logger.info(f"Adding {name}...")
-                out.writestr(name, content)
+            mem = BytesIO()
 
-            fname = "docker-compose.yaml"
+            with zipfile.ZipFile(mem, mode='w') as out:
 
-            output(fname, y)
+                def output(name, content):
+                    logger.info(f"Adding {name}...")
+                    out.writestr(name, content)
 
-            # Grafana config
-            path = self.resources.joinpath(
-                "grafana/dashboards/dashboard.json"
+                fname = "docker-compose.yaml"
+
+                output(fname, y)
+
+                # Grafana config
+                path = self.resources.joinpath(
+                    "grafana/dashboards/dashboard.json"
+                )
+                res = path.read_text()
+                output("grafana/dashboards/dashboard.json", res)
+
+                path = self.resources.joinpath(
+                    "grafana/provisioning/dashboard.yml"
+                )
+                res = path.read_text()
+                output("grafana/provisioning/dashboard.yml", res)
+
+                path = self.resources.joinpath(
+                    "grafana/provisioning/datasource.yml"
+                )
+                res = path.read_text()
+                output("grafana/provisioning/datasource.yml", res)
+
+                # Prometheus config
+                path = self.resources.joinpath(
+                    "prometheus/prometheus.yml"
+                )
+                res = path.read_text()
+                output("prometheus/prometheus.yml", res)
+
+            logger.info("Generation complete.")
+
+            return web.Response(
+                body=mem.getvalue(),
+                content_type = "application/octet-stream"
             )
-            res = path.read_text()
-            output("grafana/dashboards/dashboard.json", res)
 
-            path = self.resources.joinpath(
-                "grafana/provisioning/dashboard.yml"
-            )
-            res = path.read_text()
-            output("grafana/provisioning/dashboard.yml", res)
-
-            path = self.resources.joinpath(
-                "grafana/provisioning/datasource.yml"
-            )
-            res = path.read_text()
-            output("grafana/provisioning/datasource.yml", res)
-
-            # Prometheus config
-            path = self.resources.joinpath(
-                "prometheus/prometheus.yml"
-            )
-            res = path.read_text()
-            output("prometheus/prometheus.yml", res)
-
-        return web.Response(
-            body=mem.getvalue(),
-            content_type = "application/octet-stream"
-        )
+        except Exception as e:
+            logging.error(f"Exception: {e}")
+            return web.HTTPInternalServerError()
 
     def run(self):
 
