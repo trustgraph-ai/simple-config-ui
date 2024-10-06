@@ -51,6 +51,18 @@ class Api:
                 text=t, content_type="text/css"
             )
 
+        if request.path.endswith(".png"):
+            t = self.open(request.path)
+            return web.Response(
+                text=t, content_type="image/png"
+            )
+
+        if request.path.endswith(".svg"):
+            t = self.open(request.path)
+            return web.Response(
+                text=t, content_type="image/svg+xml"
+            )
+
         if request.path.endswith(".js"):
             t = self.open(request.path)
             return web.Response(
