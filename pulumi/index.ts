@@ -132,7 +132,8 @@ const service = new gcp.cloudrun.Service(
                     "autoscaling.knative.dev/maxScale": maxScale,
 
 		    // 2nd generation.  Need to specify at least 512MB RAM.
-		    "run.googleapis.com/execution-environment": "gen2",
+                    // Going back to gen1 because faster cold starts
+		    "run.googleapis.com/execution-environment": "gen1",
 
 		}
 	    },
@@ -155,7 +156,7 @@ const service = new gcp.cloudrun.Service(
 			resources: {
                             limits: {
 				cpu: "1000m",
-				memory: "1024Mi",
+				memory: "512Mi",
                             }
 			},
 		    }
