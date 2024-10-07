@@ -7,7 +7,16 @@ import { Tabs, Tab } from '@mui/material';
 import ParamsForm from './ParamsForm';
 import AdvancedOptions from './AdvancedOptions';
 import Deployment from './Deployment';
-import { useModelParamsStore } from './state/ModelParams';
+
+import { usePromptsStore } from './state/Prompts';
+import {
+    useOptionsStore, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
+    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
+    ROWS_PROMPT,
+} from './state/Options';
+import { useDeploymentStore } from './state/Deployment';
+
+import Prompt from './Prompt';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -33,11 +42,6 @@ function CustomTabPanel(props: TabPanelProps) {
 
 const tabs = (opts : Set<string>) => {
 
-    const DEFINITIONS_PROMPT = "definitions-prompt";
-    const RELATIONSHIPS_PROMPT = "relationships-prompt";
-    const TOPICS_PROMPT = "topics-prompt";
-    const KG_QUERY_PROMPT = "kg-query-prompt";
-
     let tabs = [
         <Tab key="model" value="model" label="Model"/>,
         <Tab key="more" value="more" label="More"/>
@@ -50,10 +54,20 @@ const tabs = (opts : Set<string>) => {
         tabs.push(<Tab key="rels" value="rels" label="Relationships prompt"/>);
 
     if (opts.has(TOPICS_PROMPT))
-        tabs.push(<Tab key="tops" value="topics" label="Topics prompt"/>);
+        tabs.push(<Tab key="topics" value="topics" label="Topics prompt"/>);
 
-    if (opts.has(KG_QUERY_PROMPT))
+    if (opts.has(KNOWLEDGE_QUERY_PROMPT))
         tabs.push(<Tab key="kgq" value="kgq" label="Knowledge graph prompt"/>);
+
+    if (opts.has(DOCUMENT_QUERY_PROMPT))
+        tabs.push(<Tab key="docq" value="docq"
+            label="Document query prompt"
+        />);
+
+    if (opts.has(ROWS_PROMPT))
+        tabs.push(<Tab key="rows" value="rows"
+            label="Rows prompt"
+        />);
 
     tabs.push(<Tab key="depl" value="depl" label="Deployment"/>);
 
@@ -65,12 +79,55 @@ const Configuration: React.FC = () => {
 
     const [value, setValue] = React.useState("model");
 
+    const setConfigUrl =
+        useDeploymentStore((state) => state.setConfigUrl);
+
+    usePromptsStore.subscribe(() => {
+        setConfigUrl("");
+    });
+
     const handleChange = (_event: React.SyntheticEvent, value: string) => {
         setValue(value);
     };
 
-    const advancedOptions
-        = useModelParamsStore((state) => state.advancedOptions);
+    const options
+        = useOptionsStore((state) => state.options);
+
+    const definitionsPrompt
+        = usePromptsStore((state) => state.definitions);
+
+    const relationshipsPrompt
+        = usePromptsStore((state) => state.relationships);
+
+    const topicsPrompt
+        = usePromptsStore((state) => state.topics);
+
+    const knowledgeQueryPrompt
+        = usePromptsStore((state) => state.knowledgeQuery);
+
+    const documentQueryPrompt
+        = usePromptsStore((state) => state.documentQuery);
+
+    const rowsPrompt
+        = usePromptsStore((state) => state.rows);
+
+    const setDefinitionsPrompt
+        = usePromptsStore((state) => state.setDefinitions);
+
+    const setRelationshipsPrompt
+        = usePromptsStore((state) => state.setRelationships);
+
+    const setTopicsPrompt
+        = usePromptsStore((state) => state.setTopics);
+
+    const setKnowledgeQueryPrompt
+        = usePromptsStore((state) => state.setKnowledgeQuery);
+
+    const setDocumentQueryPrompt
+        = usePromptsStore((state) => state.setDocumentQuery);
+
+    const setRowsPrompt
+        = usePromptsStore((state) => state.setRows);
 
     return (
 
@@ -83,7 +140,7 @@ const Configuration: React.FC = () => {
                     value={value} onChange={handleChange}
                     variant="scrollable"
                 >
-                    {tabs(advancedOptions)}
+                    {tabs(options)}
                 </Tabs>
             </Box>
 
@@ -113,7 +170,12 @@ const Configuration: React.FC = () => {
                   Definitions prompt
                 </Typography>
 
-                <p>asdasdasd</p>
+                <Prompt
+                    value={definitionsPrompt}
+                    onChange={
+                        (v) => setDefinitionsPrompt(v)
+                    }
+                />
 
             </CustomTabPanel>
 
@@ -123,17 +185,31 @@ const Configuration: React.FC = () => {
                   Relationships prompt
                 </Typography>
 
-                <p>asdasdasd</p>
+                <Prompt
+                    value={relationshipsPrompt}
+                    onChange={
+                        (v) => {
+                            setRelationshipsPrompt(v);
+                        }
+                    }
+                />
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} tabId="tops">
+            <CustomTabPanel value={value} tabId="topics">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Topics prompt
                 </Typography>
 
-                <p>asdasdasd</p>
+                <Prompt
+                    value={topicsPrompt}
+                    onChange={
+                        (v) => {
+                            setTopicsPrompt(v);
+                        }
+                    }
+                />
 
             </CustomTabPanel>
 
@@ -143,7 +219,48 @@ const Configuration: React.FC = () => {
                   Knowledge graph query prompt
                 </Typography>
 
-                <p>asdasdasd</p>
+                <Prompt
+                    value={knowledgeQueryPrompt}
+                    onChange={
+                        (v) => {
+                            setKnowledgeQueryPrompt(v);
+                        }
+                    }
+                />
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="docq">
+
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Document query prompt
+                </Typography>
+
+                <Prompt
+                    value={documentQueryPrompt}
+                    onChange={
+                        (v) => {
+                            setDocumentQueryPrompt(v);
+                        }
+                    }
+                />
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="rows">
+
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Rows extraction prompt
+                </Typography>
+
+                <Prompt
+                    value={rowsPrompt}
+                    onChange={
+                        (v) => {
+                            setRowsPrompt(v);
+                        }
+                    }
+                />
 
             </CustomTabPanel>
 
