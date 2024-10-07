@@ -1,43 +1,27 @@
 
 import React from 'react';
 
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
-import ParamsForm from './ParamsForm';
 import Deployment from './Deployment';
+import Banner from './Banner.tsx';
+import Configuration from './Configuration.tsx';
 
-import './SimpleEditor.scss'
+import './SimpleEditor.scss';
 
-const App: React.FC = () => {
+const SimpleEditor: React.FC = () => {
 
     return (
 
         <Box className="editor">
 
-            <Stack
-                alignItems="center"
-                direction="row"
-                gap={2}
-                sx={{ mb: 3 }}
-            >
-                    <Box>
-                        <img src="/tg.svg" alt="Trustgraph logo"
-                            height="45"/>
-                    </Box>
-                    <Typography variant="h4" component="h1">
-                        TrustGraph configuration creator
-                    </Typography>
-            </Stack>
+            <Banner/>
 
             <Box className="layout">
 
                 <Box className="params">
 
-                    <Typography variant="h5" component="h2" gutterBottom>
-                      Model parameters
-                    </Typography>
-
-                    <ParamsForm/>
+                    <Configuration/>
 
                 </Box>
 
@@ -59,5 +43,5 @@ const App: React.FC = () => {
 
 };
 
-export default App;
+export default SimpleEditor;
 
