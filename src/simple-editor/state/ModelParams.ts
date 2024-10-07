@@ -2,6 +2,7 @@
 import { create } from 'zustand'
 
 interface ModelParams {
+
     graphStore : string;
     vectorDB : string;
     chunkerType: string;
@@ -13,6 +14,13 @@ interface ModelParams {
     maxOutputTokens : number;
     deploymentConfig : string;
     configUrl : string;
+
+    definitionsPrompt : string;
+    relationshipsPrompt : string;
+    topicsPrompt : string;
+    knowledgeQueryPrompt : string;
+
+    advancedOptions : Set<string>;
 
     setGraphStore : (v : string) => void;
     setVectorDB : (v : string) => void;
@@ -26,6 +34,12 @@ interface ModelParams {
     setDeploymentConfig : (v : string) => void;
     setConfigUrl : (v : string) => void;
 
+    setDefinitionsPrompt : (v : string) => void;
+    setRelationshipsPrompt : (v : string) => void;
+    setTopicsPrompt : (v : string) => void;
+    setKnowledgeQueryPrompt : (v : string) => void;
+
+    setAdvancedOptions : (v: Set<string>) => void;
 }
 
 export const useModelParamsStore = create<ModelParams>()(
@@ -42,6 +56,12 @@ export const useModelParamsStore = create<ModelParams>()(
         maxOutputTokens: 1000,
         deploymentConfig: "",
         configUrl: "",
+        definitionsPrompt: "",
+        relationshipsPrompt: "",
+        topicsPrompt: "",
+        knowledgeQueryPrompt: "",
+
+        advancedOptions: new Set<string>(""),
 
         setGraphStore: (v) => set(() => ({
 	    graphStore: v,
@@ -103,6 +123,26 @@ export const useModelParamsStore = create<ModelParams>()(
 
         setConfigUrl: (v) => set(() => ({
 	    configUrl: v
+	})),
+
+        setDefinitionsPrompt: (v) => set(() => ({
+	    definitionsPrompt: v
+	})),
+
+        setRelationshipsPrompt: (v) => set(() => ({
+	    relationshipsPrompt: v
+	})),
+
+        setTopicsPrompt: (v) => set(() => ({
+	    topicsPrompt: v
+	})),
+
+        setKnowledgeQueryPrompt: (v) => set(() => ({
+	    knowledgeQueryPrompt: v
+	})),
+
+        setAdvancedOptions: (v) => set(() => ({
+	    advancedOptions: v
 	})),
 
     })
