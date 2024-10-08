@@ -15,13 +15,13 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Vector DB</InputLabel>
+            <InputLabel id="graph-store-label">Model deployment</InputLabel>
 
             <Select
-                labelId="vector-db-label"
-                id="vector-db-select"
+                labelId="model-deployment-label"
+                id="model-deployment-select"
                 value={value}
-                label="Vector DB"
+                label="Model deployment"
                 onChange={(e) => onChange(e.target.value)}
                 sx={{minHeight: 120}}
             >
@@ -246,7 +246,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                     </Stack>
                 </MenuItem>
 
-                <MenuItem value="VertexAI">
+                <MenuItem value="vertexai">
                     <Stack
                         direction="row" spacing={2}
                         divider={

@@ -2,10 +2,13 @@
 import { Plumbing } from '@mui/icons-material';
 
 import {
-    Button, Typography, Card, CardContent, CardActions, CardHeader
+    Button, Typography, Alert, Paper, Box, Stack,
 } from '@mui/material';
 
+import { Check } from '@mui/icons-material';
+
 import { useModelParamsStore } from './state/ModelParams';
+import { useDeploymentStore } from './state/Deployment';
 
 const PreparedConfig = () => {
 
@@ -19,7 +22,7 @@ const PreparedConfig = () => {
         = useModelParamsStore((state) => state.modelName);
 
     const configUrl
-        = useModelParamsStore((state) => state.configUrl);
+        = useDeploymentStore((state) => state.configUrl);
 
     const download = () => {
 
@@ -33,31 +36,36 @@ const PreparedConfig = () => {
     return (
         <>
 
-            <Card sx={{ minWidth: 275, mt: 4 }}>
-                <CardHeader
-                    avatar={<Plumbing color="primary" fontSize="large"/>}
-                    title="Deployment configuration"
-                />
-                <CardContent>
-                  <Typography component="div" sx={{ fontSize: 16 }}>
-                        2. Deployment configuration
-                    </Typography>
-                    <Typography variant="body2" sx={{ mt: 2, mb: 2}}>
-                        Config has been generated for:
-                        <ul>
-                            <li>Model deployment: {modelDeployment}</li>
-                            <li>Model name: {modelName}</li>
-                            <li>Graph store: {graphStore}</li>
-                            <li>Vector DB: {vectorDB}</li>
-                        </ul>
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button variant="outlined" onClick={() => download()}>
+            <Box>
+                <Paper sx={{ minWidth: 375, mt: 2, p: 2 }} elevation={3}>
+                    <Stack
+                        direction="row" spacing={2}
+                        alignItems="center"
+                    >
+                        <Plumbing color="primary" fontSize="large"/>
+                        <Typography variant="h6" component="h3">
+                            Deployment configuration
+                        </Typography>
+                    </Stack>
+                    <ul>
+                        <li>Model deployment: {modelDeployment}</li>
+                        <li>Model name: {modelName}</li>
+                        <li>Graph store: {graphStore}</li>
+                        <li>Vector DB: {vectorDB}</li>
+                    </ul>
+                    <Alert icon={<Check fontSize="inherit"/>}
+                        sx={{ mt: 1, mb: 2}}
+                        severity="success"
+                    >
+                        Configuration generation was successful
+                    </Alert>
+                    <Button variant="outlined" onClick={() => download()}
+                    >
                         Download
                     </Button>
-                </CardActions>
-            </Card>
+                </Paper>
+            </Box>
+
         </>
     );
 }
