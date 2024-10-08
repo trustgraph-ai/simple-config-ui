@@ -7,6 +7,14 @@ import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
 import { Stack } from '@mui/material';
 import {
     Psychology,
+//    Spoke,
+//    Plumbing,
+//    Engineering,
+//    Hub,
+    ChatBubble,
+//    VerticalSplit,
+//    MonitorHeart,
+//    Polyline,
 } from '@mui/icons-material';
 
 import { useModelParamsStore } from './state/ModelParams';
@@ -58,106 +66,86 @@ const ParamsForm: React.FC = ({
         set(KG_QUERY_PROMPT, !kgQuery);
     };
 
+    const Option = ({
+        enabled, onChange, avatar, title, content
+    }) => {
+        return (
+            <FormGroup>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={enabled}
+                            onChange={onChange}/>
+                    }
+                    label={
+                        <Card sx={{ width: '16rem' }}>
+                            <CardHeader
+                              avatar={avatar}
+                              title={title}
+                            />
+                            <CardContent>
+                                <Typography
+                                    variant="body2"
+                                    sx={{ fontSize: 12 }}
+                                >
+                                {content}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    }
+                />
+            </FormGroup>
+        );
+    };
+
     return (
         <>
 
-            <Stack direction="row">
+            <Stack direction="row" spacing={2}>
 
-                <Card variant="outlined" sx={{ width: '16rem', m: 1 }}>
-                    <CardHeader
-                      avatar={<Psychology color="primary"/>}
-                      title="Definitions prompt"
-                    />
-                    <CardContent>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={definitions}
-                                        onChange={onDefinitions}/>
-                                }
-                                label={
-                                    <Typography variant="body2">
-                                    Tailor the default definitions-extraction
-                                    prompt
-                                    </Typography>
-                                }
-                            />
-                        </FormGroup>
-                    </CardContent>
-                </Card>
+                <Option
+                    enabled={definitions}
+                    onChange={onDefinitions}
+                    avatar={<Psychology color="primary"/>}
+                    title="Definitions prompt"
+                    content={
+                        'Tailor the default definitions-extraction prompt'
+                    }
 
-                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
-                    <CardHeader
-                      avatar={<Psychology color="primary"/>}
-                      title="Relationships prompt"
-                    />
-                    <CardContent>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={relationships}
-                                        onChange={onRelationships}/>
-                                }
-                                label={
-                                    <Typography variant="body2">
-                                    Tailor the default
-                                    relationships-extraction prompt
-                                    </Typography>
-                                }
-                            />
-                        </FormGroup>
-                    </CardContent>
-                </Card>
+                />
 
-                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
-                    <CardHeader
-                      avatar={<Psychology color="primary"/>}
-                      title="Topics prompt"
-                    />
-                    <CardContent>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={topics}
-                                        onChange={onTopics}/>
-                                }
-                                label={
-                                    <Typography variant="body2">
-                                    Tailor the default
-                                    topics-extraction prompt
-                                    </Typography>
-                                }
-                            />
-                        </FormGroup>
-                    </CardContent>
-                </Card>
+                <Option
+                    enabled={relationships}
+                    onChange={onRelationships}
+                    avatar={<Psychology color="primary"/>}
+                    title="Relationships prompt"
+                    content={
+                        'Tailor the default relationships-extraction prompt'
+                    }
 
-                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
-                    <CardHeader
-                      avatar={<Psychology color="primary"/>}
-                      title="Knowledge graph prompt"
-                    />
-                    <CardContent>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={kgQuery}
-                                        onChange={onKgQuery}/>
-                                }
-                                label={
-                                    <Typography variant="body2">
-                                    Tailor the default
-                                    knowledge-graph query prompt
-                                    </Typography>
-                                }
-                            />
-                        </FormGroup>
-                    </CardContent>
-                </Card>
+                />
+
+                <Option
+                    enabled={topics}
+                    onChange={onTopics}
+                    avatar={<Psychology color="primary"/>}
+                    title="Topics prompt"
+                    content={
+                        'Tailor the default topics-extraction prompt'
+                    }
+
+                />
+
+                <Option
+                    enabled={kgQuery}
+                    onChange={onKgQuery}
+                    avatar={<Psychology color="primary"/>}
+                    title="Knowledge graph prompt"
+                    content={
+                        'Tailor the default knowledge-extraction prompt'
+                    }
+
+                />
 
             </Stack>
 

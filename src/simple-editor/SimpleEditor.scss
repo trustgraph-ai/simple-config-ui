@@ -1,6 +1,6 @@
 
 #deployment-config-text {
-    width: 40rem;
+    width: 90vh;
     font-family: monospace;
     font-size: small;
 }
@@ -10,7 +10,6 @@
     display: flex;
 
     & > * {
-//        margin: 1rem;
     }
 
 }
@@ -23,11 +22,11 @@
 }
 
 .params {
-    width: 95vh;
+    width: 100vw;
 }
 
 .deployment {
-    width: 95vh;
+    width: 100vw;
 }
 
 .variable {

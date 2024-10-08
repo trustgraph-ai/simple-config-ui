@@ -77,7 +77,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
         <>
 
             <Box my={4}>
-              <ModelDeployment value={modelDeployment} onChange={setModelDeployment} />
+              <ModelDeployment
+                  value={modelDeployment} onChange={setModelDeployment}
+              />
             </Box>
 
             <Box my={4}>
