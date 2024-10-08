@@ -1,9 +1,13 @@
 
 import React from 'react';
 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { FormGroup, FormControlLabel } from '@mui/material';
+import { Checkbox, Typography, Button } from '@mui/material';
+import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
+import { Stack } from '@mui/material';
+import {
+    Psychology,
+} from '@mui/icons-material';
 
 import { useModelParamsStore } from './state/ModelParams';
 
@@ -55,50 +59,111 @@ const ParamsForm: React.FC = ({
     };
 
     return (
+        <>
 
-        <FormGroup>
+            <Stack direction="row">
 
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={definitions}
-                        onChange={onDefinitions}
+                <Card variant="outlined" sx={{ width: '16rem', m: 1 }}>
+                    <CardHeader
+                      avatar={<Psychology color="primary"/>}
+                      title="Definitions prompt"
                     />
-                }
-                label="edit definitions prompt"
-            />
+                    <CardContent>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={definitions}
+                                        onChange={onDefinitions}/>
+                                }
+                                label={
+                                    <Typography variant="body2">
+                                    Tailor the default definitions-extraction
+                                    prompt
+                                    </Typography>
+                                }
+                            />
+                        </FormGroup>
+                    </CardContent>
+                </Card>
 
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={relationships}
-                        onChange={onRelationships}
+                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
+                    <CardHeader
+                      avatar={<Psychology color="primary"/>}
+                      title="Relationships prompt"
                     />
-                }
-                label="edit relationships prompt"
-            />
+                    <CardContent>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={relationships}
+                                        onChange={onRelationships}/>
+                                }
+                                label={
+                                    <Typography variant="body2">
+                                    Tailor the default
+                                    relationships-extraction prompt
+                                    </Typography>
+                                }
+                            />
+                        </FormGroup>
+                    </CardContent>
+                </Card>
 
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={topics}
-                        onChange={onTopics}
+                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
+                    <CardHeader
+                      avatar={<Psychology color="primary"/>}
+                      title="Topics prompt"
                     />
-                }
-                label="edit topics prompt"
-            />
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={kgQuery}
-                        onChange={onKgQuery}
-                    />
-                }
-                label="edit knowledge graph prompt"
-            />
-        </FormGroup>
+                    <CardContent>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={topics}
+                                        onChange={onTopics}/>
+                                }
+                                label={
+                                    <Typography variant="body2">
+                                    Tailor the default
+                                    topics-extraction prompt
+                                    </Typography>
+                                }
+                            />
+                        </FormGroup>
+                    </CardContent>
+                </Card>
 
-  );
+                <Card variant="outlined" sx={{ width: '16rem', m : 1 }}>
+                    <CardHeader
+                      avatar={<Psychology color="primary"/>}
+                      title="Knowledge graph prompt"
+                    />
+                    <CardContent>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={kgQuery}
+                                        onChange={onKgQuery}/>
+                                }
+                                label={
+                                    <Typography variant="body2">
+                                    Tailor the default
+                                    knowledge-graph query prompt
+                                    </Typography>
+                                }
+                            />
+                        </FormGroup>
+                    </CardContent>
+                </Card>
+
+            </Stack>
+
+        </>
+
+    );
 };
 
 export default ParamsForm;

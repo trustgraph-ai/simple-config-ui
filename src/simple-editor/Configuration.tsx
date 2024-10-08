@@ -6,26 +6,27 @@ import { Tabs, Tab } from '@mui/material';
 
 import ParamsForm from './ParamsForm';
 import AdvancedOptions from './AdvancedOptions';
+import Deployment from './Deployment';
 import { useModelParamsStore } from './state/ModelParams';
 
 interface TabPanelProps {
     children?: React.ReactNode;
-    index: number;
-    value: number;
+    tabId: string;
+    value: string;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+    const { children, tabId, value, ...other } = props;
 
     return (
         <div
             role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
+            hidden={value !== tabId}
+            id={`simple-tabpanel-${tabId}`}
+            aria-labelledby={`simple-tab-${tabId}`}
             {...other}
         >
-            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+            {value === tabId && <Box sx={{ p: 3 }}>{children}</Box>}
         </div>
     );
 }
@@ -38,21 +39,23 @@ const tabs = (opts : Set<string>) => {
     const KG_QUERY_PROMPT = "kg-query-prompt";
 
     let tabs = [
-        <Tab label="Model"/>,
-        <Tab label="More"/>
+        <Tab key="model" value="model" label="Model"/>,
+        <Tab key="more" value="more" label="More"/>
     ];
 
     if (opts.has(DEFINITIONS_PROMPT))
-        tabs.push(<Tab label="Definitions prompt"/>);
+        tabs.push(<Tab key="defs" value="defs" label="Definitions prompt"/>);
 
     if (opts.has(RELATIONSHIPS_PROMPT))
-        tabs.push(<Tab label="Relationships prompt"/>);
+        tabs.push(<Tab key="rels" value="rels" label="Relationships prompt"/>);
 
     if (opts.has(TOPICS_PROMPT))
-        tabs.push(<Tab label="Topics prompt"/>);
+        tabs.push(<Tab key="tops" value="topics" label="Topics prompt"/>);
 
     if (opts.has(KG_QUERY_PROMPT))
-        tabs.push(<Tab label="Knowledge graph prompt"/>);
+        tabs.push(<Tab key="kgq" value="kgq" label="Knowledge graph prompt"/>);
+
+    tabs.push(<Tab key="depl" value="deployment" label="Deployment"/>);
 
     return tabs;
 
@@ -60,10 +63,10 @@ const tabs = (opts : Set<string>) => {
 
 const Configuration: React.FC = () => {
 
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState("model");
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+    const handleChange = (event: React.SyntheticEvent, value: string) => {
+        setValue(value);
     };
 
 
@@ -75,12 +78,15 @@ const Configuration: React.FC = () => {
         <>
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange}>
+                <Tabs
+                    value={value} onChange={handleChange}
+                    variant="scrollable"
+                >
                     {tabs(advancedOptions)}
                 </Tabs>
             </Box>
 
-            <CustomTabPanel value={value} index={0}>
+            <CustomTabPanel value={value} tabId="model">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Model parameters
@@ -90,7 +96,7 @@ const Configuration: React.FC = () => {
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={1}>
+            <CustomTabPanel value={value} tabId="more">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Additional configuration
@@ -100,7 +106,7 @@ const Configuration: React.FC = () => {
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={2}>
+            <CustomTabPanel value={value} tabId="defs">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Definitions prompt
@@ -110,7 +116,7 @@ const Configuration: React.FC = () => {
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} tabId="rels">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Relationships prompt
@@ -120,7 +126,7 @@ const Configuration: React.FC = () => {
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} tabId="tops">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Topics prompt
@@ -130,13 +136,27 @@ const Configuration: React.FC = () => {
 
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={5}>
+            <CustomTabPanel value={value} tabId="kgq">
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Knowledge graph query prompt
                 </Typography>
 
                 <p>asdasdasd</p>
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="depl">
+
+                <Box className="deployment">
+
+                    <Typography variant="h5" component="h2" gutterBottom>
+                      Deployment process
+                    </Typography>
+
+                    <Deployment/>
+
+                </Box>
 
             </CustomTabPanel>
 

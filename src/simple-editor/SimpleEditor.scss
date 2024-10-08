@@ -6,25 +6,28 @@
 }
 
 .layout {
+
     display: flex;
 
     & > * {
-        margin: 1rem;
+//        margin: 1rem;
     }
 
 }
 
 .editor {
     width: 90vw;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
 }
 
 .params {
-    width: 34rem;
+    width: 95vh;
 }
 
 .deployment {
-    width: 35rem;
+    width: 95vh;
 }
 
 .variable {
