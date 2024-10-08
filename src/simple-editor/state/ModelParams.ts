@@ -2,6 +2,7 @@
 import { create } from 'zustand'
 
 interface ModelParams {
+
     graphStore : string;
     vectorDB : string;
     chunkerType: string;

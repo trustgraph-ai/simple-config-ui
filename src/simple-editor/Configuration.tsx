@@ -33,6 +33,9 @@ function CustomTabPanel(props: TabPanelProps) {
 const tabs = (opts : Set<string>) => {
 
     const DEFINITIONS_PROMPT = "definitions-prompt";
+    const RELATIONSHIPS_PROMPT = "relationships-prompt";
+    const TOPICS_PROMPT = "topics-prompt";
+    const KG_QUERY_PROMPT = "kg-query-prompt";
 
     let tabs = [
         <Tab label="Model"/>,
@@ -41,6 +44,15 @@ const tabs = (opts : Set<string>) => {
 
     if (opts.has(DEFINITIONS_PROMPT))
         tabs.push(<Tab label="Definitions prompt"/>);
+
+    if (opts.has(RELATIONSHIPS_PROMPT))
+        tabs.push(<Tab label="Relationships prompt"/>);
+
+    if (opts.has(TOPICS_PROMPT))
+        tabs.push(<Tab label="Topics prompt"/>);
+
+    if (opts.has(KG_QUERY_PROMPT))
+        tabs.push(<Tab label="Knowledge graph prompt"/>);
 
     return tabs;
 
@@ -92,6 +104,36 @@ const Configuration: React.FC = () => {
 
                 <Typography variant="h5" component="h2" gutterBottom>
                   Definitions prompt
+                </Typography>
+
+                <p>asdasdasd</p>
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={3}>
+
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Relationships prompt
+                </Typography>
+
+                <p>asdasdasd</p>
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={4}>
+
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Topics prompt
+                </Typography>
+
+                <p>asdasdasd</p>
+
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={5}>
+
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Knowledge graph query prompt
                 </Typography>
 
                 <p>asdasdasd</p>
