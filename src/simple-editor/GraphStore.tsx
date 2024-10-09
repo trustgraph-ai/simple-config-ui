@@ -1,6 +1,9 @@
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Box, Stack, Typography, Avatar, Popover, Button } from '@mui/material';
+import {
+    Box, Stack, Typography, Avatar, Popover, Button, Divider,
+    List, ListItemButton, ListItemText, Menu, ListItemIcon,
+} from '@mui/material';
 
 import {
     Psychology,
@@ -62,109 +65,110 @@ interface GraphStoreProps {
   onChange: (value: string) => void;
 }
 
-const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+const options = [
+'Cassandra',
+  <Box>
+  <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  </Box>, 
+];
+
+const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const open = Boolean(anchorEl);
+  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuItemClick = (
+    event: React.MouseEvent<HTMLElement>,
+    index: number,
+  ) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
 
   return (
     <>
 
+        <FormControl fullWidth>
 
+            <InputLabel id="graph-store-label">Graph Store</InputLabel>
 
-{/*
-    <FormControl fullWidth>
-      <InputLabel>Graph Store</InputLabel>
+            <Select
+                labelId="graph-store-label"
+                id="graph-store-select"
+                value={value}
+                label="Graph store"
+                onChange={(e) => onChange(e.target.value)}
+                sx={{minHeight: 120}}
+            >
 
+                <MenuItem value="cassandra">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Box sx={{width: 130}}>
 
-      <Select
-        value={value}
-        label="Graph Store"
-        onChange={(e) => onChange(e.target.value)}
-      >
-        <MenuItem value="cassandra">Cassandra</MenuItem>
-        <MenuItem value="neo4j">
-            <Stack direction="row" alignItems="center" spacing={2}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Neo4j-logo_color.png/800px-Neo4j-logo_color.png?20210429151518" style={{ height: "2rem" }}/>
-            <Box>Neo4j</Box>
-            <Box sx={{ fontSize: 12 }}>
-                Neo4j is a graph database management system.  The data
-                elements Neo4j stores are nodes, edges connecting them, and
-                attributes of nodes and edges.
-            </Box>
-            </Stack>
-        </MenuItem>
-      </Select>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
+                                width="112"
+                                height="75"
+                                style={{ margin: 'auto' }}
+                            />
 
-*/
-}
+                        </Box>
 
-
-{/*
-    </FormControl>
-    */}
-
-<Box>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-      <Stack>
-      <Box>{ value }</Box>
-        <Box sx={{fontSize: 8}}>asldkjaslkdja slkdasd alskjdasd</Box>
-        </Stack>
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-<Stack direction="row">
-
-                <Option
-                    enabled={value=='cassandra'}
-                    onChange={() => onChange('cassandra')}
-                    avatar={<Psychology color="primary"/>}
-                    title="Cassandra"
-                    content={
-                        'Apache Cassandra'
-                    }
-
-                />
-
-                <Option
-                    enabled={value=='neo4j'}
-                    onChange={() => onChange('neo4j')}
-                    avatar={
-                        <Avatar
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Neo4j-logo_color.png/800px-Neo4j-logo_color.png?20210429151518"
-                            alt="Neo4j"
-                            variant="rounded"
-                            size="xl"
-                        />
-                    }
-                    title="Neo4j"
-                    content={
-                        'Neo4j'
-                    }
-
-                />
-</Stack>
-
-      </Popover>
-</Box>
+                        <Box sx={
+                            {maxWidth: '14rem',
+                            minWidth: '14rem',
+                            width: '14rem'
+                        }}>
+                            <Typography variant="body2" sx={{width: '14rem'}}>
+                                Apache Cassandra is an open-source, NoSQL
+                                database that stores data<br/>for
+                                applications that need fast read and write
+                                performance. It's designed to<br/> handle
+                                large amounts of structured,
+                                semi-structured, and unstructured<br/>
+                                data across multiple data centers and the
+                                cloud.
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+                <MenuItem value="neo4j">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                            <Box sx={{width: 130}}>
+                                <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
+                            </Box>
+                        <Typography variant="body2" sx={{width: '14rem'}}>
+                            Neo4j is a high-performance graph database that
+                            stores data in the form<br/> of nodes and edges.
+                            Neo4j is ideal for handling complex, connected
+                            data<br/> such as social networks, fraud
+                            detection systems, and recommendation<br/>
+                            engines.
+                        </Typography>
+                    </Stack>
+                </MenuItem>
+            </Select>
+        </FormControl>
 
     </>
 
