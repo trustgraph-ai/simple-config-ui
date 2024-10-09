@@ -101,7 +101,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                 value={value}
                 label="Graph store"
                 onChange={(e) => onChange(e.target.value)}
-                sx={{minHeight: 120}}
+                sx={{minHeight: 90}}
             >
 
                 <MenuItem value="cassandra">
@@ -112,38 +112,35 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         }
                         alignItems="stretch"
                     >
-                        <Stack sx={{width: 130}} direction="column"
+                        <Stack sx={{width: 100}} direction="column"
                         alignItems="center" justifyContent="center"
                         >
 
-{/*                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
+                           <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
                                 width="67"
                                 height="45"
                             />
-*/}
-
-<Typography variant="body">Cassandra</Typography>
 
                         </Stack>
 
-                        <Box sx={
-                            {maxWidth: '14rem',
-                            minWidth: '14rem',
-                            width: '14rem'
+                        <Box sx={{
+                            width: '32rem'
                         }}>
-                            <Typography variant="body2" sx={{width: '14rem'}}>
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
                                 Apache Cassandra is an open-source, NoSQL
-                                database that stores data<br/>for
+                                database that stores data for
                                 applications that need fast read and write
-                                performance. It's designed to<br/> handle
-                                large amounts of structured,
-                                semi-structured, and unstructured<br/>
-                                data across multiple data centers and the
-                                cloud.
+                                performance at large scale.  The TrustGraph
+                                integration integrates a graph schema with
+                                read/write access.
+                                
                             </Typography>
                         </Box>
                     </Stack>
                 </MenuItem>
+
                 <MenuItem value="neo4j">
                     <Stack
                         direction="row" spacing={2}
@@ -151,21 +148,29 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                        <Stack sx={{width: 130}} direction="row"
+                        <Stack sx={{width: 100}} direction="row"
                         alignItems="center" justifyContent="center"
                         >
                                 <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
                             </Stack>
-                        <Typography variant="body2" sx={{width: '14rem'}}>
+                        <Box sx={{
+                            width: '32rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
                             Neo4j is a high-performance graph database that
-                            stores data in the form<br/> of nodes and edges.
+                            stores data in the form of nodes and edges.
                             Neo4j is ideal for handling complex, connected
-                            data<br/> such as social networks, fraud
-                            detection systems, and recommendation<br/>
+                            data such as social networks, fraud
+                            detection systems, and recommendation
                             engines.
                         </Typography>
+                        </Box>
                     </Stack>
                 </MenuItem>
+
             </Select>
         </FormControl>
 
