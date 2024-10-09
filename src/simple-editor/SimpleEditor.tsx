@@ -13,20 +13,9 @@ const SimpleEditor: React.FC = () => {
     return (
 
         <Box className="editor">
-
             <Banner/>
-
-            <Box className="layout">
-
-                <Box className="params">
-
-                    <Configuration/>
-
-                </Box>
-
-            </Box>
-
-      </Box>
+            <Configuration/>
+        </Box>
 
     );
 

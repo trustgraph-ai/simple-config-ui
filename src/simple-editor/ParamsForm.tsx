@@ -76,40 +76,44 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
         <>
 
-            <Box my={4}>
-              <ModelDeployment
-                  value={modelDeployment} onChange={setModelDeployment}
-              />
-            </Box>
+            <Box className="parameters">
 
-            <Box my={4}>
-              <GraphStore value={graphStore} onChange={setGraphStore} />
-            </Box>
+                <Box my={4}>
+                  <ModelDeployment
+                      value={modelDeployment} onChange={setModelDeployment}
+                  />
+                </Box>
 
-            <Box my={4}>
-              <VectorDB value={vectorDB} onChange={setVectorDB} />
-            </Box>
+                <Box my={4}>
+                  <GraphStore value={graphStore} onChange={setGraphStore} />
+                </Box>
 
-            <Box my={4}>
-              <Chunker
-                type={chunkerType}
-                chunkSize={chunkSize}
-                chunkOverlap={chunkOverlap}
-                onTypeChange={setChunkerType}
-                onChunkSizeChange={setChunkSize}
-                onChunkOverlapChange={setChunkOverlap}
-              />
-            </Box>
+                <Box my={4}>
+                  <VectorDB value={vectorDB} onChange={setVectorDB} />
+                </Box>
 
-            <Box my={4}>
-              <ModelParameters
-                modelName={modelName}
-                temperature={temperature}
-                maxOutputTokens={maxOutputTokens}
-                onModelNameChange={setModelName}
-                onTemperatureChange={setTemperature}
-                onMaxOutputTokensChange={setMaxOutputTokens}
-              />
+                <Box my={4}>
+                  <Chunker
+                    type={chunkerType}
+                    chunkSize={chunkSize}
+                    chunkOverlap={chunkOverlap}
+                    onTypeChange={setChunkerType}
+                    onChunkSizeChange={setChunkSize}
+                    onChunkOverlapChange={setChunkOverlap}
+                  />
+                </Box>
+
+                <Box my={4}>
+                  <ModelParameters
+                    modelName={modelName}
+                    temperature={temperature}
+                    maxOutputTokens={maxOutputTokens}
+                    onModelNameChange={setModelName}
+                    onTemperatureChange={setTemperature}
+                    onMaxOutputTokensChange={setMaxOutputTokens}
+                  />
+                </Box>
+
             </Box>
 
         </>

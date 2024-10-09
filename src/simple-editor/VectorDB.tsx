@@ -23,7 +23,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                 value={value}
                 label="Vector DB"
                 onChange={(e) => onChange(e.target.value)}
-                sx={{minHeight: 90}}
+                sx={{minHeight: 100}}
             >
 
                 <MenuItem value="qdrant">
@@ -41,7 +41,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         </Stack>
 
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
                             <Typography variant="body2"
                                 sx={{ whiteSpace: 'wrap' }}
@@ -70,7 +70,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             <img src="https://milvus.io/images/milvus_logo.svg" width="80"/>
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"

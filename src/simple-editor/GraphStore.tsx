@@ -37,7 +37,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         alignItems="stretch"
                     >
                         <Stack sx={{width: 100}} direction="column"
-                        alignItems="center" justifyContent="center"
+                            alignItems="center" justifyContent="center"
                         >
 
                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
@@ -48,7 +48,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         </Stack>
 
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
                             <Typography variant="body2"
                                 sx={{ whiteSpace: 'wrap' }}
@@ -78,7 +78,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                                 <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
                             </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"

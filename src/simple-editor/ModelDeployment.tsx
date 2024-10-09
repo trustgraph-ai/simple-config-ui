@@ -41,7 +41,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                         </Stack>
 
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
                             <Typography variant="body2"
                                 sx={{ whiteSpace: 'wrap' }}
@@ -71,7 +71,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             Bedrock
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -105,7 +105,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             Azure
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -136,7 +136,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             Cohere
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -167,7 +167,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             Llamafile
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -199,7 +199,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             Ollama
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -231,7 +231,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             OpenAI
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"
@@ -259,7 +259,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) =>
                             VertexAI
                         </Stack>
                         <Box sx={{
-                            width: '32rem'
+                            width: '36rem'
                         }}>
 
                         <Typography variant="body2"

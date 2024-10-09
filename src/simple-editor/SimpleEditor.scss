@@ -5,15 +5,6 @@
     font-size: small;
 }
 
-.layout {
-
-    display: flex;
-
-    & > * {
-    }
-
-}
-
 .editor {
     width: 90vw;
     margin-left: auto;
@@ -21,12 +12,11 @@
     margin-top: 1rem;
 }
 
-.params {
-    width: 100vw;
+.parameters {
+    max-width: 50rem;
 }
 
 .deployment {
-    width: 100vw;
 }
 
 .variable {

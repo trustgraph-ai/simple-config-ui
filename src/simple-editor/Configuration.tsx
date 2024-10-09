@@ -55,7 +55,7 @@ const tabs = (opts : Set<string>) => {
     if (opts.has(KG_QUERY_PROMPT))
         tabs.push(<Tab key="kgq" value="kgq" label="Knowledge graph prompt"/>);
 
-    tabs.push(<Tab key="depl" value="deployment" label="Deployment"/>);
+    tabs.push(<Tab key="depl" value="depl" label="Deployment"/>);
 
     return tabs;
 
@@ -75,6 +75,8 @@ const Configuration: React.FC = () => {
     return (
 
         <>
+
+            <Box className="configuration">
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
@@ -158,6 +160,8 @@ const Configuration: React.FC = () => {
                 </Box>
 
             </CustomTabPanel>
+
+            </Box>
 
         </>
 
