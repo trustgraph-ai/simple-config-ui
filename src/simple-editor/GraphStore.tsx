@@ -1,92 +1,16 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+
 import {
-    Box, Stack, Typography, Avatar, Popover, Button, Divider,
-    List, ListItemButton, ListItemText, Menu, ListItemIcon,
+    FormControl, InputLabel, Select, MenuItem, Box, Stack, Divider,
+    Typography,
 } from '@mui/material';
-
-import {
-    Psychology,
-//    Spoke,
-//    Plumbing,
-//    Engineering,
-//    Hub,
-//    ChatBubble,
-//    VerticalSplit,
-//    MonitorHeart,
-//    Polyline,
-} from '@mui/icons-material';
-
-import {
-    Card, CardHeader, CardContent, CardActions, FormGroup, FormControlLabel,
-    Checkbox
-} from '@mui/material';
-
-    const Option = ({
-        enabled, onChange, avatar, title, content
-    }) => {
-        const bg = enabled ? '#d0e0f8' : 'white'
-        return (
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={enabled}
-                            onChange={onChange}/>
-                    }
-                    label={
-                        <Card
-                            sx={{
-                                width: '16rem',
-                                backgroundColor: bg
-                            }}
-                        >
-                            <CardHeader
-                              avatar={avatar}
-                              title={title}
-                            />
-                            <CardContent>
-                                <Typography
-                                    variant="body2"
-                                    sx={{ fontSize: 12 }}
-                                >
-                                {content}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    }
-                />
-            </FormGroup>
-        );
-    };
 
 interface GraphStoreProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-
 const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLElement>,
-    index: number,
-  ) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
 
   return (
     <>

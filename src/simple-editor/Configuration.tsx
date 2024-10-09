@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { Tabs, Tab } from '@mui/material';
 
 import ParamsForm from './ParamsForm';
@@ -65,10 +65,9 @@ const Configuration: React.FC = () => {
 
     const [value, setValue] = React.useState("model");
 
-    const handleChange = (event: React.SyntheticEvent, value: string) => {
+    const handleChange = (_event: React.SyntheticEvent, value: string) => {
         setValue(value);
     };
-
 
     const advancedOptions
         = useModelParamsStore((state) => state.advancedOptions);

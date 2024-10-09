@@ -2,8 +2,8 @@
 import React from 'react';
 
 import { FormGroup, FormControlLabel } from '@mui/material';
-import { Checkbox, Typography, Button } from '@mui/material';
-import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
+import { Card, CardHeader, CardContent } from '@mui/material';
 import { Stack } from '@mui/material';
 import {
     Psychology,
@@ -11,7 +11,7 @@ import {
 //    Plumbing,
 //    Engineering,
 //    Hub,
-    ChatBubble,
+//    ChatBubble,
 //    VerticalSplit,
 //    MonitorHeart,
 //    Polyline,
@@ -50,24 +50,28 @@ const ParamsForm: React.FC = ({
         }
     }
 
-    const onDefinitions = (e) => {
+    const onDefinitions = () => {
         set(DEFINITIONS_PROMPT, !definitions);
     };
 
-    const onRelationships = (e) => {
+    const onRelationships = () => {
         set(RELATIONSHIPS_PROMPT, !relationships);
     };
 
-    const onTopics = (e) => {
+    const onTopics = () => {
         set(TOPICS_PROMPT, !topics);
     };
 
-    const onKgQuery = (e) => {
+    const onKgQuery = () => {
         set(KG_QUERY_PROMPT, !kgQuery);
     };
 
-    const Option = ({
-        enabled, onChange, avatar, title, content
+    const Option = ({enabled, onChange, avatar, title, content} : {
+        enabled : boolean;
+        onChange : () => void,
+        avatar : any;
+        title : string;
+        content : any;
     }) => {
         return (
             <FormGroup>

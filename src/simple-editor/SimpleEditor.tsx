@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Banner from './Banner.tsx';
 import Configuration from './Configuration.tsx';
