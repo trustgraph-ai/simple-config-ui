@@ -65,13 +65,6 @@ interface GraphStoreProps {
   onChange: (value: string) => void;
 }
 
-const options = [
-'Cassandra',
-  <Box>
-  <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
-
-  </Box>, 
-];
 
 const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
 
@@ -119,15 +112,19 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         }
                         alignItems="stretch"
                     >
-                        <Box sx={{width: 130}}>
+                        <Stack sx={{width: 130}} direction="column"
+                        alignItems="center" justifyContent="center"
+                        >
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
-                                width="112"
-                                height="75"
-                                style={{ margin: 'auto' }}
+{/*                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
+                                width="67"
+                                height="45"
                             />
+*/}
 
-                        </Box>
+<Typography variant="body">Cassandra</Typography>
+
+                        </Stack>
 
                         <Box sx={
                             {maxWidth: '14rem',
@@ -154,9 +151,11 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                            <Box sx={{width: 130}}>
+                        <Stack sx={{width: 130}} direction="row"
+                        alignItems="center" justifyContent="center"
+                        >
                                 <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
-                            </Box>
+                            </Stack>
                         <Typography variant="body2" sx={{width: '14rem'}}>
                             Neo4j is a high-performance graph database that
                             stores data in the form<br/> of nodes and edges.
