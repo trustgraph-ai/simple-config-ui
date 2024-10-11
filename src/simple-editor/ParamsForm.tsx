@@ -10,12 +10,20 @@ import ModelDeployment from './ModelDeployment';
 import ModelParameters from './ModelParameters';
 
 import { useModelParamsStore } from './state/ModelParams';
+import { useDeploymentStore } from './state/Deployment';
 
 interface ParamsFormProps {
 }
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
 }) => {
+
+    const setConfigUrl =
+        useDeploymentStore((state) => state.setConfigUrl);
+
+    useModelParamsStore.subscribe(() => {
+        setConfigUrl("");
+    });
 
     const graphStore
         = useModelParamsStore((state) => state.graphStore);

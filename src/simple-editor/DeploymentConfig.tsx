@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { useModelParamsStore } from './state/ModelParams';
+import { useDeploymentStore } from './state/Deployment';
 
 import ConfigGeneration from './ConfigGeneration';
 import PreparedConfig from './PreparedConfig';
@@ -13,7 +13,7 @@ const DeploymentConfig: React.FC<DeploymentConfigProps> = ({
 }) => {
 
     const configUrl
-        = useModelParamsStore((state) => state.configUrl);
+        = useDeploymentStore((state) => state.configUrl);
 
     if (configUrl) {
         return <PreparedConfig/>;
