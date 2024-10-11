@@ -90,7 +90,7 @@ const image = new local.Command(
 const svcAccount = new gcp.serviceaccount.Account(
     "service-account",
     {
-	accountId: "config-ui",
+	accountId: "config-ui-" + environment,
 	displayName: "Config UI",
 	description: "Config UI",
     },
@@ -118,7 +118,7 @@ const vertexAiUserMember = new gcp.projects.IAMMember(
 const service = new gcp.cloudrun.Service(
     "service",
     {
-	name: "config-ui",
+	name: "config-ui-" + environment,
 	location: cloudRunRegion,
 	template: {
 	    metadata: {
