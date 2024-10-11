@@ -44,7 +44,7 @@ const tabs = (opts : Set<string>) => {
 
     let tabs = [
         <Tab key="model" value="model" label="Model"/>,
-        <Tab key="more" value="more" label="More"/>
+        <Tab key="more" value="more" label="Next ➡"/>
     ];
 
     if (opts.has(DEFINITIONS_PROMPT))
