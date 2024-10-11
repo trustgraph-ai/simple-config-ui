@@ -12,6 +12,9 @@ import ModelParameters from './ModelParameters';
 import { useModelParamsStore } from './state/ModelParams';
 import { useDeploymentStore } from './state/Deployment';
 
+import modelsRaw from './models.json';
+const models = modelsRaw as { [ix : string ] : string[] };
+
 interface ParamsFormProps {
 }
 
@@ -79,6 +82,20 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const setMaxOutputTokens
         = useModelParamsStore((state) => state.setMaxOutputTokens);
 
+    useModelParamsStore.subscribe(
+        (n, o) => {
+
+            if (n.modelDeployment == o.modelDeployment) return;
+
+            if (n.modelName in models[n.modelDeployment]) return;
+
+            if (models[n.modelDeployment].length == 0)
+                setModelName("");
+            else
+                setModelName(models[n.modelDeployment][0]);
+
+        }
+    );
 
     return (
 
@@ -119,6 +136,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     onModelNameChange={setModelName}
                     onTemperatureChange={setTemperature}
                     onMaxOutputTokensChange={setMaxOutputTokens}
+                    modelDeployment={modelDeployment}
                   />
                 </Box>
 

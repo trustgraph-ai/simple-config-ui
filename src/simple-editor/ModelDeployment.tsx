@@ -6,11 +6,14 @@ import {
 } from '@mui/material';
 
 interface ModelDeploymentProps {
-  value: string;
-  onChange: (value: string) => void;
+    value : string;
+    onChange: (value: string) => void;
 }
 
-const ModelDeployment: React.FC<ModelDeploymentProps> = ({ value, onChange }) => {
+const ModelDeployment: React.FC<ModelDeploymentProps> = ({
+    value, onChange
+}) => {
+
   return (
 
         <FormControl fullWidth>
