@@ -85,6 +85,14 @@
         "o1-mini-2024-09-12"
     ],
     "vertexai": [
-      "model1"
+        "gemini-1.5-flash-002",
+        "gemini-1.5-pro-002",
+        "gemini-1.5-flash-001",
+        "gemini-1.5-pro-001",
+        "gemini-1.0-pro-002",
+        "gemini-1.0-pro-001",
+        "gemini-flash-experimental",
+        "gemini-pro-experimental",
+        "gemini-experimental"
     ]
 }
