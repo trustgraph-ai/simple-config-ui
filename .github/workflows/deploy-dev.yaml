@@ -1,11 +1,11 @@
 
-name: Deploy to demo
+name: Deploy to dev
 
 on:
   workflow_dispatch:
   push:
-    tags:
-      - v*
+    branch:
+      - dev
 
 permissions:
   contents: read
@@ -16,7 +16,7 @@ jobs:
 
   deploy:
 
-    name: Deploy to demo
+    name: Deploy to dev
     runs-on: ubuntu-latest
 
     steps:
@@ -58,9 +58,9 @@ jobs:
         uses: pulumi/actions@v3
         with:
           command: up
-          stack-name: demo
+          stack-name: dev
           work-dir: pulumi
-          cloud-url: gs://trustgraph-deploy/config-ui/demo
+          cloud-url: gs://trustgraph-deploy/config-ui
         env:
           PULUMI_CONFIG_PASSPHRASE: ""
           IMAGE_VERSION: ${{ steps.version.outputs.VERSION }}

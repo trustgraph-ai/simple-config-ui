@@ -1,5 +1,5 @@
 
-name: Undeploy to demo
+name: Undeploy to dev
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
 
   deploy:
 
-    name: Undeploy to demo
+    name: Undeploy to dev
     runs-on: ubuntu-latest
 
     steps:
@@ -37,9 +37,9 @@ jobs:
         uses: pulumi/actions@v3
         with:
           command: destroy
-          stack-name: demo
+          stack-name: dev
           work-dir: pulumi
-          cloud-url: gs://kalntera-deploy/cybersec-ai/demo
+          cloud-url: gs://trustgraph-deploy/config-ui
         env:
           PULUMI_CONFIG_PASSPHRASE: ""
 
