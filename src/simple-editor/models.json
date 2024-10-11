@@ -51,7 +51,27 @@
         "gemini-1.0-pro-001"
     ],
     "ollama": [
-        ""
+        "llama3.1:405b",
+        "llama3.1:70b",
+        "llama3.1:8b",
+        "gemma2:2b",
+        "gemma2:9b",
+        "gemma2:27b",
+        "qwen2.5:0.5b",
+        "qwen2.5:1.5b",
+        "qwen2.5:3b",
+        "qwen2.5:7b",
+        "qwen2.5:14b",
+        "qwen2.5:32b",
+        "qwen2.5:72b",
+        "phi3.5:3.8b",
+        "mistral-small:22b",
+        "mistral-nemo:12b",
+        "mistral:7b",
+        "mixtral:8x7b",
+        "mixtral:8x22b",
+        "command-r:35b",
+        "command-r-plus:104b"
     ],
     "openai": [
         "gpt-4o",
