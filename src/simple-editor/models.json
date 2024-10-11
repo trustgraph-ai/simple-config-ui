@@ -24,6 +24,18 @@
         "ai21.jamba-1-5-large-v1:0",
         "ai21.jamba-1-5-mini-v1:0"
     ],
+    "cohere": [
+        "command-r-08-2024",
+        "command-r-plus-08-2024",
+        "command-r-plus",
+        "command-r",
+        "c4ai-aya-23-35b",
+        "c4ai-aya-23-8b",
+        "command",
+        "command-light",
+        "command-nightly",
+        "command-light-nightly"
+    ],
     "vertexai": [
       "model1"
     ]
