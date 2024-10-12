@@ -1,7 +1,10 @@
 
-VERSION=0.1.0
+VERSION=0.3.0
 
 all: service-package container
+
+version:
+	@echo ${VERSION}
 
 ui:
 	npm run build
