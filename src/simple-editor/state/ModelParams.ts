@@ -12,6 +12,7 @@ export interface ModelParams {
     modelName : string;
     temperature : number;
     maxOutputTokens : number;
+    platform : string;
 
     setGraphStore : (v : string) => void;
     setVectorDB : (v : string) => void;
@@ -22,6 +23,7 @@ export interface ModelParams {
     setModelName : (v : string) => void;
     setTemperature : (v : number) => void;
     setMaxOutputTokens : (v : number) => void;
+    setPlatform : (v : string) => void;
 
 }
 
@@ -37,6 +39,7 @@ export const useModelParamsStore = create<ModelParams>()(
         modelName: "gemma2:9b",
         temperature: 0.3,
         maxOutputTokens: 1000,
+        platform: "docker-compose",
 
         setGraphStore: (v) => set(() => ({
 	    graphStore: v,
@@ -72,6 +75,10 @@ export const useModelParamsStore = create<ModelParams>()(
 
         setMaxOutputTokens: (v) => set(() => ({
 	    maxOutputTokens: v,
+	})),
+
+        setPlatform: (v) => set(() => ({
+	    platform: v
 	})),
 
     })
