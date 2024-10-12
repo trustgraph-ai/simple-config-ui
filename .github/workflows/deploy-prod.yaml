@@ -26,7 +26,7 @@ jobs:
 
       - name: Get version
         id: version
-        run: echo VERSION=0.0.2 >> $GITHUB_OUTPUT
+        run: make version >> $GITHUB_OUTPUT
 
       - name: Install deps
         run: npm install

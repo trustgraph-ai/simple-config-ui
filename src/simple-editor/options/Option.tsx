@@ -1,11 +1,6 @@
 
-import React from 'react';
-
-import {
-    Card, CardHeader, CardContent, CardActions, CardActionArea
-} from '@mui/material';
-import { Typography, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { Check, } from '@mui/icons-material';
+import { Card, CardHeader, CardContent, CardActionArea } from '@mui/material';
+import { Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
 const Option = ({enabled, onChange, avatar, title, content} : {
@@ -27,7 +22,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   avatar={avatar}
                   title={title}
                   subheader={
-                      <Typography variant="body">
+                      <Typography variant="body1">
                           active
                       </Typography>
                   }
@@ -39,7 +34,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   avatar={avatar}
                   title={title}
                   subheader={
-                      <Typography variant="body">
+                      <Typography variant="body1">
                           available
                       </Typography>
                   }
@@ -83,9 +78,6 @@ const Option = ({enabled, onChange, avatar, title, content} : {
         <Card sx={{ width: '16rem' }}>
             <CardActionArea onClick={() => onChange()}>
                 <Header
-                  sx={{ backgroundColor: "primary.dark", color: "primary.contrastText" }}
-                  avatar={avatar}
-                  title={title}
                 />
                 <Content/>
             </CardActionArea>

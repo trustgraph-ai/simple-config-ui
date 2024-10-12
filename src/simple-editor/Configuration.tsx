@@ -161,7 +161,7 @@ const Configuration: React.FC = () => {
                     Additional configuration
                 </Typography>
 
-                <Typography variant="body">
+                <Typography variant="body2">
                     Listed here are additional configuraton options and
                     add-ons, all optional.  Click on additional
                     configuration options to include in the configuration,
