@@ -156,9 +156,19 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="more">
 
+                <Box sx={{ mb: 2}}>
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Additional configuration
+                    Additional configuration
                 </Typography>
+
+                <Typography variant="body">
+                    Listed here are additional configuraton options and
+                    add-ons, all optional.  Click on additional
+                    configuration options to include in the configuration,
+                    further configuration options may appear on separate
+                    configuration tabs.
+                </Typography>
+                </Box>
 
                 <Options/>
 
