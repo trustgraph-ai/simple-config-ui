@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 import { Stack, Box, Typography, Paper, } from '@mui/material';
 
 const DeploymentEnvVars = ({variables}) => {
@@ -9,12 +11,12 @@ console.log(variables);
                 variables.map(
                     (va) => {
                         return (
-                            <>
-                                {va.name} = <span className="variable">
+                            <React.Fragment key={va.name}>
+                                export {va.name}=<span className="variable">
                                     {va.value}
                                 </span>
                                 <br/>
-                            </>
+                            </React.Fragment>
                         );
                     }
                 )

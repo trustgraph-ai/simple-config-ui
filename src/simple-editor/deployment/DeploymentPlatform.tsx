@@ -80,7 +80,6 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
     return (
 
         <>
-
             <DeploymentSection
                 avatar={<Hub color="primary" fontSize="large"/>}
                 title="Platform preparation"

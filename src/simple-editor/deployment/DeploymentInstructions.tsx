@@ -7,6 +7,9 @@ import {
 
 import { RocketLaunch } from '@mui/icons-material';
 
+import DeploymentCode from './DeploymentCode';
+import DeploymentStep from './DeploymentStep';
+
 interface DeploymentInstructionsProps {
 }
 
@@ -23,6 +26,7 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
                     <Stack
                         direction="row" spacing={2}
                         alignItems="center"
+                        sx={{mb: 2}}
                     >
                         <RocketLaunch color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
@@ -30,7 +34,7 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
                         </Typography>
                     </Stack>
 
-                    <Typography variant="body2" sx={{ mt: 2}}>
+                    <DeploymentStep>
 
                         When you download the deploy configuration, you will
                         have a ZIP file containing all the configuration
@@ -38,34 +42,36 @@ const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
                         Podman Compose.
                         Unzip the ZIP file...
 
-                    </Typography>
+                    </DeploymentStep>
 
-                    <pre>unzip deploy.zip
-                    </pre>
+                    <DeploymentCode>
+                        unzip deploy.zip
+                    </DeploymentCode>
 
-                    <Typography variant="body2" sx={{ mt: 2}}>
+                    <DeploymentStep>
 
                         and launch...
 
+                    </DeploymentStep>
 
-                    </Typography>
+                    <DeploymentCode>
+                        docker compose -f docker-compose.yaml up -d
+                    </DeploymentCode>
 
-                    <pre>docker compose -f docker-compose.yaml up -d
-                    </pre>
-
-                    <Typography variant="body2">
+                    <DeploymentStep>
 
                         If you are on Linux, running SELinux, you may need
                         to change permissions on files in the deploy bundle
                         so that they are accessible from within containers.
                         This affects
                         the <code>grafana</code> and <code>prometheus</code> directories.
-                    </Typography>
+                    </DeploymentStep>
                         
-                    <pre>chcon -Rt svirt_sandbox_file_t grafana prometheus<br/>
-                    chmod 755 prometheus/ grafana/ grafana/*/<br/>
-                    chmod 644 prometheus/* grafana/*/*
-                    </pre>
+                    <DeploymentCode>
+                        chcon -Rt svirt_sandbox_file_t grafana prometheus<br/>
+                        chmod 755 prometheus/ grafana/ grafana/*/<br/>
+                        chmod 644 prometheus/* grafana/*/*
+                    </DeploymentCode>
 
                 </Paper>
             </Box>

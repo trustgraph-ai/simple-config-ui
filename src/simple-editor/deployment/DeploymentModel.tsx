@@ -9,18 +9,27 @@ import {
 import { useModelParamsStore } from '../state/ModelParams';
 
 import DeploymentEnvVars from './DeploymentEnvVars';
+import DeploymentCode from './DeploymentCode';
+import DeploymentStep from './DeploymentStep';
 
 const getInstructions = (model : string) => {
     if (model == "claude") {
         return <>
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Anthropic Claude, you need a Claude API key.
                 Provide the Claude API key in an environment variable
                 when runnging the Docker Compose configuration.
-            </Typography>
-            <pre>export CLAUDE_KEY=
-            <span className="variable">TOKEN-GOES-HERE</span>
-            </pre>
+            </DeploymentStep>
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "CLAUDE_KEY",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "bedrock") {
         return <>
@@ -30,14 +39,19 @@ const getInstructions = (model : string) => {
                 AWS access key ID and secret key.
             </Typography>
 
-{/*
-            <pre>export AWS_ID_KEY=
-            <span className="variable">ID-KEY-HERE</span>
-            <br/>
-            export AWS_SECRET_KEY=
-            <span className="variable">TOKEN-GOES-HERE</span>
-            </pre>
-*/}
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "AWS_ID_KEY",
+                        value: "ID-KEY-HERE"
+                    },
+                    {
+                        name: "AWS_SECRET_KEY",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "azure") {
         return <>
@@ -46,29 +60,54 @@ const getInstructions = (model : string) => {
                 endpoint deployed, and you must also provide an endpoint
                 token as an environment variable.
              </Typography>
-            <pre>export AZURE_ENDPOINT=
-            <span className="variable">https://ENDPOINT.API.HOST.GOES.HERE/</span>
-            <br/>
-            export AZURE_TOKEN=
-            <span className="variable">TOKEN-GOES-HERE</span>
-            </pre>
+
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "AZURE_ENDPOINT",
+                        value: "https://ENDPOINT.API.HOST.GOES.HERE/"
+                    },
+                    {
+                        name: "AZURE_TOKEN",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "cohere") {
         return <>
             <Typography variant="body2">To use Cohere APIs, you need an API token which must
             be provided in an environment variable.</Typography>
-            <pre>export COHERE_KEY=
-            <span className="variable">TOKEN-GOES-HERE</span>
-            </pre>
+
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "COHERE_KEY",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "llamafile") {
         return <>
             <Typography variant="body2">To use Llamafile, you must have a Llamafile services running
             on an accessible host.  The Llamafile host must be provided
             in an environment variable.</Typography>
-            <pre>export LLAMAFILE_URL=
-            <span className="variable">LLAMAFILE-URL</span>
-            </pre>
+
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "LLAMAFILE_URL",
+                        value: "LLAMAFILE-URL"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "ollama") {
         return <>
@@ -101,13 +140,21 @@ const getInstructions = (model : string) => {
         return <>
             <Typography variant="body2">To use OpenAI APIs, you need an API token which must
             be provided in an environment variable.</Typography>
-            <pre>export OPENAI_KEY=
-            <span className="variable">TOKEN-GOES-HERE</span>
-            </pre>
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "OPENAI_KEY",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
         </>;
     } else if (model == "vertexai") {
         return <>
-            <Typography variant="body2">To use VertexAI, you need to have a Google Cloud credential
+            <Typography variant="body2">
+            To use VertexAI, you need to have a Google Cloud credential
             file provisioned for a service account which has access to the
             VertexAI services.  This means signing up to GCP and using
             an existing, or launching a new GCP project.
@@ -120,8 +167,9 @@ const getInstructions = (model : string) => {
             Make sure that Docker has access to volume files if this
             affects you.
             </Typography>
-            <pre>chcon -Rt svirt_sandbox_file_t vertexai/
-            </pre>
+            <DeploymentCode>
+                chcon -Rt svirt_sandbox_file_t vertexai/
+            </DeploymentCode>
         </>;
     } else {
         return <> </>;
