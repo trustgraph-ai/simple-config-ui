@@ -8,6 +8,8 @@ import {
 
 import { useModelParamsStore } from '../state/ModelParams';
 
+import DeploymentEnvVars from './DeploymentEnvVars';
+
 const getInstructions = (model : string) => {
     if (model == "claude") {
         return <>
@@ -27,12 +29,15 @@ const getInstructions = (model : string) => {
                 AWS Bedrock console.  You must also provide an
                 AWS access key ID and secret key.
             </Typography>
+
+{/*
             <pre>export AWS_ID_KEY=
             <span className="variable">ID-KEY-HERE</span>
             <br/>
             export AWS_SECRET_KEY=
             <span className="variable">TOKEN-GOES-HERE</span>
             </pre>
+*/}
         </>;
     } else if (model == "azure") {
         return <>
@@ -78,9 +83,16 @@ const getInstructions = (model : string) => {
                 The Ollama service URL must be provided in an environment
                 variable.
             </Typography>
-            <pre>export OLLAMA_HOST=
-            <span className="variable">http://ollama-host:11434</span>
-            </pre>
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "OLLAMA_HOST",
+                        value: "http://ollama-host:11434"
+                    }
+                ]}
+            />
+
             <Typography variant="body2">
                 Replace the URL with the URL of your Ollama service.
             </Typography>
@@ -136,6 +148,7 @@ const DeploymentModel: React.FC<DeploymentModelProps> = ({
                         <Stack
                             direction="row" spacing={2}
                             alignItems="center"
+                            sx={{mt: 2, mb: 2}}
                         >
                             <Psychology color="primary" fontSize="large"/>
                             <Box>Model credentials</Box>

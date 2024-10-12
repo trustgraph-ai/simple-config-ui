@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 
 //import { useModelParamsStore } from '../state/ModelParams';
 
+import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
 import DeploymentInstructions from './DeploymentInstructions';
@@ -18,6 +19,10 @@ const Deployment: React.FC<DeploymentProps> = ({
   return (
 
       <>
+
+          <Box>
+              <DeploymentPlatform/>
+          </Box>
 
           <Box>
               <DeploymentModel/>
