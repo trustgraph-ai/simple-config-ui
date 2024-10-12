@@ -7,8 +7,8 @@ import {
 
 import { Check } from '@mui/icons-material';
 
-import { useModelParamsStore } from './state/ModelParams';
-import { useDeploymentStore } from './state/Deployment';
+import { useModelParamsStore } from '../state/ModelParams';
+import { useDeploymentStore } from '../state/Deployment';
 
 const PreparedConfig = () => {
 

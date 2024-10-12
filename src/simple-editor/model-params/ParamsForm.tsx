@@ -9,8 +9,8 @@ import Chunker from './Chunker';
 import ModelDeployment from './ModelDeployment';
 import ModelParameters from './ModelParameters';
 
-import { useModelParamsStore } from './state/ModelParams';
-import { useDeploymentStore } from './state/Deployment';
+import { useModelParamsStore } from '../state/ModelParams';
+import { useDeploymentStore } from '../state/Deployment';
 
 import modelsRaw from './models.json';
 const models = modelsRaw as { [ix : string ] : string[] };

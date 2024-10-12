@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Box } from '@mui/material';
 
-//import { useModelParamsStore } from './state/ModelParams';
+//import { useModelParamsStore } from '../state/ModelParams';
 
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';

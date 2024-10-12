@@ -16,13 +16,13 @@ import {
 //    MonitorHeart,
 //    Polyline,
 } from '@mui/icons-material';
-import { useDeploymentStore } from './state/Deployment';
+import { useDeploymentStore } from '../state/Deployment';
 
 import {
     useOptionsStore, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
     TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
     ROWS_PROMPT,
-} from './state/Options';
+} from '../state/Options';
 
 const ParamsForm: React.FC = ({
 }) => {

@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
-import { generateConfig } from './generate-config';
-import { useModelParamsStore } from './state/ModelParams';
-import { usePromptsStore } from './state/Prompts';
-import { useDeploymentStore } from './state/Deployment';
-import { useOptionsStore } from './state/Options';
+import { generateConfig } from '../generate-config';
+import { useModelParamsStore } from '../state/ModelParams';
+import { usePromptsStore } from '../state/Prompts';
+import { useDeploymentStore } from '../state/Deployment';
+import { useOptionsStore } from '../state/Options';
 
 const Generating = () => {
     return (

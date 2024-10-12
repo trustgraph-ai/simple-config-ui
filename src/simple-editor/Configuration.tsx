@@ -4,9 +4,9 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { Tabs, Tab } from '@mui/material';
 
-import ParamsForm from './ParamsForm';
-import AdvancedOptions from './AdvancedOptions';
-import Deployment from './Deployment';
+import ParamsForm from './model-params/ParamsForm';
+import Options from './options/Options';
+import Deployment from './deployment/Deployment';
 
 import { usePromptsStore } from './state/Prompts';
 import {
@@ -16,7 +16,7 @@ import {
 } from './state/Options';
 import { useDeploymentStore } from './state/Deployment';
 
-import Prompt from './Prompt';
+import Prompt from './options/Prompt';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -160,7 +160,7 @@ const Configuration: React.FC = () => {
                   Additional configuration
                 </Typography>
 
-                <AdvancedOptions/>
+                <Options/>
 
             </CustomTabPanel>
 
