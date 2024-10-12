@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { useDeploymentStore } from './state/Deployment';
+import { useDeploymentStore } from '../state/Deployment';
 
 import ConfigGeneration from './ConfigGeneration';
 import PreparedConfig from './PreparedConfig';

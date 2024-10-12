@@ -6,7 +6,7 @@ import {
     Typography, Paper, Box, Stack,
 } from '@mui/material';
 
-import { useModelParamsStore } from './state/ModelParams';
+import { useModelParamsStore } from '../state/ModelParams';
 
 const getInstructions = (model : string) => {
     if (model == "claude") {

@@ -1,12 +1,8 @@
 
-import React from 'react';
 
-import { Typography, ToggleButton } from '@mui/material';
-import { Card, CardHeader, CardContent, CardActions } from '@mui/material';
 import { Stack } from '@mui/material';
 import {
     Psychology,
-    Check,
 //    Spoke,
 //    Plumbing,
 //    Engineering,
@@ -16,13 +12,15 @@ import {
 //    MonitorHeart,
 //    Polyline,
 } from '@mui/icons-material';
-import { useDeploymentStore } from './state/Deployment';
+import { useDeploymentStore } from '../state/Deployment';
 
 import {
     useOptionsStore, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
     TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
     ROWS_PROMPT,
-} from './state/Options';
+} from '../state/Options';
+
+import Option from './Option';
 
 const ParamsForm: React.FC = ({
 }) => {
@@ -79,41 +77,6 @@ const ParamsForm: React.FC = ({
 
     const onRows = () => {
         set(ROWS_PROMPT, !rows);
-    };
-
-    const Option = ({enabled, onChange, avatar, title, content} : {
-        enabled : boolean;
-        onChange : () => void,
-        avatar : any;
-        title : string;
-        content : any;
-    }) => {
-        return (
-            <Card sx={{ width: '16rem' }}>
-                <CardHeader
-                  avatar={avatar}
-                  title={title}
-                />
-                <CardContent>
-                    <Typography
-                        variant="body2"
-                        sx={{ fontSize: 12 }}
-                    >
-                    {content}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <ToggleButton
-                        value="check"
-                        selected={enabled}
-                        color="primary"
-                        onChange={() => onChange()}
-                    >
-                        <Check/>
-                    </ToggleButton>
-                </CardActions>
-            </Card>
-        );
     };
 
     return (

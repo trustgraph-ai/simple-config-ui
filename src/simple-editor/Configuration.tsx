@@ -4,9 +4,9 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { Tabs, Tab } from '@mui/material';
 
-import ParamsForm from './ParamsForm';
-import AdvancedOptions from './AdvancedOptions';
-import Deployment from './Deployment';
+import ParamsForm from './model-params/ParamsForm';
+import Options from './options/Options';
+import Deployment from './deployment/Deployment';
 
 import { usePromptsStore } from './state/Prompts';
 import {
@@ -16,7 +16,7 @@ import {
 } from './state/Options';
 import { useDeploymentStore } from './state/Deployment';
 
-import Prompt from './Prompt';
+import Prompt from './options/Prompt';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -156,11 +156,21 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="more">
 
+                <Box sx={{ mb: 2}}>
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Additional configuration
+                    Additional configuration
                 </Typography>
 
-                <AdvancedOptions/>
+                <Typography variant="body">
+                    Listed here are additional configuraton options and
+                    add-ons, all optional.  Click on additional
+                    configuration options to include in the configuration,
+                    further configuration options may appear on separate
+                    configuration tabs.
+                </Typography>
+                </Box>
+
+                <Options/>
 
             </CustomTabPanel>
 
