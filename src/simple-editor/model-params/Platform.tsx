@@ -149,10 +149,11 @@ const Platform: React.FC<PlatformProps> = ({
                             <Typography variant="body2"
                                 sx={{ whiteSpace: 'wrap', mt: 1 }}
                             >
-                                It has limitations
+                                Suitable for developer and evaluation use,
+                                but there are limitations
                                 (single node cluster, simple networking models)
-                                that would limit its use for scale or
-                                production use.
+                                that would limit use for scale or
+                                production applications.
                             </Typography>
                         </Box>
                     </Stack>
@@ -196,6 +197,47 @@ const Platform: React.FC<PlatformProps> = ({
                                 and has all the observability and scalability
                                 features needed to build a scalable
                                 application.
+                            </Typography>
+
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="pulumi-aws-ecs">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Stack
+                            sx={{
+                                width: 140, whiteSpace: 'wrap',
+                                textAlign: 'center',
+                            }}
+                            direction="column"
+                            alignItems="center" justifyContent="center"
+                        >
+                            <img src="https://www.pulumi.com/images/logo/logo-on-white.svg" width="105"/>
+                        </Stack>
+
+                        <Box sx={{
+                            width: '38rem'
+                        }}>
+
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
+                                This platform provides a Pulumi script
+                                which deploys a full-stack TrustGraph on
+                                ECS clustering in AWS.
+                            </Typography>
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap', mt: 1 }}
+                            >
+                                This would be suitable for production
+                                deployment.
                             </Typography>
 
                         </Box>
