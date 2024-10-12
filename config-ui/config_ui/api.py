@@ -19,6 +19,9 @@ class Api:
         self.app = web.Application(middlewares=[])
 
         self.app.add_routes([web.post("/api/generate", self.generate)])
+        self.app.add_routes([
+            web.post("/api/generate/{platform}/{version}", self.generate)
+        ])
         self.app.add_routes([web.get("/{tail:.*}", self.everything)])
 
         self.ui = importlib.resources.files().joinpath("ui")
@@ -105,6 +108,18 @@ class Api:
         logger.info("Generate...")
 
         try:
+            platform = request.match_info["platform"]
+        except:
+            platform = "docker-compose"
+
+        try:
+            version = request.match_info["version"]
+        except:
+            version = "0.11.20"
+
+        logger.info(f"Generating for platform={platform} version={version}")
+
+        try:
 
             config = await request.text()
 
@@ -119,58 +134,103 @@ class Api:
 
             logger.info(f"Config: {config}")
 
-            processed = self.process(config)
-            y = yaml.dump(processed)
 
-            mem = BytesIO()
-
-            with zipfile.ZipFile(mem, mode='w') as out:
-
-                def output(name, content):
-                    logger.info(f"Adding {name}...")
-                    out.writestr(name, content)
-
-                fname = "docker-compose.yaml"
-
-                output(fname, y)
-
-                # Grafana config
-                path = self.resources.joinpath(
-                    "grafana/dashboards/dashboard.json"
+            if platform == "docker-compose":
+                return await self.generate_docker_compose(
+                    platform, version, config
                 )
-                res = path.read_text()
-                output("grafana/dashboards/dashboard.json", res)
-
-                path = self.resources.joinpath(
-                    "grafana/provisioning/dashboard.yml"
+            elif platform == "minikube-k8s":
+                return await self.generate_minikube_k8s(
+                    platform, version, config
                 )
-                res = path.read_text()
-                output("grafana/provisioning/dashboard.yml", res)
-
-                path = self.resources.joinpath(
-                    "grafana/provisioning/datasource.yml"
-                )
-                res = path.read_text()
-                output("grafana/provisioning/datasource.yml", res)
-
-                # Prometheus config
-                path = self.resources.joinpath(
-                    "prometheus/prometheus.yml"
-                )
-                res = path.read_text()
-                output("prometheus/prometheus.yml", res)
-
-            logger.info("Generation complete.")
-
-            return web.Response(
-                body=mem.getvalue(),
-                content_type = "application/octet-stream"
-            )
+            else:
+                return web.HTTPBadRequest()
 
         except Exception as e:
             logging.error(f"Exception: {e}")
             return web.HTTPInternalServerError()
 
+    async def generate_docker_compose(self, platform, version, config):
+
+        processed = self.process(
+            config, platform=platform, version=version
+        )
+
+        y = yaml.dump(processed)
+
+        mem = BytesIO()
+
+        with zipfile.ZipFile(mem, mode='w') as out:
+
+            def output(name, content):
+                logger.info(f"Adding {name}...")
+                out.writestr(name, content)
+
+            fname = "docker-compose.yaml"
+
+            output(fname, y)
+
+            # Grafana config
+            path = self.resources.joinpath(
+                "grafana/dashboards/dashboard.json"
+            )
+            res = path.read_text()
+            output("grafana/dashboards/dashboard.json", res)
+
+            path = self.resources.joinpath(
+                "grafana/provisioning/dashboard.yml"
+            )
+            res = path.read_text()
+            output("grafana/provisioning/dashboard.yml", res)
+
+            path = self.resources.joinpath(
+                "grafana/provisioning/datasource.yml"
+            )
+            res = path.read_text()
+            output("grafana/provisioning/datasource.yml", res)
+
+            # Prometheus config
+            path = self.resources.joinpath(
+                "prometheus/prometheus.yml"
+            )
+            res = path.read_text()
+            output("prometheus/prometheus.yml", res)
+
+        logger.info("Generation complete.")
+
+        return web.Response(
+            body=mem.getvalue(),
+            content_type = "application/octet-stream"
+        )
+
+    async def generate_minikube_k8s(self, platform, version, config):
+
+        processed = self.process(
+            config, platform=platform, version=version
+        )
+
+        y = yaml.dump(processed)
+
+        mem = BytesIO()
+
+        with zipfile.ZipFile(mem, mode='w') as out:
+
+            def output(name, content):
+                logger.info(f"Adding {name}...")
+                out.writestr(name, content)
+
+            fname = "resources.yaml"
+
+            output(fname, y)
+
+        logger.info("Generation complete.")
+
+        return web.Response(
+            body=mem.getvalue(),
+            content_type = "application/octet-stream"
+        )
+
     def run(self):
 
         web.run_app(self.app, port=self.port)
+

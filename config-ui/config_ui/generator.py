@@ -30,7 +30,7 @@ class Generator:
 
     def load(self, dir, filename):
 
-        logger.debug("Request jsonnet: %s %s", dir, filename)
+        logger.info("Request jsonnet: %s %s", dir, filename)
 
         if filename == "config.json" and dir == "":
             path = self.base.joinpath(dir, filename)
@@ -42,8 +42,13 @@ class Generator:
 
         if dir:
             candidates = [
+
                 self.base.joinpath(dir, filename),
-                self.base.joinpath(filename)
+
+                self.base.joinpath(filename),
+
+                # FIXME?!
+                self.base.joinpath("../resources").joinpath(filename)
             ]
         else:
             candidates = [
@@ -57,7 +62,7 @@ class Generator:
                 return candidates[0], private_json.encode("utf-8")
 
             for c in candidates:
-                logger.debug("Try: %s", c)
+                logger.info("Try: %s", c)
 
                 if os.path.isfile(c):
                     with open(c, "rb") as f:
