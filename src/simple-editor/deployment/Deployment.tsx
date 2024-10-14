@@ -20,20 +20,24 @@ const Deployment: React.FC<DeploymentProps> = ({
 
       <>
 
-          <Box>
-              <DeploymentPlatform/>
-          </Box>
+          <Box className="deployment">
 
-          <Box>
-              <DeploymentModel/>
-          </Box>
+              <Box>
+                  <DeploymentPlatform/>
+              </Box>
 
-          <Box>
-              <DeploymentConfig/>
-          </Box>
+              <Box>
+                  <DeploymentModel/>
+              </Box>
 
-          <Box>
-              <DeploymentInstructions/>
+              <Box>
+                  <DeploymentConfig/>
+              </Box>
+
+              <Box>
+                  <DeploymentInstructions/>
+              </Box>
+
           </Box>
 
       </>

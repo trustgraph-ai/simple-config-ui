@@ -4,7 +4,7 @@ import React from 'react';
 import { Stack, Box, Typography, Paper, } from '@mui/material';
 
 const DeploymentEnvVars = ({variables}) => {
-console.log(variables);
+
     return (
         <pre>
             {

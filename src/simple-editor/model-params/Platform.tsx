@@ -202,7 +202,7 @@ const Platform: React.FC<PlatformProps> = ({
                         </Box>
                     </Stack>
                 </MenuItem>
-
+{/*
                 <MenuItem value="pulumi-aws-ecs">
                     <Stack
                         direction="row" spacing={2}
@@ -243,7 +243,7 @@ const Platform: React.FC<PlatformProps> = ({
                         </Box>
                     </Stack>
                 </MenuItem>
-
+*/}
             </Select>
         </FormControl>
 
