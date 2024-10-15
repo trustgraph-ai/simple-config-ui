@@ -104,8 +104,11 @@ export const generateConfig =
 
       const cnf = JSON.stringify(config, null, 4)
 
+      const platform = params.platform;
+      const version = params.trustgraphVersion;
+
       return fetch(
-          "/api/generate", {
+          "/api/generate/" + platform + "/" + version, {
               body: cnf,
               method: "POST",
               headers: {
