@@ -8,9 +8,6 @@ import {
 
 import { useModelParamsStore } from '../state/ModelParams';
 
-import DeploymentEnvVars from './DeploymentEnvVars';
-import DeploymentCode from './DeploymentCode';
-import DeploymentStep from './DeploymentStep';
 import DeploymentModelCompose from './DeploymentModelCompose';
 import DeploymentModelKube from './DeploymentModelKube';
 

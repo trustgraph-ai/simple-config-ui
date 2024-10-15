@@ -1,7 +1,16 @@
 
-import { Stack, Box, Typography, Paper, } from '@mui/material';
+import React from 'react'
+import { Typography, Box, Paper, Stack } from '@mui/material';
 
-const DeploymentSection = ({avatar, title, children}) => {
+interface DeploymentSectionProps extends React.PropsWithChildren {
+    avatar : React.ReactNode;
+    title : string;
+    children : React.ReactNode;
+};
+
+const DeploymentSection : React.FC<DeploymentSectionProps> = ({
+    avatar, title, children
+}) => {
     return (
         <Box>
             <Paper

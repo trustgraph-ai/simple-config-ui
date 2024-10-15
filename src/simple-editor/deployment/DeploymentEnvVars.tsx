@@ -1,9 +1,15 @@
 
-import React from 'react';
+import React from 'react'
 
-import { Stack, Box, Typography, Paper, } from '@mui/material';
+interface DeploymentEnvVarsProps {
+    variables : {
+        name : string;
+        value : string;
+    }[];
+};
 
-const DeploymentEnvVars = ({variables}) => {
+const DeploymentEnvVars : React.FC<DeploymentEnvVarsProps> =
+({variables}) => {
 
     return (
         <pre>

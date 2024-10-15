@@ -2,7 +2,7 @@
 import React from 'react';
 
 import {
-    Typography, Box, Paper, Stack, Alert
+    Alert
 } from '@mui/material';
 import { Hub } from '@mui/icons-material';
 
@@ -59,7 +59,9 @@ const getSteps = (model : string) => {
         </>;
     } else if (model == "pulumi-aws-ecs") {
         return <>
-            <Alert severity="error">This is not properly implemented or documented.</Alert>
+            <Alert severity="error">
+                This is not properly implemented or documented.
+            </Alert>
         </>;
     } else {
         return <> </>;

@@ -1,7 +1,13 @@
 
-import { Stack, Box, Typography, Paper, } from '@mui/material';
+import React from 'react'
 
-const DeploymentStep = ({children}) => {
+import { Typography } from '@mui/material';
+
+interface DeploymentStepProps extends React.PropsWithChildren {
+    children : React.ReactNode;
+};
+
+const DeploymentStep : React.FC<DeploymentStepProps> = ({children}) => {
     return (
         <Typography variant="body2">
             {children}

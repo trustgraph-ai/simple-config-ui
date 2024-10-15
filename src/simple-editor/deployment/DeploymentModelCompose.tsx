@@ -1,10 +1,7 @@
 
 import React from 'react';
 
-import { Psychology } from '@mui/icons-material';
-import {
-    Typography, Paper, Box, Stack,
-} from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { useModelParamsStore } from '../state/ModelParams';
 

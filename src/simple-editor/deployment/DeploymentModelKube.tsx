@@ -1,12 +1,10 @@
 
 import React from 'react';
 
-import { Psychology } from '@mui/icons-material';
-import { Typography, Paper, Box, Stack, Alert } from '@mui/material';
+import { Typography, Alert } from '@mui/material';
 
 import { useModelParamsStore } from '../state/ModelParams';
 
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
 
