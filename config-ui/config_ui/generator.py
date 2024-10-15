@@ -11,14 +11,19 @@ logger.setLevel(logging.INFO)
 class Generator:
 
     def __init__(
-            self, config, base=None, resources=None,
+            self, config, templates=None, resources=None,
             version="0.0.0"
     ):
 
-        if base:
-            self.base = base
+        if templates:
+            self.templates = templates
         else:
-            self.base = pathlib.Path("templates")
+            self.templates = pathlib.Path("templates")
+
+        if resources:
+            self.resources = resources
+        else:
+            self.resources = pathlib.Path("resources")
 
         self.config = config
         self.version = f"\"{version}\"".encode("utf-8")
@@ -30,29 +35,26 @@ class Generator:
 
     def load(self, dir, filename):
 
-        logger.info("Request jsonnet: %s %s", dir, filename)
+        logger.debug("Request jsonnet: %s %s", dir, filename)
 
         if filename == "config.json" and dir == "":
-            path = self.base.joinpath(dir, filename)
+            path = self.templates.joinpath(dir, filename)
             return str(path), self.config
         
         if filename == "version.jsonnet":
-            path = self.base.joinpath(dir, filename)
+            path = self.templates.joinpath(dir, filename)
             return str(path), self.version
 
         if dir:
             candidates = [
-
-                self.base.joinpath(dir, filename),
-
-                self.base.joinpath(filename),
-
-                # FIXME?!
-                self.base.joinpath("../resources").joinpath(filename)
+                self.templates.joinpath(dir, filename),
+                self.templates.joinpath(filename),
+                self.resources.joinpath(dir, filename),
+                self.resources.joinpath(filename),
             ]
         else:
             candidates = [
-                self.base.joinpath(filename)
+                self.templates.joinpath(filename)
             ]
 
         try:
@@ -62,7 +64,7 @@ class Generator:
                 return candidates[0], private_json.encode("utf-8")
 
             for c in candidates:
-                logger.info("Try: %s", c)
+                logger.debug("Try: %s", c)
 
                 if os.path.isfile(c):
                     with open(c, "rb") as f:
@@ -75,7 +77,7 @@ class Generator:
                 
         except:
 
-            path = os.path.join(self.base, filename)
+            path = os.path.join(self.templates, filename)
             logger.debug("Try: %s", path)
             with open(path, "rb") as f:
                 logger.debug("Loaded: %s", path)

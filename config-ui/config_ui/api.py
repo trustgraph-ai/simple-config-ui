@@ -87,12 +87,15 @@ class Api:
             raise web.HTTPInternalServerError()
 
     def process(
-            self, config, version="0.12.5", platform="docker-compose",
+            self, config, version="0.0.0", platform="docker-compose",
     ):
 
         config = config.encode("utf-8")
 
-        gen = Generator(config, base=self.templates, version=version)
+        gen = Generator(
+            config, templates=self.templates, resources=self.resources,
+            version=version
+        )
 
         path = self.templates.joinpath(
             f"config-to-{platform}.jsonnet"
@@ -115,7 +118,7 @@ class Api:
         try:
             version = request.match_info["version"]
         except:
-            version = "0.11.20"
+            version = "0.0.0"
 
         logger.info(f"Generating for platform={platform} version={version}")
 
@@ -130,17 +133,18 @@ class Api:
                 config = json.dumps(dec)
             except:
                 # Incorrectly formatted stuff is not our problem,
+                logger.info(f"Bad JSON")
                 return web.HTTPBadRequest()
 
             logger.info(f"Config: {config}")
 
 
-            if platform == "docker-compose":
+            if platform in set(["docker-compose", "podman-compose"]):
                 return await self.generate_docker_compose(
-                    platform, version, config
+                    "docker-compose", version, config
                 )
-            elif platform == "minikube-k8s":
-                return await self.generate_minikube_k8s(
+            elif platform in set(["minikube-k8s", "gcp-k8s"]):
+                return await self.generate_k8s(
                     platform, version, config
                 )
             else:
@@ -203,7 +207,7 @@ class Api:
             content_type = "application/octet-stream"
         )
 
-    async def generate_minikube_k8s(self, platform, version, config):
+    async def generate_k8s(self, platform, version, config):
 
         processed = self.process(
             config, platform=platform, version=version
