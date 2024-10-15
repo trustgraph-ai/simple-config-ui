@@ -84,7 +84,7 @@ class Api:
             raise web.HTTPInternalServerError()
 
     def process(
-            self, config, version="0.11.20", platform="docker-compose",
+            self, config, version="0.12.5", platform="docker-compose",
     ):
 
         config = config.encode("utf-8")
