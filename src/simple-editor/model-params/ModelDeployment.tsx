@@ -29,34 +29,62 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
                 sx={{minHeight: 120}}
             >
 
-                <MenuItem value="claude">
+                <MenuItem value="azure">
                     <Stack
                         direction="row" spacing={2}
                         divider={
-                            <Divider orientation="vertical" flexItem />
-                        }
-                        alignItems="stretch"
-                    >
-                        <Stack sx={{width: 100}} direction="column"
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
                             alignItems="center" justifyContent="center"
                         >
-                            Anthropic
+                            Azure
                         </Stack>
-
                         <Box sx={{
                             width: '36rem'
                         }}>
-                            <Typography variant="body2"
-                                sx={{ whiteSpace: 'wrap' }}
-                            >
 
-                                Anthropic Claude is a family of AI models and
-                                chatbots that can perform a variety of tasks.
-                                Claude is trained to be helpful, honest, and
-                                harmless. It's designed to be trustworthy and
-                                reliable, and is resistant to jailbreaks.
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+                            
+                            Azure Endpoint Services is a collection of
+                            artificial intelligence (AI) services and tools
+                            from Microsoft Azure that helps developers and
+                            data scientists build, deploy, and manage AI
+                            applications.
 
-                            </Typography>
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="azure-openai">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{ width: 100, textAlign: "center" }}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            Azure<br/>OpenAI
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+                            
+                            Uses the OpenAI endpoint service which is
+                            available on Azure.
+
+                        </Typography>
                         </Box>
                     </Stack>
                 </MenuItem>
@@ -95,33 +123,34 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
                     </Stack>
                 </MenuItem>
 
-                <MenuItem value="azure">
+                <MenuItem value="claude">
                     <Stack
                         direction="row" spacing={2}
                         divider={
-                            <Divider orientation="vertical"
-                            flexItem
-                        />}>
-                        <Stack sx={{width: 100}} direction="row"
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Stack sx={{width: 100}} direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            Azure
+                            Claude
                         </Stack>
+
                         <Box sx={{
                             width: '36rem'
                         }}>
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
 
-                        <Typography variant="body2"
-                            sx={{ whiteSpace: 'wrap' }}
-                        >
-                            
-                            Azure Endpoint Services is a collection of
-                            artificial intelligence (AI) services and tools
-                            from Microsoft Azure that helps developers and
-                            data scientists build, deploy, and manage AI
-                            applications.
+                                Anthropic Claude is a family of AI models and
+                                chatbots that can perform a variety of tasks.
+                                Claude is trained to be helpful, honest, and
+                                harmless. It's designed to be trustworthy and
+                                reliable, and is resistant to jailbreaks.
 
-                        </Typography>
+                            </Typography>
                         </Box>
                     </Stack>
                 </MenuItem>
@@ -152,6 +181,34 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
                             security, privacy, and customization with
                             on-premises and private cloud deployment options.
 
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="googleaistudio">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100, textAlign: "center"}}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            Google<br/>AI Studio
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+                            Google AI Studio is an integrated development
+                            environment that allows developers to prototype
+                            and experiment with generative AI models.
                         </Typography>
                         </Box>
                     </Stack>
