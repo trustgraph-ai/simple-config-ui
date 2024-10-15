@@ -1,4 +1,6 @@
 
+const TRUSTGRAPH_VERSION = "0.13.0";
+
 import { create } from 'zustand'
 
 export interface ModelParams {
@@ -13,6 +15,7 @@ export interface ModelParams {
     temperature : number;
     maxOutputTokens : number;
     platform : string;
+    trustgraphVersion : string;
 
     setGraphStore : (v : string) => void;
     setVectorDB : (v : string) => void;
@@ -40,6 +43,7 @@ export const useModelParamsStore = create<ModelParams>()(
         temperature: 0.3,
         maxOutputTokens: 1000,
         platform: "docker-compose",
+        trustgraphVersion: TRUSTGRAPH_VERSION,
 
         setGraphStore: (v) => set(() => ({
 	    graphStore: v,
