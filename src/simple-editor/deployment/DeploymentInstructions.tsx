@@ -12,6 +12,8 @@ import DeploymentStep from './DeploymentStep';
 
 const DeploymentInstructionsCompose = () => {
 
+    const platform = useModelParamsStore((state) => state.platform);
+
     return (
 
         <>
@@ -33,8 +35,12 @@ const DeploymentInstructionsCompose = () => {
 
                         When you download the deploy configuration, you will
                         have a ZIP file containing all the configuration
-                        needed to launch TrustGraph in Docker Compose or
-                        Podman Compose.
+                        needed to launch TrustGraph in
+                        {
+                            platform == "podman-compose" ? 
+                            " Podman Compose" :
+                            " Docker Compose"
+                        }.
                         Unzip the ZIP file...
 
                     </DeploymentStep>
@@ -50,7 +56,7 @@ const DeploymentInstructionsCompose = () => {
                     </DeploymentStep>
 
                     <DeploymentCode>
-                        docker compose -f docker-compose.yaml up -d
+                        {platform == "podman-compose" ? "podman compose" : "docker compose" } -f docker-compose.yaml up -d
                     </DeploymentCode>
 
                     <DeploymentStep>
