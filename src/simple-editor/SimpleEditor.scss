@@ -1,33 +1,30 @@
 
 #deployment-config-text {
-    width: 40rem;
+    width: 90vh;
     font-family: monospace;
     font-size: small;
 }
 
-.layout {
-    display: flex;
-
-    & > * {
-        margin: 1rem;
-    }
-
-}
-
 .editor {
     width: 90vw;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
 }
 
-.params {
-    width: 24rem;
+.parameters {
+    max-width: 50rem;
 }
 
 .deployment {
-    width: 35rem;
 }
 
 .variable {
     color: #507080;
 }
 
+pre {
+    background-color: #f9fcff;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+}

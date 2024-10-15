@@ -1,7 +1,8 @@
 
 import { create } from 'zustand'
 
-interface ModelParams {
+export interface ModelParams {
+
     graphStore : string;
     vectorDB : string;
     chunkerType: string;
@@ -11,8 +12,6 @@ interface ModelParams {
     modelName : string;
     temperature : number;
     maxOutputTokens : number;
-    deploymentConfig : string;
-    configUrl : string;
 
     setGraphStore : (v : string) => void;
     setVectorDB : (v : string) => void;
@@ -23,8 +22,6 @@ interface ModelParams {
     setModelName : (v : string) => void;
     setTemperature : (v : number) => void;
     setMaxOutputTokens : (v : number) => void;
-    setDeploymentConfig : (v : string) => void;
-    setConfigUrl : (v : string) => void;
 
 }
 
@@ -40,69 +37,41 @@ export const useModelParamsStore = create<ModelParams>()(
         modelName: "gemma2:9b",
         temperature: 0.3,
         maxOutputTokens: 1000,
-        deploymentConfig: "",
-        configUrl: "",
 
         setGraphStore: (v) => set(() => ({
 	    graphStore: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setVectorDB: (v) => set(() => ({
 	    vectorDB: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setChunkerType: (v) => set(() => ({
 	    chunkerType: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setChunkSize: (v) => set(() => ({
 	    chunkSize: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setChunkOverlap: (v) => set(() => ({
 	    chunkOverlap: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setModelDeployment: (v) => set(() => ({
 	    modelDeployment: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setModelName: (v) => set(() => ({
 	    modelName: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setTemperature: (v) => set(() => ({
 	    temperature: v,
-	    configUrl: "",
-	    deploymentConfig: "",
 	})),
 
         setMaxOutputTokens: (v) => set(() => ({
 	    maxOutputTokens: v,
-	    configUrl: "",
-	    deploymentConfig: "",
-	})),
-
-        setDeploymentConfig: (v) => set(() => ({
-	    deploymentConfig: v
-	})),
-
-        setConfigUrl: (v) => set(() => ({
-	    configUrl: v
 	})),
 
     })

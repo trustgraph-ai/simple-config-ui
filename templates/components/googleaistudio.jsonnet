@@ -5,8 +5,9 @@ local prompts = import "prompts/mixtral.jsonnet";
 
 {
 
-    "ollama-model":: "gemma2:9b",
-    "ollama-url":: "${OLLAMA_HOST}",
+    "googleaistudio-key":: "${GOOGLEAISTUDIO_KEY}",
+    "googleaistudio-max-output-tokens":: 4096,
+    "googleaistudio-temperature":: 0.0,
 
     "text-completion" +: {
     
@@ -16,13 +17,15 @@ local prompts = import "prompts/mixtral.jsonnet";
                 engine.container("text-completion")
                     .with_image(images.trustgraph)
                     .with_command([
-                        "text-completion-ollama",
+                        "text-completion-googleaistudio",
                         "-p",
                         url.pulsar,
-                        "-m",
-                        $["ollama-model"],
-                        "-r",
-                        $["ollama-url"],
+                        "-k",
+                        $["googleaistudio-key"],
+                        "-x",
+                        std.toString($["googleaistudio-max-output-tokens"]),
+                        "-t",
+                        std.toString($["googleaistudio-temperature"]),
                     ])
                     .with_limits("0.5", "128M")
                     .with_reservations("0.1", "128M");
@@ -33,7 +36,7 @@ local prompts = import "prompts/mixtral.jsonnet";
 
             local service =
                 engine.internalService(containerSet)
-                .with_port(8080, 8080, "metrics");
+                .with_port(8000, 8000, "metrics");
 
             engine.resources([
                 containerSet,
@@ -50,13 +53,15 @@ local prompts = import "prompts/mixtral.jsonnet";
                 engine.container("text-completion-rag")
                     .with_image(images.trustgraph)
                     .with_command([
-                        "text-completion-ollama",
+                        "text-completion-googleaistudio",
                         "-p",
                         url.pulsar,
-                        "-m",
-                        $["ollama-model"],
-                        "-r",
-                        $["ollama-url"],
+                        "-k",
+                        $["googleaistudio-key"],
+                        "-x",
+                        std.toString($["googleaistudio-max-output-tokens"]),
+                        "-t",
+                        std.toString($["googleaistudio-temperature"]),
                         "-i",
                         "non-persistent://tg/request/text-completion-rag",
                         "-o",
@@ -71,7 +76,7 @@ local prompts = import "prompts/mixtral.jsonnet";
 
             local service =
                 engine.internalService(containerSet)
-                .with_port(8080, 8080, "metrics");
+                .with_port(8000, 8000, "metrics");
 
             engine.resources([
                 containerSet,

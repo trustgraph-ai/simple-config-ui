@@ -5,8 +5,10 @@ local prompts = import "prompts/mixtral.jsonnet";
 
 {
 
-    "ollama-model":: "gemma2:9b",
-    "ollama-url":: "${OLLAMA_HOST}",
+    "azure-openai-token":: "${AZURE_OPENAI_TOKEN}",
+    "azure-openai-model":: "GPT-3.5-Turbo",
+    "azure-openai-max-output-tokens":: 4192,
+    "azure-openai-temperature":: 0.0,
 
     "text-completion" +: {
     
@@ -16,13 +18,17 @@ local prompts = import "prompts/mixtral.jsonnet";
                 engine.container("text-completion")
                     .with_image(images.trustgraph)
                     .with_command([
-                        "text-completion-ollama",
+                        "text-completion-azure-openai",
                         "-p",
                         url.pulsar,
+                        "-k",
+                        $["azure-openai-token"],
                         "-m",
-                        $["ollama-model"],
-                        "-r",
-                        $["ollama-url"],
+                        $["azure-openai-model"],
+                        "-x",
+                        std.toString($["azure-openai-max-output-tokens"]),
+                        "-t",
+                        std.toString($["azure-openai-temperature"]),
                     ])
                     .with_limits("0.5", "128M")
                     .with_reservations("0.1", "128M");
@@ -33,7 +39,7 @@ local prompts = import "prompts/mixtral.jsonnet";
 
             local service =
                 engine.internalService(containerSet)
-                .with_port(8080, 8080, "metrics");
+                .with_port(8000, 8000, "metrics");
 
             engine.resources([
                 containerSet,
@@ -50,13 +56,17 @@ local prompts = import "prompts/mixtral.jsonnet";
                 engine.container("text-completion-rag")
                     .with_image(images.trustgraph)
                     .with_command([
-                        "text-completion-ollama",
+                        "text-completion-azure",
                         "-p",
                         url.pulsar,
-                        "-m",
-                        $["ollama-model"],
-                        "-r",
-                        $["ollama-url"],
+                        "-k",
+                        $["azure-openai-token"],
+                        "-e",
+                        $["azure-openai-model"],
+                        "-x",
+                        std.toString($["azure-openai-max-output-tokens"]),
+                        "-t",
+                        std.toString($["azure-openai-temperature"]),
                         "-i",
                         "non-persistent://tg/request/text-completion-rag",
                         "-o",
@@ -71,7 +81,7 @@ local prompts = import "prompts/mixtral.jsonnet";
 
             local service =
                 engine.internalService(containerSet)
-                .with_port(8080, 8080, "metrics");
+                .with_port(8000, 8000, "metrics");
 
             engine.resources([
                 containerSet,
