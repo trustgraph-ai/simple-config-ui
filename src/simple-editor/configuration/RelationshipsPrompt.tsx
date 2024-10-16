@@ -32,10 +32,12 @@ const RelationshipsPrompt = ({
             </Typography>
 
             <pre>
-                "subject": string,<br/>
-                "predicate": string,<br/>
-                "object": string,<br/>
-                "entity-object": boolean
+                { '{\n' }
+                { '  "subject": string,\n' }
+                { '  "predicate": string,\n' }
+                { '  "object": string,\n' }
+                { '  "entity-object": boolean\n' }
+                { '}' }
             </pre>
 
         </Box>
