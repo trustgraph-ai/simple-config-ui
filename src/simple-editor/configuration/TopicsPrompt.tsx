@@ -32,8 +32,10 @@ const TopicsPrompt = ({
             </Typography>
 
             <pre>
-                "topic": string,<br/>
-                "definition": string
+                { '{\n'}
+                { '   "topic": string,\n' }
+                { '   "definition": string\n' }
+                { '}'}
             </pre>
 
         </Box>

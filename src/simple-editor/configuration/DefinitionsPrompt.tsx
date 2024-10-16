@@ -31,9 +31,12 @@ const DefinitionsPrompt = ({
             </Typography>
 
             <pre>
-                "entity": string,<br/>
-                "definitions": string
+                { '{\n' }
+                { '    "entity": string,\n' }
+                { '    "definitions": string\n' }
+                { '}' }
             </pre>
+
 
         </Box>
 
