@@ -98,5 +98,7 @@
     "llamafile": [
     ],
     "azure": [
+    ],
+    "azure-openai": [
     ]
 }

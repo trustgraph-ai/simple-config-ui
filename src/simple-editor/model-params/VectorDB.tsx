@@ -15,7 +15,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Vector DB</InputLabel>
+            <InputLabel id="graph-store-label">VectorDB</InputLabel>
 
             <Select
                 labelId="vector-db-label"

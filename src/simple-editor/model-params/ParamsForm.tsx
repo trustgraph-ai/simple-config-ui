@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
 import Chunker from './Chunker';
+import Platform from './Platform';
 import ModelDeployment from './ModelDeployment';
 import ModelParameters from './ModelParameters';
 
@@ -52,6 +53,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const temperature
         = useModelParamsStore((state) => state.temperature);
 
+    const platform
+        = useModelParamsStore((state) => state.platform);
+
     const maxOutputTokens
         = useModelParamsStore((state) => state.maxOutputTokens);
 
@@ -82,6 +86,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const setMaxOutputTokens
         = useModelParamsStore((state) => state.setMaxOutputTokens);
 
+    const setPlatform
+        = useModelParamsStore((state) => state.setPlatform);
+
     useModelParamsStore.subscribe(
         (n, o) => {
 
@@ -102,6 +109,12 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
         <>
 
             <Box className="parameters">
+
+                <Box my={4}>
+                  <Platform
+                      value={platform} onChange={setPlatform}
+                  />
+                </Box>
 
                 <Box my={4}>
                   <ModelDeployment
