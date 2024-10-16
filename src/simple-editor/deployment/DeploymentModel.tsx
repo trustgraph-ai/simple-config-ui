@@ -44,7 +44,7 @@ const DeploymentModel: React.FC<DeploymentModelProps> = ({
                             sx={{mt: 2, mb: 2}}
                         >
                             <Psychology color="primary" fontSize="large"/>
-                            <Box>Model credentials</Box>
+                            <Box>Model Credentials</Box>
                         </Stack>
                     </Typography>
                     <Platform/>
