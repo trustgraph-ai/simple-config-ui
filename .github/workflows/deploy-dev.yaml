@@ -19,8 +19,11 @@ jobs:
 
   deploy:
 
+    # This doesn't work on tag pushes, so at the moment, all tags deploy
+    # to dev
+
     # Only fires on the dev branch
-    if: github.ref == 'refs/heads/dev'
+#     if: github.ref == 'refs/heads/dev'
 
     name: Deploy to dev
     runs-on: ubuntu-latest
