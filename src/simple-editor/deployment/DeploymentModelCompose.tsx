@@ -89,6 +89,22 @@ const getInstructions = (model : string) => {
             />
 
         </>;
+    } else if (model == "googleaistudio") {
+        return <>
+            <Typography variant="body2">To use Google AI Studio APIs, you need an API token which must
+            be provided in an environment variable.</Typography>
+
+
+            <DeploymentEnvVars
+                variables={[
+                    {
+                        name: "GOOGLEAISTUDIO_KEY",
+                        value: "TOKEN-GOES-HERE"
+                    }
+                ]}
+            />
+
+        </>;
     } else if (model == "llamafile") {
         return <>
             <Typography variant="body2">To use Llamafile, you must have a Llamafile services running
