@@ -75,9 +75,10 @@ const getInstructions = (model : string) => {
         </>;
     } else if (model == "cohere") {
         return <>
-            <Typography variant="body2">To use Cohere APIs, you need an API token which must
-            be provided in an environment variable.</Typography>
-
+            <Typography variant="body2">
+                To use Cohere APIs, you need an API token which must
+                be provided in an environment variable.
+            </Typography>
 
             <DeploymentEnvVars
                 variables={[
@@ -91,9 +92,10 @@ const getInstructions = (model : string) => {
         </>;
     } else if (model == "googleaistudio") {
         return <>
-            <Typography variant="body2">To use Google AI Studio APIs, you need an API token which must
-            be provided in an environment variable.</Typography>
-
+            <Typography variant="body2">
+                To use Google AI Studio APIs, you need an API token which
+                must be provided in an environment variable.
+            </Typography>
 
             <DeploymentEnvVars
                 variables={[
@@ -107,10 +109,11 @@ const getInstructions = (model : string) => {
         </>;
     } else if (model == "llamafile") {
         return <>
-            <Typography variant="body2">To use Llamafile, you must have a Llamafile services running
-            on an accessible host.  The Llamafile host must be provided
-            in an environment variable.</Typography>
-
+            <Typography variant="body2">
+                To use Llamafile, you must have a Llamafile services running
+                on an accessible host.  The Llamafile host must be provided
+                in an environment variable.
+            </Typography>
 
             <DeploymentEnvVars
                 variables={[
@@ -151,8 +154,11 @@ const getInstructions = (model : string) => {
         </>;
     } else if (model == "openai") {
         return <>
-            <Typography variant="body2">To use OpenAI APIs, you need an API token which must
-            be provided in an environment variable.</Typography>
+
+            <Typography variant="body2">
+                To use OpenAI APIs, you need an API
+                token which must be provided in an environment variable.
+            </Typography>
 
             <DeploymentEnvVars
                 variables={[
@@ -193,17 +199,14 @@ const getInstructions = (model : string) => {
 const DeploymentModel: React.FC<{}> = ({
 }) => {
 
-    const modelDeployment = useModelParamsStore((state) => state.modelDeployment);
+    const modelDeployment = useModelParamsStore(
+        (state) => state.modelDeployment
+    );
 
     const instructions = getInstructions(modelDeployment);
 
-    return (
+    return instructions;
 
-        <>
-            {instructions}
-        </>
-
-    );
 };
 
 export default DeploymentModel;
