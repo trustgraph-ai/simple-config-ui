@@ -177,7 +177,16 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="defs">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Definitions prompt
+                  Definitions Prompt
+
+                  The chunked text from the ingested documents is placed 
+                  in the prompt as the variable "text".
+
+                  Note: The LLM response from this prompt must have the
+                  following JSON structure to form correct RDF triples:
+
+                  "entity": string,
+                  "definitions": string
                 </Typography>
 
                 <Prompt
@@ -192,7 +201,18 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="rels">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Relationships prompt
+                  Relationships Prompt
+
+                  The chunked text from the ingested documents is placed 
+                  in the prompt as the variable "text".
+
+                  Note: The LLM response from this prompt must have the
+                  following JSON structure to form correct RDF triples:
+
+                  "subject": string,
+                  "predicate": string,
+                  "object": string,
+                  "entity-object": boolean
                 </Typography>
 
                 <Prompt
@@ -209,7 +229,16 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="topics">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Topics prompt
+                  Topics Prompt
+
+                  The chunked text from the ingested documents is placed 
+                  in the prompt as the variable "text".
+
+                  Note: The LLM response from this prompt must have the
+                  following JSON structure to form correct RDF triples:
+
+                  "topic": string,
+                  "definition": string
                 </Typography>
 
                 <Prompt
@@ -226,7 +255,7 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="kgq">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Knowledge graph query prompt
+                  Knowledge Graph Query Prompt
                 </Typography>
 
                 <Prompt
@@ -243,7 +272,7 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="docq">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Document query prompt
+                  Document Query Prompt
                 </Typography>
 
                 <Prompt
@@ -260,7 +289,7 @@ const Configuration: React.FC = () => {
             <CustomTabPanel value={value} tabId="rows">
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                  Rows extraction prompt
+                  Rows Extraction Prompt
                 </Typography>
 
                 <Prompt
@@ -279,7 +308,7 @@ const Configuration: React.FC = () => {
                 <Box className="deployment">
 
                     <Typography variant="h5" component="h2" gutterBottom>
-                      Deployment process
+                      Deployment Process
                     </Typography>
 
                     <Deployment/>

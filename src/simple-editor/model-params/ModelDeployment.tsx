@@ -18,7 +18,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Model deployment</InputLabel>
+            <InputLabel id="graph-store-label">Model Deployment</InputLabel>
 
             <Select
                 labelId="model-deployment-label"
