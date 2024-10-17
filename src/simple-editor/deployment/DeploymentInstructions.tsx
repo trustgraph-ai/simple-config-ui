@@ -41,7 +41,7 @@ const DeploymentInstructionsCompose = () => {
                             " Podman Compose" :
                             " Docker Compose"
                         }.
-                        Unzip the ZIP file...
+                        Unzip the ZIP file:
 
                     </DeploymentStep>
 
@@ -51,7 +51,17 @@ const DeploymentInstructionsCompose = () => {
 
                     <DeploymentStep>
 
-                        and launch...
+                    On MacOS, it may be necessary to specify a destination directory for the TrustGraph package:
+
+                    </DeploymentStep>
+
+                    <DeploymentCode>
+                        unzip deploy.zip -d deploy
+                    </DeploymentCode>
+
+                    <DeploymentStep>
+
+                        Navigate to the <code>docker-compose</code> directory. From this directory, launch TrustGraph with:
 
                     </DeploymentStep>
 

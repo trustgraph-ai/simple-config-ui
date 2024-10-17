@@ -46,8 +46,8 @@ function CustomTabPanel(props: TabPanelProps) {
 const tabs = (opts : Set<string>) => {
 
     let tabs = [
-        <Tab key="model" value="model" label="Model"/>,
-        <Tab key="more" value="more" label="Next ➡"/>
+        <Tab key="model" value="model" label="Component Selection ✅"/>,
+        <Tab key="more" value="more" label="Customization ➡"/>
     ];
 
     if (opts.has(DEFINITIONS_PROMPT))

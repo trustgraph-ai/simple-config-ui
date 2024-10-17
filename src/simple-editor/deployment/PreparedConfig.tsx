@@ -44,7 +44,7 @@ const PreparedConfig = () => {
                     >
                         <Plumbing color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
-                            Deployment configuration
+                            Deployment Configuration
                         </Typography>
                     </Stack>
 

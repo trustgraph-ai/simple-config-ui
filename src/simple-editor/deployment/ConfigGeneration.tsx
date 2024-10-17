@@ -112,17 +112,18 @@ const ConfigGeneration = () => {
                     >
                         <Plumbing color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
-                            <Box>Deployment configuration</Box>
+                            <Box>Generate Your Deployment</Box>
                         </Typography>
                     </Stack>
                     <Typography variant="body2" sx={{mt: 2}}>
-                        When you have selected the configuration parameters
-                        you need, select to generate the configuration
-                        package.  This will make it available to download.
+                        When you have selected the configuration options
+                        and customizations for your use case, click below
+                        to generate the configuration package. Once generated,
+                        the package can be downloaded as a ZIP file.
                     </Typography>
                     { generating ? <Generating/> : '' }
                     <Box sx={{mt: 1}}>
-                        <Button onClick={() => generate()}>Generate</Button>
+                        <Button onClick={() => generate()}>Generate 🚀</Button>
                     </Box>
                 </Paper>
             </Box>
