@@ -46,33 +46,33 @@ function CustomTabPanel(props: TabPanelProps) {
 const tabs = (opts : Set<string>) => {
 
     let tabs = [
-        <Tab key="model" value="model" label="Model"/>,
-        <Tab key="more" value="more" label="Next ➡"/>
+        <Tab key="model" value="model" label="Component Selection ✅"/>,
+        <Tab key="more" value="more" label="Customization ➡"/>
     ];
 
     if (opts.has(DEFINITIONS_PROMPT))
-        tabs.push(<Tab key="defs" value="defs" label="Definitions prompt"/>);
+        tabs.push(<Tab key="defs" value="defs" label="Entity Definitions Prompt"/>);
 
     if (opts.has(RELATIONSHIPS_PROMPT))
-        tabs.push(<Tab key="rels" value="rels" label="Relationships prompt"/>);
+        tabs.push(<Tab key="rels" value="rels" label="Relationships Prompt"/>);
 
     if (opts.has(TOPICS_PROMPT))
-        tabs.push(<Tab key="topics" value="topics" label="Topics prompt"/>);
+        tabs.push(<Tab key="topics" value="topics" label="Topic Definitions Prompt"/>);
 
     if (opts.has(KNOWLEDGE_QUERY_PROMPT))
-        tabs.push(<Tab key="kgq" value="kgq" label="Knowledge graph prompt"/>);
+        tabs.push(<Tab key="kgq" value="kgq" label="Knowledge Graph Prompt"/>);
 
     if (opts.has(DOCUMENT_QUERY_PROMPT))
         tabs.push(<Tab key="docq" value="docq"
-            label="Document query prompt"
+            label="Document Query Prompt"
         />);
 
     if (opts.has(ROWS_PROMPT))
         tabs.push(<Tab key="rows" value="rows"
-            label="Rows prompt"
+            label="Rows Prompt"
         />);
 
-    tabs.push(<Tab key="depl" value="depl" label="Deployment"/>);
+    tabs.push(<Tab key="depl" value="depl" label="Finish Deployment 🚀"/>);
 
     return tabs;
 

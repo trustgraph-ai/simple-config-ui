@@ -9,8 +9,13 @@ const Parameters = ({
     return (<>
 
         <Typography variant="h5" component="h2" gutterBottom>
-          Model parameters
+          TrustGraph Component Options
         </Typography>
+
+        <Typography variant="body1" component="p" gutterBottom>
+            For each category, select one option from the list of
+            available components.
+            </Typography>
 
         <ParamsForm/>
 

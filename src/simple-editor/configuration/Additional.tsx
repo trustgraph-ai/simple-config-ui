@@ -10,15 +10,14 @@ const Additional = ({
 
         <Box sx={{ mb: 2}}>
         <Typography variant="h5" component="h2" gutterBottom>
-            Additional configuration
+            Optional Customization
         </Typography>
 
         <Typography variant="body2">
-            Listed here are additional configuraton options and
-            add-ons, all optional.  Click on additional
-            configuration options to include in the configuration,
-            further configuration options may appear on separate
-            configuration tabs.
+            Below are modules which can be customized for your specific use
+            case. Select a module to open a tab with module customization
+            instructions. For any module not selected, the TrustGraph deployment
+            will be built with the standard module configuration.
         </Typography>
         </Box>
 
