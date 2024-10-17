@@ -23,7 +23,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   title={title}
                   subheader={
                       <Typography variant="body1">
-                          active
+                          Customization Active ✅
                       </Typography>
                   }
                 />
@@ -35,7 +35,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   title={title}
                   subheader={
                       <Typography variant="body1">
-                          available
+                          Available 🙋
                       </Typography>
                   }
                 />
