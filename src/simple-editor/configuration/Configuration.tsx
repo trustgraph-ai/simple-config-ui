@@ -47,7 +47,7 @@ const tabs = (opts : Set<string>) => {
 
     let tabs = [
         <Tab key="model" value="model" label="Component Selection ✅"/>,
-        <Tab key="more" value="more" label="Customization ➡"/>
+        <Tab key="more" value="more" label="Customization 🧰"/>
     ];
 
     if (opts.has(DEFINITIONS_PROMPT))
@@ -151,7 +151,7 @@ const Configuration: React.FC = () => {
 
         </>
 
-    );
+    );run
 
 }
 
