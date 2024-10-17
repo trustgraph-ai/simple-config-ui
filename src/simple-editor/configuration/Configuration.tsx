@@ -151,7 +151,7 @@ const Configuration: React.FC = () => {
 
         </>
 
-    );run
+    )
 
 }
 
