@@ -44,23 +44,25 @@ const PreparedConfig = () => {
                     >
                         <Plumbing color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
-                            Deployment configuration
+                            Deployment Configuration
                         </Typography>
                     </Stack>
-                    <ul>
-                        <li>Model deployment: {modelDeployment}</li>
-                        <li>Model name: {modelName}</li>
-                        <li>Graph store: {graphStore}</li>
-                        <li>Vector DB: {vectorDB}</li>
-                    </ul>
+
                     <Alert icon={<Check fontSize="inherit"/>}
                         sx={{ mt: 1, mb: 2}}
                         severity="success"
                     >
                         Configuration generation was successful
                     </Alert>
-                    <Button variant="outlined" onClick={() => download()}
-                    >
+
+                    <ul>
+                        <li>Model deployment: {modelDeployment}</li>
+                        <li>Model name: {modelName}</li>
+                        <li>Graph store: {graphStore}</li>
+                        <li>Vector DB: {vectorDB}</li>
+                    </ul>
+
+                    <Button variant="outlined" onClick={() => download()}>
                         Download
                     </Button>
                 </Paper>

@@ -90,9 +90,9 @@ const ParamsForm: React.FC = ({
                     enabled={definitions}
                     onChange={onDefinitions}
                     avatar={<Psychology color="primary"/>}
-                    title="Definitions prompt"
+                    title="Entity Definitions Prompt"
                     content={
-                        'Tailor the default definitions-extraction prompt'
+                        'Specify the types of entities to extract.'
                     }
 
                 />
@@ -101,9 +101,9 @@ const ParamsForm: React.FC = ({
                     enabled={relationships}
                     onChange={onRelationships}
                     avatar={<Psychology color="primary"/>}
-                    title="Relationships prompt"
+                    title="Relationships Prompt"
                     content={
-                        'Tailor the default relationships-extraction prompt'
+                        'Customize the types of semantic relationships to extract.'
                     }
 
                 />
@@ -112,9 +112,9 @@ const ParamsForm: React.FC = ({
                     enabled={topics}
                     onChange={onTopics}
                     avatar={<Psychology color="primary"/>}
-                    title="Topics prompt"
+                    title="Topic Definitions Prompt"
                     content={
-                        'Tailor the default topics-extraction prompt'
+                        'Define the intangible conepts to extract.'
                     }
 
                 />
@@ -123,7 +123,7 @@ const ParamsForm: React.FC = ({
                     enabled={kgQuery}
                     onChange={onKgQuery}
                     avatar={<Psychology color="primary"/>}
-                    title="Knowledge graph prompt"
+                    title="Knowledge Graph Query Prompt"
                     content={
                         'Tailor the default knowledge-graph query prompt'
                     }
@@ -134,7 +134,7 @@ const ParamsForm: React.FC = ({
                     enabled={docQuery}
                     onChange={onDocQuery}
                     avatar={<Psychology color="primary"/>}
-                    title="Document prompt"
+                    title="Document Prompt"
                     content={
                         'Tailor the default document query prompt'
                     }
@@ -145,7 +145,7 @@ const ParamsForm: React.FC = ({
                     enabled={rows}
                     onChange={onRows}
                     avatar={<Psychology color="primary"/>}
-                    title="Row extraction prompt"
+                    title="Row Extraction Prompt"
                     content={
                         'Tailor the default row extraction prompt'
                     }

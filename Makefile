@@ -1,5 +1,5 @@
 
-VERSION=0.3.1
+VERSION=0.4.9
 
 all: service-package container
 
