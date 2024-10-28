@@ -7,8 +7,8 @@ on:
 
     # Deploys on version tag beginning v.  Note there's a branch filter
     # below, locks to the prod branch
-    tags:
-      - v*
+    branches:
+      prod
 
 permissions:
   contents: read
@@ -18,9 +18,6 @@ permissions:
 jobs:
 
   deploy:
-
-    # Only fires on the prod branch
-    if: github.ref == 'refs/heads/dev'
 
     name: Deploy to prod
     runs-on: ubuntu-latest
@@ -32,14 +29,17 @@ jobs:
 
       - name: Get version
         id: version
-        run: echo VERSION=$(git describe --exact-match --tags | sed 's/^v//') >> $GITHUB_OUTPUT
+        run: echo VERSION=sha-$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
 
       - name: Install deps
         run: npm install
 
+      # Python package version MUST be a semantic version, but also doesn't
+      # matter, so just setting to 0.0.0.
+      # The container version MUST change on every push to get Cloud Run
+      # to re-deploy, so is based on git hash.
       - name: Build container
-        run: make VERSION=${{ steps.version.outputs.VERSION }}
-
+        run: make PACKAGE_VERSION=0.0.0 VERSION=${{ steps.version.outputs.VERSION }}
       - id: auth
         name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
