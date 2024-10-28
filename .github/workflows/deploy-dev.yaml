@@ -34,7 +34,10 @@ jobs:
       - name: Install deps
         run: npm install
 
-      # 
+      # Python package version MUST be a semantic version, but also doesn't
+      # matter, so just setting to 0.0.0.
+      # The container version MUST change on every push to get Cloud Run
+      # to re-deploy, so is based on git hash.
       - name: Build container
         run: make PACKAGE_VERSION=0.0.0 VERSION=${{ steps.version.outputs.VERSION }}
       - id: auth
