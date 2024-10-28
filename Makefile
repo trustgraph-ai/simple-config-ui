@@ -1,10 +1,8 @@
 
-VERSION=0.4.9
+PACKAGE_VERSION=0.0.0
+VERSION=0.0.0
 
 all: service-package container
-
-version:
-	@echo VERSION=${VERSION}
 
 ui:
 	npm run build
@@ -27,7 +25,7 @@ service-package: ui template-data resources-data update-package-versions
 	cd config-ui && python3 setup.py sdist --dist-dir ../pkgs/
 
 update-package-versions:
-	echo __version__ = \"${VERSION}\" > config-ui/config_ui/version.py
+	echo __version__ = \"${PACKAGE_VERSION}\" > config-ui/config_ui/version.py
 
 CONTAINER=localhost/config-ui
 DOCKER=podman
