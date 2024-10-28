@@ -7,8 +7,8 @@ on:
 
     # Deploys on version tag beginning v.  Note there's a branch filter
     # below, locks to the dev branch
-    tags:
-      - v*
+    branches:
+      dev
 
 permissions:
   contents: read
@@ -18,12 +18,6 @@ permissions:
 jobs:
 
   deploy:
-
-    # This doesn't work on tag pushes, so at the moment, all tags deploy
-    # to dev
-
-    # Only fires on the dev branch
-#     if: github.ref == 'refs/heads/dev'
 
     name: Deploy to dev
     runs-on: ubuntu-latest
@@ -35,14 +29,14 @@ jobs:
 
       - name: Get version
         id: version
-        run: echo VERSION=$(git describe --exact-match --tags | sed 's/^v//') >> $GITHUB_OUTPUT
+        run: echo VERSION=sha-$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
 
       - name: Install deps
         run: npm install
 
+      # 
       - name: Build container
-        run: make VERSION=${{ steps.version.outputs.VERSION }}
-
+        run: make PACKAGE_VERSION=0.0.0 VERSION=${{ steps.version.outputs.VERSION }}
       - id: auth
         name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
