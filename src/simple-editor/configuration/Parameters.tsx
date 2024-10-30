@@ -13,6 +13,10 @@ const Parameters = ({
         </Typography>
 
         <Typography variant="body1" component="p" gutterBottom>
+            Release Version: 0.13.2
+            </Typography>
+
+        <Typography variant="body1" component="p" gutterBottom>
             For each category, select one option from the list of
             available components.
             </Typography>
