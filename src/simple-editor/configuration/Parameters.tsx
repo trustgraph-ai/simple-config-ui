@@ -13,7 +13,7 @@ const Parameters = ({
         </Typography>
 
         <Typography variant="body1" component="p" gutterBottom>
-            Release Version: 0.13.2
+            <code>{'Release Version: 0.13.2'}</code>
             </Typography>
 
         <Typography variant="body1" component="p" gutterBottom>
