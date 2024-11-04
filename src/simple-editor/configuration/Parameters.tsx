@@ -2,9 +2,13 @@
 import { Typography } from '@mui/material';
 
 import ParamsForm from '../model-params/ParamsForm';
+import { useModelParamsStore } from '../state/ModelParams';
 
 const Parameters = ({
 }) => {
+
+    const version
+        = useModelParamsStore((state) => state.trustgraphVersion);
 
     return (<>
 
@@ -13,8 +17,8 @@ const Parameters = ({
         </Typography>
 
         <Typography variant="body1" component="p" gutterBottom>
-            <code>{'Release Version: 0.13.2'}</code>
-            </Typography>
+            Release version: <code>{version}</code>
+        </Typography>
 
         <Typography variant="body1" component="p" gutterBottom>
             For each category, select one option from the list of
