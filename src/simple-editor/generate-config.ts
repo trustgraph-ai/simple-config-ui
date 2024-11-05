@@ -90,7 +90,7 @@ export const generateConfig =
       }
 
       if (options.options.has(KNOWLEDGE_QUERY_PROMPT)) {
-          promptParams["kq-prompt"] = prompts.knowledgeQuery;
+          promptParams["kg-prompt"] = prompts.knowledgeQuery;
       }
 
       if (options.options.has(DOCUMENT_QUERY_PROMPT)) {
