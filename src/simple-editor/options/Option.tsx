@@ -23,7 +23,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   title={title}
                   subheader={
                       <Typography variant="body1">
-                          Customization Active ✅
+                          Active ✅
                       </Typography>
                   }
                 />
@@ -75,7 +75,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
     }
 
     return (
-        <Card sx={{ width: '16rem' }}>
+        <Card sx={{ width: '17.5rem' }}>
             <CardActionArea onClick={() => onChange()}>
                 <Header
                 />
