@@ -31,7 +31,7 @@ const RelationshipsPrompt = ({
 
             <Typography variant="body1" component="p" gutterBottom>
                 1. The chunked text from the ingested documents can be placed 
-                anywhere in the prompt using the variable <code>{'{text}'}</code>.
+                anywhere in the prompt using the variable <code>{'{{text}}'}</code>.
             </Typography>
 
             <Typography variant="body1" component="p" gutterBottom>
