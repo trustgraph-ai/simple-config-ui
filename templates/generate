@@ -76,6 +76,13 @@ class Generator:
 
 def main():
 
+    if len(sys.argv) != 3:
+        print()
+        print("Usage:")
+        print("  generate <outfile> <version> < input.json")
+        print()
+        raise RuntimeError("Arg error")
+
     outfile = sys.argv[1]
     version = sys.argv[2]
 
