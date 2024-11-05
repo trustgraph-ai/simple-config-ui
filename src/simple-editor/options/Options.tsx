@@ -15,7 +15,7 @@ import {
 import { useDeploymentStore } from '../state/Deployment';
 
 import {
-    useOptionsStore, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
+    useOptionsStore, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
     TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
     ROWS_PROMPT,
 } from '../state/Options';
@@ -36,6 +36,7 @@ const ParamsForm: React.FC = ({
         setConfigUrl("");
     });
 
+    const system = options.has(SYSTEM_PROMPT);
     const definitions = options.has(DEFINITIONS_PROMPT);
     const relationships = options.has(RELATIONSHIPS_PROMPT);
     const topics = options.has(TOPICS_PROMPT);
@@ -54,6 +55,10 @@ const ParamsForm: React.FC = ({
             setOptions(opts);
         }
     }
+
+    const onSystem = () => {
+        set(SYSTEM_PROMPT, !system);
+    };
 
     const onDefinitions = () => {
         set(DEFINITIONS_PROMPT, !definitions);
@@ -87,6 +92,17 @@ const ParamsForm: React.FC = ({
             >
 
                 <Option
+                    enabled={system}
+                    onChange={onSystem}
+                    avatar={<Psychology color="primary"/>}
+                    title="Entity System Prompt"
+                    content={
+                        'Specify the system prompt.'
+                    }
+
+                />
+
+                <Option
                     enabled={definitions}
                     onChange={onDefinitions}
                     avatar={<Psychology color="primary"/>}
@@ -112,9 +128,9 @@ const ParamsForm: React.FC = ({
                     enabled={topics}
                     onChange={onTopics}
                     avatar={<Psychology color="primary"/>}
-                    title="Topic Definitions Prompt"
+                    title="Topic Prompt"
                     content={
-                        'Define the intangible conepts to extract.'
+                        'Define the intangible concepts to extract.'
                     }
 
                 />
@@ -123,7 +139,7 @@ const ParamsForm: React.FC = ({
                     enabled={kgQuery}
                     onChange={onKgQuery}
                     avatar={<Psychology color="primary"/>}
-                    title="Knowledge Graph Query Prompt"
+                    title="Knowledge Graph Prompt"
                     content={
                         'Tailor the default knowledge-graph query prompt'
                     }

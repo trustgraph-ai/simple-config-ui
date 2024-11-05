@@ -5,6 +5,7 @@ import * as prompts from '../prompts';
 
 export interface Prompts {
 
+    system : string;
     definitions : string;
     relationships : string;
     topics : string;
@@ -12,6 +13,7 @@ export interface Prompts {
     documentQuery : string;
     rows : string;
 
+    setSystem : (v : string) => void;
     setDefinitions : (v : string) => void;
     setRelationships : (v : string) => void;
     setTopics : (v : string) => void;
@@ -25,12 +27,17 @@ export const usePromptsStore = create<Prompts>()(
 
     (set) => ({
 
+        system: prompts.default_system_prompt,
         definitions: prompts.default_definition_prompt,
         relationships: prompts.default_relationship_prompt,
         topics: prompts.default_topics_prompt,
         knowledgeQuery: prompts.default_knowledge_query_prompt,
         documentQuery: prompts.default_document_query_prompt,
         rows: prompts.default_rows_prompt,
+
+        setSystem: (v) => set(() => ({
+	    system: v
+	})),
 
         setDefinitions: (v) => set(() => ({
 	    definitions: v

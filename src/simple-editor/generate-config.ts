@@ -2,8 +2,9 @@
 import { ModelParams } from './state/ModelParams';
 import { Prompts } from './state/Prompts';
 import {
-    Options, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT, TOPICS_PROMPT,
-    KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
+    Options, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
+    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
+    ROWS_PROMPT,
 } from './state/Options';
 
 export const generateConfig =
@@ -64,6 +65,7 @@ export const generateConfig =
       }
 
       let parameters : { [k : string] : string | number } = {};
+      let promptParams : { [k : string] : string | number } = {};
 
       parameters["chunk-size"] = params.chunkSize;
       parameters["chunk-overlap"] = params.chunkOverlap;
@@ -71,36 +73,43 @@ export const generateConfig =
       parameters[depl + "-max-output-tokens"] = params.maxOutputTokens;
       parameters[depl + "-model"] =  params.modelName;
 
+      if (options.options.has(SYSTEM_PROMPT)) {
+          promptParams["system-template"] = prompts.system;
+      }
+
       if (options.options.has(DEFINITIONS_PROMPT)) {
-          parameters["prompt-definition-template"] = prompts.definitions;
+          promptParams["extract-definitions"] = prompts.definitions;
       }
 
       if (options.options.has(RELATIONSHIPS_PROMPT)) {
-          parameters["prompt-relationship-template"] = prompts.relationships;;
+          promptParams["extract-relationships"] = prompts.relationships;;
       }
 
       if (options.options.has(TOPICS_PROMPT)) {
-          parameters["prompt-topic-template"] = prompts.topics;
+          promptParams["extract-topics"] = prompts.topics;
       }
 
       if (options.options.has(KNOWLEDGE_QUERY_PROMPT)) {
-          parameters["prompt-knowledge-query-template"] = prompts.knowledgeQuery;
+          promptParams["kq-prompt"] = prompts.knowledgeQuery;
       }
 
       if (options.options.has(DOCUMENT_QUERY_PROMPT)) {
-          parameters["prompt-document-query-template"] = prompts.documentQuery;
+          promptParams["document-prompt"] = prompts.documentQuery;
       }
 
       if (options.options.has(ROWS_PROMPT)) {
-          parameters["prompt-rows-template"] = prompts.rows;
+          promptParams["extract-rows"] = prompts.rows;
       }
 
-      if (params.chunkerType == "chunker-recursive") {
-          config.push({
-              "name": "null",
-              "parameters": parameters,
-          });
-      }
+      config.push({
+          "name": "null",
+          "parameters": parameters,
+      });
+
+      config.push({
+          "name": "prompt-overrides",
+          "parameters": promptParams,
+      });
 
       const cnf = JSON.stringify(config, null, 4)
 
@@ -117,3 +126,4 @@ export const generateConfig =
       );
 
 };
+
