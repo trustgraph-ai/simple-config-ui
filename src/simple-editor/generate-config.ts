@@ -2,8 +2,9 @@
 import { ModelParams } from './state/ModelParams';
 import { Prompts } from './state/Prompts';
 import {
-    Options, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT, TOPICS_PROMPT,
-    KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
+    Options, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
+    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
+    ROWS_PROMPT,
 } from './state/Options';
 
 export const generateConfig =
@@ -71,6 +72,10 @@ export const generateConfig =
       parameters[depl + "-temperature"] = params.temperature;
       parameters[depl + "-max-output-tokens"] = params.maxOutputTokens;
       parameters[depl + "-model"] =  params.modelName;
+
+      if (options.options.has(SYSTEM_PROMPT)) {
+          promptParams["system-template"] = prompts.system;
+      }
 
       if (options.options.has(DEFINITIONS_PROMPT)) {
           promptParams["extract-definitions"] = prompts.definitions;
