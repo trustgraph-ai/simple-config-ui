@@ -45,7 +45,7 @@ const Platform: React.FC<PlatformProps> = ({
                             direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://calazanblog-assets.s3.amazonaws.com/media/editor-uploads/docker02.png" width="110"/>
+                            <img src="docker.png" width="110"/>
                         </Stack>
 
                         <Box sx={{
@@ -88,7 +88,7 @@ const Platform: React.FC<PlatformProps> = ({
                             direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Podman-logo-orig.png" width="110"/>
+                            <img src="podman.png" width="110"/>
                         </Stack>
 
                         <Box sx={{
@@ -131,7 +131,7 @@ const Platform: React.FC<PlatformProps> = ({
                             alignItems="center" justifyContent="center"
                         >
 
-<img src="https://hashiqube.com/minikube/images/minikube-logo.png" width="110"/>
+                            <img src="minikube.png" width="110"/>
 
                         </Stack>
 
@@ -175,7 +175,7 @@ const Platform: React.FC<PlatformProps> = ({
                             direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://www.logo.wine/a/logo/Google_Cloud_Platform/Google_Cloud_Platform-Logo.wine.svg" width="135"/>
+                            <img src="google-cloud.svg" width="135"/>
                         </Stack>
 
                         <Box sx={{
@@ -219,7 +219,7 @@ const Platform: React.FC<PlatformProps> = ({
                             direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://www.pulumi.com/images/logo/logo-on-white.svg" width="105"/>
+                            <img src="pulumi.svg" width="105"/>
                         </Stack>
 
                         <Box sx={{
