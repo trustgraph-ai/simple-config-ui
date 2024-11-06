@@ -40,7 +40,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             alignItems="center" justifyContent="center"
                         >
 
-                           <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg"
+                           <img src="cassandra.svg"
                                 width="67"
                                 height="45"
                             />
@@ -75,7 +75,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         <Stack sx={{width: 100}} direction="row"
                         alignItems="center" justifyContent="center"
                         >
-                                <img src="https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg" width="80"/>
+                                <img src="neo4j.svg" width="80"/>
                             </Stack>
                         <Box sx={{
                             width: '36rem'

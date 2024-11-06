@@ -46,6 +46,24 @@ class Api:
         except:
             raise web.HTTPNotFound()
 
+    def open_binary(self, path):
+
+        if ".." in path:
+            raise web.HTTPNotFound()
+
+        if len(path) > 0:
+            if path[0] == "/":
+                path = path[1:]
+
+        if path == "": path = "index.html"
+
+        try:
+            p = self.ui.joinpath(path)
+            t = p.read_bytes()
+            return t
+        except:
+            raise web.HTTPNotFound()
+
     async def everything(self, request):
 
         try:
@@ -57,9 +75,9 @@ class Api:
                 )
 
             if request.path.endswith(".png"):
-                t = self.open(request.path)
+                t = self.open_binary(request.path)
                 return web.Response(
-                    text=t, content_type="image/png"
+                    body=t, content_type="image/png"
                 )
 
             if request.path.endswith(".svg"):

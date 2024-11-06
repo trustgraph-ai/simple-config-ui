@@ -37,7 +37,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         <Stack sx={{width: 100}} direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://qdrant.tech/img/logo.png" width="80"/>
+                            <img src="qdrant.png" width="80"/>
                         </Stack>
 
                         <Box sx={{
@@ -67,7 +67,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         <Stack sx={{width: 100}} direction="row"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="https://milvus.io/images/milvus_logo.svg" width="80"/>
+                            <img src="milvus.svg" width="80"/>
                         </Stack>
                         <Box sx={{
                             width: '36rem'
