@@ -133,7 +133,7 @@ const getInstructions = (model : string) => {
             <DeploymentEnvVars
                 variables={[
                     {
-                        name: "GOOGLEAISTUDIO_KEY",
+                        name: "GOOGLE_AI_STUDIO_KEY",
                         value: "TOKEN-GOES-HERE"
                     }
                 ]}
