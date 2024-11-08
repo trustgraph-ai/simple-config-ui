@@ -95,9 +95,9 @@ const ParamsForm: React.FC = ({
                     enabled={system}
                     onChange={onSystem}
                     avatar={<Psychology color="primary"/>}
-                    title="Entity System Prompt"
+                    title="LLM System Prompt"
                     content={
-                        'Specify the system prompt.'
+                        'Specify the system prompt for the chosen LLM.'
                     }
 
                 />
@@ -141,7 +141,7 @@ const ParamsForm: React.FC = ({
                     avatar={<Psychology color="primary"/>}
                     title="Knowledge Graph Prompt"
                     content={
-                        'Tailor the default knowledge-graph query prompt'
+                        'Tailor the default knowledge graph query prompt'
                     }
 
                 />
