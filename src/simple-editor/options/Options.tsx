@@ -1,10 +1,12 @@
 
 
 import { Stack } from '@mui/material';
-import { ChatBubble } from '@mui/icons-material';
+import { Psychology, ChatBubble } from '@mui/icons-material';
 import { useDeploymentStore } from '../state/Deployment';
 
-import { useOptionsStore, CONFIGURE_PROMPTS } from '../state/Options';
+import {
+    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS
+} from '../state/Options';
 
 import Option from './Option';
 
@@ -23,6 +25,7 @@ const ParamsForm: React.FC = ({
     });
 
     const configurePrompts = options.has(CONFIGURE_PROMPTS);
+    const configureAgents = options.has(CONFIGURE_AGENTS);
 
     const set = (o : string, value : boolean) => {
         if (value) {
@@ -40,6 +43,10 @@ const ParamsForm: React.FC = ({
         set(CONFIGURE_PROMPTS, !configurePrompts);
     };
 
+    const onConfigureAgents = () => {
+        set(CONFIGURE_AGENTS, !configureAgents);
+    };
+
     return (
         <>
 
@@ -54,6 +61,17 @@ const ParamsForm: React.FC = ({
                     title="Configure prompts"
                     content={
                         'Tailor the prompts for the chosen LLM.'
+                    }
+
+                />
+
+                <Option
+                    enabled={configureAgents}
+                    onChange={onConfigureAgents}
+                    avatar={<Psychology color="primary"/>}
+                    title="Configure agents"
+                    content={
+                        'Add agent configuration and define the flow.'
                     }
 
                 />
