@@ -1,22 +1,11 @@
 
 import React from 'react';
 
-import { Typography, Box, Stack, Button } from '@mui/material';
-import { TextField } from '@mui/material';
-import { List, ListItemButton, ListItemText } from '@mui/material';
-import { ListItemIcon } from '@mui/material';
-import { ChatBubble, Add, Delete } from '@mui/icons-material';
+import { Typography, Box, Stack } from '@mui/material';
 
-import Prompt from '../options/Prompt';
+import PromptControls from './PromptControls';
+import PromptEditor from './PromptEditor';
 import { usePromptsStore } from '../state/Prompts';
-
-import SystemPromptHelp from './help/SystemPrompt';
-import ExtractDefinitionsPromptHelp from './help/ExtractDefinitionsPrompt';
-import ExtractRelationshipsPromptHelp from './help/ExtractRelationshipsPrompt';
-import ExtractTopicsPromptHelp from './help/ExtractTopicsPrompt';
-import ExtractRowsPromptHelp from './help/ExtractRowsPrompt';
-import KnowledgeQueryPromptHelp from './help/KnowledgeQueryPrompt';
-import DocumentQueryPromptHelp from './help/DocumentQueryPrompt';
 
 const ConfigurePrompts = ({
 }) => {
@@ -26,22 +15,7 @@ const ConfigurePrompts = ({
     const setPrompts
         = usePromptsStore((state) => state.setPrompts);
 
-    const helps : { [key : string] : React.ReactNode } = {
-        "system-template": <SystemPromptHelp/>,
-        "extract-definitions": <ExtractDefinitionsPromptHelp/>,
-        "extract-relationships": <ExtractRelationshipsPromptHelp/>,
-        "extract-topics": <ExtractTopicsPromptHelp/>,
-        "extract-rows": <ExtractRowsPromptHelp/>,
-        "kg-prompt": <KnowledgeQueryPromptHelp/>,
-        "document-prompt": <DocumentQueryPromptHelp/>,
-    };
-
     const [selected, setSelected] = React.useState(prompts[0].id);
-
-    let prompt : any = null;
-    for (let p of prompts) {
-       if (p.id == selected) prompt = p;
-    }
 
     const handleSelect = (
         _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -76,7 +50,7 @@ const ConfigurePrompts = ({
 
     };
 
-    const onChange = (newVal : string) => {
+    const setPrompt = (newVal : string) => {
         const newPrompts = prompts.map(
             p => {
                 if (p.id == selected) {
@@ -140,41 +114,11 @@ const ConfigurePrompts = ({
                     Configure Prompts
                 </Typography>
 
-                <List component="nav" aria-label="prompts">
-
-                    {
-                        prompts.map(
-                           p => {
-                               return (
-                                   <ListItemButton
-                                       key={p.id}
-                                       selected={selected == p.id}
-                                       onClick={(event) =>
-                                           handleSelect(event, p.id)
-                                       }
-                                   >
-                                       <ListItemIcon>
-                                           <ChatBubble/>
-                                       </ListItemIcon>
-                                       <ListItemText primary={p.name}/>
-                                   </ListItemButton>
-                               );
-                           }
-                        )
-                    }
-                </List>
-
-                <Box>
-
-                    <Button
-                        startIcon={<Add/>}
-                        variant="contained"
-                        onClick={ addPrompt }
-                    >
-                        Add prompt
-                    </Button>
-
-                </Box>
+                <PromptControls
+                    selected={selected}
+                    handleSelect={handleSelect}
+                    addPrompt={addPrompt}
+                />
 
             </Box>
 
@@ -182,69 +126,13 @@ const ConfigurePrompts = ({
                 direction="column" spacing={2}
             >
 
-                <Typography
-                    variant="h5" component="h2" gutterBottom
-                >
-                    { prompt.name }
-                </Typography>
-
-                {
-                    (helps[selected]) &&
-                    <Box>
-                        { helps[selected] }
-                    </Box>
-                }
-
-                {
-                    prompt.custom && (
-                        <Box>
-                            <TextField
-                              fullWidth
-                              label="ID"
-                              value={prompt.id}
-                              onChange={
-                                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                                      setId(event.target.value);
-                                  }
-                              }
-                              margin="normal"
-                            />
-                            <TextField
-                              fullWidth
-                              label="Name"
-                              value={prompt.name}
-                              onChange={
-                                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                                      setName(event.target.value);
-                                  }
-                              }
-                              margin="normal"
-                            />
-                        </Box>
-                    )
-                }
-
-                <Box>
-                    <Prompt
-                        value={prompt.prompt}
-                        onChange={onChange}
-                    />
-                </Box>
-
-                <Box>
-
-                    {
-                        prompt.custom && 
-                    <Button
-                        startIcon={<Delete/>}
-                        variant="contained"
-                        onClick={ deletePrompt }
-                    >
-                        Delete this prompt
-                    </Button>
-                    }
-
-                </Box>
+                <PromptEditor
+                    selected={selected}
+                    deletePrompt={deletePrompt}
+                    setPrompt={setPrompt}
+                    setId={setId}
+                    setName={setName}
+                />
 
             </Stack>
             
