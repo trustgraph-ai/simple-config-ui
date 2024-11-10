@@ -4,6 +4,7 @@ import { Typography, Box } from '@mui/material';
 const SystemPromptHelp = ({
 }) => {
 
+console.log("XXXXXXXXX");
     return (<>
 
         <Box sx={{ maxWidth: "45rem" }}>

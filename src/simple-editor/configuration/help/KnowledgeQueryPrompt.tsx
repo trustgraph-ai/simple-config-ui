@@ -1,8 +1,20 @@
 
+import { Typography, Box } from '@mui/material';
+
 const KnowledgeQueryPromptHelp = ({
 }) => {
 
-    return ( <> </> );
+    return (
+
+        <Box sx={{ maxWidth: "45rem" }}>
+
+            <Typography variant="body1" component="p" gutterBottom>
+                This is an experimental feature.
+            </Typography>
+
+       </Box>
+
+    );
 
 };
 

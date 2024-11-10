@@ -27,13 +27,13 @@ const ConfigurePrompts = ({
         = usePromptsStore((state) => state.setPrompts);
 
     const helps : { [key : string] : React.ReactNode } = {
-        "system": <SystemPromptHelp/>,
-        "definitions": <ExtractDefinitionsPromptHelp/>,
-        "relationships": <ExtractRelationshipsPromptHelp/>,
-        "topics": <ExtractTopicsPromptHelp/>,
-        "rows": <ExtractRowsPromptHelp/>,
-        "knowledge-query": <KnowledgeQueryPromptHelp/>,
-        "document-query": <DocumentQueryPromptHelp/>,
+        "system-template": <SystemPromptHelp/>,
+        "extract-definitions": <ExtractDefinitionsPromptHelp/>,
+        "extract-relationships": <ExtractRelationshipsPromptHelp/>,
+        "extract-topics": <ExtractTopicsPromptHelp/>,
+        "extract-rows": <ExtractRowsPromptHelp/>,
+        "kg-prompt": <KnowledgeQueryPromptHelp/>,
+        "document-prompt": <DocumentQueryPromptHelp/>,
     };
 
     const [selected, setSelected] = React.useState(prompts[0].id);
