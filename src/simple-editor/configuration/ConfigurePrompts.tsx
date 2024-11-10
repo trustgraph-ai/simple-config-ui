@@ -113,6 +113,23 @@ const ConfigurePrompts = ({
         setSelected(newVal);
     };
 
+    const setName = (newVal) => {
+        const newPrompts = prompts.map(
+            p => {
+                if (p.id == selected) {
+                    const newP = {
+                        ...p,
+                        name: newVal,
+                    };
+                    return newP;
+                } else {
+                    return p;
+                }
+            }
+        );
+        setPrompts(newPrompts);
+    };
+
     return (<>
 
         <Stack direction="row" spacing={2}>
@@ -186,10 +203,21 @@ const ConfigurePrompts = ({
                               label="ID"
                               value={prompt.id}
                               onChange={
-                        (event: React.ChangeEvent<HTMLInputElement>) => {
-                            setId(event.target.value);
-                        }
-                        }
+                                  (event: React.ChangeEvent<HTMLInputElement>) => {
+                                      setId(event.target.value);
+                                  }
+                              }
+                              margin="normal"
+                            />
+                            <TextField
+                              fullWidth
+                              label="Name"
+                              value={prompt.name}
+                              onChange={
+                                  (event: React.ChangeEvent<HTMLInputElement>) => {
+                                      setName(event.target.value);
+                                  }
+                              }
                               margin="normal"
                             />
                         </Box>
