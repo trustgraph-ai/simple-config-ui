@@ -25,66 +25,15 @@ const ConfigurePrompts = ({
     const setPrompts
         = usePromptsStore((state) => state.setPrompts);
 
-/*
-    const OLDprompts = [
-        {
-            id: "system",
-            name: "System",
-            icon: <ChatBubble/>,
-            value: systemPrompt,
-            set: setSystemPrompt,
-            help: <SystemPromptHelp/>,
-        },
-        {
-            id: "ext-defs",
-            name: "Extract Definitions",
-            icon: <ChatBubble/>,
-            value: definitionsPrompt,
-            set: setDefinitionsPrompt,
-            help: <ExtractDefinitionsPromptHelp/>,
-        },
-        {
-            id: "ext-rels",
-            name: "Extract Relationships",
-            icon: <ChatBubble/>,
-            value: relationshipsPrompt,
-            set: setRelationshipsPrompt,
-            help: <ExtractRelationshipsPromptHelp/>,
-        },
-        {
-            id: "ext-topics",
-            name: "Extract Topics",
-            icon: <ChatBubble/>,
-            value: topicsPrompt,
-            set: setTopicsPrompt,
-            help: <ExtractTopicsPromptHelp/>,
-        },
-        {
-            id: "ext-rows",
-            name: "Extract Rows",
-            icon: <ChatBubble/>,
-            value: rowsPrompt,
-            set: setRowsPrompt,
-            help: <ExtractRowsPromptHelp/>,
-        },
-        {
-            id: "kg-query",
-            name: "Knowledge Graph Query",
-            icon: <ChatBubble/>,
-            value: knowledgeQueryPrompt,
-            set: setKnowledgeQueryPrompt,
-            help: <KnowledgeQueryPromptHelp/>,
-        },
-        {
-            id: "doc-query",
-            name: "Document Query",
-            icon: <ChatBubble/>,
-            value: documentQueryPrompt,
-            set: setDocumentQueryPrompt,
-            help: <DocumentQueryPromptHelp/>,
-        }
-    ];
-*/
+    const helps = {
+        "system": <SystemPromptHelp/>,
+        "definitions": <ExtractDefinitionsPromptHelp/>,
+        "relationships": <ExtractRelationshipsPromptHelp/>,
+        "topics": <ExtractTopicsPromptHelp/>,
+        "rows": <ExtractRowsPromptHelp/>,
+        "knowledge-query": <KnowledgeQueryPromptHelp/>,
+        "document-query": <DocumentQueryPromptHelp/>,
+    };
 
     const [selected, setSelected] = React.useState(prompts[0].id);
 
@@ -145,7 +94,7 @@ const ConfigurePrompts = ({
                                        }
                                    >
                                        <ListItemIcon>
-                                           {p.icon}
+                                           <ChatBubble/>
                                        </ListItemIcon>
                                        <ListItemText primary={p.name}/>
                                    </ListItemButton>
@@ -179,9 +128,12 @@ const ConfigurePrompts = ({
                     { prompt.name }
                 </Typography>
 
-                <Box>
-                    { ( prompt.help ) }
-                </Box>
+                {
+                    (helps[selected]) &&
+                    <Box>
+                        { helps[selected] }
+                    </Box>
+                }
 
                 <Box>
                     <Prompt

@@ -7,6 +7,7 @@ export interface Prompt {
     id : string;
     name : string;
     prompt : string;
+    custom : boolean;
 };
 
 export interface Prompts {
@@ -14,24 +15,6 @@ export interface Prompts {
     prompts : Prompt[];
 
     setSystem : (v : Prompt[]) => void;
-
-/*
-    system : string;
-    definitions : string;
-    relationships : string;
-    topics : string;
-    knowledgeQuery : string;
-    documentQuery : string;
-    rows : string;
-
-    setSystem : (v : string) => void;
-    setDefinitions : (v : string) => void;
-    setRelationships : (v : string) => void;
-    setTopics : (v : string) => void;
-    setKnowledgeQuery : (v : string) => void;
-    setDocumentQuery : (v : string) => void;
-    setRows : (v : string) => void;
-*/
 
 };
 
@@ -44,36 +27,43 @@ export const usePromptsStore = create<Prompts>()(
                 id: "system",
                 name: "System",
                 prompt: prompts.default_system_prompt,
+                custom: false,
             },
             {
                 id: "definitions",
                 name: "Extract definitions",
                 prompt: prompts.default_definition_prompt,
+                custom: false,
             },
             {
                 id: "relationships",
                 name: "Extract relationships",
                 prompt: prompts.default_relationship_prompt,
+                custom: false,
             },
             {
                 id: "topics",
                 name: "Extract topics",
                 prompt: prompts.default_topics_prompt,
+                custom: false,
             },
             {
                 id: "rows",
                 name: "Extract rows",
                 prompt: prompts.default_rows_prompt,
+                custom: false,
             },
             {
                 id: "knowledge-query",
                 name: "Knowledge graph query",
                 prompt: prompts.default_knowledge_query_prompt,
+                custom: false,
             },
             {
                 id: "document-query",
                 name: "Document query",
                 prompt: prompts.default_document_query_prompt,
+                custom: false,
             },
         ],
 
@@ -81,31 +71,6 @@ export const usePromptsStore = create<Prompts>()(
 	    prompts: v
 	})),
 
-/*
-        setDefinitions: (v) => set(() => ({
-	    definitions: v
-	})),
-
-        setRelationships: (v) => set(() => ({
-	    relationships: v
-	})),
-
-        setTopics: (v) => set(() => ({
-	    topics: v
-	})),
-
-        setKnowledgeQuery: (v) => set(() => ({
-	    knowledgeQuery: v
-	})),
-
-        setDocumentQuery: (v) => set(() => ({
-	    documentQuery: v
-	})),
-
-        setRows: (v) => set(() => ({
-	    rows: v
-	})),
-*/
     })
 
 );
