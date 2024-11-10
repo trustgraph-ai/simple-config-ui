@@ -20,47 +20,13 @@ import DocumentQueryPromptHelp from './help/DocumentQueryPrompt';
 const ConfigurePrompts = ({
 }) => {
 
-    const systemPrompt
-        = usePromptsStore((state) => state.system);
+    const prompts = usePromptsStore((state) => state.prompts);
 
-    const setSystemPrompt
-        = usePromptsStore((state) => state.setSystem);
+    const setPrompts
+        = usePromptsStore((state) => state.setPrompts);
 
-    const definitionsPrompt
-        = usePromptsStore((state) => state.definitions);
-
-    const setDefinitionsPrompt
-        = usePromptsStore((state) => state.setDefinitions);
-
-    const relationshipsPrompt
-        = usePromptsStore((state) => state.relationships);
-
-    const setRelationshipsPrompt
-        = usePromptsStore((state) => state.setRelationships);
-
-    const topicsPrompt
-        = usePromptsStore((state) => state.topics);
-
-    const setTopicsPrompt
-        = usePromptsStore((state) => state.setTopics);
-
-    const rowsPrompt = usePromptsStore((state) => state.rows);
-
-    const setRowsPrompt = usePromptsStore((state) => state.setRows);
-
-    const knowledgeQueryPrompt
-        = usePromptsStore((state) => state.knowledgeQuery);
-
-    const setKnowledgeQueryPrompt
-        = usePromptsStore((state) => state.setKnowledgeQuery);
-
-    const documentQueryPrompt
-        = usePromptsStore((state) => state.documentQuery);
-
-    const setDocumentQueryPrompt
-        = usePromptsStore((state) => state.setDocumentQuery);
-
-    const prompts = [
+/*
+    const OLDprompts = [
         {
             id: "system",
             name: "System",
@@ -118,6 +84,7 @@ const ConfigurePrompts = ({
             help: <DocumentQueryPromptHelp/>,
         }
     ];
+*/
 
     const [selected, setSelected] = React.useState(prompts[0].id);
 
@@ -137,15 +104,32 @@ const ConfigurePrompts = ({
         console.log("Add prompt");
     };
 
+    const onChange = (newVal) => {
+        const newPrompts = prompts.map(
+            p => {
+                if (p.id == selected) {
+                    const newP = {
+                        ...p,
+                        prompt: newVal,
+                    };
+                    return newP;
+                } else {
+                    return p;
+                }
+            }
+        );
+        setPrompts(newPrompts);
+    };
+
     return (<>
 
         <Stack direction="row" spacing={2}>
 
             <Box>
 
-        <Typography variant="h5" component="h2" gutterBottom>
-            Configure Prompts
-        </Typography>
+                <Typography variant="h5" component="h2" gutterBottom>
+                    Configure Prompts
+                </Typography>
 
                 <List component="nav" aria-label="prompts">
 
@@ -201,8 +185,8 @@ const ConfigurePrompts = ({
 
                 <Box>
                     <Prompt
-                        value={prompt.value}
-                        onChange={prompt.set}
+                        value={prompt.prompt}
+                        onChange={onChange}
                     />
                 </Box>
 
