@@ -135,13 +135,13 @@ const ConfigurePrompts = ({
 
     return (<>
 
-        <Typography variant="h5" component="h2" gutterBottom>
-            Configure Prompts
-        </Typography>
-
         <Stack direction="row" spacing={2}>
 
             <Box>
+
+        <Typography variant="h5" component="h2" gutterBottom>
+            Configure Prompts
+        </Typography>
 
                 <List component="nav" aria-label="prompts">
 
@@ -168,9 +168,13 @@ const ConfigurePrompts = ({
                 </List>
             </Box>
 
-            <Stack direction="column" spacing={2}>
+            <Stack
+                direction="column" spacing={2}
+            >
 
-                <Typography variant="h5" component="h2" gutterBottom>
+                <Typography
+                    variant="h5" component="h2" gutterBottom
+                >
                     { prompt.name }
                 </Typography>
 
