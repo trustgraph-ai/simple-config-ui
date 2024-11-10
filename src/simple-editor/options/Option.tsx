@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 import { Card, CardHeader, CardContent, CardActionArea } from '@mui/material';
 import { Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
@@ -6,9 +8,9 @@ import { blue } from '@mui/material/colors';
 const Option = ({enabled, onChange, avatar, title, content} : {
     enabled : boolean;
     onChange : () => void,
-    avatar : any;
+    avatar : React.ReactNode;
     title : string;
-    content : any;
+    content : React.ReactNode;
 }) => {
 
     const Header = () => {
