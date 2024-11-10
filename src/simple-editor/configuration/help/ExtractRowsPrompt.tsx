@@ -1,10 +1,20 @@
 
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const ExtractRowsPromptHelp = ({
 }) => {
 
-    return ( <> </> );
+    return (
+
+        <Box sx={{ maxWidth: "45rem" }}>
+
+            <Typography variant="body1" component="p" gutterBottom>
+                This is an experimental feature.
+            </Typography>
+
+       </Box>
+
+    );
 
 };
 

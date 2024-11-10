@@ -14,7 +14,7 @@ export interface Prompts {
 
     prompts : Prompt[];
 
-    setSystem : (v : Prompt[]) => void;
+    setPrompts : (v : Prompt[]) => void;
 
 };
 
@@ -24,43 +24,43 @@ export const usePromptsStore = create<Prompts>()(
 
         prompts: [
             {
-                id: "system",
+                id: "system-template",
                 name: "System",
                 prompt: prompts.default_system_prompt,
                 custom: false,
             },
             {
-                id: "definitions",
+                id: "extract-definitions",
                 name: "Extract definitions",
                 prompt: prompts.default_definition_prompt,
                 custom: false,
             },
             {
-                id: "relationships",
+                id: "extract-relationships",
                 name: "Extract relationships",
                 prompt: prompts.default_relationship_prompt,
                 custom: false,
             },
             {
-                id: "topics",
+                id: "extract-topics",
                 name: "Extract topics",
                 prompt: prompts.default_topics_prompt,
                 custom: false,
             },
             {
-                id: "rows",
+                id: "extract-rows",
                 name: "Extract rows",
                 prompt: prompts.default_rows_prompt,
                 custom: false,
             },
             {
-                id: "knowledge-query",
+                id: "kg-prompt",
                 name: "Knowledge graph query",
                 prompt: prompts.default_knowledge_query_prompt,
                 custom: false,
             },
             {
-                id: "document-query",
+                id: "document-prompt",
                 name: "Document query",
                 prompt: prompts.default_document_query_prompt,
                 custom: false,

@@ -61,7 +61,6 @@ export const generateConfig =
       }
 
       let parameters : { [k : string] : string | number } = {};
-      let promptParams : { [k : string] : string | number } = {};
 
       parameters["chunk-size"] = params.chunkSize;
       parameters["chunk-overlap"] = params.chunkOverlap;
@@ -69,32 +68,17 @@ export const generateConfig =
       parameters[depl + "-max-output-tokens"] = params.maxOutputTokens;
       parameters[depl + "-model"] =  params.modelName;
 
-      if (options.options.has(SYSTEM_PROMPT)) {
-          promptParams["system-template"] = prompts.system;
-      }
+      if (options.options.has(CONFIGURE_PROMPTS)) {
 
-      if (options.options.has(DEFINITIONS_PROMPT)) {
-          promptParams["extract-definitions"] = prompts.definitions;
-      }
-
-      if (options.options.has(RELATIONSHIPS_PROMPT)) {
-          promptParams["extract-relationships"] = prompts.relationships;;
-      }
-
-      if (options.options.has(TOPICS_PROMPT)) {
-          promptParams["extract-topics"] = prompts.topics;
-      }
-
-      if (options.options.has(KNOWLEDGE_QUERY_PROMPT)) {
-          promptParams["kg-prompt"] = prompts.knowledgeQuery;
-      }
-
-      if (options.options.has(DOCUMENT_QUERY_PROMPT)) {
-          promptParams["document-prompt"] = prompts.documentQuery;
-      }
-
-      if (options.options.has(ROWS_PROMPT)) {
-          promptParams["extract-rows"] = prompts.rows;
+          let promptParams = prompts.prompts.reduce(
+              (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
+          );
+  
+          config.push({
+              "name": "prompt-overrides",
+              "parameters": promptParams,
+          });
+          
       }
 
       config.push({
@@ -102,10 +86,7 @@ export const generateConfig =
           "parameters": parameters,
       });
 
-      config.push({
-          "name": "prompt-overrides",
-          "parameters": promptParams,
-      });
+console.log(config);
 
       const cnf = JSON.stringify(config, null, 4)
 

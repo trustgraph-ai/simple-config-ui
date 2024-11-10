@@ -1,7 +1,7 @@
 
 
 import { Stack } from '@mui/material';
-import { Psychology, ChatBubble } from '@mui/icons-material';
+import { ChatBubble } from '@mui/icons-material';
 import { useDeploymentStore } from '../state/Deployment';
 
 import { useOptionsStore, CONFIGURE_PROMPTS } from '../state/Options';

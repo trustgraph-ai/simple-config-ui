@@ -1,6 +1,4 @@
 
-import { Typography } from '@mui/material';
-
 const KnowledgeQueryPromptHelp = ({
 }) => {
 

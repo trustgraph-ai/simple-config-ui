@@ -2,9 +2,9 @@
 import React from 'react';
 
 import { Typography, Box, Stack, Button } from '@mui/material';
-import { FormControl, InputLabel, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { List, ListItemButton, ListItemText } from '@mui/material';
-import { ListItemAvatar, Avatar, ListItemIcon } from '@mui/material';
+import { ListItemIcon } from '@mui/material';
 import { ChatBubble, Add, Delete } from '@mui/icons-material';
 
 import Prompt from '../options/Prompt';
@@ -26,7 +26,7 @@ const ConfigurePrompts = ({
     const setPrompts
         = usePromptsStore((state) => state.setPrompts);
 
-    const helps = {
+    const helps : { [key : string] : React.ReactNode } = {
         "system": <SystemPromptHelp/>,
         "definitions": <ExtractDefinitionsPromptHelp/>,
         "relationships": <ExtractRelationshipsPromptHelp/>,
@@ -44,7 +44,7 @@ const ConfigurePrompts = ({
     }
 
     const handleSelect = (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
         id: string,
     ) => {
         setSelected(id);
@@ -76,7 +76,7 @@ const ConfigurePrompts = ({
 
     };
 
-    const onChange = (newVal) => {
+    const onChange = (newVal : string) => {
         const newPrompts = prompts.map(
             p => {
                 if (p.id == selected) {
@@ -93,7 +93,7 @@ const ConfigurePrompts = ({
         setPrompts(newPrompts);
     };
 
-    const setId = (newVal) => {
+    const setId = (newVal : string) => {
         const newPrompts = prompts.map(
             p => {
                 if (p.id == selected) {
@@ -113,7 +113,7 @@ const ConfigurePrompts = ({
         setSelected(newVal);
     };
 
-    const setName = (newVal) => {
+    const setName = (newVal : string) => {
         const newPrompts = prompts.map(
             p => {
                 if (p.id == selected) {
