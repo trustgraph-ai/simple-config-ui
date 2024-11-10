@@ -1,22 +1,10 @@
 
 import { Typography, Box } from '@mui/material';
 
-import Prompt from '../options/Prompt';
-import { usePromptsStore } from '../state/Prompts';
-
-const SystemPrompt = ({
+const SystemPromptHelp = ({
 }) => {
 
-    const systemPrompt
-        = usePromptsStore((state) => state.system);
-
-    const setSystemPrompt
-        = usePromptsStore((state) => state.setSystem);
-
     return (<>
-        <Typography variant="h5" component="h2" gutterBottom>
-            System Prompt
-        </Typography>
 
         <Box sx={{ maxWidth: "45rem" }}>
 
@@ -37,14 +25,8 @@ const SystemPrompt = ({
 
         </Box>
 
-        <Prompt
-            value={systemPrompt}
-            onChange={
-                (v) => setSystemPrompt(v)
-            }
-        />
     </>);
 };
 
-export default SystemPrompt;
+export default SystemPromptHelp;
 

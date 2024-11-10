@@ -1,37 +1,24 @@
 
 import { Typography, Box } from '@mui/material';
 
-import Prompt from '../options/Prompt';
-import { usePromptsStore } from '../state/Prompts';
-
-const RelationshipsPrompt = ({
+const TopicsPromptHelp = ({
 }) => {
-
-    const relationshipsPrompt
-        = usePromptsStore((state) => state.relationships);
-
-    const setRelationshipsPrompt
-        = usePromptsStore((state) => state.setRelationships);
 
     return (<>
 
-        <Typography variant="h5" component="h2" gutterBottom>
-            Relationships Prompt
-        </Typography>
-
         <Box sx={{ maxWidth: "45rem" }}>
 
-        <Typography variant="body1" component="p" gutterBottom>
-                The purpose of the "Relationships" prompt is to find relationships
-                between entities, concepts, and values. These relationships are structured
-                in triples format as subject, predicate, and object. The boolean for
-                entity-object is true when the object of a triple is also an entity.
-                Below are tailoring instructions:
+            <Typography variant="body1" component="p" gutterBottom>
+                The purpose of the "Topics Definition" prompt is to extract
+                intangible concepts from a text corpus along with a
+                definition of that concept.  Below are tailoring
+                instructions:
             </Typography>
 
             <Typography variant="body1" component="p" gutterBottom>
                 1. The chunked text from the ingested documents can be placed 
-                anywhere in the prompt using the variable <code>{'{{text}}'}</code>.
+                anywhere in the prompt using the variable
+                <code>{'{{text}}'}</code>.
             </Typography>
 
             <Typography variant="body1" component="p" gutterBottom>
@@ -40,12 +27,10 @@ const RelationshipsPrompt = ({
             </Typography>
 
             <pre>
-                { '{\n' }
-                { '  "subject": string,\n' }
-                { '  "predicate": string,\n' }
-                { '  "object": string,\n' }
-                { '  "entity-object": boolean\n' }
-                { '}' }
+                { '{\n'}
+                { '   "topic": string,\n' }
+                { '   "definition": string\n' }
+                { '}'}
             </pre>
 
             <Typography variant="body1" component="p" gutterBottom>
@@ -71,14 +56,8 @@ const RelationshipsPrompt = ({
 
         </Box>
 
-        <Prompt
-            value={relationshipsPrompt}
-            onChange={
-                (v) => setRelationshipsPrompt(v)
-            }
-        />
     </>);
 };
 
-export default RelationshipsPrompt;
+export default TopicsPromptHelp;
 

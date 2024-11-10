@@ -1,34 +1,24 @@
 
 import { Typography, Box } from '@mui/material';
 
-import Prompt from '../options/Prompt';
-import { usePromptsStore } from '../state/Prompts';
-
-const DefinitionsPrompt = ({
+const ExtractDefinitionsPromptHelp = ({
 }) => {
 
-    const definitionsPrompt
-        = usePromptsStore((state) => state.definitions);
-
-    const setDefinitionsPrompt
-        = usePromptsStore((state) => state.setDefinitions);
-
     return (<>
-        <Typography variant="h5" component="h2" gutterBottom>
-            Entity Definitions Prompt
-        </Typography>
 
         <Box sx={{ maxWidth: "45rem" }}>
 
-        <Typography variant="body1" component="p" gutterBottom>
-                The purpose of the "Entity Definition" prompt is to extract people,
-                places, things, locations, events, etc. from a text corpus along with 
-                a definition of that entity. Below are tailoring instructions:
+            <Typography variant="body1" component="p" gutterBottom>
+                The purpose of the "Entity Definition" prompt is to extract
+                people, places, things, locations, events, etc. from a text
+                corpus along with a definition of that entity. Below are
+                tailoring instructions:
             </Typography>
 
             <Typography variant="body1" component="p" gutterBottom>
                 1. The chunked text from the ingested documents can be placed 
-                anywhere in the prompt using the variable <code>{'{{text}}'}</code>.
+                anywhere in the prompt using the variable
+                <code>{'{{text}}'}</code>.
             </Typography>
 
             <Typography variant="body1" component="p" gutterBottom>
@@ -66,14 +56,8 @@ const DefinitionsPrompt = ({
 
         </Box>
 
-        <Prompt
-            value={definitionsPrompt}
-            onChange={
-                (v) => setDefinitionsPrompt(v)
-            }
-        />
     </>);
 };
 
-export default DefinitionsPrompt;
+export default ExtractDefinitionsPromptHelp;
 
