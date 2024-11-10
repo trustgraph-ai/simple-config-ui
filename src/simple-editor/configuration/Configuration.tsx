@@ -9,7 +9,7 @@ import {
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 
-import ConfigurePrompts from './ConfigurePrompts';
+import ConfigurePrompts from '../prompts/ConfigurePrompts';
 import Additional from './Additional';
 import GenerateDeployment from './GenerateDeployment';
 import Parameters from './Parameters';
