@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { Typography, Box, Stack, Button } from '@mui/material';
+import { FormControl, InputLabel, TextField } from '@mui/material';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { ListItemAvatar, Avatar, ListItemIcon } from '@mui/material';
 import { ChatBubble, Add, Delete } from '@mui/icons-material';
@@ -92,6 +93,26 @@ const ConfigurePrompts = ({
         setPrompts(newPrompts);
     };
 
+    const setId = (newVal) => {
+        const newPrompts = prompts.map(
+            p => {
+                if (p.id == selected) {
+                    const newP = {
+                        ...p,
+                        id: newVal,
+                    };
+                    return newP;
+                } else {
+                    return p;
+                }
+            }
+        );
+        setPrompts(newPrompts);
+
+        // Have to change ID to point to the new changed ID
+        setSelected(newVal);
+    };
+
     return (<>
 
         <Stack direction="row" spacing={2}>
@@ -157,6 +178,24 @@ const ConfigurePrompts = ({
                     </Box>
                 }
 
+                {
+                    prompt.custom && (
+                        <Box>
+                            <TextField
+                              fullWidth
+                              label="ID"
+                              value={prompt.id}
+                              onChange={
+                        (event: React.ChangeEvent<HTMLInputElement>) => {
+                            setId(event.target.value);
+                        }
+                        }
+                              margin="normal"
+                            />
+                        </Box>
+                    )
+                }
+
                 <Box>
                     <Prompt
                         value={prompt.prompt}
@@ -166,6 +205,8 @@ const ConfigurePrompts = ({
 
                 <Box>
 
+                    {
+                        prompt.custom && 
                     <Button
                         startIcon={<Delete/>}
                         variant="contained"
@@ -173,6 +214,7 @@ const ConfigurePrompts = ({
                     >
                         Delete this prompt
                     </Button>
+                    }
 
                 </Box>
 
