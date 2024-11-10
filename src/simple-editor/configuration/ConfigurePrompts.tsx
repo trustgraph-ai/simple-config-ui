@@ -3,8 +3,8 @@ import React from 'react';
 
 import { Typography, Box, Stack, Button } from '@mui/material';
 import { List, ListItemButton, ListItemText } from '@mui/material';
-import { ListItemIcon } from '@mui/material';
-import { ChatBubble, Add } from '@mui/icons-material';
+import { ListItemAvatar, Avatar, ListItemIcon } from '@mui/material';
+import { ChatBubble, Add, Delete } from '@mui/icons-material';
 
 import Prompt from '../options/Prompt';
 import { usePromptsStore } from '../state/Prompts';
@@ -50,7 +50,29 @@ const ConfigurePrompts = ({
     };
 
     const addPrompt = () => {
-        console.log("Add prompt");
+
+        const count = prompts.length;
+        const newId = "custom-prompt-" + (count + 1).toString();
+
+        const newPrompt = {
+            id: newId,
+            name: "Custom prompt " + (count + 1).toString(),
+            prompt: "",
+            custom: true,
+        };
+
+        setPrompts([...prompts, newPrompt]);
+        setSelected(newId);
+        
+    };
+
+    const deletePrompt = () => {
+
+        const newPrompts = prompts.filter(p => (p.id != selected));
+
+        setPrompts(newPrompts);
+        setSelected(newPrompts[0].id);
+
     };
 
     const onChange = (newVal) => {
@@ -140,6 +162,18 @@ const ConfigurePrompts = ({
                         value={prompt.prompt}
                         onChange={onChange}
                     />
+                </Box>
+
+                <Box>
+
+                    <Button
+                        startIcon={<Delete/>}
+                        variant="contained"
+                        onClick={ deletePrompt }
+                    >
+                        Delete this prompt
+                    </Button>
+
                 </Box>
 
             </Stack>
