@@ -1,10 +1,10 @@
 
 import React from 'react';
 
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box, Stack, Button } from '@mui/material';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import { ListItemIcon } from '@mui/material';
-import { ChatBubble } from '@mui/icons-material';
+import { ChatBubble, Add } from '@mui/icons-material';
 
 import Prompt from '../options/Prompt';
 import { usePromptsStore } from '../state/Prompts';
@@ -133,6 +133,10 @@ const ConfigurePrompts = ({
         setSelected(id);
     };
 
+    const addPrompt = () => {
+        console.log("Add prompt");
+    };
+
     return (<>
 
         <Stack direction="row" spacing={2}>
@@ -166,6 +170,19 @@ const ConfigurePrompts = ({
                         )
                     }
                 </List>
+
+                <Box>
+
+                    <Button
+                        startIcon={<Add/>}
+                        variant="contained"
+                        onClick={ addPrompt }
+                    >
+                        Add prompt
+                    </Button>
+
+                </Box>
+
             </Box>
 
             <Stack
