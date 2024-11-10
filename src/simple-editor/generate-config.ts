@@ -1,11 +1,7 @@
 
 import { ModelParams } from './state/ModelParams';
 import { Prompts } from './state/Prompts';
-import {
-    Options, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
-    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
-    ROWS_PROMPT,
-} from './state/Options';
+import { Options, CONFIGURE_PROMPTS } from './state/Options';
 
 export const generateConfig =
 (

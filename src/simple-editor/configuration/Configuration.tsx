@@ -5,9 +5,7 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, SYSTEM_PROMPT, DEFINITIONS_PROMPT,
-    RELATIONSHIPS_PROMPT, TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT,
-    DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
+    useOptionsStore, CONFIGURE_PROMPTS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 
@@ -56,31 +54,6 @@ const tabs = (opts : Set<string>) => {
         tabs.push(
             <Tab key="prompts" value="prompts" label="Configure Prompts"/>
         );
-
-    if (opts.has(SYSTEM_PROMPT))
-        tabs.push(<Tab key="sys" value="sys" label="System Prompt"/>);
-
-    if (opts.has(DEFINITIONS_PROMPT))
-        tabs.push(<Tab key="defs" value="defs" label="Entity Definitions Prompt"/>);
-
-    if (opts.has(RELATIONSHIPS_PROMPT))
-        tabs.push(<Tab key="rels" value="rels" label="Relationships Prompt"/>);
-
-    if (opts.has(TOPICS_PROMPT))
-        tabs.push(<Tab key="topics" value="topics" label="Topic Prompt"/>);
-
-    if (opts.has(KNOWLEDGE_QUERY_PROMPT))
-        tabs.push(<Tab key="kgq" value="kgq" label="Knowledge Graph Prompt"/>);
-
-    if (opts.has(DOCUMENT_QUERY_PROMPT))
-        tabs.push(<Tab key="docq" value="docq"
-            label="Document Query Prompt"
-        />);
-
-    if (opts.has(ROWS_PROMPT))
-        tabs.push(<Tab key="rows" value="rows"
-            label="Rows Prompt"
-        />);
 
     tabs.push(<Tab key="depl" value="depl" label="Finish Deployment 🚀"/>);
 
@@ -131,34 +104,6 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="prompts">
                 <ConfigurePrompts/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="sys">
-                <SystemPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="defs">
-                <DefinitionsPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="rels">
-                <RelationshipsPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="topics">
-                <TopicsPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="kgq">
-                <KnowledgeQueryPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="docq">
-                <DocumentQueryPrompt/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="rows">
-               <RowsPrompt/>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} tabId="depl">
