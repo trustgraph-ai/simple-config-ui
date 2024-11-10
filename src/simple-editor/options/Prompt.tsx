@@ -19,7 +19,7 @@ const Prompt : React.FC<PromptProps> = ({value, onChange}) => {
                     label="Prompt"
                     multiline
                     rows={25}
-                    defaultValue={value}
+                    value={value}
                     onChange={
                         (event: React.ChangeEvent<HTMLInputElement>) => {
                             onChange(event.target.value);
