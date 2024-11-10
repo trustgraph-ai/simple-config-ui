@@ -1,6 +1,9 @@
 
 import { create } from 'zustand'
 
+export const CONFIGURE_PROMPTS = "configure-prompts";
+
+// FIXME: These are to be removed
 export const SYSTEM_PROMPT = "system-prompt";
 export const DEFINITIONS_PROMPT = "definitions-prompt";
 export const RELATIONSHIPS_PROMPT = "relationships-prompt";

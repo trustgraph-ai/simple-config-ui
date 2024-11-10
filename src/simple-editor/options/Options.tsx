@@ -7,7 +7,7 @@ import {
 //    Plumbing,
 //    Engineering,
 //    Hub,
-//    ChatBubble,
+    ChatBubble,
 //    VerticalSplit,
 //    MonitorHeart,
 //    Polyline,
@@ -15,9 +15,9 @@ import {
 import { useDeploymentStore } from '../state/Deployment';
 
 import {
-    useOptionsStore, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
-    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
-    ROWS_PROMPT,
+    useOptionsStore, CONFIGURE_PROMPTS, SYSTEM_PROMPT, DEFINITIONS_PROMPT,
+    RELATIONSHIPS_PROMPT, TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT,
+    DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
 } from '../state/Options';
 
 import Option from './Option';
@@ -36,6 +36,7 @@ const ParamsForm: React.FC = ({
         setConfigUrl("");
     });
 
+    const configurePrompts = options.has(CONFIGURE_PROMPTS);
     const system = options.has(SYSTEM_PROMPT);
     const definitions = options.has(DEFINITIONS_PROMPT);
     const relationships = options.has(RELATIONSHIPS_PROMPT);
@@ -55,6 +56,10 @@ const ParamsForm: React.FC = ({
             setOptions(opts);
         }
     }
+
+    const onConfigurePrompts = () => {
+        set(CONFIGURE_PROMPTS, !configurePrompts);
+    };
 
     const onSystem = () => {
         set(SYSTEM_PROMPT, !system);
@@ -90,6 +95,17 @@ const ParamsForm: React.FC = ({
             <Stack direction="row" spacing={2}
                 sx={{flexWrap: 'wrap'}} useFlexGap
             >
+
+                <Option
+                    enabled={configurePrompts}
+                    onChange={onConfigurePrompts}
+                    avatar={<ChatBubble color="primary"/>}
+                    title="Configure prompts"
+                    content={
+                        'Tailor the prompts for the chosen LLM.'
+                    }
+
+                />
 
                 <Option
                     enabled={system}

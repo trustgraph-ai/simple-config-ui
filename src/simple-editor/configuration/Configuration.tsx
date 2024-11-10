@@ -5,12 +5,13 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, SYSTEM_PROMPT, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT,
-    TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT,
-    ROWS_PROMPT,
+    useOptionsStore, CONFIGURE_PROMPTS, SYSTEM_PROMPT, DEFINITIONS_PROMPT,
+    RELATIONSHIPS_PROMPT, TOPICS_PROMPT, KNOWLEDGE_QUERY_PROMPT,
+    DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 
+import ConfigurePrompts from './ConfigurePrompts';
 import SystemPrompt from './SystemPrompt';
 import DefinitionsPrompt from './DefinitionsPrompt';
 import RelationshipsPrompt from './RelationshipsPrompt';
@@ -50,6 +51,11 @@ const tabs = (opts : Set<string>) => {
         <Tab key="model" value="model" label="Component Selection ✅"/>,
         <Tab key="more" value="more" label="Customization 🧰"/>
     ];
+
+    if (opts.has(CONFIGURE_PROMPTS))
+        tabs.push(
+            <Tab key="prompts" value="prompts" label="Configure Prompts"/>
+        );
 
     if (opts.has(SYSTEM_PROMPT))
         tabs.push(<Tab key="sys" value="sys" label="System Prompt"/>);
@@ -121,6 +127,10 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="more">
                 <Additional/>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="prompts">
+                <ConfigurePrompts/>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} tabId="sys">
