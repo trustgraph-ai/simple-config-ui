@@ -79,6 +79,15 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         );
     };
 
+    const deleteArg = (aix : number) => {
+        updateTool(
+            (t) => ({
+                ...t,
+                arguments: tool.arguments.toSpliced(aix, 1)
+            })
+        );
+    };
+
     const setArgName = (ix : number, name : string) => {
         updateArg(ix, (a) => ({ ...a, name: name }));
     };
@@ -322,7 +331,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                             <Button
                                                 startIcon={<Delete/>}
                                                 variant="contained"
-                                                onClick={ deleteTool }
+                                                onClick={ () => deleteArg(ix) }
                                             >
                                                 Delete
                                             </Button>
