@@ -1,5 +1,5 @@
 
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
 import { TextField } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
@@ -37,78 +37,79 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 { tool.name }
             </Typography>
 
-            {/*
-                (helpInformation[selected]) &&
-                <Box>
-                    { helpInformation[selected] }
-                </Box>
-                */
-            }
+            <Grid container spacing={2}>
 
-                    <Box>
-                        <TextField
-                          fullWidth
-                          label="ID"
-                          value={tool.id}
-                          onChange={
-                              (event: React.ChangeEvent<HTMLInputElement>) => {
-                                  setId(event.target.value);
-                              }
-                          }
-                          margin="normal"
-                        />
+                <Grid size={{ xs: 12, md: 4 }}>
+                    <TextField
+                        fullWidth
+                        label="ID"
+                        value={tool.id}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setId(event.target.value);
+                            }
+                        }
+                        margin="normal"
+                    />
+                </Grid>
 
-                        <TextField
-                          fullWidth
-                          label="Name"
-                          value={tool.name}
-                          onChange={
-                              (event: React.ChangeEvent<HTMLInputElement>) => {
-                                  setName(event.target.value);
-                              }
-                          }
-                          margin="normal"
-                        />
+                <Grid size={{ xs: 12, md: 8 }}>
+                    <TextField
+                        fullWidth
+                        label="Name"
+                        value={tool.name}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setName(event.target.value);
+                            }
+                        }
+                        margin="normal"
+                    />
+                </Grid>
 
-                        <TextField
-                          fullWidth
-                          label="Description"
-                          multiline
-                          value={tool.description}
-                          rows={5}
-                          onChange={
-                              (event: React.ChangeEvent<HTMLInputElement>) => {
-                                  setDescription(event.target.value);
-                              }
-                          }
-                          margin="normal"
-                        />
+                <Grid size={12}>
+                    <TextField
+                        fullWidth
+                        label="Description"
+                        multiline
+                        value={tool.description}
+                        rows={5}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setDescription(event.target.value);
+                            }
+                        }
+                        margin="normal"
+                    />
+                </Grid>
 
-                        <TextField
-                          fullWidth
-                          label="Type"
-                          value={tool.type}
-                          onChange={
-                              (event: React.ChangeEvent<HTMLInputElement>) => {
-                                  setType(event.target.value);
-                              }
-                          }
-                          margin="normal"
-                        />
+                <Grid size={12}>
+                    <TextField
+                        fullWidth
+                        label="Type"
+                        value={tool.type}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setType(event.target.value);
+                            }
+                        }
+                        margin="normal"
+                    />
+                </Grid>
 
-                    </Box>
+            </Grid>
 
             <Box>
 
                 {
                     prompt.custom && 
-                <Button
-                    startIcon={<Delete/>}
-                    variant="contained"
-                    onClick={ deleteTool }
-                >
-                    Delete this tool
-                </Button>
+                    <Button
+                        startIcon={<Delete/>}
+                        variant="contained"
+                        onClick={ deleteTool }
+                    >
+                        Delete this tool
+                    </Button>
                 }
 
             </Box>
