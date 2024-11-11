@@ -15,7 +15,6 @@ const Prompt : React.FC<PromptProps> = ({value, onChange}) => {
 
             <Box sx={{ mt: 4, minWidth: '45rem'}}>
                 <TextField fullWidth
-                    id="outlined-multiline-static"
                     label="Prompt"
                     multiline
                     rows={25}

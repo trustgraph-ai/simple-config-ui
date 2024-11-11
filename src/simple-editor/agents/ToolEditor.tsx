@@ -73,7 +73,9 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         <TextField
                           fullWidth
                           label="Description"
+                          multiline
                           value={tool.description}
+                          rows={5}
                           onChange={
                               (event: React.ChangeEvent<HTMLInputElement>) => {
                                   setDescription(event.target.value);
