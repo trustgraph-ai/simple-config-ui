@@ -13,18 +13,54 @@ import { useAgentsStore } from '../state/Agents';
 
 interface ToolEditorProps {
     selected : string;
-    deleteTool : () => void;
-    setDescription : (description : string) => void;
-    setId : (id : string) => void;
-    setType : (type : string) => void;
-    setName : (name : string) => void;
+    setSelected : (id : string) => void;
 }
 
 const ToolEditor : React.FC<ToolEditorProps> = ({
-    selected, deleteTool, setDescription, setId, setType, setName,
+    selected, setSelected,
 }) => {
 
     const tools = useAgentsStore((state) => state.tools);
+
+    const setTools
+        = useAgentsStore((state) => state.setTools);
+
+    const deleteTool = () => {
+        const newTools = tools.filter(p => (p.id != selected));
+        setTools(newTools);
+        setSelected(newTools[0].id);
+
+    };
+
+    const updateTool = (f) => {
+        const newTools = tools.map(
+            e => {
+                if (e.id == selected) {
+                    return f(e);
+                } else {
+                    return e;
+                }
+            }
+        );
+        setTools(newTools);
+    };
+
+    const setDescription = (desc : string) => {
+        updateTool((t) => ({ ...t, description: desc }));
+    };
+
+    const setId = (id : string) => {
+        updateTool((t) => ({ ...t, id: id }));
+        setSelected(id);
+    };
+
+    const setType = (type : string) => {
+        updateTool((t) => ({ ...t, type: type }));
+    };
+
+    const setName = (name : string) => {
+        updateName((t) => ({ ...t, name: name }));
+    };
 
     let tool : any = null;
     for (let p of tools) {

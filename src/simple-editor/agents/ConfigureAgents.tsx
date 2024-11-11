@@ -48,86 +48,6 @@ const ConfigureAgents = ({
         
     };
 
-    const deleteTool = () => {
-
-        const newTools = tools.filter(p => (p.id != selected));
-
-        setTools(newTools);
-        setSelected(newTools[0].id);
-
-    };
-
-    const setDescription = (newVal : string) => {
-        const newTools = tools.map(
-            p => {
-                if (p.id == selected) {
-                    const newP = {
-                        ...p,
-                        description: newVal,
-                    };
-                    return newP;
-                } else {
-                    return p;
-                }
-            }
-        );
-        setTools(newTools);
-    };
-
-    const setId = (newVal : string) => {
-        const newTools = tools.map(
-            p => {
-                if (p.id == selected) {
-                    const newP = {
-                        ...p,
-                        id: newVal,
-                    };
-                    return newP;
-                } else {
-                    return p;
-                }
-            }
-        );
-        setTools(newTools);
-
-        // Have to change ID to point to the new changed ID
-        setSelected(newVal);
-    };
-
-    const setType = (newVal : string) => {
-        const newTools = tools.map(
-            p => {
-                if (p.id == selected) {
-                    const newP = {
-                        ...p,
-                        type: newVal,
-                    };
-                    return newP;
-                } else {
-                    return p;
-                }
-            }
-        );
-        setTools(newTools);
-    };
-
-    const setName = (newVal : string) => {
-        const newTools = tools.map(
-            p => {
-                if (p.id == selected) {
-                    const newP = {
-                        ...p,
-                        name: newVal,
-                    };
-                    return newP;
-                } else {
-                    return p;
-                }
-            }
-        );
-        setTools(newTools);
-    };
-
     return (<>
 
         <Stack direction="row" spacing={2}>
@@ -152,11 +72,7 @@ const ConfigureAgents = ({
 
                 <ToolEditor
                     selected={selected}
-                    deleteTool={deleteTool}
-                    setDescription={setDescription}
-                    setId={setId}
-                    setType={setType}
-                    setName={setName}
+                    setSelected={setSelected}
                 />
 
             </Stack>
