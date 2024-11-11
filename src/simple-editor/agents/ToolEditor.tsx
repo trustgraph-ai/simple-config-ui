@@ -132,7 +132,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 { tool.name }
             </Typography>
 
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
 
                 <Grid size={12}>
                     <Divider textAlign="left">
@@ -150,7 +150,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                 setId(event.target.value);
                             }
                         }
-                        margin="normal"
                     />
                 </Grid>
 
@@ -164,7 +163,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                 setName(event.target.value);
                             }
                         }
-                        margin="normal"
                     />
                 </Grid>
 
@@ -180,7 +178,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                 setDescription(event.target.value);
                             }
                         }
-                        margin="normal"
                     />
                 </Grid>
 
@@ -299,7 +296,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                                 );
                                             }
                                         }
-                                        margin="normal"
                                     />
                                 </Grid>
 
@@ -336,20 +332,20 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                 </Grid>
 
-                                <Grid size={2}>
+                                <Grid size={2}
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
 
                                     <Box>
-
-                                        {
-                                            <Button
-                                                startIcon={<Delete/>}
-                                                variant="contained"
-                                                onClick={ () => deleteArg(ix) }
-                                            >
-                                                Delete
-                                            </Button>
-                                        }
-
+                                        <Button
+                                            startIcon={<Delete/>}
+                                            variant="contained"
+                                            onClick={ () => deleteArg(ix) }
+                                        >
+                                            Delete
+                                        </Button>
                                     </Box>
 
                                 </Grid>
@@ -371,7 +367,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                                 );
                                             }
                                         }
-                                        margin="normal"
                                     />
 
                                 </Grid>
