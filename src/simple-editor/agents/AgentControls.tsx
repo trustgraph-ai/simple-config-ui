@@ -27,7 +27,10 @@ const AgentControls : React.FC <AgentControlsProps> = ({
 
         <>
 
-            <List component="nav" aria-label="tools">
+            <List
+                component="nav" aria-label="agents"
+                sx={{ width: "18rem", overflow: "hidden" }}
+            >
 
                 {
                     tools.map(

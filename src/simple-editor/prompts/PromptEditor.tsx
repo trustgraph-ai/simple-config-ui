@@ -3,7 +3,7 @@ import { Typography, Box, Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
-import Prompt from '../options/Prompt';
+import Prompt from './Prompt';
 import { usePromptsStore } from '../state/Prompts';
 
 import { helpInformation } from './help';
