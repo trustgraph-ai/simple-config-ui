@@ -1,7 +1,9 @@
 
+import React from 'react';
+
 import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
-import { InputLabel, Stack, Divider } from '@mui/material';
+import { InputLabel, Stack, Divider, Chip } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 import Prompt from '../options/Prompt';
@@ -39,6 +41,12 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
             </Typography>
 
             <Grid container spacing={1}>
+
+                <Grid size={12}>
+                    <Divider textAlign="left">
+                        tool description
+                    </Divider>
+                </Grid>
 
                 <Grid size={{ xs: 12, md: 4 }}>
                     <TextField
@@ -175,6 +183,91 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         </Select>
                     </FormControl>
                 </Grid>
+
+                {
+                    Array.from(tool.arguments.entries()).map(
+                        ([ix, arg]) => (
+
+                            <React.Fragment key={ix}>
+
+                                <Grid size={12}>
+                                    <Divider textAlign="left">
+                                        {'argument: ' + arg.name}
+                                    </Divider>
+                                </Grid>
+
+                                <Grid size={4}>
+
+                                    <TextField
+                                        fullWidth
+                                        label="Name"
+                                        value={arg.name}
+                                        onChange={
+                                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                                setName(event.target.value);
+                                            }
+                                        }
+                                        margin="normal"
+                                    />
+                                </Grid>
+
+                                <Grid size={6}>
+
+                                    <TextField
+                                        fullWidth
+                                        label="Type"
+                                        value={arg.type}
+                                        onChange={
+                                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                                setType(event.target.value);
+                                            }
+                                        }
+                                        margin="normal"
+                                    />
+
+                                </Grid>
+
+                                <Grid size={2}>
+
+                                    <Box>
+
+                                        {
+                                            <Button
+                                                startIcon={<Delete/>}
+                                                variant="contained"
+                                                onClick={ deleteTool }
+                                            >
+                                                Delete
+                                            </Button>
+                                        }
+
+                                    </Box>
+
+                                </Grid>
+
+
+                                <Grid size={12}>
+
+                                    <TextField
+                                        fullWidth
+                                        label="Description"
+                                        value={arg.description}
+                                        multiline
+                                        rows={2}
+                                        onChange={
+                                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                                setType(event.target.value);
+                                            }
+                                        }
+                                        margin="normal"
+                                    />
+
+                                </Grid>
+
+                            </React.Fragment>
+                        )
+                    )
+                }
 
             </Grid>
 

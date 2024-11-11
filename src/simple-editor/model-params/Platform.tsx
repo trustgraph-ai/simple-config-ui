@@ -18,7 +18,7 @@ const Platform: React.FC<PlatformProps> = ({
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Platform</InputLabel>
+            <InputLabel id="platform-label">Platform</InputLabel>
 
             <Select
                 labelId="platform-label"
