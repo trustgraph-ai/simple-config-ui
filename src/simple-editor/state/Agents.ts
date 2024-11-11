@@ -1,8 +1,6 @@
 
 import { create } from 'zustand'
 
-import * as prompts from '../prompts';
-
 export interface Argument {
     name : string;
     type : string;
@@ -50,6 +48,7 @@ export const useAgentsStore = create<Agents>()(
                 id: "shuttle-kb",
                 name: "Shuttle knowledge",
                 type: "knowledge-query",
+                config: {},
                 description: "Query a knowledge base with information about the space shuttle program.  The query should be a simple natural language question",
                 arguments: [
                     {
@@ -63,6 +62,7 @@ export const useAgentsStore = create<Agents>()(
                 id: "cats-kb",
                 name: "Mark's cats",
                 type: "knowledge-query",
+                config: {},
                 description: "Query a knowledge base with information about Mark's cats.  The query should be a simple natural language question.",
                 arguments: [
                     {
@@ -76,6 +76,7 @@ export const useAgentsStore = create<Agents>()(
                 id: "compute",
                 name: "Compute",
                 type: "text-completion",
+                config: {},
                 description: "Compute the answer to a computational problem.  The computation should be provided in the 'computation' argument",
                 arguments: [
                     {
