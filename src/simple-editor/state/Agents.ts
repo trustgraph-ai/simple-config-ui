@@ -58,7 +58,7 @@ export const useAgentsStore = create<Agents>()(
                     }
                 ]
             },
-            {
+/*            {
                 id: "cats-kb",
                 name: "Mark's cats",
                 type: "knowledge-query",
@@ -72,6 +72,7 @@ export const useAgentsStore = create<Agents>()(
                     }
                 ]
             },
+*/
             {
                 id: "compute",
                 name: "Compute",

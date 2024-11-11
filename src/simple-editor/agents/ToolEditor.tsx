@@ -66,8 +66,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         updateTool(
             (t : Tool) => ({
                 ...t,
-                arguments: tool.arguments.entries().forEach(
-                    ([ix, arg] : [number, Argument]) => {
+                arguments: tool.arguments.map(
+                    (arg : Argument, ix : number) => {
                         if (aix == ix) {
                             return f(arg);
                         } else {
@@ -272,8 +272,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 </Grid>
 
                 {
-                    tool.arguments.entries().forEach(
-                        ([ix, arg] : [number, Argument]) : React.ReactNode => (
+                    tool.arguments.map(
+                        (arg : Argument, ix : number) => (
 
                             <React.Fragment key={ix}>
 
