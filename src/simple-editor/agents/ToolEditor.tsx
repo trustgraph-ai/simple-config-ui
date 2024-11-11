@@ -1,6 +1,7 @@
 
 import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
-import { TextField } from '@mui/material';
+import { TextField, FormControl, MenuItem, Select } from '@mui/material';
+import { InputLabel, Stack, Divider } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 import Prompt from '../options/Prompt';
@@ -37,7 +38,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 { tool.name }
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
 
                 <Grid size={{ xs: 12, md: 4 }}>
                     <TextField
@@ -84,17 +85,95 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 </Grid>
 
                 <Grid size={12}>
-                    <TextField
-                        fullWidth
-                        label="Type"
-                        value={tool.type}
-                        onChange={
-                            (event: React.ChangeEvent<HTMLInputElement>) => {
-                                setType(event.target.value);
-                            }
-                        }
-                        margin="normal"
-                    />
+                    <FormControl fullWidth>
+
+                        <InputLabel id="type-label">Type</InputLabel>
+
+                        <Select
+                            labelId="type-label"
+                            id="type-select"
+                            value={tool.type}
+                            label="Tool type"
+                            onChange={(e) => setType(e.target.value)}
+                            sx={{minHeight: '10rem'}}
+                        >
+
+                            <MenuItem value="knowledge-query">
+                                <Stack
+                                    direction="row" spacing={2}
+                                    divider={
+                                        <Divider orientation="vertical" flexItem/>
+                                    }
+                                >
+
+                                    <Stack
+                                        sx={{width: '18rem' }}
+                                        direction="column"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        textAlign="center"
+                                    >
+                                        Knowledge<br/>query
+                                    </Stack>
+
+                                    <Box sx={{
+                                    }}>
+                                        <Typography variant="body2"
+                                            sx={{ whiteSpace: 'wrap' }}
+                                        >
+                                            This tool performs a Graph RAG
+                                            query using a question which is
+                                            automatically created based on
+                                            what the agent wants to extract
+                                            next.  To be effective, the
+                                            description should provide clear,
+                                            precise information about what
+                                            can be obtained using this
+                                            a Graph RAG query on this dataset.
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </MenuItem>
+
+                            <MenuItem value="text-completion">
+                                <Stack
+                                    direction="row" spacing={2}
+                                    divider={
+                                        <Divider orientation="vertical" flexItem/>
+                                    }
+                                >
+
+                                    <Stack
+                                        sx={{width: '18rem' }}
+                                        direction="column"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        textAlign="center"
+                                    >
+                                        Text<br/>completion
+                                    </Stack>
+
+                                    <Box sx={{
+                                    }}>
+                                        <Typography variant="body2"
+                                            sx={{ whiteSpace: 'wrap' }}
+                                        >
+                                            This tool performs a Graph RAG
+                                            query using a question which is
+                                            automatically created based on
+                                            what the agent wants to extract
+                                            next.  To be effective, the
+                                            description should provide clear,
+                                            precise information about what
+                                            can be obtained using this
+                                            a Graph RAG query on this dataset.
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </MenuItem>
+
+                        </Select>
+                    </FormControl>
                 </Grid>
 
             </Grid>
@@ -102,7 +181,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
             <Box>
 
                 {
-                    prompt.custom && 
                     <Button
                         startIcon={<Delete/>}
                         variant="contained"
@@ -120,5 +198,4 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 }
 
 export default ToolEditor;
-
 
