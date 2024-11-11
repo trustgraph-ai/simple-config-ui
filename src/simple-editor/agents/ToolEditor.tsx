@@ -59,7 +59,54 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
     };
 
     const setName = (name : string) => {
-        updateName((t) => ({ ...t, name: name }));
+        updateTool((t) => ({ ...t, name: name }));
+    };
+
+    const updateArg = (aix : number, f) => {
+        updateTool(
+            (t) => ({
+                ...t,
+                arguments: Array.from(tool.arguments.entries()).map(
+                    ([ix, arg]) => {
+                        if (aix == ix) {
+                            return f(arg);
+                        } else {
+                            return arg;
+                        }
+                    }
+                )
+            })
+        );
+    };
+
+    const setArgName = (ix : number, name : string) => {
+        updateArg(ix, (a) => ({ ...a, name: name }));
+    };
+
+    const setArgType = (ix : number, type : string) => {
+        updateArg(ix, (a) => ({ ...a, type: type }));
+    };
+
+    const setArgDescription = (ix : number, description : string) => {
+        updateArg(ix, (a) => ({ ...a, description: description }));
+    };
+
+    const addArgument = () => {
+        
+        const count = tool.arguments.length;
+        const newName = "arg-" + (count + 1).toString();
+
+        const args = [
+            ...tool.arguments,
+            {
+                name: newName,
+                type: "as;dljkag",
+                description: "alskdjasduoiuaoiu",
+            }
+        ];
+
+        updateTool((t) => ({ ...t, arguments: args }));
+        
     };
 
     let tool : any = null;
@@ -238,7 +285,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         value={arg.name}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
-                                                setName(event.target.value);
+                                                setArgName(
+                                                    ix,
+                                                    event.target.value
+                                                );
                                             }
                                         }
                                         margin="normal"
@@ -253,7 +303,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         value={arg.type}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
-                                                setType(event.target.value);
+                                                setArgType(
+                                                   ix,
+                                                   event.target.value
+                                                );
                                             }
                                         }
                                         margin="normal"
@@ -290,7 +343,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         rows={2}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
-                                                setType(event.target.value);
+                                                setArgDescription(
+                                                    ix,
+                                                    event.target.value
+                                                );
                                             }
                                         }
                                         margin="normal"
@@ -304,6 +360,20 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 }
 
             </Grid>
+
+            <Box>
+
+                {
+                    <Button
+                        startIcon={<Delete/>}
+                        variant="contained"
+                        onClick={ addArgument }
+                    >
+                        Add argument
+                    </Button>
+                }
+
+            </Box>
 
             <Box>
 
