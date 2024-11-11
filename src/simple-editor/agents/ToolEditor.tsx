@@ -28,7 +28,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
     const deleteTool = () => {
         const newTools = tools.filter(p => (p.id != selected));
         setTools(newTools);
-        setSelected(newTools[0].id);
+        if (newTools.length > 0)
+            setSelected(newTools[0].id);
+        else
+            setSelected(null);
 
     };
 

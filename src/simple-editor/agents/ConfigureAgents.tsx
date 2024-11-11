@@ -15,7 +15,7 @@ const ConfigureAgents = ({
     const setTools
         = useAgentsStore((state) => state.setTools);
 
-    const [selected, setSelected] = React.useState(tools[0].id);
+    const [selected, setSelected] = React.useState<string|null>(null);
 
     const handleSelect = (
         _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -69,11 +69,12 @@ const ConfigureAgents = ({
             <Stack
                 direction="column" spacing={2}
             >
-
+                { (selected != null) &&
                 <ToolEditor
                     selected={selected}
                     setSelected={setSelected}
                 />
+                }
 
             </Stack>
             
