@@ -32,6 +32,7 @@ const ConfigureAgents = ({
         const newTool = {
             id: newId,
             name: "Example knowledge",
+            config: { "input": "query" },
             description: "Query a knowledge store for...",
             type: "knowledge-query",
             arguments: [

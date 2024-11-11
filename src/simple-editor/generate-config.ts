@@ -1,11 +1,15 @@
 
 import { ModelParams } from './state/ModelParams';
 import { Prompts } from './state/Prompts';
-import { Options, CONFIGURE_PROMPTS } from './state/Options';
+import { Agents } from './state/Agents';
+import {
+    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS
+} from './state/Options';
 
 export const generateConfig =
 (
-    params : ModelParams, prompts : Prompts, options : Options,
+    params : ModelParams, prompts : Prompts, agents : Agents,
+    options : Options,
 ) => {
 
     const depl = params.modelDeployment;
@@ -81,12 +85,23 @@ export const generateConfig =
           
       }
 
+      if (options.options.has(CONFIGURE_AGENTS)) {
+
+          let toolParams = agents.tools;
+  
+          config.push({
+              "name": "agent-manager-react",
+              "parameters": {
+                  "tools": toolParams
+              },
+          });
+          
+      }
+
       config.push({
           "name": "null",
           "parameters": parameters,
       });
-
-console.log(config);
 
       const cnf = JSON.stringify(config, null, 4)
 

@@ -3,17 +3,14 @@ import React from 'react';
 
 import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
-import { InputLabel, Stack, Divider, Chip } from '@mui/material';
+import { InputLabel, Stack, Divider } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
-import Prompt from '../options/Prompt';
-import { useAgentsStore } from '../state/Agents';
-
-//import { helpInformation } from './help';
+import { useAgentsStore, Tool, Argument } from '../state/Agents';
 
 interface ToolEditorProps {
     selected : string;
-    setSelected : (id : string) => void;
+    setSelected : (id : string | null) => void;
 }
 
 const ToolEditor : React.FC<ToolEditorProps> = ({
@@ -35,7 +32,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
     };
 
-    const updateTool = (f) => {
+    const updateTool = (f : (t : Tool) => Tool) => {
         const newTools = tools.map(
             e => {
                 if (e.id == selected) {
@@ -65,7 +62,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         updateTool((t) => ({ ...t, name: name }));
     };
 
-    const updateArg = (aix : number, f) => {
+    const updateArg = (aix : number, f : (a : Argument) => Argument) => {
         updateTool(
             (t) => ({
                 ...t,

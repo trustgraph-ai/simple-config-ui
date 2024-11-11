@@ -9,7 +9,7 @@ import { ChatBubble, Add } from '@mui/icons-material';
 import { useAgentsStore } from '../state/Agents';
 
 interface AgentControlsProps {
-    selected : string;
+    selected : string | null;
     handleSelect : (
         _event : React.MouseEvent<HTMLDivElement, MouseEvent>,
         id : string,
