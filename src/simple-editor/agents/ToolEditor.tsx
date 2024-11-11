@@ -109,8 +109,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
             ...tool.arguments,
             {
                 name: newName,
-                type: "as;dljkag",
-                description: "alskdjasduoiuaoiu",
+                type: "string",
+                description: "Query string for...",
             }
         ];
 
@@ -287,7 +287,6 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                 </Grid>
 
                                 <Grid size={4}>
-
                                     <TextField
                                         fullWidth
                                         label="Name"
@@ -306,20 +305,34 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                 <Grid size={6}>
 
-                                    <TextField
-                                        fullWidth
-                                        label="Type"
-                                        value={arg.type}
-                                        onChange={
-                                            (event: React.ChangeEvent<HTMLInputElement>) => {
-                                                setArgType(
-                                                   ix,
-                                                   event.target.value
-                                                );
+                                    <FormControl fullWidth>
+
+                                        <InputLabel
+                                            id={ 'arg-type-' + ix }
+                                        >
+                                            Type
+                                        </InputLabel>
+
+                                        <Select
+                                            labelId = { 'arg-type-' + ix }
+                                            value={arg.type}
+                                            label="Type"
+                                            onChange={
+                                                (e) =>
+                                                    setArgType(
+                                                        ix, e.target.value
+                                                    )
                                             }
-                                        }
-                                        margin="normal"
-                                    />
+                                        >
+                                            <MenuItem value="string">
+                                                string
+                                            </MenuItem>
+                                            <MenuItem value="number">
+                                                number
+                                            </MenuItem>
+                                        </Select>
+
+                                    </FormControl>
 
                                 </Grid>
 
