@@ -103,7 +103,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                             value={tool.type}
                             label="Tool type"
                             onChange={(e) => setType(e.target.value)}
-                            sx={{minHeight: '10rem'}}
+                            sx={{minHeight: '6rem'}}
                         >
 
                             <MenuItem value="knowledge-query">
@@ -166,15 +166,13 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         <Typography variant="body2"
                                             sx={{ whiteSpace: 'wrap' }}
                                         >
-                                            This tool performs a Graph RAG
-                                            query using a question which is
-                                            automatically created based on
-                                            what the agent wants to extract
-                                            next.  To be effective, the
-                                            description should provide clear,
-                                            precise information about what
-                                            can be obtained using this
-                                            a Graph RAG query on this dataset.
+                                            This tool sends a query to
+                                            the text completion service,
+                                            providing basic LLM output.
+                                            This only works with knowledge
+                                            or information which can be
+                                            handled within the LLM without
+                                            using any external knowledge.
                                         </Typography>
                                     </Box>
                                 </Stack>
