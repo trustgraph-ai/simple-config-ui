@@ -5,11 +5,12 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS,
+    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 
-import ConfigurePrompts from './ConfigurePrompts';
+import ConfigurePrompts from '../prompts/ConfigurePrompts';
+import ConfigureAgents from '../agents/ConfigureAgents';
 import Additional from './Additional';
 import GenerateDeployment from './GenerateDeployment';
 import Parameters from './Parameters';
@@ -46,6 +47,11 @@ const tabs = (opts : Set<string>) => {
     if (opts.has(CONFIGURE_PROMPTS))
         tabs.push(
             <Tab key="prompts" value="prompts" label="Configure Prompts"/>
+        );
+
+    if (opts.has(CONFIGURE_AGENTS))
+        tabs.push(
+            <Tab key="agents" value="agents" label="Configure Agents"/>
         );
 
     tabs.push(<Tab key="depl" value="depl" label="Finish Deployment 🚀"/>);
@@ -97,6 +103,10 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="prompts">
                 <ConfigurePrompts/>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="agents">
+                <ConfigureAgents/>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} tabId="depl">

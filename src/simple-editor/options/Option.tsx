@@ -25,7 +25,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                   title={title}
                   subheader={
                       <Typography variant="body1">
-                          Active ✅
+                          Selected ✅
                       </Typography>
                   }
                 />
@@ -51,11 +51,10 @@ const Option = ({enabled, onChange, avatar, title, content} : {
         if (enabled) {
             return (
                 <CardContent sx={{
-                    height: '4rem', backgroundColor: blue[200]
+                    height: '3rem', backgroundColor: blue[200]
                 }}>
                     <Typography
                         variant="body2"
-                        sx={{ fontSize: 12 }}
                     >
                     {content}
                     </Typography>
@@ -63,10 +62,9 @@ const Option = ({enabled, onChange, avatar, title, content} : {
             );
         } else {
             return (
-                <CardContent sx={{height: '4rem'}}>
+                <CardContent sx={{height: '3rem'}}>
                     <Typography
                         variant="body2"
-                        sx={{ fontSize: 12 }}
                     >
                     {content}
                     </Typography>

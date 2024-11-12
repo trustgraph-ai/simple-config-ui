@@ -27,7 +27,10 @@ const PromptControls : React.FC <PromptControlsProps> = ({
 
         <>
 
-            <List component="nav" aria-label="prompts">
+            <List
+                component="nav" aria-label="prompts"
+                sx={{ width: "18rem", overflow: "hidden" }}
+            >
 
                 {
                     prompts.map(

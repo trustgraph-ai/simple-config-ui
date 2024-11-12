@@ -3,6 +3,8 @@ import { create } from 'zustand'
 
 export const CONFIGURE_PROMPTS = "configure-prompts";
 
+export const CONFIGURE_AGENTS = "configure-agents";
+
 export interface Options {
 
     options : Set<string>;
