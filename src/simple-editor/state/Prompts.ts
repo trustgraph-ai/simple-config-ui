@@ -65,6 +65,12 @@ export const usePromptsStore = create<Prompts>()(
                 prompt: prompts.default_document_query_prompt,
                 custom: false,
             },
+            {
+                id: "agent-react",
+                name: "ReACT agent",
+                prompt: prompts.default_agent_react_prompt,
+                custom: false,
+            },
         ],
 
         setPrompts: (v) => set(() => ({
