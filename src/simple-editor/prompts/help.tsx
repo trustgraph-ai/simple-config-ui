@@ -8,6 +8,7 @@ import ExtractTopicsPromptHelp from './help/ExtractTopicsPrompt';
 import ExtractRowsPromptHelp from './help/ExtractRowsPrompt';
 import KnowledgeQueryPromptHelp from './help/KnowledgeQueryPrompt';
 import DocumentQueryPromptHelp from './help/DocumentQueryPrompt';
+import AgentReactPromptHelp from './help/AgentReactPrompt';
 
 export const helpInformation : { [key : string] : React.ReactNode } = {
     "system-template": <SystemPromptHelp/>,
@@ -17,4 +18,5 @@ export const helpInformation : { [key : string] : React.ReactNode } = {
     "extract-rows": <ExtractRowsPromptHelp/>,
     "kg-prompt": <KnowledgeQueryPromptHelp/>,
     "document-prompt": <DocumentQueryPromptHelp/>,
+    "agent-react": <AgentReactPromptHelp/>,
 };
