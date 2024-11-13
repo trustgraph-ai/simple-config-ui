@@ -37,7 +37,7 @@ export const usePromptsStore = create<Prompts>()(
             },
             {
                 id: "extract-relationships",
-                name: "Extract Telationships",
+                name: "Extract Relationships",
                 prompt: prompts.default_relationship_prompt,
                 custom: false,
             },
