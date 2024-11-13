@@ -135,16 +135,22 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
             <Grid container spacing={2}>
 
                 <Grid size={12}>
-                    <Divider textAlign="left">
-                        Tool Definition
-                    </Divider>
+                    <Divider   
+                        sx={{
+                        borderBottom: '2px solid #3064C8',
+                    }}/>
+                </Grid>
+
+                <Grid size={12}>
+                    <Divider textAlign="left">Definition</Divider>
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 4 }}>
                     <TextField
                         fullWidth
-                        label="TrustGraph ID"
-                        value={tool.id}
+                        multiline
+                        label="ID"
+                        placeholder={tool.id}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                 setId(event.target.value);
@@ -156,8 +162,9 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 <Grid size={{ xs: 12, md: 8 }}>
                     <TextField
                         fullWidth
-                        label="Tool Name"
-                        value={tool.name}
+                        multiline
+                        label="Name"
+                        placeholder={tool.name}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                 setName(event.target.value);
@@ -169,13 +176,13 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 <Grid size={12}>
                     <FormControl fullWidth>
 
-                        <InputLabel id="type-label">Tool Options</InputLabel>
+                        <InputLabel id="type-label">Options</InputLabel>
 
                         <Select
                             labelId="type-label"
                             id="type-select"
                             value={tool.type}
-                            label="Tool Options"
+                            label="Options"
                             onChange={(e) => setType(e.target.value)}
                             sx={{minHeight: '6rem'}}
                         >
@@ -253,9 +260,9 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 <Grid size={12}>
                     <TextField
                         fullWidth
-                        label="Tool Instructions"
+                        label="Instructions"
                         multiline
-                        value={tool.description}
+                        placeholder={tool.description}
                         rows={5}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -272,16 +279,24 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                             <React.Fragment key={ix}>
 
                                 <Grid size={12}>
+                                    <Divider    
+                                        sx={{
+                                        borderBottom: '2px solid #3064C8',
+                                    }}/>
+                                </Grid>
+
+                                <Grid size={12}>
                                     <Divider textAlign="left">
-                                        {'Tool Argument ' + (ix+1) + ': ' + arg.name}
+                                        {'Argument ' + (ix+1) + ': ' + arg.name}
                                     </Divider>
                                 </Grid>
 
                                 <Grid size={4}>
                                     <TextField
                                         fullWidth
-                                        label="Argument Name"
-                                        value={arg.name}
+                                        multiline
+                                        label="Name"
+                                        placeholder={arg.name}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                                 setArgName(
@@ -297,16 +312,12 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                     <FormControl fullWidth>
 
-                                        <InputLabel
-                                            id={ 'arg-type-' + ix }
-                                        >
-                                            Argument Type
-                                        </InputLabel>
+                                        <InputLabel id={ 'arg-type-' + ix }>Type</InputLabel>
 
                                         <Select
                                             labelId = { 'arg-type-' + ix }
                                             value={arg.type}
-                                            label="Argument Type"
+                                            label="Type"
                                             onChange={
                                                 (e) =>
                                                     setArgType(
@@ -338,7 +349,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                             variant="contained"
                                             onClick={ () => deleteArg(ix) }
                                         >
-                                            Delete {arg.name}
+                                            Delete
                                         </Button>
                                     </Box>
 
@@ -349,8 +360,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                     <TextField
                                         fullWidth
-                                        label="Argument Definition"
-                                        value={arg.description}
+                                        label="Description"
+                                        placeholder={arg.description}
                                         multiline
                                         rows={2}
                                         onChange={
@@ -380,7 +391,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         variant="contained"
                         onClick={ addArgument }
                     >
-                        Add Tool Argument
+                        Add Argument
                     </Button>
                 }
 
@@ -394,7 +405,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         variant="contained"
                         onClick={ deleteTool }
                     >
-                        Delete {tool.name}
+                        Delete Tool
                     </Button>
                 }
 
