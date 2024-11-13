@@ -58,9 +58,9 @@ const ParamsForm: React.FC = ({
                     enabled={configurePrompts}
                     onChange={onConfigurePrompts}
                     avatar={<ChatBubble color="primary"/>}
-                    title="Configure prompts"
+                    title="Data Extraction Prompts"
                     content={
-                        'Tailor the prompts for the chosen LLM.'
+                        'Tailor the LLM system prompts, data extraction prompts, and RAG query prompts.'
                     }
 
                 />
@@ -69,9 +69,9 @@ const ParamsForm: React.FC = ({
                     enabled={configureAgents}
                     onChange={onConfigureAgents}
                     avatar={<Psychology color="primary"/>}
-                    title="Configure agents"
+                    title="Agent Definitions"
                     content={
-                        'Add agent configuration and define the flow.'
+                        'Add Agents that use a ReAct approach. Customize the Agent definitions, options, and arguments.'
                     }
 
                 />

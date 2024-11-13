@@ -37,11 +37,11 @@ export const useModelParamsStore = create<ModelParams>()(
         vectorDB: "qdrant",
         chunkerType: "chunker-recursive",
         chunkSize: 1000,
-        chunkOverlap: 200,
+        chunkOverlap: 50,
         modelDeployment: "ollama",
         modelName: "gemma2:9b",
         temperature: 0.3,
-        maxOutputTokens: 1000,
+        maxOutputTokens: 2048,
         platform: "docker-compose",
         trustgraphVersion: TRUSTGRAPH_VERSION,
 

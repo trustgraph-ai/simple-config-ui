@@ -136,14 +136,14 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                 <Grid size={12}>
                     <Divider textAlign="left">
-                        tool description
+                        Tool Definition
                     </Divider>
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 4 }}>
                     <TextField
                         fullWidth
-                        label="ID"
+                        label="TrustGraph ID"
                         value={tool.id}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,7 +156,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 <Grid size={{ xs: 12, md: 8 }}>
                     <TextField
                         fullWidth
-                        label="Name"
+                        label="Tool Name"
                         value={tool.name}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,24 +167,9 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                 </Grid>
 
                 <Grid size={12}>
-                    <TextField
-                        fullWidth
-                        label="Description"
-                        multiline
-                        value={tool.description}
-                        rows={5}
-                        onChange={
-                            (event: React.ChangeEvent<HTMLInputElement>) => {
-                                setDescription(event.target.value);
-                            }
-                        }
-                    />
-                </Grid>
-
-                <Grid size={12}>
                     <FormControl fullWidth>
 
-                        <InputLabel id="type-label">Type</InputLabel>
+                        <InputLabel id="type-label">Tool Options</InputLabel>
 
                         <Select
                             labelId="type-label"
@@ -210,7 +195,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         justifyContent="center"
                                         textAlign="center"
                                     >
-                                        Knowledge<br/>query
+                                        GraphRAG Query
                                     </Stack>
 
                                     <Box sx={{
@@ -218,15 +203,12 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         <Typography variant="body2"
                                             sx={{ whiteSpace: 'wrap' }}
                                         >
-                                            This tool performs a Graph RAG
-                                            query using a question which is
-                                            automatically created based on
-                                            what the agent wants to extract
-                                            next.  To be effective, the
+                                            Performs a GraphRAG query.
+                                            To be effective, the
                                             description should provide clear,
                                             precise information about what
-                                            can be obtained using this
-                                            a Graph RAG query on this dataset.
+                                            information the GraphRAG query
+                                            should return.
                                         </Typography>
                                     </Box>
                                 </Stack>
@@ -247,7 +229,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         justifyContent="center"
                                         textAlign="center"
                                     >
-                                        Text<br/>completion
+                                        Text Completion
                                     </Stack>
 
                                     <Box sx={{
@@ -255,13 +237,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         <Typography variant="body2"
                                             sx={{ whiteSpace: 'wrap' }}
                                         >
-                                            This tool sends a query to
-                                            the text completion service,
-                                            providing basic LLM output.
-                                            This only works with knowledge
-                                            or information which can be
-                                            handled within the LLM without
-                                            using any external knowledge.
+                                            Sends a request to
+                                            the text completion service to
+                                            generate a LLM output without
+                                            any additional context. 
                                         </Typography>
                                     </Box>
                                 </Stack>
@@ -269,6 +248,21 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                         </Select>
                     </FormControl>
+                </Grid>
+
+                <Grid size={12}>
+                    <TextField
+                        fullWidth
+                        label="Tool Instructions"
+                        multiline
+                        value={tool.description}
+                        rows={5}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setDescription(event.target.value);
+                            }
+                        }
+                    />
                 </Grid>
 
                 {
@@ -279,14 +273,14 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                 <Grid size={12}>
                                     <Divider textAlign="left">
-                                        {'argument: ' + arg.name}
+                                        {'Tool Argument ' + (ix+1) + ': ' + arg.name}
                                     </Divider>
                                 </Grid>
 
                                 <Grid size={4}>
                                     <TextField
                                         fullWidth
-                                        label="Name"
+                                        label="Argument Name"
                                         value={arg.name}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -306,7 +300,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         <InputLabel
                                             id={ 'arg-type-' + ix }
                                         >
-                                            Type
+                                            Argument Type
                                         </InputLabel>
 
                                         <Select
@@ -344,7 +338,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                             variant="contained"
                                             onClick={ () => deleteArg(ix) }
                                         >
-                                            Delete
+                                            Delete {arg.name}
                                         </Button>
                                     </Box>
 
@@ -355,7 +349,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                                     <TextField
                                         fullWidth
-                                        label="Description"
+                                        label="Argument Definition"
                                         value={arg.description}
                                         multiline
                                         rows={2}
@@ -386,7 +380,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         variant="contained"
                         onClick={ addArgument }
                     >
-                        Add argument
+                        Add Tool Argument
                     </Button>
                 }
 
@@ -400,7 +394,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         variant="contained"
                         onClick={ deleteTool }
                     >
-                        Delete this tool
+                        Delete {tool.name}
                     </Button>
                 }
 

@@ -45,16 +45,16 @@ export const useAgentsStore = create<Agents>()(
             }
 */
             {
-                id: "shuttle-kb",
-                name: "Shuttle knowledge",
+                id: "sample-query",
+                name: "Sample Query",
                 type: "knowledge-query",
                 config: {},
-                description: "Query a knowledge base with information about the space shuttle program.  The query should be a simple natural language question",
+                description: "Query a knowledge base that has already been extracted.  The query should be a simple natural language question.",
                 arguments: [
                     {
                         name: "query",
                         type: "string",
-                        description: "The search query string",
+                        description: "Describe the search query here.",
                     }
                 ]
             },
@@ -74,16 +74,16 @@ export const useAgentsStore = create<Agents>()(
             },
 */
             {
-                id: "compute",
-                name: "Compute",
+                id: "sample-completion",
+                name: "Sample Text Completion",
                 type: "text-completion",
                 config: {},
-                description: "Compute the answer to a computational problem.  The computation should be provided in the 'computation' argument",
+                description: "Describe the request to send to LLM. This request will be sent with no additional context.",
                 arguments: [
                     {
-                        name: "computation",
+                        name: "response",
                         type: "string",
-                        description: "The computation to solve",
+                        description: "The response expected from the LLM.",
                     }
                 ]
             }
