@@ -196,7 +196,7 @@ const getInstructions = (model : string) => {
             <DeploymentEnvVars
                 variables={[
                     {
-                        name: "OPENAI_KEY",
+                        name: "OPENAI_TOKEN",
                         value: "TOKEN-GOES-HERE"
                     }
                 ]}
