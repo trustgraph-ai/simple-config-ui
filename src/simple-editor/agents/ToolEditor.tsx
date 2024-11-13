@@ -175,7 +175,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                             labelId="type-label"
                             id="type-select"
                             value={tool.type}
-                            label="Tool type"
+                            label="Tool Options"
                             onChange={(e) => setType(e.target.value)}
                             sx={{minHeight: '6rem'}}
                         >
@@ -306,7 +306,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         <Select
                                             labelId = { 'arg-type-' + ix }
                                             value={arg.type}
-                                            label="Type"
+                                            label="Argument Type"
                                             onChange={
                                                 (e) =>
                                                     setArgType(
