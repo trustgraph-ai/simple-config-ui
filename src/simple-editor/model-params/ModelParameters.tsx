@@ -46,7 +46,7 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                         labelId="model-name-label"
                         id="model-name-select"
                         value="n/a"
-                        label="Model deployment"
+                        label="Model"
                     >
                         <MenuItem key="n/a" value="n/a">n/a</MenuItem>
                     </Select>
@@ -64,7 +64,7 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                     labelId="model-name-label"
                     id="model-name-select"
                     value={modelName}
-                    label="Model deployment"
+                    label="Model"
                     onChange={(e) => onModelNameChange(e.target.value)}
                     inputProps={{ readOnly: readOnly }}
                 >
