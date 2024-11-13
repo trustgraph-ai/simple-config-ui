@@ -99,8 +99,8 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                         (_, value) => onTemperatureChange(value as number)
                     }
                     min={0}
-                    max={1}
-                    step={0.1}
+                    max={2}
+                    step={0.01}
                 />
             </div>
             <TextField
