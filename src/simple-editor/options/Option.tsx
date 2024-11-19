@@ -51,7 +51,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
         if (enabled) {
             return (
                 <CardContent sx={{
-                    height: '3rem', backgroundColor: blue[200]
+                    height: '4rem', backgroundColor: blue[200]
                 }}>
                     <Typography
                         variant="body2"
