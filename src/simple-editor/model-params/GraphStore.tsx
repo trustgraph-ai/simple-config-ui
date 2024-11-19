@@ -17,7 +17,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Graph Store</InputLabel>
+            <InputLabel id="graph-store-label">Graph store</InputLabel>
 
             <Select
                 labelId="graph-store-label"

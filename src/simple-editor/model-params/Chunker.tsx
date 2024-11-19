@@ -29,13 +29,13 @@ const Chunker: React.FC<ChunkerProps> = ({
 
           <FormControl fullWidth>
 
-              <InputLabel id="graph-store-label">Chunker Type</InputLabel>
+              <InputLabel id="graph-store-label">Chunker type</InputLabel>
 
               <Select
                   labelId="chunker-type-label"
                   id="chunker-type-select"
                   value={type}
-                  label="Chunker Type"
+                  label="Chunker type"
                   onChange={(e) => onTypeChange(e.target.value)}
                   sx={{minHeight: 120}}
               >
@@ -111,7 +111,7 @@ const Chunker: React.FC<ChunkerProps> = ({
 
           <TextField
               fullWidth
-              label="Chunk Size"
+              label="Chunk size"
               type="number"
               value={chunkSize}
               onChange={(e) => onChunkSizeChange(parseInt(e.target.value))}
@@ -120,7 +120,7 @@ const Chunker: React.FC<ChunkerProps> = ({
 
           <TextField
               fullWidth
-              label="Chunk Overlap"
+              label="Chunk overlap"
               type="number"
               value={chunkOverlap}
               onChange={(e) => onChunkOverlapChange(parseInt(e.target.value))}

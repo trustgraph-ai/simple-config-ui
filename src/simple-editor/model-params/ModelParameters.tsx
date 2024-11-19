@@ -105,7 +105,7 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
             </div>
             <TextField
                 fullWidth
-                label="Max Output Tokens"
+                label="Max output tokens"
                 type="number"
                 value={maxOutputTokens}
                 onChange={
