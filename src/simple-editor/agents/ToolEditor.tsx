@@ -120,7 +120,10 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
     let tool : any = null;
     for (let p of tools) {
-       if (p.id == selected) tool = p;
+       if (p.id == selected) {
+           tool = p;
+           break;
+       }
     }
 
     return (
@@ -150,7 +153,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         fullWidth
                         multiline
                         label="ID"
-                        placeholder={tool.id}
+                        placeholder="example-query"
+                        value={tool.id}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                 setId(event.target.value);
@@ -164,7 +168,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         fullWidth
                         multiline
                         label="Name"
-                        placeholder={tool.name}
+                        placeholder="Example tool name"
+                        value={tool.name}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                 setName(event.target.value);
@@ -262,7 +267,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         fullWidth
                         label="Instructions"
                         multiline
-                        placeholder={tool.description}
+                        placeholder="This tool provides knowledge about..."
+                        value={tool.description}
                         rows={5}
                         onChange={
                             (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -296,7 +302,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                         fullWidth
                                         multiline
                                         label="Name"
-                                        placeholder={arg.name}
+                                        placeholder="arg-name"
+                                        value={arg.name}
                                         onChange={
                                             (event: React.ChangeEvent<HTMLInputElement>) => {
                                                 setArgName(
@@ -361,7 +368,8 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                                     <TextField
                                         fullWidth
                                         label="Description"
-                                        placeholder={arg.description}
+                                        placeholder="This arg can be used..."
+                                        value={arg.description}
                                         multiline
                                         rows={2}
                                         onChange={
