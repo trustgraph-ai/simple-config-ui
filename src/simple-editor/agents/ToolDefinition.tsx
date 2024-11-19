@@ -1,0 +1,179 @@
+
+import React from 'react';
+
+import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
+import { TextField, FormControl, MenuItem, Select } from '@mui/material';
+import { InputLabel, Stack, Divider } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+
+import { useAgentsStore, Tool, Argument } from '../state/Agents';
+
+interface ToolDefinitionProps {
+    tool : any;
+    setId : any;
+    setName : any;
+    setType : any;
+    setDescription : any;
+}
+
+const ToolDefinition : React.FC<ToolDefinitionProps> = ({
+    tool, setId, setName, setType, setDescription,
+}) => {
+
+    return (
+
+        <>
+
+            <Grid container spacing={2}>
+
+                <Grid size={12}>
+                    <Divider   
+                        sx={{
+                        borderBottom: '2px solid #3064C8',
+                    }}/>
+                </Grid>
+
+                <Grid size={12}>
+                    <Divider textAlign="left">Definition</Divider>
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 4 }}>
+                    <TextField
+                        fullWidth
+                        multiline
+                        label="ID"
+                        placeholder="example-query"
+                        value={tool.id}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setId(event.target.value);
+                            }
+                        }
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 8 }}>
+                    <TextField
+                        fullWidth
+                        multiline
+                        label="Name"
+                        placeholder="Example tool name"
+                        value={tool.name}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setName(event.target.value);
+                            }
+                        }
+                    />
+                </Grid>
+
+                <Grid size={12}>
+                    <FormControl fullWidth>
+
+                        <InputLabel id="type-label">Options</InputLabel>
+
+                        <Select
+                            labelId="type-label"
+                            id="type-select"
+                            value={tool.type}
+                            label="Options"
+                            onChange={(e) => setType(e.target.value)}
+                            sx={{minHeight: '6rem'}}
+                        >
+
+                            <MenuItem value="knowledge-query">
+                                <Stack
+                                    direction="row" spacing={2}
+                                    divider={
+                                        <Divider orientation="vertical" flexItem/>
+                                    }
+                                >
+
+                                    <Stack
+                                        sx={{width: '18rem' }}
+                                        direction="column"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        textAlign="center"
+                                    >
+                                        GraphRAG Query
+                                    </Stack>
+
+                                    <Box sx={{
+                                    }}>
+                                        <Typography variant="body2"
+                                            sx={{ whiteSpace: 'wrap' }}
+                                        >
+                                            Performs a GraphRAG query.
+                                            To be effective, the
+                                            description should provide clear,
+                                            precise information about what
+                                            information the GraphRAG query
+                                            should return.
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </MenuItem>
+
+                            <MenuItem value="text-completion">
+                                <Stack
+                                    direction="row" spacing={2}
+                                    divider={
+                                        <Divider orientation="vertical" flexItem/>
+                                    }
+                                >
+
+                                    <Stack
+                                        sx={{width: '18rem' }}
+                                        direction="column"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        textAlign="center"
+                                    >
+                                        Text Completion
+                                    </Stack>
+
+                                    <Box sx={{
+                                    }}>
+                                        <Typography variant="body2"
+                                            sx={{ whiteSpace: 'wrap' }}
+                                        >
+                                            Sends a request to
+                                            the text completion service to
+                                            generate a LLM output without
+                                            any additional context. 
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </MenuItem>
+
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid size={12}>
+                    <TextField
+                        fullWidth
+                        label="Instructions"
+                        multiline
+                        placeholder="This tool provides knowledge about..."
+                        value={tool.description}
+                        rows={5}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                setDescription(event.target.value);
+                            }
+                        }
+                    />
+                </Grid>
+
+            </Grid>
+
+
+        </>
+    );
+
+}
+
+export default ToolDefinition;
+
