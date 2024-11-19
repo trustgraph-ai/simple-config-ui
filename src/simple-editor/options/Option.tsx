@@ -62,7 +62,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
             );
         } else {
             return (
-                <CardContent sx={{height: '3rem'}}>
+                <CardContent sx={{height: '4rem'}}>
                     <Typography
                         variant="body2"
                     >
