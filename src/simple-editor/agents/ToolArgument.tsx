@@ -6,13 +6,15 @@ import { TextField, FormControl, MenuItem, Select } from '@mui/material';
 import { InputLabel, Paper } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
+import { Argument } from '../state/Agents';
+
 interface ToolArgumentProps {
-    arg : any;
+    arg : Argument;
     ix : number;
-    setArgName : any;
-    setArgType : any;
-    setArgDescription : any;
-    deleteArg : any;
+    setArgName : (n : number, s : string) => void;
+    setArgType : (n : number, s : string) => void;
+    setArgDescription : (n : number, s : string) => void;
+    deleteArg : (n : number) => void;
 }
 
 const ToolArgument : React.FC<ToolArgumentProps> = ({

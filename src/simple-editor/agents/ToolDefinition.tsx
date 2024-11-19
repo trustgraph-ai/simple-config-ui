@@ -5,12 +5,14 @@ import { Typography, Box, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
 import { InputLabel, Stack, Divider, Paper } from '@mui/material';
 
+import { Tool } from '../state/Agents';
+
 interface ToolDefinitionProps {
-    tool : any;
-    setId : any;
-    setName : any;
-    setType : any;
-    setDescription : any;
+    tool : Tool;
+    setId : (s : string) => void;
+    setName : (s : string) => void;
+    setType : (s : string) => void;
+    setDescription : (s : string) => void;
 }
 
 const ToolDefinition : React.FC<ToolDefinitionProps> = ({
