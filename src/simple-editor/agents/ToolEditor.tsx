@@ -67,7 +67,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         updateTool(
             (t : Tool) => ({
                 ...t,
-                arguments: tool.arguments.map(
+                arguments: tool!.arguments.map(
                     (arg : Argument, ix : number) => {
                         if (aix == ix) {
                             return f(arg);
@@ -84,7 +84,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         updateTool(
             (t) => ({
                 ...t,
-                arguments: tool.arguments.toSpliced(aix, 1)
+                arguments: tool!.arguments.toSpliced(aix, 1)
             })
         );
     };
@@ -103,11 +103,11 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
     const addArgument = () => {
         
-        const count = tool.arguments.length;
+        const count = tool!.arguments.length;
         const newName = "arg-" + (count + 1).toString();
 
         const args = [
-            ...tool.arguments,
+            ...tool!.arguments,
             {
                 name: newName,
                 type: "string",
@@ -119,13 +119,15 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         
     };
 
-    let tool : any = null;
+    let tool : Tool | null = null;
     for (let p of tools) {
        if (p.id == selected) {
            tool = p;
            break;
        }
     }
+
+    if (tool == null) return null;
 
     return (
 
