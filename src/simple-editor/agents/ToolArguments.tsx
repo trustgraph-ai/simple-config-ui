@@ -1,16 +1,16 @@
 
 import React from 'react';
 
-import { Argument } from '../state/Agents';
+import { Tool, Argument } from '../state/Agents';
 
 import ToolArgument from './ToolArgument';
 
 interface ToolArgumentsProps {
-    tool : any;
-    setArgName : any;
-    setArgType : any;
-    setArgDescription : any;
-    deleteArg : any;
+    tool : Tool;
+    setArgName : (n : number, s : string) => void;
+    setArgType : (n : number, s : string) => void;
+    setArgDescription : (n : number, s : string) => void;
+    deleteArg : (n : number) => void;
 }
 
 const ToolArguments : React.FC<ToolArgumentsProps> = ({
