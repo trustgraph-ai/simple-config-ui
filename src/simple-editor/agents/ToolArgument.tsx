@@ -3,10 +3,8 @@ import React from 'react';
 
 import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
-import { InputLabel, Stack, Divider, Paper } from '@mui/material';
+import { InputLabel, Paper } from '@mui/material';
 import { Delete } from '@mui/icons-material';
-
-import { useAgentsStore, Tool, Argument } from '../state/Agents';
 
 interface ToolArgumentProps {
     arg : any;
