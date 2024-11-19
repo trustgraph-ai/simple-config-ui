@@ -26,13 +26,12 @@ const ToolArguments : React.FC<ToolArgumentsProps> = ({
 
         <>
 
-            <Grid container spacing={2}>
-
                 {
                     tool.arguments.map(
                         (arg : Argument, ix : number) => (
 
                             <ToolArgument
+                                key={ix}
                                 arg={arg}
                                 ix={ix}
                                 setArgName={setArgName}
@@ -43,8 +42,6 @@ const ToolArguments : React.FC<ToolArgumentsProps> = ({
                         )
                     )
                 }
-
-            </Grid>
 
         </>
     );

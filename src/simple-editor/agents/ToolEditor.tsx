@@ -133,50 +133,59 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
         <>
             <Typography
                 variant="h5" component="h2" gutterBottom
+                sx={{ mb: 3 }}
             >
                 { tool.name }
             </Typography>
 
-            <ToolDefinition
-                tool={tool} setId={setId} setName={setName}
-                setType={setType} setDescription={setDescription}
-            />
+            <Stack spacing={2}>
 
-            <ToolArguments
-                tool={tool}
-                setArgName={setArgName}
-                setArgType={setArgType}
-                setArgDescription={setArgDescription}
-                deleteArg={deleteArg}
-            />
+                <ToolDefinition
+                    tool={tool} setId={setId} setName={setName}
+                    setType={setType} setDescription={setDescription}
+                />
 
-            <Box>
+                <ToolArguments
+                    tool={tool}
+                    setArgName={setArgName}
+                    setArgType={setArgType}
+                    setArgDescription={setArgDescription}
+                    deleteArg={deleteArg}
+                />
 
-                {
-                    <Button
-                        startIcon={<Delete/>}
-                        variant="contained"
-                        onClick={ addArgument }
-                    >
-                        Add Argument
-                    </Button>
-                }
+                <Stack spacing={3} direction="row">
 
-            </Box>
+                    <Box>
 
-            <Box>
+                        {
+                            <Button
+                                startIcon={<Delete/>}
+                                variant="contained"
+                                onClick={ addArgument }
+                            >
+                                Add Argument
+                            </Button>
+                        }
 
-                {
-                    <Button
-                        startIcon={<Delete/>}
-                        variant="contained"
-                        onClick={ deleteTool }
-                    >
-                        Delete Tool
-                    </Button>
-                }
+                    </Box>
 
-            </Box>
+                    <Box>
+
+                        {
+                            <Button
+                                startIcon={<Delete/>}
+                                variant="contained"
+                                onClick={ deleteTool }
+                            >
+                                Delete Tool
+                            </Button>
+                        }
+
+                    </Box>
+
+                </Stack>
+
+            </Stack>
 
         </>
     );

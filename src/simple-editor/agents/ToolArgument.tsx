@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
-import { InputLabel, Stack, Divider } from '@mui/material';
+import { InputLabel, Stack, Divider, Paper } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
 import { useAgentsStore, Tool, Argument } from '../state/Agents';
@@ -22,22 +22,17 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
 }) => {
 
     return (
-        <>
 
-            <React.Fragment key={ix}>
+        <Paper elevation={3} sx={{ p: 3 }}>
 
-                <Grid size={12}>
-                    <Divider    
-                        sx={{
-                        borderBottom: '2px solid #3064C8',
-                    }}/>
-                </Grid>
+            <Typography
+                variant="h5" component="h2" gutterBottom
+                sx={{ mb: 3 }}
+            >
+                {'Argument ' + (ix+1) + ': ' + arg.name}
+            </Typography>
 
-                <Grid size={12}>
-                    <Divider textAlign="left">
-                        {'Argument ' + (ix+1) + ': ' + arg.name}
-                    </Divider>
-                </Grid>
+            <Grid container spacing={2}>
 
                 <Grid size={4}>
                     <TextField
@@ -126,9 +121,10 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
 
                 </Grid>
 
-            </React.Fragment>
+            </Grid>
 
-        </>
+        </Paper>
+
     );
 
 }

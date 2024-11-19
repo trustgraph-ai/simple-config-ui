@@ -29,24 +29,9 @@ export const useAgentsStore = create<Agents>()(
     (set) => ({
 
         tools: [
-/*
-            {
-                id: "shuttle",
-                name: "Shuttle knowledge",
-                type: "knowledge-query",
-                description: "Query a knowledge base with information about the space shuttle.  The query should be a simple natural language question",
-                arguments: [
-                    {
-                        name: "query",
-                        type: "string",
-                        description: "The search query string",
-                    }
-                ]
-            }
-*/
             {
                 id: "sample-query",
-                name: "Sample Query",
+                name: "Sample query",
                 type: "knowledge-query",
                 config: {},
                 description: "Query a knowledge base that has already been extracted.  The query should be a simple natural language question.",
@@ -58,24 +43,9 @@ export const useAgentsStore = create<Agents>()(
                     }
                 ]
             },
-/*            {
-                id: "cats-kb",
-                name: "Mark's cats",
-                type: "knowledge-query",
-                config: {},
-                description: "Query a knowledge base with information about Mark's cats.  The query should be a simple natural language question.",
-                arguments: [
-                    {
-                        name: "query",
-                        type: "string",
-                        description: "The search query string",
-                    }
-                ]
-            },
-*/
             {
                 id: "sample-completion",
-                name: "Sample Text Completion",
+                name: "Sample text completion",
                 type: "text-completion",
                 config: {},
                 description: "Describe the request to send to LLM. This request will be sent with no additional context.",
