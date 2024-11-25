@@ -15,13 +15,14 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Vector DB</InputLabel>
+            <InputLabel id="vector-db-label">Vector DB</InputLabel>
+
 
             <Select
                 labelId="vector-db-label"
                 id="vector-db-select"
                 value={value}
-                label="Vector DB"
+                label="Vector store"
                 onChange={(e) => onChange(e.target.value)}
                 sx={{minHeight: 100}}
             >
@@ -32,15 +33,14 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         divider={
                             <Divider orientation="vertical" flexItem />
                         }
-                        sx={{ height: 90 }}
-                        alignItems="center"
-                        justifyItems="center"
+                        alignItems="stretch"
                     >
-                        <Stack sx={{width: 100}}
-                            direction="column"
+                        <Stack sx={{width: 100}} direction="column"
                             alignItems="center" justifyContent="center"
                         >
+
                             <img src="qdrant.png" width="90"/>
+
                         </Stack>
 
                         <Box sx={{
@@ -54,7 +54,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                                 database with highest RPS, minimal
                                 latency, fast indexing, high control
                                 with accuracy, and so much more.
-                                
+                                                                
                             </Typography>
                         </Box>
                     </Stack>
@@ -66,16 +66,12 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         divider={
                             <Divider orientation="vertical"
                             flexItem
-                        />}
-                        sx={{ height: 90 }}
-                        alignItems="center" justifyContent="center"
-                    >
+                        />}>
                         <Stack sx={{width: 100}} direction="row"
-                            sx={{ height: 90 }}
-                            alignItems="center" justifyContent="center"
+                        alignItems="center" justifyContent="center"
                         >
-                            <img src="milvus.svg" width="90"/>
-                        </Stack>
+                            <img src="milvus.svg" width="100"/>
+                            </Stack>
                         <Box sx={{
                             width: '36rem'
                         }}>
@@ -84,11 +80,11 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             sx={{ whiteSpace: 'wrap' }}
                         >
 
-                            Milvus is an open-source vector database
-                            built for GenAI applications. Install with
-                            pip, perform high-speed searches, and
-                            scale to tens of billions of vectors with
-                            minimal performance loss.
+                                Milvus is an open-source vector database
+                                built for GenAI applications. Install with
+                                pip, perform high-speed searches, and
+                                scale to tens of billions of vectors with
+                                minimal performance loss.
 
                         </Typography>
                         </Box>
@@ -101,16 +97,12 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         divider={
                             <Divider orientation="vertical"
                             flexItem
-                        />}
-                        sx={{ height: 90 }}
-                        alignItems="center"
-                        justifyItems="stretch"
-                    >
+                        />}>
                         <Stack sx={{width: 100}} direction="row"
-                            alignItems="center" justifyContent="center"
+                        alignItems="center" justifyContent="center"
                         >
                             <img src="pinecone.svg" width="80"/>
-                        </Stack>
+                            </Stack>
                         <Box sx={{
                             width: '36rem'
                         }}>
@@ -129,6 +121,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                 </MenuItem>
 
             </Select>
+
         </FormControl>
 
   );

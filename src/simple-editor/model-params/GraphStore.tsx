@@ -96,6 +96,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                 </MenuItem>
 
             </Select>
+
         </FormControl>
 
     </>
