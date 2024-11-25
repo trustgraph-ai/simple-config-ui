@@ -32,12 +32,15 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         divider={
                             <Divider orientation="vertical" flexItem />
                         }
-                        alignItems="stretch"
+                        sx={{ height: 90 }}
+                        alignItems="center"
+                        justifyItems="center"
                     >
-                        <Stack sx={{width: 100}} direction="column"
+                        <Stack sx={{width: 100}}
+                            direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="qdrant.png" width="80"/>
+                            <img src="qdrant.png" width="90"/>
                         </Stack>
 
                         <Box sx={{
@@ -63,11 +66,15 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         divider={
                             <Divider orientation="vertical"
                             flexItem
-                        />}>
+                        />}
+                        sx={{ height: 90 }}
+                        alignItems="center" justifyContent="center"
+                    >
                         <Stack sx={{width: 100}} direction="row"
+                            sx={{ height: 90 }}
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="milvus.svg" width="80"/>
+                            <img src="milvus.svg" width="90"/>
                         </Stack>
                         <Box sx={{
                             width: '36rem'
@@ -82,6 +89,39 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             pip, perform high-speed searches, and
                             scale to tens of billions of vectors with
                             minimal performance loss.
+
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="pinecone">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}
+                        sx={{ height: 90 }}
+                        alignItems="center"
+                        justifyItems="stretch"
+                    >
+                        <Stack sx={{width: 100}} direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            <img src="pinecone.svg" width="80"/>
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+
+                            Pinecone offers a fully managed, serverless
+                            vector database with an easy-to-use API.
+                            Developer-friendly and fully scalable.
 
                         </Typography>
                         </Box>
