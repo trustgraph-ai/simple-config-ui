@@ -15,13 +15,14 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
 
         <FormControl fullWidth>
 
-            <InputLabel id="graph-store-label">Vector DB</InputLabel>
+            <InputLabel id="vector-db-label">Vector DB</InputLabel>
+
 
             <Select
                 labelId="vector-db-label"
                 id="vector-db-select"
                 value={value}
-                label="Vector DB"
+                label="Vector store"
                 onChange={(e) => onChange(e.target.value)}
                 sx={{minHeight: 100}}
             >
@@ -37,7 +38,9 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         <Stack sx={{width: 100}} direction="column"
                             alignItems="center" justifyContent="center"
                         >
-                            <img src="qdrant.png" width="80"/>
+
+                            <img src="qdrant.png" width="90"/>
+
                         </Stack>
 
                         <Box sx={{
@@ -51,7 +54,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                                 database with highest RPS, minimal
                                 latency, fast indexing, high control
                                 with accuracy, and so much more.
-                                
+                                                                
                             </Typography>
                         </Box>
                     </Stack>
@@ -65,10 +68,10 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             flexItem
                         />}>
                         <Stack sx={{width: 100}} direction="row"
-                            alignItems="center" justifyContent="center"
+                        alignItems="center" justifyContent="center"
                         >
-                            <img src="milvus.svg" width="80"/>
-                        </Stack>
+                            <img src="milvus.svg" width="100"/>
+                            </Stack>
                         <Box sx={{
                             width: '36rem'
                         }}>
@@ -77,11 +80,40 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             sx={{ whiteSpace: 'wrap' }}
                         >
 
-                            Milvus is an open-source vector database
-                            built for GenAI applications. Install with
-                            pip, perform high-speed searches, and
-                            scale to tens of billions of vectors with
-                            minimal performance loss.
+                                Milvus is an open-source vector database
+                                built for GenAI applications. Install with
+                                pip, perform high-speed searches, and
+                                scale to tens of billions of vectors with
+                                minimal performance loss.
+
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="pinecone">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
+                        alignItems="center" justifyContent="center"
+                        >
+                            <img src="pinecone.svg" width="80"/>
+                            </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+
+                            Pinecone offers a fully managed, serverless
+                            vector database with an easy-to-use API.
+                            Developer-friendly and fully scalable.
 
                         </Typography>
                         </Box>
@@ -89,6 +121,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                 </MenuItem>
 
             </Select>
+
         </FormControl>
 
   );
