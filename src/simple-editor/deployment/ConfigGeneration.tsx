@@ -106,7 +106,6 @@ const ConfigGeneration = () => {
     return (
         <>
 
-
             <Box>
                 <Paper sx={{ minWidth: 375, mt: 2, p: 2 }} elevation={3}>
                     <Stack
