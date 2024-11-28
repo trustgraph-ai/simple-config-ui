@@ -95,6 +95,38 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                     </Stack>
                 </MenuItem>
 
+                <MenuItem value="memgraph">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
+                        alignItems="center" justifyContent="center"
+                        >
+                                <img src="memgraph.svg" width="80"/>
+                            </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+
+                            Unlike alternatives, Memgraph uses a
+                            modern efficient architecture that
+                            operates at C++ speed with high throughput
+                            and low latency. It is perfect for high
+                            velocity environments of 1000 transactions
+                            per second or more.
+
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
             </Select>
 
         </FormControl>
