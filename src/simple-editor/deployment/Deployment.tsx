@@ -10,6 +10,7 @@ import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
 import DeploymentInstructions from './DeploymentInstructions';
 import DeploymentVectorStore from './DeploymentVectorStore';
+import DeploymentGraphStore from './DeploymentGraphStore';
 
 interface DeploymentProps {
 }
@@ -33,6 +34,10 @@ const Deployment: React.FC<DeploymentProps> = ({
 
               <Box>
                   <DeploymentVectorStore/>
+              </Box>
+
+              <Box>
+                  <DeploymentGraphStore/>
               </Box>
 
               <Box>
