@@ -6,7 +6,6 @@ import { Gavel } from '@mui/icons-material';
 
 import { useModelParamsStore } from '../state/ModelParams';
 
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentQuote from './DeploymentQuote';
 
 const GraphStoreConfiguration = () => {
