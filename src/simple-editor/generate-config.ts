@@ -3,7 +3,7 @@ import { ModelParams } from './state/ModelParams';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
-    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS
+    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
 } from './state/Options';
 
 export const generateConfig =
@@ -93,6 +93,16 @@ export const generateConfig =
               "name": "agent-manager-react",
               "parameters": {
                   "tools": toolParams
+              },
+          });
+          
+      }
+
+      if (options.options.has(CONFIGURE_WORKBENCH)) {
+  
+          config.push({
+              "name": "workbench-ui",
+              "parameters": {
               },
           });
           

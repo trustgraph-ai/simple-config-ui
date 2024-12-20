@@ -1,11 +1,12 @@
 
 
 import { Stack } from '@mui/material';
-import { Psychology, ChatBubble } from '@mui/icons-material';
+import { Psychology, ChatBubble, Insights } from '@mui/icons-material';
 import { useDeploymentStore } from '../state/Deployment';
 
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS
+    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
+    CONFIGURE_WORKBENCH,
 } from '../state/Options';
 
 import Option from './Option';
@@ -26,6 +27,7 @@ const ParamsForm: React.FC = ({
 
     const configurePrompts = options.has(CONFIGURE_PROMPTS);
     const configureAgents = options.has(CONFIGURE_AGENTS);
+    const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
 
     const set = (o : string, value : boolean) => {
         if (value) {
@@ -47,6 +49,10 @@ const ParamsForm: React.FC = ({
         set(CONFIGURE_AGENTS, !configureAgents);
     };
 
+    const onConfigureWorkbench = () => {
+        set(CONFIGURE_WORKBENCH, !configureWorkbench);
+    };
+
     return (
         <>
 
@@ -59,22 +65,30 @@ const ParamsForm: React.FC = ({
                     onChange={onConfigurePrompts}
                     avatar={<ChatBubble color="primary"/>}
                     title="Data Extraction Prompts"
-                    content={
-                        'Tailor the LLM system prompts, data extraction prompts, and RAG query prompts.'
-                    }
-
-                />
+                >
+                    Tailor the LLM system prompts, data extraction prompts,
+                    and RAG query prompts.
+                </Option>
 
                 <Option
                     enabled={configureAgents}
                     onChange={onConfigureAgents}
                     avatar={<Psychology color="primary"/>}
                     title="Agent Definitions"
-                    content={
-                        'Add Agents that use a ReAct approach. Customize the Agent definitions, options, and arguments.'
-                    }
+                >
+                    Add Agents that use a ReAct approach. Customize the
+                    Agent definitions, options, and arguments.
+                </Option>
 
-                />
+                <Option
+                    enabled={configureWorkbench}
+                    onChange={onConfigureWorkbench}
+                    avatar={<Insights color="primary"/>}
+                    title="Workbench UI"
+                >
+                    An experimental UI providing some tools to interact with
+                    data.
+                </Option>
 
             </Stack>
 

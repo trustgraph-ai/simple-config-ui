@@ -5,6 +5,8 @@ export const CONFIGURE_PROMPTS = "configure-prompts";
 
 export const CONFIGURE_AGENTS = "configure-agents";
 
+export const CONFIGURE_WORKBENCH = "configure-workbench";
+
 export interface Options {
 
     options : Set<string>;

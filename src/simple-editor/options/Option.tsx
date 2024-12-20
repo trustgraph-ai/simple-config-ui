@@ -5,13 +5,16 @@ import { Card, CardHeader, CardContent, CardActionArea } from '@mui/material';
 import { Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
-const Option = ({enabled, onChange, avatar, title, content} : {
+interface OptionProps extends React.PropsWithChildren {
     enabled : boolean;
     onChange : () => void,
     avatar : React.ReactNode;
     title : string;
-    content : React.ReactNode;
-}) => {
+    children : React.ReactNode;
+};
+
+const Option : React.FC<OptionProps> =
+({enabled, onChange, avatar, title, children}) => {
 
     const Header = () => {
 
@@ -56,7 +59,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                     <Typography
                         variant="body2"
                     >
-                    {content}
+                    {children}
                     </Typography>
                 </CardContent>
             );
@@ -66,7 +69,7 @@ const Option = ({enabled, onChange, avatar, title, content} : {
                     <Typography
                         variant="body2"
                     >
-                    {content}
+                    {children}
                     </Typography>
                 </CardContent>
             );
