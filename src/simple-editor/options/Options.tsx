@@ -87,7 +87,7 @@ const ParamsForm: React.FC = ({
                     title="Workbench UI"
                 >
                     An experimental UI providing some tools to interact with
-                    data.
+                    data.  Once launched, accessible on port 8888.
                 </Option>
 
             </Stack>
