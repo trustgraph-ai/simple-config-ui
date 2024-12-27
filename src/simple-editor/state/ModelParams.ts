@@ -1,5 +1,5 @@
 
-const TRUSTGRAPH_VERSION = "0.18.7";
+const TRUSTGRAPH_VERSION = "0.18.8";
 
 import { create } from 'zustand'
 
