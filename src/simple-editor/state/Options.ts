@@ -5,6 +5,8 @@ export const CONFIGURE_PROMPTS = "configure-prompts";
 
 export const CONFIGURE_AGENTS = "configure-agents";
 
+export const CONFIGURE_WORKBENCH = "configure-workbench";
+
 export interface Options {
 
     options : Set<string>;
@@ -14,7 +16,7 @@ export interface Options {
 export const useOptionsStore = create<Options>()(
     (set) => ({
 
-        options: new Set<string>(""),
+        options: new Set<string>([]),
 
         setOptions: (v) => set(() => ({
 	    options: v

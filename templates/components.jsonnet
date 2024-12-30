@@ -12,6 +12,7 @@
    "graph-rag": import "components/graph-rag.jsonnet",
    "triple-store-cassandra": import "components/cassandra.jsonnet",
    "triple-store-neo4j": import "components/neo4j.jsonnet",
+   "triple-store-falkordb": import "components/falkordb.jsonnet",
    "triple-store-memgraph": import "components/memgraph.jsonnet",
    "llamafile": import "components/llamafile.jsonnet",
    "ollama": import "components/ollama.jsonnet",
@@ -28,6 +29,7 @@
    "vector-store-qdrant": import "components/qdrant.jsonnet",
    "vector-store-pinecone": import "components/pinecone.jsonnet",
    "vertexai": import "components/vertexai.jsonnet",
+   "workbench-ui": import "components/workbench-ui.jsonnet",
    "null": {},
 
    "agent-manager-react": import "components/agent-manager-react.jsonnet",
@@ -39,6 +41,7 @@
    "qdrant": import "components/qdrant.jsonnet",
    "pinecone": import "components/pinecone.jsonnet",
    "milvus": import "components/milvus.jsonnet",
+   "falkordb": import "components/falkordb.jsonnet",
    "trustgraph": import "components/trustgraph.jsonnet",
 
 }

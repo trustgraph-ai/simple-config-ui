@@ -127,6 +127,43 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                     </Stack>
                 </MenuItem>
 
+                <MenuItem value="falkordb">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Stack sx={{width: 100}} direction="column"
+                            alignItems="center" justifyContent="center"
+                        >
+
+                           <img src="falkordb.svg"
+                                width="67"
+                                height="45"
+                            />
+
+                        </Stack>
+
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
+
+                                FalkorDB is a blazing fast graph database
+                                used for low latency & high throughput
+                                scenarios, under the hood it runs GraphBLAS
+                                to perform graph operations using sparse
+                                linear algebra.
+                                
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
             </Select>
 
         </FormControl>

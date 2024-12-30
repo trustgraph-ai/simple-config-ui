@@ -4,12 +4,15 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 //import { useModelParamsStore } from '../state/ModelParams';
+import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
 import DeploymentInstructions from './DeploymentInstructions';
 import DeploymentVectorStore from './DeploymentVectorStore';
+import DeploymentGraphStore from './DeploymentGraphStore';
+import DeploymentWorkbench from './DeploymentWorkbench';
 
 interface DeploymentProps {
 }
@@ -17,37 +20,51 @@ interface DeploymentProps {
 const Deployment: React.FC<DeploymentProps> = ({
 }) => {
 
-  return (
+    const options = useOptionsStore((state) => state.options);
 
-      <>
+    return (
 
-          <Box className="deployment">
+        <>
 
-              <Box>
-                  <DeploymentPlatform/>
-              </Box>
+            <Box className="deployment">
 
-              <Box>
-                  <DeploymentModel/>
-              </Box>
+                <Box>
+                    <DeploymentPlatform/>
+                </Box>
 
-              <Box>
-                  <DeploymentVectorStore/>
-              </Box>
+                <Box>
+                    <DeploymentModel/>
+                </Box>
 
-              <Box>
-                  <DeploymentConfig/>
-              </Box>
+                <Box>
+                    <DeploymentVectorStore/>
+                </Box>
 
-              <Box>
-                  <DeploymentInstructions/>
-              </Box>
+                <Box>
+                    <DeploymentGraphStore/>
+                </Box>
 
-          </Box>
+                <Box>
+                    <DeploymentConfig/>
+                </Box>
 
-      </>
+                <Box>
+                    <DeploymentInstructions/>
+                </Box>
 
-  );
+                {
+                    options.has(CONFIGURE_WORKBENCH) && (
+                        <Box>
+                            <DeploymentWorkbench/>
+                        </Box>
+                    )
+                }
+
+            </Box>
+
+        </>
+
+    );
 };
 
 export default Deployment;
