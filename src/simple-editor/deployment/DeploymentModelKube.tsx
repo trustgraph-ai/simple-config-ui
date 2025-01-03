@@ -109,7 +109,7 @@ const getInstructions = (model : string) => {
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>
             {'    '}generic openai-credentials \<br/>
-            {'    '}--from-literal=openai-key=<span className="variable">OPENAI-KEY</span>
+            {'    '}--from-literal=openai-token=<span className="variable">OPENAI-TOKEN-HERE</span>
             </DeploymentCode>
 
         </>;
