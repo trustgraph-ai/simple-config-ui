@@ -18,7 +18,7 @@ const Banner: React.FC = () => {
                         height="45"/>
                 </Box>
                 <Typography variant="h4" component="h1">
-                    TrustGraph Configuration Generator
+                    Configuration Portal
                 </Typography>
         </Stack>
     );
