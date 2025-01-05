@@ -13,12 +13,17 @@ const Additional = ({
             Optional Customization
         </Typography>
 
-        <Typography variant="body2">
-            Below are modules which can be customized for your specific use
-            case. Select a module to open a tab with module customization
-            instructions. For any module not selected, the TrustGraph deployment
-            will be built with the standard module configuration.
+        <Typography variant="body2" gutterBottom>
+            Below are selectable customizations for your specific use
+            cases. If selected, a new tab will open with all available 
+            customization options. If no options are selected, TrustGraph
+            will deploy with the system defaults.
         </Typography>
+
+        <Typography variant="body2">
+            Note: Selecting the Workbench UI requires no additional configuration.
+        </Typography>
+
         </Box>
 
         <Options/>
