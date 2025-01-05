@@ -1,12 +1,10 @@
 import React from 'react';
 import { Stack, Typography, Box, Switch, styled } from '@mui/material';
-import { Psychology, ChatBubble, Insights } from '@mui/icons-material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
     CONFIGURE_WORKBENCH,
 } from '../state/Options';
-
 
 interface OptionProps extends React.PropsWithChildren {
     enabled: boolean;
@@ -14,10 +12,9 @@ interface OptionProps extends React.PropsWithChildren {
     title: string;
 }
 
-
 const StyledOption = styled(Box, {
-        shouldForwardProp: (prop) => prop !== 'selected',
-    })<{selected: boolean}>(({ theme, selected }) => ({
+    shouldForwardProp: (prop) => prop !== 'selected',
+})<{ selected: boolean }>(({ theme, selected }) => ({
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
@@ -28,7 +25,7 @@ const StyledOption = styled(Box, {
     minWidth: '200px',
     maxWidth: '350px',
     flex: '1 1 auto',
-       transition: 'background-color 0.3s ease, color 0.3s ease',
+    transition: 'background-color 0.3s ease, color 0.3s ease',
     [theme.breakpoints.down('sm')]: {
         minWidth: '90%',
         maxWidth: '100%',
@@ -43,7 +40,7 @@ const StyledOptionTitle = styled(Typography)(({ theme }) => ({
     justifyContent: 'space-between',
 }));
 
-const StyledOptionDescription = styled(Typography)(({ theme }) => ({
+const StyledOptionDescription = styled(Typography)(() => ({  // Fixed: Removed theme parameter since not used
     whiteSpace: 'normal',
     wordBreak: 'break-word',
 }));
@@ -51,33 +48,32 @@ const StyledOptionDescription = styled(Typography)(({ theme }) => ({
 
 const StyledSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
-        color: theme.palette.secondary.main, // Set track and thumb color for checked state
+        color: theme.palette.secondary.main,
         '&:hover': {
-            backgroundColor: theme.palette.secondary.main + '08', // Add hover background for checked state
+            backgroundColor: theme.palette.secondary.main + '08',
         },
     },
     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-        backgroundColor: theme.palette.secondary.main, // Set track color for checked state
-
+        backgroundColor: theme.palette.secondary.main,
     },
     '& .MuiSwitch-thumb': {
-         backgroundColor: theme.palette.common.white, //Set thumb color for unchecked state
-     },
-     '& .MuiSwitch-track': {
-        backgroundColor: theme.palette.grey[500], // Set track color for unchecked state
-
-     }
+        backgroundColor: theme.palette.common.white,
+    },
+    '& .MuiSwitch-track': {
+        backgroundColor: theme.palette.grey[500],
+    }
 }));
 
 
 const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) => {
     return (
         <StyledOption selected={enabled}>
-            <StyledOptionTitle variant="h6" component="h3">
-                {title}
-               <StyledSwitch checked={enabled} onChange={onChange}  inputProps={{ 'aria-label': 'controlled' }} />
+             <StyledOptionTitle  variant="h6">
+               <Typography variant="h6" component="h3">
+                     {title}
+                 </Typography>
+                <StyledSwitch checked={enabled} onChange={onChange} inputProps={{ 'aria-label': 'controlled' }} />
             </StyledOptionTitle>
-
             <StyledOptionDescription variant="body2">
                 {children}
             </StyledOptionDescription>
@@ -85,7 +81,6 @@ const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) =
         </StyledOption>
     );
 };
-
 
 
 const ParamsForm: React.FC = () => {
@@ -121,10 +116,9 @@ const ParamsForm: React.FC = () => {
         set(CONFIGURE_AGENTS, event.target.checked);
     };
 
-  const onConfigureWorkbench = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onConfigureWorkbench = (event: React.ChangeEvent<HTMLInputElement>) => {
         set(CONFIGURE_WORKBENCH, event.target.checked);
     };
-
 
     return (
         <>
@@ -157,7 +151,7 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureWorkbench}
                     title="Data Workbench"
                 >
-                    An experimental UI providing tools to interact with
+                    An experimental UI providing tools to explore extracted
                     data. Once launched, accessible on port 8888.
                 </Option>
             </Stack>
