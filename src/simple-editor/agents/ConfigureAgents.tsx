@@ -56,7 +56,7 @@ const ConfigureAgents = ({
             <Box>
 
                 <Typography variant="h5" component="h2" gutterBottom>
-                    Configure Tools
+                    Agent Tools
                 </Typography>
 
                 <AgentControls

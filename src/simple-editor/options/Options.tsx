@@ -1,45 +1,46 @@
-
 import React from 'react';
-import { Stack, Typography, Box, Switch } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { Psychology, ChatBubble, Insights } from '@mui/icons-material';
 import { useDeploymentStore } from '../state/Deployment';
-
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
     CONFIGURE_WORKBENCH,
 } from '../state/Options';
 
+
 interface OptionProps extends React.PropsWithChildren {
     enabled: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
-    avatar: React.ReactNode;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     title: string;
 }
 
-const StyledOption = styled(Box)(({ theme }) => ({
+
+const StyledOption = styled(Box, {
+        shouldForwardProp: (prop) => prop !== 'selected',
+    })<{selected: boolean}>(({ theme, selected }) => ({
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: selected ? theme.palette.primary.main : theme.palette.background.paper,
+    color: selected ? theme.palette.primary.contrastText : theme.palette.text.primary,
     border: `1px solid ${theme.palette.divider}`,
     minWidth: '200px',
     maxWidth: '350px',
     flex: '1 1 auto',
+       transition: 'background-color 0.3s ease, color 0.3s ease',
     [theme.breakpoints.down('sm')]: {
         minWidth: '90%',
         maxWidth: '100%',
     }
 }));
 
-
 const StyledOptionTitle = styled(Typography)(({ theme }) => ({
     fontWeight: 600,
     marginBottom: theme.spacing(1),
-    display: 'flex',  // Added for alignment
-    alignItems: 'center', // Vertically align the title and the switch
-    justifyContent: 'space-between', // Push the switch to the right
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
 }));
 
 const StyledOptionDescription = styled(Typography)(({ theme }) => ({
@@ -48,12 +49,33 @@ const StyledOptionDescription = styled(Typography)(({ theme }) => ({
 }));
 
 
-const Option: React.FC<OptionProps> = ({ enabled, onChange, avatar, title, children }) => {
+const StyledSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+        color: theme.palette.secondary.main, // Set track and thumb color for checked state
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.main + '08', // Add hover background for checked state
+        },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+        backgroundColor: theme.palette.secondary.main, // Set track color for checked state
+
+    },
+    '& .MuiSwitch-thumb': {
+         backgroundColor: theme.palette.common.white, //Set thumb color for unchecked state
+     },
+     '& .MuiSwitch-track': {
+        backgroundColor: theme.palette.grey[500], // Set track color for unchecked state
+
+     }
+}));
+
+
+const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) => {
     return (
-        <StyledOption>
+        <StyledOption selected={enabled}>
             <StyledOptionTitle variant="h6" component="h3">
-               {title}
-               <Switch checked={enabled} onChange={onChange}  inputProps={{ 'aria-label': 'controlled' }} />
+                {title}
+               <StyledSwitch checked={enabled} onChange={onChange}  inputProps={{ 'aria-label': 'controlled' }} />
             </StyledOptionTitle>
 
             <StyledOptionDescription variant="body2">
@@ -64,12 +86,12 @@ const Option: React.FC<OptionProps> = ({ enabled, onChange, avatar, title, child
     );
 };
 
-const ParamsForm: React.FC = () => {
 
+
+const ParamsForm: React.FC = () => {
     const options = useOptionsStore((state) => state.options);
     const setOptions = useOptionsStore((state) => state.setOptions);
-    const setConfigUrl =
-        useDeploymentStore((state) => state.setConfigUrl);
+    const setConfigUrl = useDeploymentStore((state) => state.setConfigUrl);
 
     useOptionsStore.subscribe(() => {
         setConfigUrl("");
@@ -115,7 +137,6 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configurePrompts}
                     onChange={onConfigurePrompts}
-                    avatar={<ChatBubble color="primary" />}
                     title="Data Extraction Prompts"
                 >
                     Tailor the LLM system prompts, data extraction prompts,
@@ -125,7 +146,6 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureAgents}
                     onChange={onConfigureAgents}
-                    avatar={<Psychology color="primary" />}
                     title="Agent Tools"
                 >
                     Add Agents that use a ReAct approach. Customize the
@@ -135,17 +155,14 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    avatar={<Insights color="primary" />}
-                    title="Workbench UI"
+                    title="Data Workbench"
                 >
-                    An experimental UI providing some tools to interact with
+                    An experimental UI providing tools to interact with
                     data. Once launched, accessible on port 8888.
                 </Option>
-
             </Stack>
         </>
     );
 };
 
 export default ParamsForm;
-
