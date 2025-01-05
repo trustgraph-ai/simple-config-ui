@@ -48,10 +48,6 @@ const Deployment: React.FC<DeploymentProps> = ({
                     <DeploymentConfig/>
                 </Box>
 
-                <Box>
-                    <DeploymentInstructions/>
-                </Box>
-
                 {
                     options.has(CONFIGURE_WORKBENCH) && (
                         <Box>
@@ -59,6 +55,10 @@ const Deployment: React.FC<DeploymentProps> = ({
                         </Box>
                     )
                 }
+
+                <Box>
+                    <DeploymentInstructions/>
+                </Box>
 
             </Box>
 
