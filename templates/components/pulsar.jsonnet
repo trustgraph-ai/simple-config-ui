@@ -28,6 +28,7 @@ local url = import "values/url.jsonnet";
                     ])
                     .with_limits("0.1", "400M")
                     .with_reservations("0.05", "400M")
+                    .with_user("0:1000")
                     .with_volume_mount(zkVolume, "/pulsar/data/zookeeper")
                     .with_environment({
                         "metadataStoreUrl": "zk:zookeeper:2181",
