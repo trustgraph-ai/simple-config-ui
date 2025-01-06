@@ -68,7 +68,7 @@ local url = import "values/url.jsonnet";
                     ])
                     .with_limits("1", "800M")
                     .with_reservations("0.1", "800M")
-                    .with_user(0)
+                    .with_user("0:1000")
                     .with_volume_mount(bookieVolume, "/pulsar/data/bookkeeper")
                     .with_environment({
                         "clusterName": "cluster-a",
