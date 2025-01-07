@@ -19,11 +19,7 @@ local ns = {
     },
 };
 
-// Extract resources using the engine
-local resources = std.foldl(
-    function(state, p) state + p.create(engine),
-    std.objectValues(patterns),
-    {}
-);
+// Extract resources usnig the engine
+local resourceList = engine.package(patterns);
 
-resources
+resourceList

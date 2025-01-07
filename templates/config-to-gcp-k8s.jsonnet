@@ -10,11 +10,6 @@ local config = import "config.json";
 local patterns = decode(config);
 
 // Extract resources using the engine
-local resources = std.foldl(
-    function(state, p) state + p.create(engine),
-    std.objectValues(patterns),
-    {}
-);
+local resourceList = engine.package(patterns);
 
-resources
-
+resourceList
