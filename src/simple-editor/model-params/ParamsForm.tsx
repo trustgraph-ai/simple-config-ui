@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, FormControlLabel, Switch, Typography } from '@mui/material';
+import { Box, FormControlLabel, Switch, Typography, Paper } from '@mui/material';
 
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
@@ -128,7 +128,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                                 color="primary"
                             />
                         }
-                        label="Dual LLM Mode"
+                        label="Dual Model Mode"
                     />
                 </Box>
 
@@ -159,43 +159,47 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
                 {dualModelMode ? (
                     <>
-                        <Typography variant="h6" gutterBottom>Extraction Model Configuration</Typography>
-                        <Box my={4}>
-                            <ModelDeployment
-                                value={extractionModelDeployment}
-                                onChange={setExtractionModelDeployment}
-                            />
-                        </Box>
-                        <Box my={4}>
-                            <ModelParameters
-                                modelName={extractionModelName}
-                                temperature={extractionTemperature}
-                                maxOutputTokens={extractionMaxOutputTokens}
-                                onModelNameChange={setExtractionModelName}
-                                onTemperatureChange={setExtractionTemperature}
-                                onMaxOutputTokensChange={setExtractionMaxOutputTokens}
-                                modelDeployment={extractionModelDeployment}
-                            />
-                        </Box>
+                        <Paper elevation={3} style={{ padding: '16px', marginBottom: '16px' }}>
+                            <Typography variant="h6" gutterBottom>Extraction Model Configuration</Typography>
+                            <Box my={2}>
+                                <ModelDeployment
+                                    value={extractionModelDeployment}
+                                    onChange={setExtractionModelDeployment}
+                                />
+                            </Box>
+                            <Box my={2}>
+                                <ModelParameters
+                                    modelName={extractionModelName}
+                                    temperature={extractionTemperature}
+                                    maxOutputTokens={extractionMaxOutputTokens}
+                                    onModelNameChange={setExtractionModelName}
+                                    onTemperatureChange={setExtractionTemperature}
+                                    onMaxOutputTokensChange={setExtractionMaxOutputTokens}
+                                    modelDeployment={extractionModelDeployment}
+                                />
+                            </Box>
+                        </Paper>
 
-                        <Typography variant="h6" gutterBottom>RAG Model Configuration</Typography>
-                        <Box my={4}>
-                            <ModelDeployment
-                                value={ragModelDeployment}
-                                onChange={setRagModelDeployment}
-                            />
-                        </Box>
-                        <Box my={4}>
-                            <ModelParameters
-                                modelName={ragModelName}
-                                temperature={ragTemperature}
-                                maxOutputTokens={ragMaxOutputTokens}
-                                onModelNameChange={setRagModelName}
-                                onTemperatureChange={setRagTemperature}
-                                onMaxOutputTokensChange={setRagMaxOutputTokens}
-                                modelDeployment={ragModelDeployment}
-                            />
-                        </Box>
+                        <Paper elevation={3} style={{ padding: '16px' }}>
+                            <Typography variant="h6" gutterBottom>RAG Model Configuration</Typography>
+                            <Box my={2}>
+                                <ModelDeployment
+                                    value={ragModelDeployment}
+                                    onChange={setRagModelDeployment}
+                                />
+                            </Box>
+                            <Box my={2}>
+                                <ModelParameters
+                                    modelName={ragModelName}
+                                    temperature={ragTemperature}
+                                    maxOutputTokens={ragMaxOutputTokens}
+                                    onModelNameChange={setRagModelName}
+                                    onTemperatureChange={setRagTemperature}
+                                    onMaxOutputTokensChange={setRagMaxOutputTokens}
+                                    modelDeployment={ragModelDeployment}
+                                />
+                            </Box>
+                        </Paper>
                     </>
                 ) : (
                     <>
