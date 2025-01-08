@@ -1,7 +1,5 @@
-
-import React from 'react';
-
-import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, FormControlLabel, Switch, Typography } from '@mui/material';
 
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
@@ -14,13 +12,14 @@ import { useModelParamsStore } from '../state/ModelParams';
 import { useDeploymentStore } from '../state/Deployment';
 
 import modelsRaw from './models.json';
-const models = modelsRaw as { [ix : string ] : string[] };
+const models = modelsRaw as { [ix: string]: string[] };
 
 interface ParamsFormProps {
 }
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
 }) => {
+    const [dualModelMode, setDualModelMode] = useState(false);
 
     const setConfigUrl =
         useDeploymentStore((state) => state.setConfigUrl);
@@ -89,6 +88,18 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const setPlatform
         = useModelParamsStore((state) => state.setPlatform);
 
+    // Dual Model Mode State
+    const [extractionModelDeployment, setExtractionModelDeployment] = useState(modelDeployment);
+    const [extractionModelName, setExtractionModelName] = useState(modelName);
+    const [extractionTemperature, setExtractionTemperature] = useState(temperature);
+    const [extractionMaxOutputTokens, setExtractionMaxOutputTokens] = useState(maxOutputTokens);
+
+    const [ragModelDeployment, setRagModelDeployment] = useState(modelDeployment);
+    const [ragModelName, setRagModelName] = useState(modelName);
+    const [ragTemperature, setRagTemperature] = useState(temperature);
+    const [ragMaxOutputTokens, setRagMaxOutputTokens] = useState(maxOutputTokens);
+
+
     useModelParamsStore.subscribe(
         (n, o) => {
 
@@ -105,60 +116,111 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     );
 
     return (
-
         <>
-
             <Box className="parameters">
-
-                <Box my={4}>
-                  <Platform
-                      value={platform} onChange={setPlatform}
-                  />
+                <Box my={2} display="flex" alignItems="center">
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={dualModelMode}
+                                onChange={(e) => setDualModelMode(e.target.checked)}
+                                name="dualModelMode"
+                                color="primary"
+                            />
+                        }
+                        label="Dual LLM Mode"
+                    />
                 </Box>
 
                 <Box my={4}>
-                  <ModelDeployment
-                      value={modelDeployment} onChange={setModelDeployment}
-                  />
+                    <Platform
+                        value={platform} onChange={setPlatform}
+                    />
                 </Box>
 
                 <Box my={4}>
-                  <GraphStore value={graphStore} onChange={setGraphStore} />
+                    <GraphStore value={graphStore} onChange={setGraphStore} />
                 </Box>
 
                 <Box my={4}>
-                  <VectorDB value={vectorDB} onChange={setVectorDB} />
+                    <VectorDB value={vectorDB} onChange={setVectorDB} />
                 </Box>
 
                 <Box my={4}>
-                  <Chunker
-                    type={chunkerType}
-                    chunkSize={chunkSize}
-                    chunkOverlap={chunkOverlap}
-                    onTypeChange={setChunkerType}
-                    onChunkSizeChange={setChunkSize}
-                    onChunkOverlapChange={setChunkOverlap}
-                  />
+                    <Chunker
+                        type={chunkerType}
+                        chunkSize={chunkSize}
+                        chunkOverlap={chunkOverlap}
+                        onTypeChange={setChunkerType}
+                        onChunkSizeChange={setChunkSize}
+                        onChunkOverlapChange={setChunkOverlap}
+                    />
                 </Box>
 
-                <Box my={4}>
-                  <ModelParameters
-                    modelName={modelName}
-                    temperature={temperature}
-                    maxOutputTokens={maxOutputTokens}
-                    onModelNameChange={setModelName}
-                    onTemperatureChange={setTemperature}
-                    onMaxOutputTokensChange={setMaxOutputTokens}
-                    modelDeployment={modelDeployment}
-                  />
-                </Box>
+                {dualModelMode ? (
+                    <>
+                        <Typography variant="h6" gutterBottom>Extraction Model Configuration</Typography>
+                        <Box my={4}>
+                            <ModelDeployment
+                                value={extractionModelDeployment}
+                                onChange={setExtractionModelDeployment}
+                            />
+                        </Box>
+                        <Box my={4}>
+                            <ModelParameters
+                                modelName={extractionModelName}
+                                temperature={extractionTemperature}
+                                maxOutputTokens={extractionMaxOutputTokens}
+                                onModelNameChange={setExtractionModelName}
+                                onTemperatureChange={setExtractionTemperature}
+                                onMaxOutputTokensChange={setExtractionMaxOutputTokens}
+                                modelDeployment={extractionModelDeployment}
+                            />
+                        </Box>
 
+                        <Typography variant="h6" gutterBottom>RAG Model Configuration</Typography>
+                        <Box my={4}>
+                            <ModelDeployment
+                                value={ragModelDeployment}
+                                onChange={setRagModelDeployment}
+                            />
+                        </Box>
+                        <Box my={4}>
+                            <ModelParameters
+                                modelName={ragModelName}
+                                temperature={ragTemperature}
+                                maxOutputTokens={ragMaxOutputTokens}
+                                onModelNameChange={setRagModelName}
+                                onTemperatureChange={setRagTemperature}
+                                onMaxOutputTokensChange={setRagMaxOutputTokens}
+                                modelDeployment={ragModelDeployment}
+                            />
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        <Box my={4}>
+                            <ModelDeployment
+                                value={modelDeployment} onChange={setModelDeployment}
+                            />
+                        </Box>
+
+                        <Box my={4}>
+                            <ModelParameters
+                                modelName={modelName}
+                                temperature={temperature}
+                                maxOutputTokens={maxOutputTokens}
+                                onModelNameChange={setModelName}
+                                onTemperatureChange={setTemperature}
+                                onMaxOutputTokensChange={setMaxOutputTokens}
+                                modelDeployment={modelDeployment}
+                            />
+                        </Box>
+                    </>
+                )}
             </Box>
-
         </>
-
-  );
+    );
 };
 
 export default ParamsForm;
-
