@@ -99,6 +99,18 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const [ragTemperature, setRagTemperature] = useState(temperature);
     const [ragMaxOutputTokens, setRagMaxOutputTokens] = useState(maxOutputTokens);
 
+    // Expose the dual model state and settings to the Zustand store
+    useModelParamsStore.setState({
+        dualModelMode,
+        extractionModelDeployment,
+        extractionModelName,
+        extractionTemperature,
+        extractionMaxOutputTokens,
+        ragModelDeployment,
+        ragModelName,
+        ragTemperature,
+        ragMaxOutputTokens,
+    });
 
     useModelParamsStore.subscribe(
         (n, o) => {
