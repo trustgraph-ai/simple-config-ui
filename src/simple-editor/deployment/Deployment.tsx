@@ -21,13 +21,7 @@ const Deployment: React.FC<DeploymentProps> = ({
     const options = useOptionsStore((state) => state.options);
     const dualModelMode = useModelParamsStore((state) => state.dualModelMode);
     const extractionModelDeployment = useModelParamsStore((state) => state.extractionModelDeployment);
-    const extractionModelName = useModelParamsStore((state) => state.extractionModelName);
-    const extractionTemperature = useModelParamsStore((state) => state.extractionTemperature);
-    const extractionMaxOutputTokens = useModelParamsStore((state) => state.extractionMaxOutputTokens);
     const ragModelDeployment = useModelParamsStore((state) => state.ragModelDeployment);
-    const ragModelName = useModelParamsStore((state) => state.ragModelName);
-    const ragTemperature = useModelParamsStore((state) => state.ragTemperature);
-    const ragMaxOutputTokens = useModelParamsStore((state) => state.ragMaxOutputTokens);
     const modelDeployment = useModelParamsStore((state) => state.modelDeployment);
 
     return (
@@ -45,9 +39,6 @@ const Deployment: React.FC<DeploymentProps> = ({
                             <Box>
                                 <DeploymentModel
                                     modelDeployment={extractionModelDeployment}
-                                    modelName={extractionModelName}
-                                    temperature={extractionTemperature}
-                                    maxOutputTokens={extractionMaxOutputTokens}
                                 />
                             </Box>
                         </Paper>
@@ -56,9 +47,6 @@ const Deployment: React.FC<DeploymentProps> = ({
                             <Box>
                                 <DeploymentModel
                                     modelDeployment={ragModelDeployment}
-                                    modelName={ragModelName}
-                                    temperature={ragTemperature}
-                                    maxOutputTokens={ragMaxOutputTokens}
                                 />
                             </Box>
                         </Paper>
