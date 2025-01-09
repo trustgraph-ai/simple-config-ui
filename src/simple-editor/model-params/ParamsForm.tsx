@@ -177,8 +177,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             <Typography variant="h6" gutterBottom>Extraction Model Configuration</Typography>
                             <Box my={2}>
                                 <ModelDeployment
-                                    value={extractionModelDeployment}
-                                    onChange={(e) => setExtractionModelDeployment(e.target.value)}
+                                    value={extractionModelDeployment} onChange={setExtractionModelDeployment}
                                 />
                             </Box>
                             <Box my={2}>
@@ -186,9 +185,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                                     modelName={extractionModelName}
                                     temperature={extractionTemperature}
                                     maxOutputTokens={extractionMaxOutputTokens}
-                                    onModelNameChange={(e) => setExtractionModelName(e.target.value)}
-                                    onTemperatureChange={(e) => setExtractionTemperature(parseFloat(e.target.value))}
-                                    onMaxOutputTokensChange={(e) => setExtractionMaxOutputTokens(parseInt(e.target.value))}
+                                    onModelNameChange={setExtractionModelName}
+                                    onTemperatureChange={setExtractionTemperature}
+                                    onMaxOutputTokensChange={setExtractionMaxOutputTokens}
                                     modelDeployment={extractionModelDeployment}
                                 />
                             </Box>
@@ -198,8 +197,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             <Typography variant="h6" gutterBottom>RAG Model Configuration</Typography>
                             <Box my={2}>
                                 <ModelDeployment
-                                    value={ragModelDeployment}
-                                    onChange={(e) => setRagModelDeployment(e.target.value)}
+                                    value={ragModelDeployment} onChange={setRagModelDeployment}
                                 />
                             </Box>
                             <Box my={2}>
@@ -207,9 +205,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                                     modelName={ragModelName}
                                     temperature={ragTemperature}
                                     maxOutputTokens={ragMaxOutputTokens}
-                                    onModelNameChange={(e) => setRagModelName(e.target.value)}
-                                    onTemperatureChange={(e) => setRagTemperature(parseFloat(e.target.value))}
-                                    onMaxOutputTokensChange={(e) => setRagMaxOutputTokens(parseInt(e.target.value))}
+                                    onModelNameChange={setRagModelName}
+                                    onTemperatureChange={setRagTemperature}
+                                    onMaxOutputTokensChange={setRagMaxOutputTokens}
                                     modelDeployment={ragModelDeployment}
                                 />
                             </Box>
