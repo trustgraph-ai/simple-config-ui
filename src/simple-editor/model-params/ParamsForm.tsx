@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, FormControlLabel, Switch, Typography, Paper } from '@mui/material';
 
 import GraphStore from './GraphStore';
@@ -19,8 +19,6 @@ interface ParamsFormProps {
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
 }) => {
-    const [dualModelMode, setDualModelMode] = useState(false);
-
     const setConfigUrl =
         useDeploymentStore((state) => state.setConfigUrl);
 
@@ -89,29 +87,33 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
         = useModelParamsStore((state) => state.setPlatform);
 
     // Dual Model Mode State
-    const [extractionModelDeployment, setExtractionModelDeployment] = useState(modelDeployment);
-    const [extractionModelName, setExtractionModelName] = useState(modelName);
-    const [extractionTemperature, setExtractionTemperature] = useState(temperature);
-    const [extractionMaxOutputTokens, setExtractionMaxOutputTokens] = useState(maxOutputTokens);
+    const dualModelMode = useModelParamsStore((state) => state.dualModelMode);
+    const setDualModelMode = useModelParamsStore((state) => state.setDualModelMode);
+    const extractionModelDeployment = useModelParamsStore((state) => state.extractionModelDeployment);
+    const setExtractionModelDeployment = useModelParamsStore((state) => state.setExtractionModelDeployment);
+    const extractionModelName = useModelParamsStore((state) => state.extractionModelName);
+    const setExtractionModelName = useModelParamsStore((state) => state.setExtractionModelName);
+    const extractionTemperature = useModelParamsStore((state) => state.extractionTemperature);
+    const setExtractionTemperature = useModelParamsStore((state) => state.setExtractionTemperature);
+    const extractionMaxOutputTokens = useModelParamsStore((state) => state.extractionMaxOutputTokens);
+    const setExtractionMaxOutputTokens = useModelParamsStore((state) => state.setExtractionMaxOutputTokens);
 
-    const [ragModelDeployment, setRagModelDeployment] = useState(modelDeployment);
-    const [ragModelName, setRagModelName] = useState(modelName);
-    const [ragTemperature, setRagTemperature] = useState(temperature);
-    const [ragMaxOutputTokens, setRagMaxOutputTokens] = useState(maxOutputTokens);
+    const ragModelDeployment = useModelParamsStore((state) => state.ragModelDeployment);
+    const setRagModelDeployment = useModelParamsStore((state) => state.setRagModelDeployment);
+    const ragModelName = useModelParamsStore((state) => state.ragModelName);
+    const setRagModelName = useModelParamsStore((state) => state.setRagModelName);
+    const ragTemperature = useModelParamsStore((state) => state.ragTemperature);
+    const setRagTemperature = useModelParamsStore((state) => state.setRagTemperature);
+    const ragMaxOutputTokens = useModelParamsStore((state) => state.ragMaxOutputTokens);
+    const setRagMaxOutputTokens = useModelParamsStore((state) => state.setRagMaxOutputTokens);
 
-    // Expose the dual model state and settings to the Zustand store
-    useModelParamsStore.setState({
-        dualModelMode,
-        extractionModelDeployment,
-        extractionModelName,
-        extractionTemperature,
-        extractionMaxOutputTokens,
-        ragModelDeployment,
-        ragModelName,
-        ragTemperature,
-        ragMaxOutputTokens,
-    });
 
+    // Update the Zustand store when dualModelMode changes
+    const handleDualModelModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDualModelMode(event.target.checked);
+    };
+
+    // Remove the useEffect and update the state directly in the onChange handlers
     useModelParamsStore.subscribe(
         (n, o) => {
 
@@ -135,7 +137,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                         control={
                             <Switch
                                 checked={dualModelMode}
-                                onChange={(e) => setDualModelMode(e.target.checked)}
+                                onChange={handleDualModelModeChange}
                                 name="dualModelMode"
                                 color="primary"
                             />
@@ -176,7 +178,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             <Box my={2}>
                                 <ModelDeployment
                                     value={extractionModelDeployment}
-                                    onChange={setExtractionModelDeployment}
+                                    onChange={(e) => setExtractionModelDeployment(e.target.value)}
                                 />
                             </Box>
                             <Box my={2}>
@@ -184,9 +186,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                                     modelName={extractionModelName}
                                     temperature={extractionTemperature}
                                     maxOutputTokens={extractionMaxOutputTokens}
-                                    onModelNameChange={setExtractionModelName}
-                                    onTemperatureChange={setExtractionTemperature}
-                                    onMaxOutputTokensChange={setExtractionMaxOutputTokens}
+                                    onModelNameChange={(e) => setExtractionModelName(e.target.value)}
+                                    onTemperatureChange={(e) => setExtractionTemperature(parseFloat(e.target.value))}
+                                    onMaxOutputTokensChange={(e) => setExtractionMaxOutputTokens(parseInt(e.target.value))}
                                     modelDeployment={extractionModelDeployment}
                                 />
                             </Box>
@@ -197,7 +199,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             <Box my={2}>
                                 <ModelDeployment
                                     value={ragModelDeployment}
-                                    onChange={setRagModelDeployment}
+                                    onChange={(e) => setRagModelDeployment(e.target.value)}
                                 />
                             </Box>
                             <Box my={2}>
@@ -205,9 +207,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                                     modelName={ragModelName}
                                     temperature={ragTemperature}
                                     maxOutputTokens={ragMaxOutputTokens}
-                                    onModelNameChange={setRagModelName}
-                                    onTemperatureChange={setRagTemperature}
-                                    onMaxOutputTokensChange={setRagMaxOutputTokens}
+                                    onModelNameChange={(e) => setRagModelName(e.target.value)}
+                                    onTemperatureChange={(e) => setRagTemperature(parseFloat(e.target.value))}
+                                    onMaxOutputTokensChange={(e) => setRagMaxOutputTokens(parseInt(e.target.value))}
                                     modelDeployment={ragModelDeployment}
                                 />
                             </Box>
