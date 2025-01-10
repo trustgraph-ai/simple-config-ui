@@ -9,7 +9,8 @@ local config = import "config.json";
 // Produce patterns from config
 local patterns = decode(config);
 
-// Extract resources using the engine
+// Extract resources usnig the engine
 local resourceList = engine.package(patterns);
 
 resourceList
+
