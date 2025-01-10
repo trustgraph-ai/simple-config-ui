@@ -214,7 +214,8 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     }}
                 >
                     <Typography variant="h6" gutterBottom>
-                        Extraction Model Configuration
+                        {dualModelMode ? 'Extraction ' : ''}
+                        Model Configuration
                     </Typography>
                     <Box my={2}>
                         <ModelDeployment

@@ -50,7 +50,8 @@ const Deployment: React.FC<DeploymentProps> = ({
                     }}
                   >
                       <Typography variant="h6" gutterBottom>
-                          Extraction Model Deployment
+                          {dualModelMode ? 'Extraction ' : ''}
+                          Model Deployment
                       </Typography>
                     <Box>
                         <DeploymentModel
