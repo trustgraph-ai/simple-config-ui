@@ -38,7 +38,7 @@ const Deployment: React.FC<DeploymentProps> = ({
                             <Typography variant="h6" gutterBottom>Extraction Model Deployment</Typography>
                             <Box>
                                 <DeploymentModel
-                                    modelDeployment={extractionModelDeployment}
+                                    thisDeploy={extractionModelDeployment}
                                 />
                             </Box>
                         </Paper>
@@ -46,7 +46,7 @@ const Deployment: React.FC<DeploymentProps> = ({
                             <Typography variant="h6" gutterBottom>RAG Model Deployment</Typography>
                             <Box>
                                 <DeploymentModel
-                                    modelDeployment={ragModelDeployment}
+                                    thisDeploy={ragModelDeployment}
                                 />
                             </Box>
                         </Paper>
@@ -54,7 +54,7 @@ const Deployment: React.FC<DeploymentProps> = ({
                 ) : (
                     <Box>
                         <DeploymentModel
-                            modelDeployment={modelDeployment}
+                            thisDeploy={modelDeployment}
                         />
                     </Box>
                 )}

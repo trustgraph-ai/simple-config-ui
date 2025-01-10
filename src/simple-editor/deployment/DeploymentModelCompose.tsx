@@ -229,18 +229,15 @@ const getInstructions = (model : string) => {
    
 }
 
-const DeploymentModel: React.FC<{}> = ({
+const DeploymentModelCompose: React.FC<{ thisDeploy : string }> = ({
+   thisDeploy
 }) => {
 
-    const modelDeployment = useModelParamsStore(
-        (state) => state.modelDeployment
-    );
-
-    const instructions = getInstructions(modelDeployment);
+    const instructions = getInstructions(thisDeploy);
 
     return instructions;
 
 };
 
-export default DeploymentModel;
+export default DeploymentModelCompose;
 

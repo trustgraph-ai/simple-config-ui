@@ -158,12 +158,11 @@ const getInstructions = (model : string) => {
    
 }
 
-const DeploymentModelKube: React.FC<{}> = ({
+const DeploymentModelKube: React.FC<{thisDeploy : string}> = ({
+    thisDeploy
 }) => {
 
-    const modelDeployment = useModelParamsStore((state) => state.modelDeployment);
-
-    const instructions = getInstructions(modelDeployment);
+    const instructions = getInstructions(thisDeploy);
 
     return (
 

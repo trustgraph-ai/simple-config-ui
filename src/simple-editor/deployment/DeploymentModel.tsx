@@ -11,26 +11,29 @@ import { useModelParamsStore } from '../state/ModelParams';
 import DeploymentModelCompose from './DeploymentModelCompose';
 import DeploymentModelKube from './DeploymentModelKube';
 
-interface DeploymentModelProps {
-}
-
-const Platform = () => {
+const Platform : React.FC<{ thisDeploy : string }> = ({
+    thisDeploy
+}) => {
 
     const platform = useModelParamsStore((state) => state.platform);
 
     if (platform == "docker-compose" || platform == "podman-compose") {
-        return <DeploymentModelCompose/>;
+        return <DeploymentModelCompose thisDeploy={thisDeploy}/>;
     } else if (platform == "minikube-k8s" || platform == "gcp-k8s") {
-        return <DeploymentModelKube/>;
+        return <DeploymentModelKube thisDeploy={thisDeploy}/>;
     } else {
         return <div>Bunch</div>;
     }
 
 }
 
-const DeploymentModel: React.FC<DeploymentModelProps> = ({
-}) => {
+interface DeploymentModelProps {
+   thisDeploy : string;
+}
 
+const DeploymentModel: React.FC<DeploymentModelProps> = ({
+    thisDeploy
+}) => {
 
     return (
 
@@ -47,7 +50,7 @@ const DeploymentModel: React.FC<DeploymentModelProps> = ({
                             <Box>Model Credentials</Box>
                         </Stack>
                     </Typography>
-                    <Platform/>
+                    <Platform thisDeploy={thisDeploy}/>
                 </Paper>
             </Box>
         </>
