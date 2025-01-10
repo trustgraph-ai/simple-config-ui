@@ -1,5 +1,5 @@
 
-import { ConfigurationState, ModelParms } from './state/Configuration';
+import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
