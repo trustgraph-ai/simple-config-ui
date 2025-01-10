@@ -1,10 +1,19 @@
 
-import { ConfigurationState } from './state/Configuration';
+import { ConfigurationState, ModelParms } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
     Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
 } from './state/Options';
+
+const modelConfig = (m : ModelParams) => {
+    return {
+        deployment: m.deployment,
+        temperature: m.temperature,
+        "max-output-tokens": m.maxOutputTokens,
+        model: m.modelName,
+    };
+}
 
 export const generateConfig =
 (
@@ -14,121 +23,122 @@ export const generateConfig =
     options : Options,
 ) => {
 
-    const depl = config.mainModel.deployment;
-    
-    let buildout =
-      [
-          {
-              "name": config.graphStore,
-              "parameters": {}
-          },
-          {
-              "name": "pulsar",
-              "parameters": {}
-          },
-          {
-              "name": config.vectorDB,
-              "parameters": {}
-          },
-          {
-              "name": "embeddings-hf",
-              "parameters": {}
-          },
-          {
-              "name": "graph-rag",
-              "parameters": {}
-          },
-          {
-              "name": "grafana",
-              "parameters": {}
-          },
-          {
-              "name": "trustgraph",
-              "parameters": {}
-          },
-          {
-              "name": depl,
-              "parameters": {}
-          },
-          {
-              "name": "prompt-template",
-              "parameters": {}
-          },
-      ];
+    let components = [
+        {
+            "name": config.graphStore,
+            "parameters": {}
+        },
+        {
+            "name": "pulsar",
+            "parameters": {}
+        },
+        {
+            "name": config.vectorDB,
+            "parameters": {}
+        },
+        {
+            "name": "embeddings-hf",
+            "parameters": {}
+        },
+        {
+            "name": "graph-rag",
+            "parameters": {}
+        },
+        {
+            "name": "grafana",
+            "parameters": {}
+        },
+        {
+            "name": "trustgraph",
+            "parameters": {}
+        },
+        {
+            "name": "prompt-template",
+            "parameters": {}
+        },
+    ];
 
-      // Will collate some various parameters to apply to the config.
-      // These get put into the 'null' pattern.
+    // Will collate some various parameters to apply to the config.
+    // These get put into the 'null' pattern.
 
-      if (config.chunkerType == "chunker-recursive") {
-          buildout.push({
-              "name": "override-recursive-chunker",
-              "parameters": {}
-          });
-      }
+    if (config.chunkerType == "chunker-recursive") {
+        components.push({
+            "name": "override-recursive-chunker",
+            "parameters": {}
+        });
+    }
 
-      let parameters : { [k : string] : string | number } = {};
+    components.push({
+        name: "llm",
+        parameters: modelConfig(config.mainModel)
+    });
 
-      parameters["chunk-size"] = config.chunkSize;
-      parameters["chunk-overlap"] = config.chunkOverlap;
-      parameters[depl + "-temperature"] = config.mainModel.temperature;
-      parameters[depl + "-max-output-tokens"] =
-          config.mainModel.maxOutputTokens;
-      parameters[depl + "-model"] = config.mainModel.modelName;
+    if (config.dualModelMode) {
+        components.push({
+            name: "llm-rag",
+            parameters: modelConfig(config.ragModel)
+        });
+    }
 
-      if (options.options.has(CONFIGURE_PROMPTS)) {
+    let parameters : { [k : string] : string | number } = {};
 
-          let promptParams = prompts.prompts.reduce(
-              (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
-          );
+    parameters["chunk-size"] = config.chunkSize;
+    parameters["chunk-overlap"] = config.chunkOverlap;
+
+    if (options.options.has(CONFIGURE_PROMPTS)) {
+
+        let promptParams = prompts.prompts.reduce(
+            (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
+        );
   
-          buildout.push({
-              "name": "prompt-overrides",
-              "parameters": promptParams,
-          });
+        components.push({
+            "name": "prompt-overrides",
+            "parameters": promptParams,
+        });
           
-      }
+    }
 
-      if (options.options.has(CONFIGURE_AGENTS)) {
+    if (options.options.has(CONFIGURE_AGENTS)) {
 
-          let toolParams = agents.tools;
+        let toolParams = agents.tools;
   
-          buildout.push({
-              "name": "agent-manager-react",
-              "parameters": {
-                  "tools": toolParams
-              },
-          });
+        components.push({
+            "name": "agent-manager-react",
+            "parameters": {
+                "tools": toolParams
+            },
+        });
           
-      }
+    }
 
-      if (options.options.has(CONFIGURE_WORKBENCH)) {
-  
-          buildout.push({
-              "name": "workbench-ui",
-              "parameters": {
-              },
-          });
-          
-      }
+    if (options.options.has(CONFIGURE_WORKBENCH)) {
 
-      buildout.push({
-          "name": "null",
-          "parameters": parameters,
-      });
+        components.push({
+            "name": "workbench-ui",
+            "parameters": {
+            },
+        });
 
-      const buildoutEnc = JSON.stringify(buildout, null, 4)
+    }
 
-      const platform = config.platform;
-      const version = config.trustgraphVersion;
+    components.push({
+        "name": "null",
+        "parameters": parameters,
+    });
 
-      return fetch(
-          "/api/generate/" + platform + "/" + version, {
-              body: buildoutEnc,
-              method: "POST",
-              headers: {
-              }
-           }
-      );
+    const componentsEnc = JSON.stringify(components, null, 4)
+
+    const platform = config.platform;
+    const version = config.trustgraphVersion;
+
+    return fetch(
+        "/api/generate/" + platform + "/" + version, {
+            body: componentsEnc,
+            method: "POST",
+            headers: {
+            }
+         }
+    );
 
 };
 
