@@ -14,7 +14,7 @@ export const generateConfig =
     options : Options,
 ) => {
 
-    const depl = config.modelDeployment;
+    const depl = config.mainModel.deployment;
     
     let buildout =
       [
@@ -70,9 +70,10 @@ export const generateConfig =
 
       parameters["chunk-size"] = config.chunkSize;
       parameters["chunk-overlap"] = config.chunkOverlap;
-      parameters[depl + "-temperature"] = config.temperature;
-      parameters[depl + "-max-output-tokens"] = config.maxOutputTokens;
-      parameters[depl + "-model"] =  config.modelName;
+      parameters[depl + "-temperature"] = config.mainModel.temperature;
+      parameters[depl + "-max-output-tokens"] =
+          config.mainModel.maxOutputTokens;
+      parameters[depl + "-model"] = config.mainModel.modelName;
 
       if (options.options.has(CONFIGURE_PROMPTS)) {
 

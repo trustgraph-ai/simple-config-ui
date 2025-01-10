@@ -87,8 +87,38 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
         = useConfigurationStateStore((state) => state.setPlatform);
 
     // Dual Model Mode State
-    const dualModelMode = useConfigurationStateStore((state) => state.dualModelMode);
-    const setDualModelMode = useConfigurationStateStore((state) => state.setDualModelMode);
+    const dualModelMode = useConfigurationStateStore(
+        (state) => state.dualModelMode
+    );
+
+    const setDualModelMode = useConfigurationStateStore(
+        (state) => state.setDualModelMode
+    );
+
+    const mainModel = useConfigurationStateStore((state) => state.mainModel);
+    const setMainModel = useConfigurationStateStore(
+        (state) => state.setMainModel
+    );
+
+    const setMainModelDeployment = (deployment : string) => {
+        setMainModel({
+            ...mainModel,
+            deployment: deployment,
+        })
+    };
+
+    const ragModel = useConfigurationStateStore((state) => state.ragModel);
+    const setRagModel = useConfigurationStateStore(
+        (state) => state.setRagModel
+    );
+
+    const setRagModelDeployment = (deployment : string) => {
+        setRagModel({
+            ...ragModel,
+            deployment: deployment
+        })
+    };
+
     const extractionModelDeployment = useConfigurationStateStore((state) => state.extractionModelDeployment);
     const setExtractionModelDeployment = useConfigurationStateStore((state) => state.setExtractionModelDeployment);
     const extractionModelName = useConfigurationStateStore((state) => state.extractionModelName);
@@ -98,8 +128,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const extractionMaxOutputTokens = useConfigurationStateStore((state) => state.extractionMaxOutputTokens);
     const setExtractionMaxOutputTokens = useConfigurationStateStore((state) => state.setExtractionMaxOutputTokens);
 
-    const ragModelDeployment = useConfigurationStateStore((state) => state.ragModelDeployment);
-    const setRagModelDeployment = useConfigurationStateStore((state) => state.setRagModelDeployment);
     const ragModelName = useConfigurationStateStore((state) => state.ragModelName);
     const setRagModelName = useConfigurationStateStore((state) => state.setRagModelName);
     const ragTemperature = useConfigurationStateStore((state) => state.ragTemperature);
@@ -109,11 +137,13 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
 
     // Update the Zustand store when dualModelMode changes
-    const handleDualModelModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDualModelMode(event.target.checked);
-    };
+    const handleDualModelModeChange =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            setDualModelMode(event.target.checked);
+        };
 
-    // Remove the useEffect and update the state directly in the onChange handlers
+    // Remove the useEffect and update the state directly in the onChange
+    // handlers
     useConfigurationStateStore.subscribe(
         (n, o) => {
 
@@ -171,69 +201,50 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     />
                 </Box>
 
-                {dualModelMode ? (
-                    <>
-                        <Paper elevation={3} style={{ padding: '16px', marginBottom: '16px' }}>
-                            <Typography variant="h6" gutterBottom>Extraction Model Configuration</Typography>
-                            <Box my={2}>
-                                <ModelDeployment
-                                    value={extractionModelDeployment} onChange={setExtractionModelDeployment}
-                                />
-                            </Box>
-                            <Box my={2}>
-                                <ModelParameters
-                                    modelName={extractionModelName}
-                                    temperature={extractionTemperature}
-                                    maxOutputTokens={extractionMaxOutputTokens}
-                                    onModelNameChange={setExtractionModelName}
-                                    onTemperatureChange={setExtractionTemperature}
-                                    onMaxOutputTokensChange={setExtractionMaxOutputTokens}
-                                    modelDeployment={extractionModelDeployment}
-                                />
-                            </Box>
-                        </Paper>
+                <Paper
+                    elevation={3}
+                    style={{
+                        padding: '16px',
+                        marginBottom: '16px'
+                    }}
+                >
+                    <Typography variant="h6" gutterBottom>
+                        Extraction Model Configuration
+                    </Typography>
+                    <Box my={2}>
+                        <ModelDeployment
+                            value={mainModel.deployment}
+                            onChange={setMainModelDeployment}
+                        />
+                    </Box>
+                    <Box my={2}>
+                        <ModelParameters
+                            value={mainModel}
+                            onChange={setMainModel}
+                        />
+                    </Box>
+                </Paper>
 
-                        <Paper elevation={3} style={{ padding: '16px' }}>
-                            <Typography variant="h6" gutterBottom>RAG Model Configuration</Typography>
-                            <Box my={2}>
-                                <ModelDeployment
-                                    value={ragModelDeployment} onChange={setRagModelDeployment}
-                                />
-                            </Box>
-                            <Box my={2}>
-                                <ModelParameters
-                                    modelName={ragModelName}
-                                    temperature={ragTemperature}
-                                    maxOutputTokens={ragMaxOutputTokens}
-                                    onModelNameChange={setRagModelName}
-                                    onTemperatureChange={setRagTemperature}
-                                    onMaxOutputTokensChange={setRagMaxOutputTokens}
-                                    modelDeployment={ragModelDeployment}
-                                />
-                            </Box>
-                        </Paper>
-                    </>
-                ) : (
-                    <>
-                        <Box my={4}>
+                {
+                    dualModelMode &&
+                    <Paper elevation={3} style={{ padding: '16px' }}>
+                        <Typography variant="h6" gutterBottom>
+                            RAG Model Configuration
+                        </Typography>
+                        <Box my={2}>
                             <ModelDeployment
-                                value={modelDeployment} onChange={setModelDeployment}
+                                value={ragModel.deployment}
+                                onChange={setRagModelDeployment}
                             />
                         </Box>
-
-                        <Box my={4}>
+                        <Box my={2}>
                             <ModelParameters
-                                modelName={modelName}
-                                temperature={temperature}
-                                maxOutputTokens={maxOutputTokens}
-                                onModelNameChange={setModelName}
-                                onTemperatureChange={setTemperature}
-                                onMaxOutputTokensChange={setMaxOutputTokens}
-                                modelDeployment={modelDeployment}
+                                value={ragModel}
+                                onChange={setRagModel}
                             />
                         </Box>
-                    </>
-                )}
+                    </Paper>
+                }
             </Box>
         </>
     );

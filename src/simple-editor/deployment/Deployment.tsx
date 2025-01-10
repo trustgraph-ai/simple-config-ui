@@ -19,10 +19,20 @@ const Deployment: React.FC<DeploymentProps> = ({
 }) => {
 
     const options = useOptionsStore((state) => state.options);
-    const dualModelMode = useConfigurationStateStore((state) => state.dualModelMode);
-    const extractionModelDeployment = useConfigurationStateStore((state) => state.extractionModelDeployment);
-    const ragModelDeployment = useConfigurationStateStore((state) => state.ragModelDeployment);
-    const modelDeployment = useConfigurationStateStore((state) => state.modelDeployment);
+
+    const dualModelMode = useConfigurationStateStore(
+        (state) => state.dualModelMode
+    );
+
+    const mainModel = useConfigurationStateStore((state) => state.mainModel);
+//    const setMainModel = useConfigurationStateStore(
+//        (state) => state.setMainModel
+//    );
+
+    const ragModel = useConfigurationStateStore((state) => state.ragModel);
+//    const setRagModel = useConfigurationStateStore(
+//        (state) => state.setRagModel
+//    );
 
     return (
         <>
@@ -32,32 +42,36 @@ const Deployment: React.FC<DeploymentProps> = ({
                     <DeploymentPlatform/>
                 </Box>
 
-                {dualModelMode ? (
-                    <>
-                        <Paper elevation={8} style={{ padding: '16px', marginTop: '16px', marginBottom: '16px' }}>
-                            <Typography variant="h6" gutterBottom>Extraction Model Deployment</Typography>
-                            <Box>
-                                <DeploymentModel
-                                    thisDeploy={extractionModelDeployment}
-                                />
-                            </Box>
-                        </Paper>
-                        <Paper elevation={8} style={{ padding: '16px' }}>
-                            <Typography variant="h6" gutterBottom>RAG Model Deployment</Typography>
-                            <Box>
-                                <DeploymentModel
-                                    thisDeploy={ragModelDeployment}
-                                />
-                            </Box>
-                        </Paper>
-                    </>
-                ) : (
+                <Paper
+                    elevation={8}
+                    style={{
+                        padding: '16px', marginTop: '16px',
+                        marginBottom: '16px'
+                    }}
+                  >
+                      <Typography variant="h6" gutterBottom>
+                          Extraction Model Deployment
+                      </Typography>
                     <Box>
                         <DeploymentModel
-                            thisDeploy={modelDeployment}
+                            value={mainModel}
                         />
                     </Box>
-                )}
+                </Paper>
+
+                {
+                    dualModelMode && 
+                    <Paper elevation={8} style={{ padding: '16px' }}>
+                        <Typography variant="h6" gutterBottom>
+                            RAG Model Deployment
+                        </Typography>
+                        <Box>
+                            <DeploymentModel
+                                value={ragModel}
+                            />
+                        </Box>
+                    </Paper>
+                }
 
                 <Box>
                     <DeploymentVectorStore/>

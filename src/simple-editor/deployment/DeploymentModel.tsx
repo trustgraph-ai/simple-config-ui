@@ -6,33 +6,36 @@ import {
     Typography, Paper, Box, Stack,
 } from '@mui/material';
 
-import { useConfigurationStateStore } from '../state/Configuration';
+import {
+    useConfigurationStateStore, ModelParams
+} from '../state/Configuration';
 
 import DeploymentModelCompose from './DeploymentModelCompose';
 import DeploymentModelKube from './DeploymentModelKube';
 
-const Platform : React.FC<{ thisDeploy : string }> = ({
-    thisDeploy
+const Platform : React.FC<{ value : ModelParams }> = ({
+    value
 }) => {
 
     const platform = useConfigurationStateStore((state) => state.platform);
 
     if (platform == "docker-compose" || platform == "podman-compose") {
-        return <DeploymentModelCompose thisDeploy={thisDeploy}/>;
+        return <DeploymentModelCompose value={value}/>;
     } else if (platform == "minikube-k8s" || platform == "gcp-k8s") {
-        return <DeploymentModelKube thisDeploy={thisDeploy}/>;
+        return <DeploymentModelKube value={value}/>;
     } else {
-        return <div>Bunch</div>;
+        return <div>FIXME: Platform not expected?!</div>;
     }
 
 }
 
 interface DeploymentModelProps {
-   thisDeploy : string;
+    value : ModelParams;
+//    setValue : (m : ModelParams) => void;
 }
 
 const DeploymentModel: React.FC<DeploymentModelProps> = ({
-    thisDeploy
+    value, // setValue,
 }) => {
 
     return (
@@ -50,7 +53,7 @@ const DeploymentModel: React.FC<DeploymentModelProps> = ({
                             <Box>Model Credentials</Box>
                         </Stack>
                     </Typography>
-                    <Platform thisDeploy={thisDeploy}/>
+                    <Platform value={value}/>
                 </Paper>
             </Box>
         </>

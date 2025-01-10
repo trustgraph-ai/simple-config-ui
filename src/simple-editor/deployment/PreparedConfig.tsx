@@ -16,10 +16,13 @@ const PreparedConfig = () => {
         = useConfigurationStateStore((state) => state.graphStore);
     const vectorDB
         = useConfigurationStateStore((state) => state.vectorDB);
-    const modelDeployment
-        = useConfigurationStateStore((state) => state.modelDeployment);
-    const modelName
-        = useConfigurationStateStore((state) => state.modelName);
+
+    const dualModelMode = useConfigurationStateStore(
+        (state) => state.dualModelMode
+    );
+
+    const mainModel = useConfigurationStateStore((state) => state.mainModel);
+    const ragModel = useConfigurationStateStore((state) => state.ragModel);
 
     const configUrl
         = useDeploymentStore((state) => state.configUrl);
@@ -56,8 +59,19 @@ const PreparedConfig = () => {
                     </Alert>
 
                     <ul>
-                        <li>Model deployment: {modelDeployment}</li>
-                        <li>Model name: {modelName}</li>
+                        <li>Model deployment: {mainModel.deployment}</li>
+                        <li>Model name: {mainModel.modelName}</li>
+                        {
+                           dualModelMode &&
+                           <>
+                               <li>
+                                   RAG deployment: {ragModel.deployment}
+                               </li>
+                               <li>
+                                   RAG model name: {ragModel.modelName}
+                               </li>
+                        </>
+                        }
                         <li>Graph store: {graphStore}</li>
                         <li>Vector DB: {vectorDB}</li>
                     </ul>

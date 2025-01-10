@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography, Alert } from '@mui/material';
 
-//import { useConfigurationStateStore } from '../state/Configuration';
+import { ModelParams } from '../state/Configuration';
 
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
@@ -158,11 +158,11 @@ const getInstructions = (model : string) => {
    
 }
 
-const DeploymentModelKube: React.FC<{thisDeploy : string}> = ({
-    thisDeploy
+const DeploymentModelKube: React.FC<{ value : ModelParams }> = ({
+    value
 }) => {
 
-    const instructions = getInstructions(thisDeploy);
+    const instructions = getInstructions(value.deployment);
 
     return (
 
