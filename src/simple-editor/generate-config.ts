@@ -8,7 +8,6 @@ import {
 
 const modelConfig = (m : ModelParams) => {
     return {
-        deployment: m.deployment,
         temperature: m.temperature,
         "max-output-tokens": m.maxOutputTokens,
         model: m.modelName,
@@ -25,7 +24,7 @@ export const generateConfig =
 
     let components = [
         {
-            "name": config.graphStore,
+            "name": "triple-store-" + config.graphStore,
             "parameters": {}
         },
         {
@@ -33,7 +32,7 @@ export const generateConfig =
             "parameters": {}
         },
         {
-            "name": config.vectorDB,
+            "name": "vector-store-" + config.vectorDB,
             "parameters": {}
         },
         {
@@ -49,7 +48,7 @@ export const generateConfig =
             "parameters": {}
         },
         {
-            "name": "trustgraph",
+            "name": "trustgraph-base",
             "parameters": {}
         },
         {
@@ -69,14 +68,19 @@ export const generateConfig =
     }
 
     components.push({
-        name: "llm",
+        name: config.mainModel.deployment,
         parameters: modelConfig(config.mainModel)
     });
 
     if (config.dualModelMode) {
         components.push({
-            name: "llm-rag",
+            name: config.ragModel.deployment + "-rag",
             parameters: modelConfig(config.ragModel)
+        });
+    } else {
+        components.push({
+            name: config.mainModel.deployment + "-rag",
+            parameters: modelConfig(config.mainModel)
         });
     }
 
@@ -109,6 +113,14 @@ export const generateConfig =
             },
         });
           
+    } else {
+
+        components.push({
+            "name": "agent-manager-react",
+            "parameters": {
+            },
+        });
+
     }
 
     if (options.options.has(CONFIGURE_WORKBENCH)) {
