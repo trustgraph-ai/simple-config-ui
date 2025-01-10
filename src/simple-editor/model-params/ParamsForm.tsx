@@ -41,20 +41,8 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const chunkOverlap
         = useConfigurationStateStore((state) => state.chunkOverlap);
 
-    const modelDeployment
-        = useConfigurationStateStore((state) => state.modelDeployment);
-
-    const modelName
-        = useConfigurationStateStore((state) => state.modelName);
-
-    const temperature
-        = useConfigurationStateStore((state) => state.temperature);
-
     const platform
         = useConfigurationStateStore((state) => state.platform);
-
-    const maxOutputTokens
-        = useConfigurationStateStore((state) => state.maxOutputTokens);
 
     const setGraphStore
         = useConfigurationStateStore((state) => state.setGraphStore);
@@ -70,18 +58,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
     const setChunkOverlap
         = useConfigurationStateStore((state) => state.setChunkOverlap);
-
-    const setModelDeployment
-        = useConfigurationStateStore((state) => state.setModelDeployment);
-
-    const setModelName
-        = useConfigurationStateStore((state) => state.setModelName);
-
-    const setTemperature
-        = useConfigurationStateStore((state) => state.setTemperature);
-
-    const setMaxOutputTokens
-        = useConfigurationStateStore((state) => state.setMaxOutputTokens);
 
     const setPlatform
         = useConfigurationStateStore((state) => state.setPlatform);
@@ -119,23 +95,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
         })
     };
 
-    const extractionModelDeployment = useConfigurationStateStore((state) => state.extractionModelDeployment);
-    const setExtractionModelDeployment = useConfigurationStateStore((state) => state.setExtractionModelDeployment);
-    const extractionModelName = useConfigurationStateStore((state) => state.extractionModelName);
-    const setExtractionModelName = useConfigurationStateStore((state) => state.setExtractionModelName);
-    const extractionTemperature = useConfigurationStateStore((state) => state.extractionTemperature);
-    const setExtractionTemperature = useConfigurationStateStore((state) => state.setExtractionTemperature);
-    const extractionMaxOutputTokens = useConfigurationStateStore((state) => state.extractionMaxOutputTokens);
-    const setExtractionMaxOutputTokens = useConfigurationStateStore((state) => state.setExtractionMaxOutputTokens);
-
-    const ragModelName = useConfigurationStateStore((state) => state.ragModelName);
-    const setRagModelName = useConfigurationStateStore((state) => state.setRagModelName);
-    const ragTemperature = useConfigurationStateStore((state) => state.ragTemperature);
-    const setRagTemperature = useConfigurationStateStore((state) => state.setRagTemperature);
-    const ragMaxOutputTokens = useConfigurationStateStore((state) => state.ragMaxOutputTokens);
-    const setRagMaxOutputTokens = useConfigurationStateStore((state) => state.setRagMaxOutputTokens);
-
-
     // Update the Zustand store when dualModelMode changes
     const handleDualModelModeChange =
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,16 +104,62 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     // Remove the useEffect and update the state directly in the onChange
     // handlers
     useConfigurationStateStore.subscribe(
+        // n is new, o is old
         (n, o) => {
 
-            if (n.modelDeployment == o.modelDeployment) return;
+            // Has main model deployment changed?
+            if (n.mainModel.deployment != o.mainModel.deployment) {
 
-            if (n.modelName in models[n.modelDeployment]) return;
+                // Get valid models
+                const validModels = models[n.mainModel.deployment];
 
-            if (models[n.modelDeployment].length == 0)
-                setModelName("");
-            else
-                setModelName(models[n.modelDeployment][0]);
+                // Is current model name valid for the deployment?
+                if (!(n.mainModel.modelName in validModels)) {
+
+                    // Does the deployment use model settings?  If not,
+                    // null out the model name.  Otherwise use the
+                    // first valid model
+                    if (validModels.length == 0)
+                        setMainModel({
+                            ...n.mainModel,
+                            modelName: "",
+                        })
+                    else
+                        setMainModel({
+                            ...n.mainModel,
+                            modelName: models[n.mainModel.deployment][0],
+                        })
+                }
+
+            }
+
+            // Do the same for RAG model...
+
+            // Has rag model deployment changed?
+            if (n.ragModel.deployment != o.ragModel.deployment) {
+
+                // Get valid models
+                const validModels = models[n.ragModel.deployment];
+
+                // Is current model name valid for the deployment?
+                if (!(n.ragModel.modelName in validModels)) {
+
+                    // Does the deployment use model settings?  If not,
+                    // null out the model name.  Otherwise use the
+                    // first valid model
+                    if (validModels.length == 0)
+                        setRagModel({
+                            ...n.ragModel,
+                            modelName: "",
+                        })
+                    else
+                        setRagModel({
+                            ...n.ragModel,
+                            modelName: models[n.ragModel.deployment][0],
+                        })
+                }
+
+            }
 
         }
     );
