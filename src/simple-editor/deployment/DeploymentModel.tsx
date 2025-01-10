@@ -6,31 +6,37 @@ import {
     Typography, Paper, Box, Stack,
 } from '@mui/material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import {
+    useConfigurationStateStore, ModelParams
+} from '../state/Configuration';
 
 import DeploymentModelCompose from './DeploymentModelCompose';
 import DeploymentModelKube from './DeploymentModelKube';
 
-interface DeploymentModelProps {
-}
+const Platform : React.FC<{ value : ModelParams }> = ({
+    value
+}) => {
 
-const Platform = () => {
-
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     if (platform == "docker-compose" || platform == "podman-compose") {
-        return <DeploymentModelCompose/>;
+        return <DeploymentModelCompose value={value}/>;
     } else if (platform == "minikube-k8s" || platform == "gcp-k8s") {
-        return <DeploymentModelKube/>;
+        return <DeploymentModelKube value={value}/>;
     } else {
-        return <div>Bunch</div>;
+        return <div>FIXME: Platform not expected?!</div>;
     }
 
 }
 
-const DeploymentModel: React.FC<DeploymentModelProps> = ({
-}) => {
+interface DeploymentModelProps {
+    value : ModelParams;
+//    setValue : (m : ModelParams) => void;
+}
 
+const DeploymentModel: React.FC<DeploymentModelProps> = ({
+    value, // setValue,
+}) => {
 
     return (
 
@@ -47,7 +53,7 @@ const DeploymentModel: React.FC<DeploymentModelProps> = ({
                             <Box>Model Credentials</Box>
                         </Stack>
                     </Typography>
-                    <Platform/>
+                    <Platform value={value}/>
                 </Paper>
             </Box>
         </>

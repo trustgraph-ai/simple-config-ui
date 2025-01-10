@@ -1,9 +1,7 @@
-
 import React from 'react';
+import { Box, Paper, Typography } from '@mui/material';
 
-import { Box } from '@mui/material';
-
-//import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
@@ -22,19 +20,59 @@ const Deployment: React.FC<DeploymentProps> = ({
 
     const options = useOptionsStore((state) => state.options);
 
+    const dualModelMode = useConfigurationStateStore(
+        (state) => state.dualModelMode
+    );
+
+    const mainModel = useConfigurationStateStore((state) => state.mainModel);
+//    const setMainModel = useConfigurationStateStore(
+//        (state) => state.setMainModel
+//    );
+
+    const ragModel = useConfigurationStateStore((state) => state.ragModel);
+//    const setRagModel = useConfigurationStateStore(
+//        (state) => state.setRagModel
+//    );
+
     return (
-
         <>
-
             <Box className="deployment">
 
                 <Box>
                     <DeploymentPlatform/>
                 </Box>
 
-                <Box>
-                    <DeploymentModel/>
-                </Box>
+                <Paper
+                    elevation={8}
+                    style={{
+                        padding: '16px', marginTop: '16px',
+                        marginBottom: '16px'
+                    }}
+                  >
+                      <Typography variant="h6" gutterBottom>
+                          {dualModelMode ? 'Extraction ' : ''}
+                          Model Deployment
+                      </Typography>
+                    <Box>
+                        <DeploymentModel
+                            value={mainModel}
+                        />
+                    </Box>
+                </Paper>
+
+                {
+                    dualModelMode && 
+                    <Paper elevation={8} style={{ padding: '16px' }}>
+                        <Typography variant="h6" gutterBottom>
+                            RAG Model Deployment
+                        </Typography>
+                        <Box>
+                            <DeploymentModel
+                                value={ragModel}
+                            />
+                        </Box>
+                    </Paper>
+                }
 
                 <Box>
                     <DeploymentVectorStore/>
@@ -61,11 +99,8 @@ const Deployment: React.FC<DeploymentProps> = ({
                 </Box>
 
             </Box>
-
         </>
-
     );
 };
 
 export default Deployment;
-

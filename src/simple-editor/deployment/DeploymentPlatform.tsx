@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { Hub } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 
 import DeploymentStep from './DeploymentStep';
 import DeploymentSection from './DeploymentSection';
@@ -75,7 +75,7 @@ interface DeploymentInstructionsProps {
 const DeploymentInstructions: React.FC<DeploymentInstructionsProps> = ({
 }) => {
 
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     const instructions = getSteps(platform);
 

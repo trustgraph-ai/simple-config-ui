@@ -4,7 +4,7 @@ import React from 'react';
 import { Typography, Box, Paper, Stack } from '@mui/material';
 import { Gavel } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 
 import DeploymentQuote from './DeploymentQuote';
 
@@ -18,15 +18,18 @@ const GraphStoreConfiguration = () => {
                 Server Side Public License (SSPLv1)
             </a>.
         </Typography>
-
-        <DeploymentQuote>
+        <Typography variant="body2" sx={{ mt: 2 }}>
+        <Paper elevation={8}>
+            <DeploymentQuote>
             "The Server Side Public License (SSPLv1) is designed to
             ensure that if you use FalkorDB as part of a service you
             make available to others (e.g., in the cloud or as an
             API), you are required to make the source code of your
             complete service available under the SSPLv1 license. This
             is similar to GPL but extends to server use."
-        </DeploymentQuote>
+            </DeploymentQuote>
+        </Paper>
+        </Typography>
 
     </>;
 
@@ -35,7 +38,7 @@ const GraphStoreConfiguration = () => {
 const DeploymentModelGraph: React.FC<{}> = ({
 }) => {
 
-    const graphStore = useModelParamsStore((state) => state.graphStore);
+    const graphStore = useConfigurationStateStore((state) => state.graphStore);
 
     if (graphStore != "falkordb") return null;
 

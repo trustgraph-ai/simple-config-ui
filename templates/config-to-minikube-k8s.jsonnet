@@ -19,7 +19,8 @@ local ns = {
     },
 };
 
-// Extract resources usnig the engine
+// Extract resources using the engine
 local resourceList = engine.package(patterns);
 
 resourceList
+

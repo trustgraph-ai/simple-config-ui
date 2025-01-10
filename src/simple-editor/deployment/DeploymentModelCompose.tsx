@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { ModelParams } from '../state/Configuration';
 
 import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentCode from './DeploymentCode';
@@ -229,18 +229,15 @@ const getInstructions = (model : string) => {
    
 }
 
-const DeploymentModel: React.FC<{}> = ({
+const DeploymentModelCompose: React.FC<{ value : ModelParams }> = ({
+   value
 }) => {
 
-    const modelDeployment = useModelParamsStore(
-        (state) => state.modelDeployment
-    );
-
-    const instructions = getInstructions(modelDeployment);
+    const instructions = getInstructions(value.deployment);
 
     return instructions;
 
 };
 
-export default DeploymentModel;
+export default DeploymentModelCompose;
 
