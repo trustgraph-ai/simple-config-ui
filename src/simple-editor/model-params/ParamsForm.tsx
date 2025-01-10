@@ -8,7 +8,7 @@ import Platform from './Platform';
 import ModelDeployment from './ModelDeployment';
 import ModelParameters from './ModelParameters';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
 
 import modelsRaw from './models.json';
@@ -22,90 +22,90 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const setConfigUrl =
         useDeploymentStore((state) => state.setConfigUrl);
 
-    useModelParamsStore.subscribe(() => {
+    useConfigurationStateStore.subscribe(() => {
         setConfigUrl("");
     });
 
     const graphStore
-        = useModelParamsStore((state) => state.graphStore);
+        = useConfigurationStateStore((state) => state.graphStore);
 
     const vectorDB
-        = useModelParamsStore((state) => state.vectorDB);
+        = useConfigurationStateStore((state) => state.vectorDB);
 
     const chunkerType
-        = useModelParamsStore((state) => state.chunkerType);
+        = useConfigurationStateStore((state) => state.chunkerType);
 
     const chunkSize
-        = useModelParamsStore((state) => state.chunkSize);
+        = useConfigurationStateStore((state) => state.chunkSize);
 
     const chunkOverlap
-        = useModelParamsStore((state) => state.chunkOverlap);
+        = useConfigurationStateStore((state) => state.chunkOverlap);
 
     const modelDeployment
-        = useModelParamsStore((state) => state.modelDeployment);
+        = useConfigurationStateStore((state) => state.modelDeployment);
 
     const modelName
-        = useModelParamsStore((state) => state.modelName);
+        = useConfigurationStateStore((state) => state.modelName);
 
     const temperature
-        = useModelParamsStore((state) => state.temperature);
+        = useConfigurationStateStore((state) => state.temperature);
 
     const platform
-        = useModelParamsStore((state) => state.platform);
+        = useConfigurationStateStore((state) => state.platform);
 
     const maxOutputTokens
-        = useModelParamsStore((state) => state.maxOutputTokens);
+        = useConfigurationStateStore((state) => state.maxOutputTokens);
 
     const setGraphStore
-        = useModelParamsStore((state) => state.setGraphStore);
+        = useConfigurationStateStore((state) => state.setGraphStore);
 
     const setVectorDB
-        = useModelParamsStore((state) => state.setVectorDB);
+        = useConfigurationStateStore((state) => state.setVectorDB);
 
     const setChunkerType
-        = useModelParamsStore((state) => state.setChunkerType);
+        = useConfigurationStateStore((state) => state.setChunkerType);
 
     const setChunkSize
-        = useModelParamsStore((state) => state.setChunkSize);
+        = useConfigurationStateStore((state) => state.setChunkSize);
 
     const setChunkOverlap
-        = useModelParamsStore((state) => state.setChunkOverlap);
+        = useConfigurationStateStore((state) => state.setChunkOverlap);
 
     const setModelDeployment
-        = useModelParamsStore((state) => state.setModelDeployment);
+        = useConfigurationStateStore((state) => state.setModelDeployment);
 
     const setModelName
-        = useModelParamsStore((state) => state.setModelName);
+        = useConfigurationStateStore((state) => state.setModelName);
 
     const setTemperature
-        = useModelParamsStore((state) => state.setTemperature);
+        = useConfigurationStateStore((state) => state.setTemperature);
 
     const setMaxOutputTokens
-        = useModelParamsStore((state) => state.setMaxOutputTokens);
+        = useConfigurationStateStore((state) => state.setMaxOutputTokens);
 
     const setPlatform
-        = useModelParamsStore((state) => state.setPlatform);
+        = useConfigurationStateStore((state) => state.setPlatform);
 
     // Dual Model Mode State
-    const dualModelMode = useModelParamsStore((state) => state.dualModelMode);
-    const setDualModelMode = useModelParamsStore((state) => state.setDualModelMode);
-    const extractionModelDeployment = useModelParamsStore((state) => state.extractionModelDeployment);
-    const setExtractionModelDeployment = useModelParamsStore((state) => state.setExtractionModelDeployment);
-    const extractionModelName = useModelParamsStore((state) => state.extractionModelName);
-    const setExtractionModelName = useModelParamsStore((state) => state.setExtractionModelName);
-    const extractionTemperature = useModelParamsStore((state) => state.extractionTemperature);
-    const setExtractionTemperature = useModelParamsStore((state) => state.setExtractionTemperature);
-    const extractionMaxOutputTokens = useModelParamsStore((state) => state.extractionMaxOutputTokens);
-    const setExtractionMaxOutputTokens = useModelParamsStore((state) => state.setExtractionMaxOutputTokens);
+    const dualModelMode = useConfigurationStateStore((state) => state.dualModelMode);
+    const setDualModelMode = useConfigurationStateStore((state) => state.setDualModelMode);
+    const extractionModelDeployment = useConfigurationStateStore((state) => state.extractionModelDeployment);
+    const setExtractionModelDeployment = useConfigurationStateStore((state) => state.setExtractionModelDeployment);
+    const extractionModelName = useConfigurationStateStore((state) => state.extractionModelName);
+    const setExtractionModelName = useConfigurationStateStore((state) => state.setExtractionModelName);
+    const extractionTemperature = useConfigurationStateStore((state) => state.extractionTemperature);
+    const setExtractionTemperature = useConfigurationStateStore((state) => state.setExtractionTemperature);
+    const extractionMaxOutputTokens = useConfigurationStateStore((state) => state.extractionMaxOutputTokens);
+    const setExtractionMaxOutputTokens = useConfigurationStateStore((state) => state.setExtractionMaxOutputTokens);
 
-    const ragModelDeployment = useModelParamsStore((state) => state.ragModelDeployment);
-    const setRagModelDeployment = useModelParamsStore((state) => state.setRagModelDeployment);
-    const ragModelName = useModelParamsStore((state) => state.ragModelName);
-    const setRagModelName = useModelParamsStore((state) => state.setRagModelName);
-    const ragTemperature = useModelParamsStore((state) => state.ragTemperature);
-    const setRagTemperature = useModelParamsStore((state) => state.setRagTemperature);
-    const ragMaxOutputTokens = useModelParamsStore((state) => state.ragMaxOutputTokens);
-    const setRagMaxOutputTokens = useModelParamsStore((state) => state.setRagMaxOutputTokens);
+    const ragModelDeployment = useConfigurationStateStore((state) => state.ragModelDeployment);
+    const setRagModelDeployment = useConfigurationStateStore((state) => state.setRagModelDeployment);
+    const ragModelName = useConfigurationStateStore((state) => state.ragModelName);
+    const setRagModelName = useConfigurationStateStore((state) => state.setRagModelName);
+    const ragTemperature = useConfigurationStateStore((state) => state.ragTemperature);
+    const setRagTemperature = useConfigurationStateStore((state) => state.setRagTemperature);
+    const ragMaxOutputTokens = useConfigurationStateStore((state) => state.ragMaxOutputTokens);
+    const setRagMaxOutputTokens = useConfigurationStateStore((state) => state.setRagMaxOutputTokens);
 
 
     // Update the Zustand store when dualModelMode changes
@@ -114,7 +114,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     };
 
     // Remove the useEffect and update the state directly in the onChange handlers
-    useModelParamsStore.subscribe(
+    useConfigurationStateStore.subscribe(
         (n, o) => {
 
             if (n.modelDeployment == o.modelDeployment) return;

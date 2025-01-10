@@ -1,5 +1,5 @@
 
-import { ModelParams } from './state/ModelParams';
+import { ConfigurationState } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
@@ -8,16 +8,18 @@ import {
 
 export const generateConfig =
 (
-    params : ModelParams, prompts : Prompts, agents : Agents,
+    config : ConfigurationState,
+    prompts : Prompts,
+    agents : Agents,
     options : Options,
 ) => {
 
-    const depl = params.modelDeployment;
+    const depl = config.modelDeployment;
     
-    let config =
+    let buildout =
       [
           {
-              "name": params.graphStore,
+              "name": config.graphStore,
               "parameters": {}
           },
           {
@@ -25,7 +27,7 @@ export const generateConfig =
               "parameters": {}
           },
           {
-              "name": params.vectorDB,
+              "name": config.vectorDB,
               "parameters": {}
           },
           {
@@ -57,8 +59,8 @@ export const generateConfig =
       // Will collate some various parameters to apply to the config.
       // These get put into the 'null' pattern.
 
-      if (params.chunkerType == "chunker-recursive") {
-          config.push({
+      if (config.chunkerType == "chunker-recursive") {
+          buildout.push({
               "name": "override-recursive-chunker",
               "parameters": {}
           });
@@ -66,11 +68,11 @@ export const generateConfig =
 
       let parameters : { [k : string] : string | number } = {};
 
-      parameters["chunk-size"] = params.chunkSize;
-      parameters["chunk-overlap"] = params.chunkOverlap;
-      parameters[depl + "-temperature"] = params.temperature;
-      parameters[depl + "-max-output-tokens"] = params.maxOutputTokens;
-      parameters[depl + "-model"] =  params.modelName;
+      parameters["chunk-size"] = config.chunkSize;
+      parameters["chunk-overlap"] = config.chunkOverlap;
+      parameters[depl + "-temperature"] = config.temperature;
+      parameters[depl + "-max-output-tokens"] = config.maxOutputTokens;
+      parameters[depl + "-model"] =  config.modelName;
 
       if (options.options.has(CONFIGURE_PROMPTS)) {
 
@@ -78,7 +80,7 @@ export const generateConfig =
               (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
           );
   
-          config.push({
+          buildout.push({
               "name": "prompt-overrides",
               "parameters": promptParams,
           });
@@ -89,7 +91,7 @@ export const generateConfig =
 
           let toolParams = agents.tools;
   
-          config.push({
+          buildout.push({
               "name": "agent-manager-react",
               "parameters": {
                   "tools": toolParams
@@ -100,7 +102,7 @@ export const generateConfig =
 
       if (options.options.has(CONFIGURE_WORKBENCH)) {
   
-          config.push({
+          buildout.push({
               "name": "workbench-ui",
               "parameters": {
               },
@@ -108,19 +110,19 @@ export const generateConfig =
           
       }
 
-      config.push({
+      buildout.push({
           "name": "null",
           "parameters": parameters,
       });
 
-      const cnf = JSON.stringify(config, null, 4)
+      const buildoutEnc = JSON.stringify(buildout, null, 4)
 
-      const platform = params.platform;
-      const version = params.trustgraphVersion;
+      const platform = config.platform;
+      const version = config.trustgraphVersion;
 
       return fetch(
           "/api/generate/" + platform + "/" + version, {
-              body: cnf,
+              body: buildoutEnc,
               method: "POST",
               headers: {
               }

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 const TRUSTGRAPH_VERSION = "0.19.16";
 
-export interface ModelParams {
+export interface ConfigurationState {
     graphStore: string;
     vectorDB: string;
     chunkerType: string;
@@ -44,7 +44,7 @@ export interface ModelParams {
     setRagMaxOutputTokens: (v: number) => void;
 }
 
-export const useModelParamsStore = create<ModelParams>()(
+export const useConfigurationStateStore = create<ConfigurationState>()(
     (set) => ({
         graphStore: "cassandra",
         vectorDB: "qdrant",
@@ -77,10 +77,16 @@ export const useModelParamsStore = create<ModelParams>()(
         setMaxOutputTokens: (v) => set({ maxOutputTokens: v }),
         setPlatform: (v) => set({ platform: v }),
         setDualModelMode: (v) => set({ dualModelMode: v }),
+
+
+
         setExtractionModelDeployment: (v) => set({ extractionModelDeployment: v }),
         setExtractionModelName: (v) => set({ extractionModelName: v }),
         setExtractionTemperature: (v) => set({ extractionTemperature: v }),
         setExtractionMaxOutputTokens: (v) => set({ extractionMaxOutputTokens: v }),
+
+
+
         setRagModelDeployment: (v) => set({ ragModelDeployment: v }),
         setRagModelName: (v) => set({ ragModelName: v }),
         setRagTemperature: (v) => set({ ragTemperature: v }),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
@@ -19,10 +19,10 @@ const Deployment: React.FC<DeploymentProps> = ({
 }) => {
 
     const options = useOptionsStore((state) => state.options);
-    const dualModelMode = useModelParamsStore((state) => state.dualModelMode);
-    const extractionModelDeployment = useModelParamsStore((state) => state.extractionModelDeployment);
-    const ragModelDeployment = useModelParamsStore((state) => state.ragModelDeployment);
-    const modelDeployment = useModelParamsStore((state) => state.modelDeployment);
+    const dualModelMode = useConfigurationStateStore((state) => state.dualModelMode);
+    const extractionModelDeployment = useConfigurationStateStore((state) => state.extractionModelDeployment);
+    const ragModelDeployment = useConfigurationStateStore((state) => state.ragModelDeployment);
+    const modelDeployment = useConfigurationStateStore((state) => state.modelDeployment);
 
     return (
         <>

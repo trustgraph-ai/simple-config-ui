@@ -7,19 +7,19 @@ import {
 
 import { Check } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
 
 const PreparedConfig = () => {
 
     const graphStore
-        = useModelParamsStore((state) => state.graphStore);
+        = useConfigurationStateStore((state) => state.graphStore);
     const vectorDB
-        = useModelParamsStore((state) => state.vectorDB);
+        = useConfigurationStateStore((state) => state.vectorDB);
     const modelDeployment
-        = useModelParamsStore((state) => state.modelDeployment);
+        = useConfigurationStateStore((state) => state.modelDeployment);
     const modelName
-        = useModelParamsStore((state) => state.modelName);
+        = useConfigurationStateStore((state) => state.modelName);
 
     const configUrl
         = useDeploymentStore((state) => state.configUrl);

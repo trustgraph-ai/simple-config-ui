@@ -6,7 +6,7 @@ import {
     Typography, Paper, Box, Stack,
 } from '@mui/material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 
 import DeploymentModelCompose from './DeploymentModelCompose';
 import DeploymentModelKube from './DeploymentModelKube';
@@ -15,7 +15,7 @@ const Platform : React.FC<{ thisDeploy : string }> = ({
     thisDeploy
 }) => {
 
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     if (platform == "docker-compose" || platform == "podman-compose") {
         return <DeploymentModelCompose thisDeploy={thisDeploy}/>;
