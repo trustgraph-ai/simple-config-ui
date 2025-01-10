@@ -6,8 +6,6 @@ import { Gavel } from '@mui/icons-material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 
-import DeploymentQuote from './DeploymentQuote';
-
 const GraphStoreConfiguration = () => {
 
     return <>
