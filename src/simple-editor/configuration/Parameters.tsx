@@ -2,13 +2,13 @@
 import { Typography } from '@mui/material';
 
 import ParamsForm from '../model-params/ParamsForm';
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 
 const Parameters = ({
 }) => {
 
     const version
-        = useModelParamsStore((state) => state.trustgraphVersion);
+        = useConfigurationStateStore((state) => state.trustgraphVersion);
 
     return (<>
 

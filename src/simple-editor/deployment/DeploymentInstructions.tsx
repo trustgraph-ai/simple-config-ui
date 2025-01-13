@@ -6,13 +6,13 @@ import {
 } from '@mui/material';
 import { RocketLaunch } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
 
 const DeploymentInstructionsCompose = () => {
 
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     return (
 
@@ -147,7 +147,7 @@ const DeploymentInstructionsKube = () => {
 const DeploymentInstructions: React.FC<{}> = ({
 }) => {
 
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     if (platform == "docker-compose" || platform == "podman-compose")
         return <DeploymentInstructionsCompose/>;

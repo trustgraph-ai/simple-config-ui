@@ -1,5 +1,6 @@
 
 import { Typography, Box } from '@mui/material';
+import PromptCode from './PromptCode';
 
 const ExtractDefinitionsPromptHelp = ({
 }) => {
@@ -26,12 +27,12 @@ const ExtractDefinitionsPromptHelp = ({
                 following JSON object structure to form correct RDF triples:
             </Typography>
 
-            <pre>
+            <PromptCode>
                 { '{\n' }
                 { '   "entity": string,\n' }
                 { '   "definition": string\n' }
                 { '}' }
-            </pre>
+            </PromptCode>
 
             <Typography variant="body1" component="p" gutterBottom>
                 3. Most LLMs will understand the instruction to return

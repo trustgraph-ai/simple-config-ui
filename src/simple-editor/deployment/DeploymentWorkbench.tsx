@@ -9,7 +9,7 @@ import { Insights } from '@mui/icons-material';
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
 
-const DeploymentInstructions: React.FC<{}> = ({
+const DeploymentWorkbench: React.FC<{}> = ({
 }) => {
 
     return (
@@ -25,14 +25,14 @@ const DeploymentInstructions: React.FC<{}> = ({
                     >
                         <Insights color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
-                            Workbench UI
+                            Data Workbench
                         </Typography>
                     </Stack>
 
                     <DeploymentStep>
 
                         Once the system is running, you can access the
-                        Workbench UI on port 8888, or access using the
+                        Data Workbench on port 8888, or access using the
                         following URL:
 
                     </DeploymentStep>
@@ -59,5 +59,5 @@ const DeploymentInstructions: React.FC<{}> = ({
 
 };
 
-export default DeploymentInstructions;
+export default DeploymentWorkbench;
 

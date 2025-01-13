@@ -1,14 +1,11 @@
 
-import React from 'react'
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
-interface DeploymentEnvVarsProps {
-    variables : {
-        name : string;
-        value : string;
-    }[];
+interface DeploymentCodeProps extends React.PropsWithChildren {
+    children: React.ReactNode;
 };
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -26,30 +23,14 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
     wordBreak: 'break-word',
 }));
 
-const DeploymentEnvVars : React.FC<DeploymentEnvVarsProps> =
-({variables}) => {
-
+const PromptCode: React.FC<DeploymentCodeProps> = ({ children }) => {
     return (
         <StyledPaper elevation={3}> 
             <StyledTypography variant="body2">
-            {
-                variables.map(
-                    (va) => {
-                        return (
-                            <React.Fragment key={va.name}>
-                                export {va.name}=<span className="variable">
-                                    {va.value}
-                                </span>
-                                <br/>
-                            </React.Fragment>
-                        );
-                    }
-                )
-            }
+            {children}
             </StyledTypography>
-        </StyledPaper>   
+         </StyledPaper>
     );
-}
+};
 
-export default DeploymentEnvVars;
-
+export default PromptCode;

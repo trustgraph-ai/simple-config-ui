@@ -7,19 +7,22 @@ import {
 
 import { Check } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
 
 const PreparedConfig = () => {
 
     const graphStore
-        = useModelParamsStore((state) => state.graphStore);
+        = useConfigurationStateStore((state) => state.graphStore);
     const vectorDB
-        = useModelParamsStore((state) => state.vectorDB);
-    const modelDeployment
-        = useModelParamsStore((state) => state.modelDeployment);
-    const modelName
-        = useModelParamsStore((state) => state.modelName);
+        = useConfigurationStateStore((state) => state.vectorDB);
+
+    const dualModelMode = useConfigurationStateStore(
+        (state) => state.dualModelMode
+    );
+
+    const mainModel = useConfigurationStateStore((state) => state.mainModel);
+    const ragModel = useConfigurationStateStore((state) => state.ragModel);
 
     const configUrl
         = useDeploymentStore((state) => state.configUrl);
@@ -56,8 +59,19 @@ const PreparedConfig = () => {
                     </Alert>
 
                     <ul>
-                        <li>Model deployment: {modelDeployment}</li>
-                        <li>Model name: {modelName}</li>
+                        <li>Model deployment: {mainModel.deployment}</li>
+                        <li>Model name: {mainModel.modelName}</li>
+                        {
+                           dualModelMode &&
+                           <>
+                               <li>
+                                   RAG deployment: {ragModel.deployment}
+                               </li>
+                               <li>
+                                   RAG model name: {ragModel.modelName}
+                               </li>
+                        </>
+                        }
                         <li>Graph store: {graphStore}</li>
                         <li>Vector DB: {vectorDB}</li>
                     </ul>

@@ -5,38 +5,36 @@ import {
 
 import modelsRaw from './models.json';
 const models = modelsRaw as { [ix : string ] : string[] };
+import { ModelParams } from '../state/Configuration';
 
 interface ModelParametersProps {
-    modelName: string;
-    temperature: number;
-    maxOutputTokens: number;
-    onModelNameChange: (value: string) => void;
-    onTemperatureChange: (value: number) => void;
-    onMaxOutputTokensChange: (value: number) => void;
-    modelDeployment : string;
+    value : ModelParams;
+    onChange : (m : ModelParams) => void;
 }
 
 const ModelParameters: React.FC<ModelParametersProps> = ({
-    modelName,
-    temperature,
-    modelDeployment,
-    maxOutputTokens,
-    onModelNameChange,
-    onTemperatureChange,
-    onMaxOutputTokensChange,
+    value, onChange,
 }) => {
 
-    const availModels = models[modelDeployment];
+    const availModels = models[value.deployment];
+
+console.log(value);
+
 
     const ModelList : React.FC<{
-        modelName : string;
-        availModels : string[];
-        onModelNameChange : (value: string) => void;
-    }> = ({ modelName, availModels, onModelNameChange}) => {
+        value : string;
+        modelList : string[];
+        onChange : (value: string) => void;
+    }> = ({ value, modelList, onChange}) => {
 
-        const readOnly = (availModels.length == 0);
+if (!modelList) {
+return <div>BROKEN</div>;
 
-        if (availModels.length == 0) {
+}
+        const readOnly = (modelList.length == 0);
+
+        if (modelList.length == 0) {
+
             return (
                 <FormControl fullWidth disabled>
 
@@ -63,13 +61,13 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                 <Select
                     labelId="model-name-label"
                     id="model-name-select"
-                    value={modelName}
+                    value={value}
                     label="Model"
-                    onChange={(e) => onModelNameChange(e.target.value)}
+                    onChange={(e) => onChange(e.target.value)}
                     inputProps={{ readOnly: readOnly }}
                 >
                     {
-                        availModels.map(
+                        modelList.map(
                             (v) => (
                                 <MenuItem key={v}
                                     value={v}>
@@ -87,16 +85,25 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
     return (
         <div>
 
-            <ModelList modelName={modelName} availModels={availModels}
-                onModelNameChange={onModelNameChange}
+            <ModelList
+                value={value.modelName} modelList={availModels}
+                onChange={
+                    (m : string) => onChange({
+                        ...value,
+                        modelName: m
+                    })
+                }
             />
 
             <div>
-                <p>Temperature: {temperature}</p>
+                <p>Temperature: {value.temperature}</p>
                 <Slider
-                    value={temperature}
+                    value={value.temperature}
                     onChange={
-                        (_, value) => onTemperatureChange(value as number)
+                        (_, temp) => onChange({
+                            ...value,
+                            temperature: (temp as number),
+                        })
                     }
                     min={0}
                     max={2}
@@ -107,9 +114,12 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                 fullWidth
                 label="Max output tokens"
                 type="number"
-                value={maxOutputTokens}
+                value={value.maxOutputTokens}
                 onChange={
-                    (e) => onMaxOutputTokensChange(parseInt(e.target.value))
+                    (e) => onChange({
+                        ...value,
+                        maxOutputTokens: parseInt(e.target.value),
+                    })
                 }
                 margin="normal"
             />

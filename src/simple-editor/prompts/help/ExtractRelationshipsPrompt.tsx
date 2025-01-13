@@ -1,5 +1,6 @@
 
 import { Typography, Box } from '@mui/material';
+import PromptCode from './PromptCode';
 
 const RelationshipsPromptHelp = ({
 }) => {
@@ -28,14 +29,14 @@ const RelationshipsPromptHelp = ({
                 following JSON object structure to form correct RDF triples:
             </Typography>
 
-            <pre>
+            <PromptCode>
                 { '{\n' }
                 { '  "subject": string,\n' }
                 { '  "predicate": string,\n' }
                 { '  "object": string,\n' }
                 { '  "entity-object": boolean\n' }
                 { '}' }
-            </pre>
+            </PromptCode>
 
             <Typography variant="body1" component="p" gutterBottom>
                 3. Most LLMs will understand the instruction to return

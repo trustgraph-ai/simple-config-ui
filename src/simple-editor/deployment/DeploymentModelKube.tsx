@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Typography, Alert } from '@mui/material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { ModelParams } from '../state/Configuration';
 
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
@@ -71,6 +71,20 @@ const getInstructions = (model : string) => {
             </DeploymentCode>
 
         </>;
+    } else if (model == "googleaistudio") {
+        return <>
+            <Typography variant="body2">
+                To use Google AI Studio APIs, you need an API token which
+                must be provided in an environment variable.
+            </Typography>
+
+            <DeploymentCode>
+            kubectl -n trustgraph create secret \<br/>
+            {'    '}generic googleaistudio-credentials \<br/>
+            {'    '}--from-literal=google-ai-studio-key=<span className="variable">GOOGLEAISTUDIO-KEY</span>
+            </DeploymentCode>
+
+        </>; 
     } else if (model == "llamafile") {
         return <>
             <Typography variant="body2">To use Llamafile, you must have a Llamafile services running
@@ -109,7 +123,7 @@ const getInstructions = (model : string) => {
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>
             {'    '}generic openai-credentials \<br/>
-            {'    '}--from-literal=openai-key=<span className="variable">OPENAI-KEY</span>
+            {'    '}--from-literal=openai-token=<span className="variable">OPENAI-TOKEN-HERE</span>
             </DeploymentCode>
 
         </>;
@@ -144,12 +158,11 @@ const getInstructions = (model : string) => {
    
 }
 
-const DeploymentModelKube: React.FC<{}> = ({
+const DeploymentModelKube: React.FC<{ value : ModelParams }> = ({
+    value
 }) => {
 
-    const modelDeployment = useModelParamsStore((state) => state.modelDeployment);
-
-    const instructions = getInstructions(modelDeployment);
+    const instructions = getInstructions(value.deployment);
 
     return (
 

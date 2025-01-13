@@ -4,13 +4,13 @@ import React from 'react';
 import { Typography, Box, Paper, Stack } from '@mui/material';
 import { Polyline } from '@mui/icons-material';
 
-import { useModelParamsStore } from '../state/ModelParams';
+import { useConfigurationStateStore } from '../state/Configuration';
 
 import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentCode from './DeploymentCode';
 
 const VectorStoreConfiguration = () => {
-    const platform = useModelParamsStore((state) => state.platform);
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     if ((platform == "podman-compose") || platform == "docker-compose") {
 
@@ -56,7 +56,7 @@ const VectorStoreConfiguration = () => {
 const DeploymentModelVector: React.FC<{}> = ({
 }) => {
 
-    const vectorDB = useModelParamsStore((state) => state.vectorDB);
+    const vectorDB = useConfigurationStateStore((state) => state.vectorDB);
 
     if (vectorDB != "pinecone") return null;
 
