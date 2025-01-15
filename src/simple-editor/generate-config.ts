@@ -133,6 +133,16 @@ export const generateConfig =
 
     }
 
+    if (options.options.has(CONFIGURE_DOCUMENT_RAG)) {
+
+        components.push({
+            "name": "document-rag",
+            "parameters": {
+            },
+        });
+
+    }
+
     components.push({
         "name": "null",
         "parameters": parameters,

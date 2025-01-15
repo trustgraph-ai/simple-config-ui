@@ -3,7 +3,7 @@ import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
-    CONFIGURE_WORKBENCH,
+    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG,
 } from '../state/Options';
 
 interface OptionProps extends React.PropsWithChildren {
@@ -95,6 +95,7 @@ const ParamsForm: React.FC = () => {
     const configurePrompts = options.has(CONFIGURE_PROMPTS);
     const configureAgents = options.has(CONFIGURE_AGENTS);
     const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
+    const configureDocumentRag = options.has(CONFIGURE_DOCUMENT_RAG);
 
     const set = (o: string, value: boolean) => {
         if (value) {
@@ -116,9 +117,15 @@ const ParamsForm: React.FC = () => {
         set(CONFIGURE_AGENTS, event.target.checked);
     };
 
-    const onConfigureWorkbench = (event: React.ChangeEvent<HTMLInputElement>) => {
-        set(CONFIGURE_WORKBENCH, event.target.checked);
-    };
+    const onConfigureWorkbench =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_WORKBENCH, event.target.checked);
+        };
+
+    const onConfigureDocumentRag =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_DOCUMENT_RAG, event.target.checked);
+        };
 
     return (
         <>
@@ -154,6 +161,18 @@ const ParamsForm: React.FC = () => {
                     An experimental UI providing tools to explore extracted
                     data. Once launched, accessible on port 8888.
                 </Option>
+
+                <Option
+                    enabled={configureDocumentRag}
+                    onChange={onConfigureDocumentRag}
+                    title="Document RAG"
+                >
+                    Enables pipelines for Document RAG aka RAG.  This
+                    is typically an inferior experience to GraphRAG
+                    and is made available for comparison purposes.
+                    You don't need this.
+                </Option>
+
             </Stack>
         </>
     );
