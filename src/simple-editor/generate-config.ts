@@ -3,7 +3,7 @@ import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
-    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
+    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG,
 } from './state/Options';
 
 const modelConfig = (m : ModelParams) => {
