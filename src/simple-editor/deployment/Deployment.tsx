@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
-import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
+import {
+    useOptionsStore, CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG
+} from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
@@ -11,6 +13,7 @@ import DeploymentInstructions from './DeploymentInstructions';
 import DeploymentVectorStore from './DeploymentVectorStore';
 import DeploymentGraphStore from './DeploymentGraphStore';
 import DeploymentWorkbench from './DeploymentWorkbench';
+import DeploymentDocumentRag from './DeploymentDocumentRag';
 
 interface DeploymentProps {
 }
@@ -90,6 +93,14 @@ const Deployment: React.FC<DeploymentProps> = ({
                     options.has(CONFIGURE_WORKBENCH) && (
                         <Box>
                             <DeploymentWorkbench/>
+                        </Box>
+                    )
+                }
+
+                {
+                    options.has(CONFIGURE_DOCUMENT_RAG) && (
+                        <Box>
+                            <DeploymentDocumentRag/>
                         </Box>
                     )
                 }

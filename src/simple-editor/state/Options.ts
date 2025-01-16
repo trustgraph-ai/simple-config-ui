@@ -7,6 +7,8 @@ export const CONFIGURE_AGENTS = "configure-agents";
 
 export const CONFIGURE_WORKBENCH = "configure-workbench";
 
+export const CONFIGURE_DOCUMENT_RAG = "configure-document-rag";
+
 export interface Options {
 
     options : Set<string>;

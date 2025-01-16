@@ -10,7 +10,8 @@ interface DeploymentCodeProps extends React.PropsWithChildren {
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.grey[900], // Deep grey background for dark theme
-    padding: theme.spacing(2), // Add some padding inside the paper
+    padding: theme.spacing(1), // Add some padding inside the paper
+    margin: theme.spacing(2), // Add some padding inside the paper
     borderRadius: theme.shape.borderRadius, // Use theme's border radius
     overflowX: 'auto', // Allow horizontal scrolling for long code blocks
     
