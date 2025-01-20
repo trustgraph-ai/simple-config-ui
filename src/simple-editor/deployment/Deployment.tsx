@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
-import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
@@ -11,14 +10,13 @@ import DeploymentInstructions from './DeploymentInstructions';
 import DeploymentVectorStore from './DeploymentVectorStore';
 import DeploymentGraphStore from './DeploymentGraphStore';
 import DeploymentWorkbench from './DeploymentWorkbench';
+import DeploymentGateway from './DeploymentGateway';
 
 interface DeploymentProps {
 }
 
 const Deployment: React.FC<DeploymentProps> = ({
 }) => {
-
-    const options = useOptionsStore((state) => state.options);
 
     const dualModelMode = useConfigurationStateStore(
         (state) => state.dualModelMode
@@ -86,13 +84,13 @@ const Deployment: React.FC<DeploymentProps> = ({
                     <DeploymentConfig/>
                 </Box>
 
-                {
-                    options.has(CONFIGURE_WORKBENCH) && (
-                        <Box>
-                            <DeploymentWorkbench/>
-                        </Box>
-                    )
-                }
+                <Box>
+                    <DeploymentGateway/>
+                </Box>
+
+                <Box>
+                    <DeploymentWorkbench/>
+                </Box>
 
                 <Box>
                     <DeploymentInstructions/>

@@ -16,7 +16,7 @@ export interface Options {
 export const useOptionsStore = create<Options>()(
     (set) => ({
 
-        options: new Set<string>([]),
+        options: new Set<string>([CONFIGURE_WORKBENCH]),
 
         setOptions: (v) => set(() => ({
 	    options: v
