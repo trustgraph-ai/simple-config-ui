@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
-import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
@@ -18,8 +17,6 @@ interface DeploymentProps {
 
 const Deployment: React.FC<DeploymentProps> = ({
 }) => {
-
-    const options = useOptionsStore((state) => state.options);
 
     const dualModelMode = useConfigurationStateStore(
         (state) => state.dualModelMode

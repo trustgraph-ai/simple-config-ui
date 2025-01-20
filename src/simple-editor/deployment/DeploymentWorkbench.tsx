@@ -1,12 +1,10 @@
 
 import React from 'react';
 
-import { Typography, Box, Paper, Stack, Alert } from '@mui/material';
+import { Typography, Paper, Stack, Alert } from '@mui/material';
 import { Insights } from '@mui/icons-material';
 
 import { useOptionsStore, CONFIGURE_WORKBENCH } from '../state/Options';
-
-import { useConfigurationStateStore } from '../state/Configuration';
 
 import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
@@ -15,8 +13,6 @@ const DeploymentWorkbench: React.FC<{}> = ({
 }) => {
 
     const options = useOptionsStore((state) => state.options);
-
-    const platform = useConfigurationStateStore((state) => state.platform);
 
     return (
 
