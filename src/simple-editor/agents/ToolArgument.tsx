@@ -1,10 +1,9 @@
 
 import React from 'react';
 
-import { Typography, Box, Button, Grid2 as Grid} from '@mui/material';
+import { Typography, Box, Grid2 as Grid} from '@mui/material';
 import { TextField, FormControl, MenuItem, Select } from '@mui/material';
 import { InputLabel, Paper } from '@mui/material';
-import { Delete } from '@mui/icons-material';
 
 import { Argument } from '../state/Agents';
 
@@ -18,7 +17,8 @@ interface ToolArgumentProps {
 }
 
 const ToolArgument : React.FC<ToolArgumentProps> = ({
-    arg, ix, setArgName, setArgType, setArgDescription, deleteArg,
+    arg, ix, setArgName, setArgType, setArgDescription,
+//    deleteArg,
 }) => {
 
     return (
