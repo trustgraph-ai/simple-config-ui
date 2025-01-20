@@ -13,6 +13,7 @@ import DeploymentInstructions from './DeploymentInstructions';
 import DeploymentVectorStore from './DeploymentVectorStore';
 import DeploymentGraphStore from './DeploymentGraphStore';
 import DeploymentWorkbench from './DeploymentWorkbench';
+import DeploymentGateway from './DeploymentGateway';
 import DeploymentDocumentRag from './DeploymentDocumentRag';
 
 interface DeploymentProps {
@@ -89,13 +90,13 @@ const Deployment: React.FC<DeploymentProps> = ({
                     <DeploymentConfig/>
                 </Box>
 
-                {
-                    options.has(CONFIGURE_WORKBENCH) && (
-                        <Box>
-                            <DeploymentWorkbench/>
-                        </Box>
-                    )
-                }
+                <Box>
+                    <DeploymentGateway/>
+                </Box>
+
+                <Box>
+                    <DeploymentWorkbench/>
+                </Box>
 
                 {
                     options.has(CONFIGURE_DOCUMENT_RAG) && (

@@ -158,7 +158,7 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureWorkbench}
                     title="Data Workbench"
                 >
-                    An experimental UI providing tools to explore extracted
+                    A UI providing tools to explore extracted
                     data. Once launched, accessible on port 8888.
                 </Option>
 
