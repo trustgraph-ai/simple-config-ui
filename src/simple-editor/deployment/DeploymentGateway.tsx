@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Typography, Box, Paper, Stack, Alert } from '@mui/material';
+import { Typography, Paper, Stack } from '@mui/material';
 import { Insights } from '@mui/icons-material';
 
 import { useConfigurationStateStore } from '../state/Configuration';

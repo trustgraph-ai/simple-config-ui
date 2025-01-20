@@ -3,7 +3,7 @@ import { Box, Paper, Typography } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
-    useOptionsStore, CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG
+    useOptionsStore, CONFIGURE_DOCUMENT_RAG
 } from '../state/Options';
 
 import DeploymentPlatform from './DeploymentPlatform';
