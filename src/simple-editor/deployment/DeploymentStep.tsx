@@ -9,7 +9,7 @@ interface DeploymentStepProps extends React.PropsWithChildren {
 
 const DeploymentStep : React.FC<DeploymentStepProps> = ({children}) => {
     return (
-        <Typography variant="body2">
+        <Typography variant="body2" mt={1} mb={1}>
             {children}
         </Typography>
     );
