@@ -153,6 +153,8 @@ console.log(t);
         updateArg(ix, (a) => ({ ...a, description: description }));
     };
 
+/*
+
     const addArgument = () => {
         
         const count = tool!.arguments.length;
@@ -170,6 +172,7 @@ console.log(t);
         updateTool((t) => ({ ...t, arguments: args }));
         
     };
+*/
 
     let tool : Tool | null = null;
     for (let p of tools) {
