@@ -49,6 +49,7 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
                                 );
                             }
                         }
+                        disabled
                     />
                 </Grid>
 
@@ -68,6 +69,7 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
                                         ix, e.target.value
                                     )
                             }
+                            disabled
                         >
                             <MenuItem value="string">
                                 string
@@ -88,6 +90,8 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
                 >
 
                     <Box>
+{ /*
+
                         <Button
                             startIcon={<Delete/>}
                             variant="contained"
@@ -95,6 +99,7 @@ const ToolArgument : React.FC<ToolArgumentProps> = ({
                         >
                             Delete
                         </Button>
+  */ }
                     </Box>
 
                 </Grid>
