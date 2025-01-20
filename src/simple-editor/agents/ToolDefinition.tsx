@@ -23,12 +23,6 @@ const ToolDefinition : React.FC<ToolDefinitionProps> = ({
 
         <Paper elevation={3} sx={{p: 3}}>
 
-{/*
-            <Typography variant="h5" component="h2" gutterBottom>
-                Definition
-            </Typography>
-*/}
-
             <Grid container spacing={2}>
 
                 <Grid size={{ xs: 12, md: 4 }}>
@@ -79,7 +73,10 @@ const ToolDefinition : React.FC<ToolDefinitionProps> = ({
                                 <Stack
                                     direction="row" spacing={2}
                                     divider={
-                                        <Divider orientation="vertical" flexItem/>
+                                        <Divider
+                                            orientation="vertical"
+                                            flexItem
+                                        />
                                     }
                                 >
 
@@ -113,7 +110,10 @@ const ToolDefinition : React.FC<ToolDefinitionProps> = ({
                                 <Stack
                                     direction="row" spacing={2}
                                     divider={
-                                        <Divider orientation="vertical" flexItem/>
+                                        <Divider
+                                            orientation="vertical"
+                                            flexItem
+                                        />
                                     }
                                 >
 

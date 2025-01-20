@@ -56,7 +56,59 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
     };
 
     const setType = (type : string) => {
-        updateTool((t) => ({ ...t, type: type }));
+        if (type == "text-completion") {
+            updateTool(
+                (t) => {
+console.log(t);
+                    let newArgs = t.arguments.filter(
+                        (a) => (a.name == "question")
+                    )
+
+                    if (newArgs.length < 1) {
+                        newArgs.push({
+                            name: "question",
+                            type: "string",
+                            description: "A simple natural language question.",
+                        });
+                    }
+
+                    return {
+                        ...t,
+                        type: type,
+                        arguments: newArgs,
+                        description: "This tool queries an LLM for further information.  The query should be a natural language question.",
+                    };
+
+                }
+            );
+        } else if (type == "knowledge-query") {
+            updateTool(
+                (t) => {
+
+                    let newArgs = t.arguments.filter(
+                        (a) => (a.name == "query")
+                    )
+
+                    if (newArgs.length < 1) {
+                        newArgs.push({
+                            name: "query",
+                            type: "string",
+                            description: "A simple natural language question.",
+                        });
+                    }
+
+                    return {
+                        ...t,
+                        type: type,
+                        description: "This tool queries a knowledge base that holds information about XYZ.  The query should be a natural language question.",
+                        arguments: newArgs,
+                    };
+
+                }
+            );
+        } else {
+            console.log("Unexpected tool type:", type);
+        }
     };
 
     const setName = (name : string) => {
@@ -156,6 +208,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
 
                 <Stack spacing={3} direction="row">
 
+{ /*
                     <Box>
 
                         {
@@ -169,6 +222,7 @@ const ToolEditor : React.FC<ToolEditorProps> = ({
                         }
 
                     </Box>
+*/ }
 
                     <Box>
 
