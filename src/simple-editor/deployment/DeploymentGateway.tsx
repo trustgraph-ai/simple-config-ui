@@ -36,14 +36,7 @@ const DeploymentGateway : React.FC<{}> = ({
                     </Stack>
 
                     <DeploymentStep>
-                        The API Gateway is an essential software component
-                        which supports using command-line utilities and the
-                        Data Workbench.  It needs to be configured with a
-                        secret key.  You should set the key to the empty
-                        string to leave authentication off unless you have
-                        a specific need.  Note that the Data Workbench does
-                        not know how to use keys for authentication at the
-                        present time.
+                    The API Gateway is a required component which supports the CLI and Data Workbench. The API Gateway must be configured with a secret key. However, that secret key can be empty if no authentication is required. The Data Workbench does not currently use keys for authentication. The below example shows how to set the API Gateway secret to be empty with no authentication.
                     </DeploymentStep>
 
                     <DeploymentCode>
