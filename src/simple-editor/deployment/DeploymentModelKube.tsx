@@ -58,7 +58,8 @@ const getInstructions = (model : string) => {
             kubectl -n trustgraph create secret \<br/>
             {'    '}generic bedrock-credentials \<br/>
             {'    '}--from-literal=aws-id-key=<span className="variable">AWS-ID-KEY</span> \<br/>
-            {'    '}--from-literal=aws-secret-key=<span className="variable">AWS-SECRET-KEY</span>
+            {'    '}--from-literal=aws-secret-key=<span className="variable">AWS-SECRET-KEY</span> \<br/>
+            {'    '}--from-literal=aws-region=<span className="variable">AWS-REGION-HERE</span>
             </DeploymentCode>
 
         </>;
