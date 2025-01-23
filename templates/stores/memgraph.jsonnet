@@ -29,6 +29,7 @@ local images = import "values/images.jsonnet";
                 .with_port(7687, 7687, "api2");
 
             engine.resources([
+                vol,
                 containerSet,
                 service,
             ])
