@@ -7,6 +7,8 @@ local images = import "values/images.jsonnet";
     
         create:: function(engine)
 
+            local vol = engine.volume("memgraph").with_size("20G");
+
             local container =
                 engine.container("memgraph")
                     .with_image(images.memgraph_mage)
