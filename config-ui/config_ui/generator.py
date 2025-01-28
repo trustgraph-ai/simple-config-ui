@@ -8,6 +8,8 @@ import logging
 logger = logging.getLogger("generator")
 logger.setLevel(logging.INFO)
 
+private_json = "Put your GCP private.json here"
+
 class Generator:
 
     def __init__(
@@ -60,8 +62,7 @@ class Generator:
         try:
 
             if filename == "vertexai/private.json":
-
-                return candidates[0], private_json.encode("utf-8")
+                return str(candidates[0]), (private_json.encode("utf-8"))
 
             for c in candidates:
                 logger.debug("Try: %s", c)
