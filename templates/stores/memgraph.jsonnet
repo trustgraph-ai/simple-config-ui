@@ -69,4 +69,3 @@ local images = import "values/images.jsonnet";
     },
 
 }
-
