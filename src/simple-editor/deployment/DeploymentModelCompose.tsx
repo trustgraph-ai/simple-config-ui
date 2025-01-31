@@ -43,11 +43,11 @@ const getInstructions = (model : string) => {
                         value: "ID-KEY-HERE"
                     },
                     {
-                        name: "AWS_SECRET",
+                        name: "AWS_SECRET_ACCESS_KEY",
                         value: "TOKEN-GOES-HERE"
                     },
                     {
-                        name: "AWS_REGION",
+                        name: "AWS_DEFAULT_REGION",
                         value: "AWS-REGION-HERE"
                     }
                 ]}
