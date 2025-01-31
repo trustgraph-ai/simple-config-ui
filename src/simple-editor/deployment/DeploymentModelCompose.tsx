@@ -39,7 +39,7 @@ const getInstructions = (model : string) => {
             <DeploymentEnvVars
                 variables={[
                     {
-                        name: "AWS_ID_KEY",
+                        name: "AWS_ACCESS_KEY_ID",
                         value: "ID-KEY-HERE"
                     },
                     {
