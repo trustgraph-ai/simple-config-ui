@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-const TRUSTGRAPH_VERSION = "0.20.10";
+const TRUSTGRAPH_VERSION = "0.20.11";
 
 export interface ModelParams {
     deployment : string;
