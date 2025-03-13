@@ -21,7 +21,7 @@ const Additional = ({
         </Typography>
 
         <Typography variant="body2">
-            Note: Selecting the Data Workbench requires no additional configuration.
+            Note: Selecting the Test Suite requires no additional configuration.
         </Typography>
 
         </Box>
