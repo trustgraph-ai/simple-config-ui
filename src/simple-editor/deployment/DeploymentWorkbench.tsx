@@ -22,10 +22,10 @@ const DeploymentWorkbench: React.FC<{}> = ({
                 (!options.has(CONFIGURE_WORKBENCH)) && 
                 <Paper sx={{ minWidth: 375, mt: 2, p: 2 }} elevation={3}>
                     <Alert severity="info">
-                        You have selected to install without the
-                        Data Workbench which provides a useful web interface
-                        for interaction with the system.  You can change
-                        this on the <strong>Customization</strong> tab.
+                        You have selected to deploy <strong>without</strong> the
+                        Test Suite. The Test Suite provides a UI
+                        for testing TrustGraph performance. You can add the
+                        Test Suite to the deployment on the <strong>CUSTOMIZATION</strong> tab.
                     </Alert>
                 </Paper>
             }
@@ -42,13 +42,13 @@ const DeploymentWorkbench: React.FC<{}> = ({
                     >
                         <Insights color="primary" fontSize="large"/>
                         <Typography variant="h6" component="h3">
-                            Data Workbench
+                            Test Suite
                         </Typography>
                     </Stack>
 
                     <DeploymentStep>
                         Once the system is running, you can access the
-                        Data Workbench on port 8888, or access using the
+                        Test Suite on port 8888, or access using the
                         following URL:
                     </DeploymentStep>
 
@@ -61,7 +61,7 @@ const DeploymentWorkbench: React.FC<{}> = ({
                     <DeploymentStep>
                         Once you have data loaded, you can present a
                         Graph RAG query on the Chat tab.  As well as
-                        answering the question, a list of knowledge graph
+                        answering the question, a list of semantic relationships
                         which were used to answer the question are shown
                         and these can be used to navigate the knowledge
                         graph.

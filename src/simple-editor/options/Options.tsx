@@ -156,10 +156,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    title="Data Workbench"
+                    title="Test Suite"
                 >
-                    A UI providing tools to explore extracted
-                    data. Once launched, accessible on port 8888.
+                    A UI providing tools to explore TrustGraph system performance. 
+                    Once launched, accessible on port 8888.
                 </Option>
 
                 <Option
@@ -167,10 +167,9 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureDocumentRag}
                     title="Document RAG"
                 >
-                    Enables pipelines for Document RAG aka RAG.  This
-                    is typically an inferior experience to GraphRAG
-                    and is made available for comparison purposes.
-                    You don't need this.
+                    Enables pipelines for Document RAG aka Vector RAG. This
+                    is typically an inferior experience to Graph RAG
+                    and is made available for comparison testing purposes.
                 </Option>
 
             </Stack>
