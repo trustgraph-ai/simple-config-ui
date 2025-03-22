@@ -14,7 +14,7 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
     value, onChange
 }) => {
 
-  return (
+    return (
 
         <FormControl fullWidth>
 
@@ -398,7 +398,8 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
             </Select>
         </FormControl>
 
-  );
+    );
+
 };
 
 export default ModelDeployment;

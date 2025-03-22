@@ -3,8 +3,12 @@ import {
     FormControl, InputLabel, Select, MenuItem, TextField, Slider
 } from '@mui/material';
 
+type ModelDescriptor = { id : string, description : string };
+type ModelCatalog = { [ix : string] : ModelDescriptor[] };
+
 import modelsRaw from './models.json';
-const models = modelsRaw as { [ix : string ] : string[] };
+const models = modelsRaw as ModelCatalog;
+
 import { ModelParams } from '../state/Configuration';
 
 interface ModelParametersProps {
@@ -18,19 +22,16 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
 
     const availModels = models[value.deployment];
 
-console.log(value);
-
-
     const ModelList : React.FC<{
         value : string;
-        modelList : string[];
+        modelList : ModelDescriptor[];
         onChange : (value: string) => void;
     }> = ({ value, modelList, onChange}) => {
 
-if (!modelList) {
-return <div>BROKEN</div>;
+        if (!modelList) {
+            return <div>BROKEN</div>;
+        }
 
-}
         const readOnly = (modelList.length == 0);
 
         if (modelList.length == 0) {
@@ -54,6 +55,7 @@ return <div>BROKEN</div>;
         }
 
         return (
+
             <FormControl fullWidth>
 
                 <InputLabel id="model-name-label">Model</InputLabel>
@@ -68,10 +70,10 @@ return <div>BROKEN</div>;
                 >
                     {
                         modelList.map(
-                            (v) => (
-                                <MenuItem key={v}
-                                    value={v}>
-                                    {v}
+                            (md) => (
+                                <MenuItem key={md.id}
+                                    value={md.id}>
+                                    {md.description}
                                 </MenuItem>
                             ))
                     }
@@ -110,6 +112,7 @@ return <div>BROKEN</div>;
                     step={0.01}
                 />
             </div>
+            
             <TextField
                 fullWidth
                 label="Max output tokens"
@@ -123,6 +126,7 @@ return <div>BROKEN</div>;
                 }
                 margin="normal"
             />
+            
         </div>
     );
 };
