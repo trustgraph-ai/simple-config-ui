@@ -3,7 +3,8 @@ import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
-    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG,
+    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG, CONFIGURE_OCR,
+    CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 
 interface OptionProps extends React.PropsWithChildren {
@@ -96,6 +97,8 @@ const ParamsForm: React.FC = () => {
     const configureAgents = options.has(CONFIGURE_AGENTS);
     const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
     const configureDocumentRag = options.has(CONFIGURE_DOCUMENT_RAG);
+    const configureOcr = options.has(CONFIGURE_OCR);
+    const configureEmbeddings = options.has(CONFIGURE_EMBEDDINGS);
 
     const set = (o: string, value: boolean) => {
         if (value) {
@@ -127,6 +130,16 @@ const ParamsForm: React.FC = () => {
             set(CONFIGURE_DOCUMENT_RAG, event.target.checked);
         };
 
+    const onConfigureOcr =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_OCR, event.target.checked);
+        };
+
+    const onConfigureEmbeddings =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_EMBEDDINGS, event.target.checked);
+        };
+
     return (
         <>
             <Stack
@@ -156,10 +169,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    title="Test Suite"
+                    title="Demo Workbench"
                 >
-                    A UI providing tools to explore TrustGraph system performance. 
-                    Once launched, accessible on port 8888.
+                    A UI providing tools to explore TrustGraph system
+                    performance.  Once launched, accessible on port 8888.
                 </Option>
 
                 <Option
@@ -172,9 +185,30 @@ const ParamsForm: React.FC = () => {
                     and is made available for comparison testing purposes.
                 </Option>
 
+                <Option
+                    enabled={configureOcr}
+                    onChange={onConfigureOcr}
+                    title="OCR pipelines"
+                >
+                    Replaces the standard PDF decoding with an OCR processor.
+                    The open-source Tesseract engine is available, along
+                    with the commercial Mistral OCR which has excellent
+                    performance.
+                </Option>
+
+                <Option
+                    enabled={configureEmbeddings}
+                    onChange={onConfigureEmbeddings}
+                    title="Embedding configuration"
+                >
+                    Opens configuration options to tailor the embeddings
+                    engine, and embeddings model in use.
+                </Option>
+
             </Stack>
         </>
     );
 };
 
 export default ParamsForm;
+
