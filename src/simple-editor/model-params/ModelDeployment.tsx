@@ -246,6 +246,66 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
                     </Stack>
                 </MenuItem>
 
+                <MenuItem value="lmstudio">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            LM Studio
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+                            LMStudio is a tool which makes running
+                            of LLMs locally easy.  Very usable, great support.
+                            Commercial, free for personal use.
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="mistral">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            Mistral
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+                            Mistral LLMs, developed by Mistral AI, are
+                            advanced large language models designed
+                            for efficient and versatile text
+                            processing, excelling in multilingual
+                            tasks, code generation, and complex
+                            reasoning. They are known for their strong
+                            performance relative to their size, and
+                            for the company's committment to open
+                            source models.
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
                 <MenuItem value="ollama">
                     <Stack
                         direction="row" spacing={2}
