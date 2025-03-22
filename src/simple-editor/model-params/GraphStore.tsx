@@ -10,6 +10,8 @@ interface GraphStoreProps {
   onChange: (value: string) => void;
 }
 
+const background = "#c8d4c6";
+
 const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
 
   return (
@@ -36,8 +38,12 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         }
                         alignItems="stretch"
                     >
-                        <Stack sx={{width: 100}} direction="column"
+                        <Stack direction="column"
                             alignItems="center" justifyContent="center"
+                            sx={{
+                                width: 140,
+                                backgroundColor: background,
+                            }}
                         >
 
                            <img src="cassandra.svg"
@@ -72,8 +78,12 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                        <Stack sx={{width: 100}} direction="row"
-                        alignItems="center" justifyContent="center"
+                        <Stack direction="row"
+                            alignItems="center" justifyContent="center"
+                            sx={{
+                                width: 140,
+                                backgroundColor: background,
+                            }}
                         >
                                 <img src="neo4j.svg" width="80"/>
                             </Stack>
@@ -102,8 +112,12 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                        <Stack sx={{width: 100}} direction="row"
-                        alignItems="center" justifyContent="center"
+                        <Stack direction="row"
+                            alignItems="center" justifyContent="center"
+                            sx={{
+                                backgroundColor: background,
+                                width: 140,
+                            }}
                         >
                                 <img src="memgraph.svg" width="80"/>
                             </Stack>
@@ -135,8 +149,12 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                         }
                         alignItems="stretch"
                     >
-                        <Stack sx={{width: 100}} direction="column"
+                        <Stack direction="column"
                             alignItems="center" justifyContent="center"
+                            sx={{
+                                width: 140,
+                                backgroundColor: background,
+                            }}
                         >
 
                            <img src="falkordb.svg"
