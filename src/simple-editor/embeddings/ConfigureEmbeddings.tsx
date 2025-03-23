@@ -59,7 +59,7 @@ const readOnly = false;
                 </Typography>
 
                 <Typography variant="h6" component="h3" gutterBottom>
-                    Embeddings enginer
+                    Embeddings engine
                 </Typography>
 
                 <Grid container spacing={2} sx={{ m: 3 }}>
@@ -78,8 +78,11 @@ const readOnly = false;
                         />
                     </Grid>
                     <Grid size={10}>
-                        PDF decode, no OCR: the basic decode extracts text
-                        from PDF documents containing structured text
+                        FastEmbed is a lightweight, fast, Python
+                        library built for embedding generation, supporting
+                        the popular text models.  Fastembed has a small
+                        set of dependencies, resulting in a rapid component
+                        start time.
                     </Grid>
 
                     <Grid
@@ -96,15 +99,14 @@ const readOnly = false;
                         />
                     </Grid>
                     <Grid size={10}>
-                        OCR processing with Tesseract.  Tesseract is a free,
-                        embedded OCR engine.  It is best-in-class free /
-                        open-source.  Use this with PDF documents containing
-                        image scans, to perform Optical Character Recognition
-                        to detect text.
+                        HuggingFace sentence-transformers ships a component
+                        with support for a large number of open / community
+                        models.  Use this component to deploy non-standard
+                        models.
                     </Grid>
 
                 </Grid>
-
+{ /*
                 <FormControl fullWidth>
 
                     <InputLabel id="model-name-label">Model</InputLabel>
@@ -129,7 +131,7 @@ const readOnly = false;
                     </Select>
 
                 </FormControl>
-
+*/ }
             </Box>
             
         </Stack>
