@@ -39,7 +39,7 @@ const ConfigureOcr = ({
                 Configure OCR
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ m: 3 }}>
 
                 <Grid
                     size={2} display="flex"
@@ -54,9 +54,9 @@ const ConfigureOcr = ({
                       inputProps={{ 'aria-label': 'A' }}
                     />
                 </Grid>
-                <Grid item size={10}>
-                    PDF decode mode: PDF documents are decoded, and text is
-                    extracted.  No OCR is performed
+                <Grid size={10}>
+                    PDF decode, no OCR: the basic decode extracts text
+                    from PDF documents containing structured text
                 </Grid>
 
                 <Grid
@@ -75,7 +75,9 @@ const ConfigureOcr = ({
                 <Grid size={10}>
                     OCR processing with Tesseract.  Tesseract is a free,
                     embedded OCR engine.  It is best-in-class free /
-                    open-source.
+                    open-source.  Use this with PDF documents containing
+                    image scans, to perform Optical Character Recognition
+                    to detect text.
                 </Grid>
 
                 <Grid
@@ -94,7 +96,9 @@ const ConfigureOcr = ({
                 <Grid size={10}>
                     OCR processing with the Mistral service.  Mistral is the
                     best-in-class commercial OCR service.  You need a
-                    Mistral subscription.
+                    Mistral subscription.  Use this with PDF documents
+                    containing image scans, to perform Optical Character
+                    Recognition to detect text.
                 </Grid>
 
             </Grid>

@@ -1,0 +1,122 @@
+{
+    "fastembed": [
+    {
+        "id": "BAAI/bge-small-en-v1.5",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+    },
+    {
+        "id": "BAAI/bge-small-zh-v1.5",
+        "description": "Text embeddings, Unimodal (text), Chinese, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+    },
+    {
+        "id": "snowflake/snowflake-arctic-embed-xs",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "description": "Text embeddings, Unimodal (text), English, 256 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year."
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-small-en",
+        "description": "Text embeddings, Unimodal (text), English, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+    },
+    {
+        "id": "nomic-ai/nomic-embed-text-v1.5-Q",
+        "description": "Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "snowflake/snowflake-arctic-embed-s",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "BAAI/bge-small-en",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2023 year."
+    },
+    {
+        "id": "BAAI/bge-base-en-v1.5",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+    },
+    {
+        "id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "description": "Text embeddings, Unimodal (text), Multilingual (~50 languages), 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2019 year."
+    },
+    {
+        "id": "Qdrant/clip-ViT-B-32-text",
+        "description": "Text embeddings, Multimodal (text&image), English, 77 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year"
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-base-de",
+        "description": "Text embeddings, Unimodal (text), Multilingual (German, English), 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+    },
+    {
+        "id": "BAAI/bge-base-en",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2023 year."
+    },
+    {
+        "id": "snowflake/snowflake-arctic-embed-m",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "thenlper/gte-base",
+        "description": "General text embeddings, Unimodal (text), supports English only input text, 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-base-en",
+        "description": "Text embeddings, Unimodal (text), English, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+    },
+    {
+        "id": "nomic-ai/nomic-embed-text-v1",
+        "description": "Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "nomic-ai/nomic-embed-text-v1.5",
+        "description": "Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "snowflake/snowflake-arctic-embed-m-long",
+        "description": "Text embeddings, Unimodal (text), English, 2048 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "jinaai/jina-clip-v1",
+        "description": "Text embeddings, Multimodal (text&image), English, Prefixes for queries/documents: not necessary, 2024 year"
+    },
+    {
+        "id": "mixedbread-ai/mxbai-embed-large-v1",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-base-es",
+        "description": "Text embeddings, Unimodal (text), supports mixed Spanish-English input text, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-base-code",
+        "description": "Text embeddings, Unimodal (text), Multilingual (English, 30 programming languages), 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+    },
+    {
+        "id": "jinaai/jina-embeddings-v2-base-zh",
+        "description": "Text embeddings, Unimodal (text), supports mixed Chinese-English input text, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+    },
+    {
+        "id": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+        "description": "Text embeddings, Unimodal (text), Multilingual (~50 languages), 384 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year."
+    },
+    {
+        "id": "snowflake/snowflake-arctic-embed-l",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    },
+    {
+        "id": "BAAI/bge-large-en-v1.5",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+    },
+    {
+        "id": "thenlper/gte-large",
+        "description": "Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+    },
+    {
+        "id": "intfloat/multilingual-e5-large",
+        "description": "Text embeddings, Unimodal (text), Multilingual (~100 languages), 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+    }
+]
+}
+
+
