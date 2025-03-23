@@ -8,6 +8,8 @@ import {
 
 import Grid from '@mui/material/Grid2';
 
+import { useConfigurationStateStore } from '../state/Configuration';
+
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
@@ -24,12 +26,11 @@ import { usePromptsStore } from '../state/Prompts';
 const ConfigureOcr = ({
 }) => {
 
-  const [selectedValue, setSelectedValue] = React.useState('pdf-decode');
+    const ocrEngine = useConfigurationStateStore((state) => state.ocrEngine);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
-
+    const setOcrEngine = useConfigurationStateStore(
+        (state) => state.setOcrEngine
+    );
 
     return (<>
 
@@ -47,8 +48,8 @@ const ConfigureOcr = ({
                     alignItems="flex-start"
                 >
                     <Radio
-                      checked={selectedValue === 'pdf-decode'}
-                      onChange={handleChange}
+                      checked={ocrEngine === 'pdf-decode'}
+                      onChange={setOcrEngine}
                       value="pdf-decode"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
@@ -65,8 +66,8 @@ const ConfigureOcr = ({
                     alignItems="flex-start"
                 >
                     <Radio
-                      checked={selectedValue === 'pdf-ocr'}
-                      onChange={handleChange}
+                      checked={ocrEngine === 'pdf-ocr'}
+                      onChange={setOcrEngine}
                       value="pdf-ocr"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
@@ -86,8 +87,8 @@ const ConfigureOcr = ({
                     alignItems="flex-start"
                 >
                     <Radio
-                      checked={selectedValue === 'pdf-ocr-mistral'}
-                      onChange={handleChange}
+                      checked={ocrEngine === 'pdf-ocr-mistral'}
+                      onChange={setOcrEngine}
                       value="pdf-ocr-mistral"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
