@@ -25,7 +25,6 @@ const ConfigureOcr = ({
 }) => {
 
   const [selectedValue, setSelectedValue] = React.useState('pdf-decode');
-  const [devices, setDevices] = React.useState(() => ['phone']);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -35,6 +34,7 @@ const ConfigureOcr = ({
     return (<>
 
         <Box sx={{width: "45rem"}}>
+
             <Typography variant="h5" component="h2" gutterBottom>
                 Configure OCR
             </Typography>
