@@ -18,6 +18,8 @@ import PromptControls from './PromptControls';
 import PromptEditor from './PromptEditor';
 import { usePromptsStore } from '../state/Prompts';
 
+import { useConfigurationStateStore } from '../state/Configuration';
+
 const ConfigureEmbeddings = ({
 }) => {
 
@@ -29,10 +31,22 @@ const readOnly = false;
     setSelectedValue(event.target.value);
   };
 
+    const embeddingsEngine = useConfigurationStateStore(
+        (state) => state.embeddingsEngine
+    );
+        
+    const setEmbeddingsEngine = useConfigurationStateStore(
+        (state) => state.setEmbeddingsEngine
+    );
 
-const onChange = () => {};
+    if ((embeddingsEngine != "fastembed") && 
+        (embeddingsEngine != "huggingface"))
+        setEmbeddingsEngine("fastembed");
 
-    const availModels = models["fastembed"];
+    let availModels : ModelDescriptor[] = [];
+
+    if (embeddingsEngine in models)
+        availModels = models[embeddingsEngine];
 
     return (<>
 
@@ -44,84 +58,52 @@ const onChange = () => {};
                     Configure Embeddings
                 </Typography>
 
-<Box>
-    <ToggleButtonGroup
-      color="primary"
-      value={selectedValue}
-      exclusive
-      onChange={handleChange}
-      aria-label="Platform"
-    >
-      <ToggleButton value="fastembed">FastEmbed</ToggleButton>
-      <ToggleButton value="huggingface">HuggingFace</ToggleButton>
-    </ToggleButtonGroup>
-</Box>
+                <Typography variant="h6" component="h3" gutterBottom>
+                    Embeddings enginer
+                </Typography>
 
+                <Grid container spacing={2} sx={{ m: 3 }}>
 
-            <Grid container spacing={2} sx={{ m: 3 }}>
+                    <Grid
+                        size={2} display="flex"
+                        justifyContent="flex-end"
+                        alignItems="flex-start"
+                    >
+                        <Radio
+                          checked={selectedValue === 'fastembed'}
+                          onChange={x => setEmbeddingsEngine(x.target.value)}
+                          value="fastembed"
+                          name="radio-buttons"
+                          inputProps={{ 'aria-label': 'A' }}
+                        />
+                    </Grid>
+                    <Grid size={10}>
+                        PDF decode, no OCR: the basic decode extracts text
+                        from PDF documents containing structured text
+                    </Grid>
 
-                <Grid
-                    size={2} display="flex"
-                    justifyContent="flex-end"
-                    alignItems="flex-start"
-                >
-                    <Radio
-                      checked={selectedValue === 'pdf-decode'}
-                      onChange={handleChange}
-                      value="pdf-decode"
-                      name="radio-buttons"
-                      inputProps={{ 'aria-label': 'A' }}
-                    />
+                    <Grid
+                        size={2} display="flex"
+                        justifyContent="flex-end"
+                        alignItems="flex-start"
+                    >
+                        <Radio
+                          checked={selectedValue === 'huggingface'}
+                          onChange={x => setEmbeddingsEngine(x.target.value)}
+                          value="huggingface"
+                          name="radio-buttons"
+                          inputProps={{ 'aria-label': 'A' }}
+                        />
+                    </Grid>
+                    <Grid size={10}>
+                        OCR processing with Tesseract.  Tesseract is a free,
+                        embedded OCR engine.  It is best-in-class free /
+                        open-source.  Use this with PDF documents containing
+                        image scans, to perform Optical Character Recognition
+                        to detect text.
+                    </Grid>
+
                 </Grid>
-                <Grid size={10}>
-                    PDF decode, no OCR: the basic decode extracts text
-                    from PDF documents containing structured text
-                </Grid>
-
-                <Grid
-                    size={2} display="flex"
-                    justifyContent="flex-end"
-                    alignItems="flex-start"
-                >
-                    <Radio
-                      checked={selectedValue === 'pdf-ocr'}
-                      onChange={handleChange}
-                      value="pdf-ocr"
-                      name="radio-buttons"
-                      inputProps={{ 'aria-label': 'A' }}
-                    />
-                </Grid>
-                <Grid size={10}>
-                    OCR processing with Tesseract.  Tesseract is a free,
-                    embedded OCR engine.  It is best-in-class free /
-                    open-source.  Use this with PDF documents containing
-                    image scans, to perform Optical Character Recognition
-                    to detect text.
-                </Grid>
-
-                <Grid
-                    size={2} display="flex"
-                    justifyContent="flex-end"
-                    alignItems="flex-start"
-                >
-                    <Radio
-                      checked={selectedValue === 'pdf-ocr-mistral'}
-                      onChange={handleChange}
-                      value="pdf-ocr-mistral"
-                      name="radio-buttons"
-                      inputProps={{ 'aria-label': 'A' }}
-                    />
-                </Grid>
-                <Grid size={10}>
-                    OCR processing with the Mistral service.  Mistral is the
-                    best-in-class commercial OCR service.  You need a
-                    Mistral subscription.  Use this with PDF documents
-                    containing image scans, to perform Optical Character
-                    Recognition to detect text.
-                </Grid>
-
-            </Grid>
-
 
                 <FormControl fullWidth>
 
