@@ -27,10 +27,15 @@ const ConfigureOcr = ({
 }) => {
 
     const ocrEngine = useConfigurationStateStore((state) => state.ocrEngine);
-
+        
     const setOcrEngine = useConfigurationStateStore(
         (state) => state.setOcrEngine
     );
+
+    if ((ocrEngine != "pdf-decode") && 
+        (ocrEngine != "pdf-ocr") &&
+        (ocrEngine != "pdf-ocr-mistral"))
+        setOcrEngine("pdf-decode");
 
     return (<>
 
@@ -49,7 +54,7 @@ const ConfigureOcr = ({
                 >
                     <Radio
                       checked={ocrEngine === 'pdf-decode'}
-                      onChange={setOcrEngine}
+                      onChange={x => setOcrEngine(x.target.value)}
                       value="pdf-decode"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
@@ -67,7 +72,7 @@ const ConfigureOcr = ({
                 >
                     <Radio
                       checked={ocrEngine === 'pdf-ocr'}
-                      onChange={setOcrEngine}
+                      onChange={x => setOcrEngine(x.target.value)}
                       value="pdf-ocr"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
@@ -88,7 +93,7 @@ const ConfigureOcr = ({
                 >
                     <Radio
                       checked={ocrEngine === 'pdf-ocr-mistral'}
-                      onChange={setOcrEngine}
+                      onChange={x => setOcrEngine(x.target.value)}
                       value="pdf-ocr-mistral"
                       name="radio-buttons"
                       inputProps={{ 'aria-label': 'A' }}
