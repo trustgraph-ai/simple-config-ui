@@ -24,6 +24,11 @@ export interface ConfigurationState {
     mainModel : ModelParams;
     ragModel : ModelParams;
 
+    ocrEngine : string;
+
+    embeddingsEngine : string;
+    embeddingsModel : string;
+
     setGraphStore: (v: string) => void;
     setVectorDB: (v: string) => void;
     setChunkerType: (v: string) => void;
@@ -35,6 +40,11 @@ export interface ConfigurationState {
     setDualModelMode: (v: boolean) => void;
     setMainModel: (v: ModelParams) => void;
     setRagModel: (v: ModelParams) => void;
+
+    setOcrEngine: (v: ModelParams) => void;
+
+    setEmbeddingsEngine: (v: ModelParams) => void;
+    setEmbeddingsModel: (v: ModelParams) => void;
 
 }
 
@@ -65,6 +75,11 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
             maxOutputTokens: 2048,
         },
 
+        ocrEngine: "",
+
+        embeddingsEngine: "",
+        embeddingsModel: "",
+
         setGraphStore: (v) => set({ graphStore: v }),
         setVectorDB: (v) => set({ vectorDB: v }),
         setChunkerType: (v) => set({ chunkerType: v }),
@@ -75,6 +90,11 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
         setDualModelMode: (v) => set({ dualModelMode: v }),
         setMainModel: (v) => set({ mainModel: v }),
         setRagModel: (v) => set({ ragModel: v }),
+
+        setOcrEngine: (v) => set({ ocrEngine: v }),
+
+        setEmbeddingsEngine: (v) => set({ embeddingsEngine: v }),
+        setEmbeddingsModel: (v) => set({ embeddingsModel: v }),
 
     })
 );

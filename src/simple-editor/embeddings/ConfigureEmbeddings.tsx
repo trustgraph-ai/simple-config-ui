@@ -52,7 +52,7 @@ const onChange = () => {};
       onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="fastembed">Web</ToggleButton>
+      <ToggleButton value="fastembed">FastEmbed</ToggleButton>
       <ToggleButton value="huggingface">HuggingFace</ToggleButton>
     </ToggleButtonGroup>
 </Box>
