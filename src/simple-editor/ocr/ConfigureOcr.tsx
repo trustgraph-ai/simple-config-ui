@@ -61,8 +61,10 @@ const ConfigureOcr = ({
                     />
                 </Grid>
                 <Grid size={10}>
-                    PDF decode, no OCR: the basic decode extracts text
-                    from PDF documents containing structured text
+                    PDF decode: this is the default
+                    configuration.  Extracts text
+                    from PDF documents containing structured text, but
+                    does not perform OCR on images or scanned documents.
                 </Grid>
 
                 <Grid
