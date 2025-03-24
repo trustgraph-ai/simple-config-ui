@@ -42,10 +42,10 @@ export interface ConfigurationState {
     setMainModel: (v: ModelParams) => void;
     setRagModel: (v: ModelParams) => void;
 
-    setOcrEngine: (v: ModelParams) => void;
+    setOcrEngine: (v: string) => void;
 
-    setEmbeddingsEngine: (v: ModelParams) => void;
-    setEmbeddingsModel: (v: ModelParams) => void;
+    setEmbeddingsEngine: (v: string) => void;
+    setEmbeddingsModel: (v: string) => void;
 
 }
 

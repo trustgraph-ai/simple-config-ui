@@ -69,7 +69,7 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) => {
     return (
         <StyledOption selected={enabled}>
-             <StyledOptionTitle component="div">
+             <StyledOptionTitle>
                <Typography variant="h6" component="h3">
                      {title}
                  </Typography>

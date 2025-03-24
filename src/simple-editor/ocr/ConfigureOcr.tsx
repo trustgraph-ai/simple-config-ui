@@ -1,27 +1,12 @@
 
-import React from 'react';
-
 import {
-    Typography, Box, Stack, FormControl, FormControlLabel, FormLabel,
-    RadioGroup, Radio,
+    Box, Radio,
 } from '@mui/material';
 
 import Grid from '@mui/material/Grid2';
+import Typography from '@mui/material/Typography';
 
 import { useConfigurationStateStore } from '../state/Configuration';
-
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import LaptopIcon from '@mui/icons-material/Laptop';
-import TvIcon from '@mui/icons-material/Tv';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-import PromptControls from './PromptControls';
-import PromptEditor from './PromptEditor';
-import { usePromptsStore } from '../state/Prompts';
 
 const ConfigureOcr = ({
 }) => {

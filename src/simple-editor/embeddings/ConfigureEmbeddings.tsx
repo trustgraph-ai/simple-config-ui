@@ -1,9 +1,8 @@
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { Typography, Box, Stack, FormControl, FormLabel, InputLabel, Select,
-    MenuItem, RadioGroup, FormControlLabel, Radio, ToggleButtonGroup,
-    ToggleButton,
+import { Typography, Box, Stack, FormControl, InputLabel, Select,
+    MenuItem, Radio,
 } from '@mui/material';
 
 import Grid from '@mui/material/Grid2';
@@ -14,17 +13,10 @@ type ModelCatalog = { [ix : string] : ModelDescriptor[] };
 import modelsRaw from './models.json';
 const models = modelsRaw as ModelCatalog;
 
-import PromptControls from './PromptControls';
-import PromptEditor from './PromptEditor';
-import { usePromptsStore } from '../state/Prompts';
-
 import { useConfigurationStateStore } from '../state/Configuration';
 
 const ConfigureEmbeddings = ({
 }) => {
-
-const value = "BAAI/bge-small-en-v1.5";
-const readOnly = false;
 
     const embeddingsEngine = useConfigurationStateStore(
         (state) => state.embeddingsEngine
@@ -39,13 +31,17 @@ const readOnly = false;
     );
 
     const setEmbeddingsEngine =
-        (engine) => {
+
+        (engine : string) => {
 
             doSetEmbeddingsEngine(engine);
 
             if (engine in models) {
                 if (models[engine].length > 0) {
-                    if (!(models[engine].includes(embeddingsModel))) {
+
+                    const availModelIds = models[engine].map(m => m.id);
+
+                    if (!(availModelIds.includes(embeddingsModel))) {
                         setEmbeddingsModel(models[engine][0].id);
                     }
                 }
@@ -145,7 +141,6 @@ const readOnly = false;
                         value={embeddingsModel}
                         label="Model"
                         onChange={(e) => setEmbeddingsModel(e.target.value)}
-                        inputProps={{ readOnly: readOnly }}
                         sx={{minHeight: '3rem'}}
                     >
                         {
