@@ -70,7 +70,7 @@ const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) =
     return (
         <StyledOption selected={enabled}>
              <StyledOptionTitle>
-               <Typography variant="h6" component="h3">
+               <Typography variant="h6" component="span">
                      {title}
                  </Typography>
                 <StyledSwitch checked={enabled} onChange={onChange} inputProps={{ 'aria-label': 'controlled' }} />
@@ -78,7 +78,6 @@ const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) =
             <StyledOptionDescription variant="body2">
                 {children}
             </StyledOptionDescription>
-
         </StyledOption>
     );
 };
