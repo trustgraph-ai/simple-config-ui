@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Polyline } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,11 +13,11 @@ const PineconeCompose: React.FC<{}> = () => {
             avatar={<Polyline color="primary" fontSize="large"/>}
             title="Pinecone VectorDB">
 
-            <Typography variant="body2" sx={{ mt: 2 }}>
+            <DeploymentStep>
                 To use Pinecone, you you need an API token which must
                 be provided in an environment variable.  The API token
                 can be created in the Pinecone console of your account.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[

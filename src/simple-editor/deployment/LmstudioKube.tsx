@@ -1,11 +1,9 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 
@@ -16,10 +14,10 @@ const LmstudioKube: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="LM Studio LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 LMStudio service URL must be provided in a Kubernetes
                 secret.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentCode>
             kubectl -n trustgraph \<br/>
@@ -27,9 +25,9 @@ const LmstudioKube: React.FC<{}> = () => {
             {'    '}--from-literal=lmstudio-url=<span className="variable">http://lmstudio:11434/</span>
             </DeploymentCode>
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 Replace the URL with the URL of your LMStudio service.
-            </Typography>
+            </DeploymentStep>
 
         </DeploymentSection>
 

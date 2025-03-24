@@ -1,11 +1,9 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Polyline } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 
@@ -15,10 +13,10 @@ const PineconeCompose: React.FC<{}> = () => {
             avatar={<Polyline color="primary" fontSize="large"/>}
             title="Pinecone VectorDB">
 
-            <Typography variant="body2" sx={{ mt: 2 }}>
+            <DeploymentStep>
                 To use Pinecone, you you need an API token which must
                 be provided in a Kubernetes secret.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>

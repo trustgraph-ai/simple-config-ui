@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,7 +13,7 @@ const OllamaCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Ollama LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 The power of Ollama is the flexibility it provides in
                 Language Model deployments. Being able to run LMs with
                 Ollama enables fully secure AI TrustGraph pipelines
@@ -24,7 +23,7 @@ const OllamaCompose: React.FC<{}> = () => {
                 models available using <code>ollama pull</code>.
                 The Ollama service URL must be provided in an environment
                 variable.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[
@@ -35,9 +34,9 @@ const OllamaCompose: React.FC<{}> = () => {
                 ]}
             />
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 Replace the URL with the URL of your Ollama service.
-            </Typography>
+            </DeploymentStep>
 
         </DeploymentSection>
 

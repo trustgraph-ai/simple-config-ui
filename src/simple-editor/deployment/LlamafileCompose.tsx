@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,11 +13,11 @@ const LlamafileCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="LlamaFile LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Llamafile, you must have a Llamafile services running
                 on an accessible host.  The Llamafile host must be provided
                 in an environment variable.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[

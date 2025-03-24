@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -15,18 +14,18 @@ const LmstudioCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="LM Studio LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 LMStudio allows you to run models locally, with a nice UX.
                 The LMStudio application or service must be running,
                 and have the REST API enabled, and model made available
                 by pulling from the model repository.
-            </Typography>
+            </DeploymentStep>
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 Note that LMStudio is a commercial product - a licence is
                 needed for non-personal usage.
                 See <a href="https://lmstudio.ai/work">lmstudio.ai/work</a>
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[
@@ -37,9 +36,9 @@ const LmstudioCompose: React.FC<{}> = () => {
                 ]}
             />
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 Replace the URL with the URL of your LMStudio API service.
-            </Typography>
+            </DeploymentStep>
 
         </DeploymentSection>
 
