@@ -100,7 +100,7 @@ export const generateConfig =
             });
         else if (config.ocrEngine == "pdf-ocr-mistral") 
             components.push({
-                "name": "ocr-mistral",
+                "name": "mistral-ocr",
                 "parameters": {
                 }
             });
