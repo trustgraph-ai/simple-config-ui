@@ -9,6 +9,10 @@ export const CONFIGURE_WORKBENCH = "configure-workbench";
 
 export const CONFIGURE_DOCUMENT_RAG = "configure-document-rag";
 
+export const CONFIGURE_OCR = "configure-ocr";
+
+export const CONFIGURE_EMBEDDINGS = "configure-embeddings";
+
 export interface Options {
 
     options : Set<string>;

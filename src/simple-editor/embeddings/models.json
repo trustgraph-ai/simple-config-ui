@@ -1,0 +1,142 @@
+{
+    "fastembed": [
+	{
+	    "id": "sentence-transformers/all-MiniLM-L6-v2",
+	    "description": "sentence-transformers/all-MiniLM-L6-v2: Text embeddings, Unimodal (text), English, 256 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year."
+	},
+	{
+	    "id": "BAAI/bge-small-en-v1.5",
+	    "description": "BAAI/bge-small-en-v1.5: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+	},
+	{
+	    "id": "BAAI/bge-small-zh-v1.5",
+	    "description": "BAAI/bge-small-zh-v1.5: Text embeddings, Unimodal (text), Chinese, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+	},
+	{
+	    "id": "snowflake/snowflake-arctic-embed-xs",
+	    "description": "snowflake/snowflake-arctic-embed-xs: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-small-en",
+	    "description": "jinaai/jina-embeddings-v2-small-en: Text embeddings, Unimodal (text), English, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+	},
+	{
+	    "id": "nomic-ai/nomic-embed-text-v1.5-Q",
+	    "description": "nomic-ai/nomic-embed-text-v1.5-Q: Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "snowflake/snowflake-arctic-embed-s",
+	    "description": "snowflake/snowflake-arctic-embed-s: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "BAAI/bge-small-en",
+	    "description": "BAAI/bge-small-en: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2023 year."
+	},
+	{
+	    "id": "BAAI/bge-base-en-v1.5",
+	    "description": "BAAI/bge-base-en-v1.5: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+	},
+	{
+	    "id": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+	    "description": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2: Text embeddings, Unimodal (text), Multilingual (~50 languages), 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2019 year."
+	},
+	{
+	    "id": "Qdrant/clip-ViT-B-32-text",
+	    "description": "Qdrant/clip-ViT-B-32-text: Text embeddings, Multimodal (text&image), English, 77 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year"
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-base-de",
+	    "description": "jinaai/jina-embeddings-v2-base-de: Text embeddings, Unimodal (text), Multilingual (German, English), 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+	},
+	{
+	    "id": "BAAI/bge-base-en",
+	    "description": "BAAI/bge-base-en: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2023 year."
+	},
+	{
+	    "id": "snowflake/snowflake-arctic-embed-m",
+	    "description": "snowflake/snowflake-arctic-embed-m: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "thenlper/gte-base",
+	    "description": "thenlper/gte-base: General text embeddings, Unimodal (text), supports English only input text, 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-base-en",
+	    "description": "jinaai/jina-embeddings-v2-base-en: Text embeddings, Unimodal (text), English, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+	},
+	{
+	    "id": "nomic-ai/nomic-embed-text-v1",
+	    "description": "nomic-ai/nomic-embed-text-v1: Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "nomic-ai/nomic-embed-text-v1.5",
+	    "description": "nomic-ai/nomic-embed-text-v1.5: Text embeddings, Multimodal (text, image), English, 8192 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "snowflake/snowflake-arctic-embed-m-long",
+	    "description": "snowflake/snowflake-arctic-embed-m-long: Text embeddings, Unimodal (text), English, 2048 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-clip-v1",
+	    "description": "jinaai/jina-clip-v1: Text embeddings, Multimodal (text&image), English, Prefixes for queries/documents: not necessary, 2024 year"
+	},
+	{
+	    "id": "mixedbread-ai/mxbai-embed-large-v1",
+	    "description": "mixedbread-ai/mxbai-embed-large-v1: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-base-es",
+	    "description": "jinaai/jina-embeddings-v2-base-es: Text embeddings, Unimodal (text), supports mixed Spanish-English input text, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-base-code",
+	    "description": "jinaai/jina-embeddings-v2-base-code: Text embeddings, Unimodal (text), Multilingual (English, 30 programming languages), 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+	},
+	{
+	    "id": "jinaai/jina-embeddings-v2-base-zh",
+	    "description": "jinaai/jina-embeddings-v2-base-zh: Text embeddings, Unimodal (text), supports mixed Chinese-English input text, 8192 input tokens truncation, Prefixes for queries/documents: not necessary, 2024 year."
+	},
+	{
+	    "id": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+	    "description": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2: Text embeddings, Unimodal (text), Multilingual (~50 languages), 384 input tokens truncation, Prefixes for queries/documents: not necessary, 2021 year."
+	},
+	{
+	    "id": "snowflake/snowflake-arctic-embed-l",
+	    "description": "snowflake/snowflake-arctic-embed-l: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	},
+	{
+	    "id": "BAAI/bge-large-en-v1.5",
+	    "description": "BAAI/bge-large-en-v1.5: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not so necessary, 2023 year."
+	},
+	{
+	    "id": "thenlper/gte-large",
+	    "description": "thenlper/gte-large: Text embeddings, Unimodal (text), English, 512 input tokens truncation, Prefixes for queries/documents: not necessary, 2023 year."
+	},
+	{
+	    "id": "intfloat/multilingual-e5-large",
+	    "description": "intfloat/multilingual-e5-large: Text embeddings, Unimodal (text), Multilingual (~100 languages), 512 input tokens truncation, Prefixes for queries/documents: necessary, 2024 year."
+	}
+    ],
+    "huggingface": [
+	{
+	    "id": "all-MiniLM-L6-v2",
+	    "description": "all-MiniLM-L6-v2: This model is known for its speed and efficiency, being significantly faster than similar models while still maintaining good quality.  It is a compact model that maps sentences and paragraphs to a 384-dimensional dense vector space, and is suitable for tasks like clustering, semantic search, information retrieval, and sentence similarity."
+	},
+	{
+	    "id": "all-mpnet-base-v2",
+	    "description": "all-mpnet-base-v2: This model is known for its high quality and is considered a leading pre-trained sentence transformer model.  It was trained using the microsoft/mpnet-base model and fine-tuned on a 1B sentence pairs dataset. It generates dense sentence embeddings, allowing similar sentences to be close together in the embedding space."
+	},
+	{
+	    "id": "all-distilroberta-v1",
+	    "description": "all-distilroberta-v1: A popular model, known for its performance and efficiency"
+	},
+	{
+	    "id": "stsb-bert-large",
+	    "description": "stsb-bert-large: A model that maps sentences and paragraphs to a 1024 dimensional dense vector space and can be used for tasks like clustering or semantic search."
+	},
+	{
+	    "id": "sentence-camembert-large",
+	    "description": "sentence-camembert-large: A model trained on French datasets, useful for French text embeddings"
+	}
+    ]
+}

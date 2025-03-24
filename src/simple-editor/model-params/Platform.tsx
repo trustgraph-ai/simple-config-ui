@@ -41,6 +41,7 @@ const Platform: React.FC<PlatformProps> = ({
                             sx={{
                                 width: 140, whiteSpace: 'wrap',
                                 textAlign: 'center',
+                                backgroundColor: "#d8dae2",
                             }}
                             direction="column"
                             alignItems="center" justifyContent="center"
@@ -84,6 +85,7 @@ const Platform: React.FC<PlatformProps> = ({
                             sx={{
                                 width: 140, whiteSpace: 'wrap',
                                 textAlign: 'center',
+                                backgroundColor: "#f2f8f2",
                             }}
                             direction="column"
                             alignItems="center" justifyContent="center"
@@ -126,6 +128,7 @@ const Platform: React.FC<PlatformProps> = ({
                             sx={{
                                 width: 140, whiteSpace: 'wrap',
                                 textAlign: 'center',
+                                backgroundColor: "#d8dae2",
                             }}
                             direction="column"
                             alignItems="center" justifyContent="center"
@@ -171,6 +174,7 @@ const Platform: React.FC<PlatformProps> = ({
                             sx={{
                                 width: 140, whiteSpace: 'wrap',
                                 textAlign: 'center',
+                                backgroundColor: "#d8dae2",
                             }}
                             direction="column"
                             alignItems="center" justifyContent="center"
@@ -202,6 +206,87 @@ const Platform: React.FC<PlatformProps> = ({
                         </Box>
                     </Stack>
                 </MenuItem>
+
+                <MenuItem value="eks-k8s">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Stack
+                            spacing={1}
+                            sx={{
+                                width: 140,
+                                whiteSpace: 'wrap',
+                                textAlign: 'center',
+                            }}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            <img src="eks.png" width="48"/>
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
+                                AWS EKS
+                            </Typography>
+
+                        </Stack>
+
+                        <Box sx={{
+                            width: '38rem'
+                        }}>
+
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
+                                Elastic Kubernetes Service (EKS) is a managed
+                                Kubernetes service that allows users to deploy
+                                and manage containerized applications using
+                                AWS infrastructure.  Suitable for
+                                production deployment.
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
+                <MenuItem value="aks-k8s">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical" flexItem />
+                        }
+                        alignItems="stretch"
+                    >
+                        <Stack
+                            sx={{
+                                width: 140, whiteSpace: 'wrap',
+                                textAlign: 'center',
+                                backgroundColor: "#807484",
+                            }}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            <img src="azure.png" width="135"/>
+                        </Stack>
+
+                        <Box sx={{
+                            width: '38rem'
+                        }}>
+
+                            <Typography variant="body2"
+                                sx={{ whiteSpace: 'wrap' }}
+                            >
+                                Azure Kubernetes Service (EKS) is a managed
+                                Kubernetes service that allows users to deploy
+                                and manage containerized applications using
+                                Azure infrastructure.
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
 {/*
                 <MenuItem value="pulumi-aws-ecs">
                     <Stack

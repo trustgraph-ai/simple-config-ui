@@ -3,7 +3,8 @@ import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
 import {
-    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG,
+    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
+    CONFIGURE_DOCUMENT_RAG, CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
 const modelConfig = (m : ModelParams) => {
@@ -36,10 +37,6 @@ export const generateConfig =
             "parameters": {}
         },
         {
-            "name": "embeddings-hf",
-            "parameters": {}
-        },
-        {
             "name": "graph-rag",
             "parameters": {}
         },
@@ -65,6 +62,49 @@ export const generateConfig =
             "name": "override-recursive-chunker",
             "parameters": {}
         });
+    }
+
+    if (options.options.has(CONFIGURE_EMBEDDINGS)) {
+
+        if (config.embeddingsEngine == "fastembed") 
+            components.push({
+                "name": "embeddings-fastembed",
+                "parameters": {
+                    "embeddings-model": config.embeddingsModel,
+                }
+            });
+        else
+            components.push({
+                "name": "embeddings-hf",
+                "parameters": {
+                    "embeddings-model": config.embeddingsModel,
+                }
+            });
+          
+    } else {
+        components.push({
+            "name": "embeddings-fastembed",
+            "parameters": {
+                "embeddings-model": "sentence-transformers/all-MiniLM-L6-v2",
+            }
+        });
+    }
+
+    if (options.options.has(CONFIGURE_OCR)) {
+
+        if (config.ocrEngine == "pdf-ocr") 
+            components.push({
+                "name": "ocr",
+                "parameters": {
+                }
+            });
+        else if (config.ocrEngine == "pdf-ocr-mistral") 
+            components.push({
+                "name": "ocr-mistral",
+                "parameters": {
+                }
+            });
+
     }
 
     components.push({

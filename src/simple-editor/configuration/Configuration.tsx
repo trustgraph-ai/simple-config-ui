@@ -5,12 +5,15 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
+    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_OCR,
+    CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 
 import ConfigurePrompts from '../prompts/ConfigurePrompts';
 import ConfigureAgents from '../agents/ConfigureAgents';
+import ConfigureOcr from '../ocr/ConfigureOcr';
+import ConfigureEmbeddings from '../embeddings/ConfigureEmbeddings';
 import Additional from './Additional';
 import GenerateDeployment from './GenerateDeployment';
 import Parameters from './Parameters';
@@ -46,12 +49,22 @@ const tabs = (opts : Set<string>) => {
 
     if (opts.has(CONFIGURE_PROMPTS))
         tabs.push(
-            <Tab key="prompts" value="prompts" label="Configure Prompts"/>
+            <Tab key="prompts" value="prompts" label="Configure Prompts 💬"/>
         );
 
     if (opts.has(CONFIGURE_AGENTS))
         tabs.push(
-            <Tab key="agents" value="agents" label="Configure Agents"/>
+            <Tab key="agents" value="agents" label="Configure Agents 🧠"/>
+        );
+
+    if (opts.has(CONFIGURE_OCR))
+        tabs.push(
+            <Tab key="ocr" value="ocr" label="OCR 🧮"/>
+        );
+
+    if (opts.has(CONFIGURE_EMBEDDINGS))
+        tabs.push(
+            <Tab key="embeddings" value="embeddings" label="Embeddings 🕸"/>
         );
 
     tabs.push(<Tab key="depl" value="depl" label="Finish Deployment 🚀"/>);
@@ -107,6 +120,14 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="agents">
                 <ConfigureAgents/>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="ocr">
+                <ConfigureOcr/>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} tabId="embeddings">
+                <ConfigureEmbeddings/>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} tabId="depl">

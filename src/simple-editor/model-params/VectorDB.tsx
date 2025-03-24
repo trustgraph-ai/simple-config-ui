@@ -35,7 +35,9 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                         }
                         alignItems="stretch"
                     >
-                        <Stack sx={{width: 100}} direction="column"
+                        <Stack
+                            sx={{width: 140, background: "#e0e0e0"}}
+                            direction="column"
                             alignItems="center" justifyContent="center"
                         >
 
@@ -67,8 +69,10 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                        <Stack sx={{width: 100}} direction="row"
-                        alignItems="center" justifyContent="center"
+                        <Stack
+                            sx={{width: 140, background: "#e0e0e0"}}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
                         >
                             <img src="milvus.svg" width="100"/>
                             </Stack>
@@ -98,8 +102,10 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                             <Divider orientation="vertical"
                             flexItem
                         />}>
-                        <Stack sx={{width: 100}} direction="row"
-                        alignItems="center" justifyContent="center"
+                        <Stack
+                            sx={{width: 140, background: "#e0e0e0"}}
+                            direction="row"
+                            alignItems="center" justifyContent="center"
                         >
                             <img src="pinecone.svg" width="80"/>
                             </Stack>

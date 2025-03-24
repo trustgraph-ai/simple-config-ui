@@ -11,8 +11,11 @@ import ModelParameters from './ModelParameters';
 import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
 
+type ModelDescriptor = { id : string, description : string };
+type ModelCatalog = { [ix : string] : ModelDescriptor[] };
+
 import modelsRaw from './models.json';
-const models = modelsRaw as { [ix: string]: string[] };
+const models = modelsRaw as ModelCatalog;
 
 interface ParamsFormProps {
 }
@@ -112,9 +115,10 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
                 // Get valid models
                 const validModels = models[n.mainModel.deployment];
+                const validModelIds = validModels.map(m => m.id);
 
                 // Is current model name valid for the deployment?
-                if (!(n.mainModel.modelName in validModels)) {
+                if (!(n.mainModel.modelName in validModelIds)) {
 
                     // Does the deployment use model settings?  If not,
                     // null out the model name.  Otherwise use the
@@ -127,7 +131,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     else
                         setMainModel({
                             ...n.mainModel,
-                            modelName: models[n.mainModel.deployment][0],
+                            modelName: models[n.mainModel.deployment][0].id,
                         })
                 }
 
@@ -140,9 +144,10 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
                 // Get valid models
                 const validModels = models[n.ragModel.deployment];
+                const validModelIds = validModels.map(m => m.id);
 
                 // Is current model name valid for the deployment?
-                if (!(n.ragModel.modelName in validModels)) {
+                if (!(n.ragModel.modelName in validModelIds)) {
 
                     // Does the deployment use model settings?  If not,
                     // null out the model name.  Otherwise use the
@@ -155,7 +160,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     else
                         setRagModel({
                             ...n.ragModel,
-                            modelName: models[n.ragModel.deployment][0],
+                            modelName: models[n.ragModel.deployment][0].id,
                         })
                 }
 
@@ -167,19 +172,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     return (
         <>
             <Box className="parameters">
-                <Box my={2} display="flex" alignItems="center">
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={dualModelMode}
-                                onChange={handleDualModelModeChange}
-                                name="dualModelMode"
-                                color="primary"
-                            />
-                        }
-                        label="Dual Model Mode"
-                    />
-                </Box>
 
                 <Box my={4}>
                     <Platform
@@ -203,6 +195,20 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                         onTypeChange={setChunkerType}
                         onChunkSizeChange={setChunkSize}
                         onChunkOverlapChange={setChunkOverlap}
+                    />
+                </Box>
+
+                <Box my={2} display="flex" alignItems="center">
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={dualModelMode}
+                                onChange={handleDualModelModeChange}
+                                name="dualModelMode"
+                                color="primary"
+                            />
+                        }
+                        label="Dual Model Mode"
                     />
                 </Box>
 
