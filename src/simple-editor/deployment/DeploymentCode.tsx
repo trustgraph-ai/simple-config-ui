@@ -36,7 +36,7 @@ const DeploymentCode: React.FC<DeploymentCodeProps> = ({ children }) => {
             <StyledTypography variant="body2">
             {children}
             </StyledTypography>
-         </StyledPaper>
+        </StyledPaper>
     );
 };
 

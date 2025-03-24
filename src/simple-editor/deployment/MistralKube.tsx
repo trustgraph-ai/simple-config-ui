@@ -11,7 +11,7 @@ const MistralKube: React.FC<{}> = () => {
     return (
         <DeploymentSection
             avatar={<Psychology color="primary" fontSize="large"/>}
-            title="Mistral hosted LLM">
+            title="Mistral APIs">
 
             <DeploymentStep>
                 To use Mistral, you need a Mistral API key.
