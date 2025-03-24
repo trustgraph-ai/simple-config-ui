@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
     useOptionsStore, CONFIGURE_DOCUMENT_RAG, CONFIGURE_WORKBENCH,
+    CONFIGURE_OCR,
 } from '../state/Options';
 
 import DockerCompose from './DockerCompose';
@@ -92,11 +93,20 @@ const Deployment: React.FC<DeploymentProps> = ({
     deploymentProcedures.push(<DeploymentConfig/>);
     deploymentProcedures.push(getPlatformProcedure(config.platform));
 
+    // Going to collate a list of models in use in this array.  There may
+    // be duplicates, that's OK - just used to work out which API secret
+    // instructions to give
     let models : string[] = [];
+
     if (dualModelMode)
         models = [ config.mainModel.deployment, config.ragModel.deployment ];
     else
         models = [config.mainModel.deployment];
+
+    // Another component which needs a Mistral key
+    if (options.has(CONFIGURE_OCR))
+        if (config.ocrEngine == "pdf-ocr-mistral")
+            models.push("mistral");
 
     if (config.platform == "docker-compose" ||
         config.platform == "podman-compose") {
