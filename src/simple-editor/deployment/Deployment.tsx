@@ -13,6 +13,19 @@ import Gke from './Gke';
 import Eks from './Eks';
 import Aks from './Aks';
 
+import AzureCompose from './AzureCompose';
+import AzureOpenaiCompose from './AzureOpenaiCompose';
+import BedrockCompose from './BedrockCompose';
+import ClaudeCompose from './ClaudeCompose';
+import CohereCompose from './CohereCompose';
+import GoogleAiStudioCompose from './GoogleAiStudioCompose';
+import LlamafileCompose from './LlamafileCompose';
+import LmstudioCompose from './LmstudioCompose';
+import MistralCompose from './MistralCompose';
+import OllamaCompose from './OllamaCompose';
+import OpenaiCompose from './OpenaiCompose';
+import VertexAiCompose from './VertexAiCompose';
+
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
@@ -46,7 +59,7 @@ const getPlatformProcedure = (platform : string) => {
 const Deployment: React.FC<DeploymentProps> = ({
 }) => {
 
-    const platform = useConfigurationStateStore((state) => state.platform);
+    const config = useConfigurationStateStore((state) => state);
 
     const options = useOptionsStore((state) => state.options);
 
@@ -54,15 +67,44 @@ const Deployment: React.FC<DeploymentProps> = ({
         (state) => state.dualModelMode
     );
 
-    const mainModel = useConfigurationStateStore((state) => state.mainModel);
-
-    const ragModel = useConfigurationStateStore((state) => state.ragModel);
-
     let deploymentProcedures = [];
 
     deploymentProcedures.push(<DeploymentConfig/>);
+    deploymentProcedures.push(getPlatformProcedure(config.platform));
 
-    deploymentProcedures.push(getPlatformProcedure(platform));
+    let models : string[] = [];
+    if (dualModelMode)
+        models = [ config.mainModel.deployment, config.ragModel.deployment ];
+    else
+        models = [config.mainModel.deployment];
+
+    if (config.platform == "docker-compose" ||
+        config.platform == "podman-compose") {
+        if (models.includes("azure"))
+            deploymentProcedures.push(<AzureCompose/>);
+        if (models.includes("azure-openai"))
+            deploymentProcedures.push(<AzureOpenaiCompose/>);
+        if (models.includes("bedrock"))
+            deploymentProcedures.push(<BedrockCompose/>);
+        if (models.includes("claude"))
+            deploymentProcedures.push(<ClaudeCompose/>);
+        if (models.includes("cohere"))
+            deploymentProcedures.push(<CohereCompose/>);
+        if (models.includes("googleaistudio"))
+            deploymentProcedures.push(<GoogleAiStudioCompose/>);
+        if (models.includes("llamafile"))
+            deploymentProcedures.push(<LlamafileCompose/>);
+        if (models.includes("lmstudio"))
+            deploymentProcedures.push(<LmstudioCompose/>);
+        if (models.includes("mistral"))
+            deploymentProcedures.push(<MistralCompose/>);
+        if (models.includes("ollama"))
+            deploymentProcedures.push(<OllamaCompose/>);
+        if (models.includes("openai"))
+            deploymentProcedures.push(<OpenaiCompose/>);
+        if (models.includes("vertexai"))
+            deploymentProcedures.push(<VertexAiCompose/>);
+    }
 
     return (
         <Box className="deployment">
@@ -76,38 +118,6 @@ const Deployment: React.FC<DeploymentProps> = ({
     return (
         <>
             <Box className="deployment">
-
-                <Paper
-                    elevation={8}
-                    style={{
-                        padding: '16px', marginTop: '16px',
-                        marginBottom: '16px'
-                    }}
-                  >
-                      <Typography variant="h6" gutterBottom>
-                          {dualModelMode ? 'Extraction ' : ''}
-                          Model Deployment
-                      </Typography>
-                    <Box>
-                        <DeploymentModel
-                            value={mainModel}
-                        />
-                    </Box>
-                </Paper>
-
-                {
-                    dualModelMode && 
-                    <Paper elevation={8} style={{ padding: '16px' }}>
-                        <Typography variant="h6" gutterBottom>
-                            RAG Model Deployment
-                        </Typography>
-                        <Box>
-                            <DeploymentModel
-                                value={ragModel}
-                            />
-                        </Box>
-                    </Paper>
-                }
 
                 <Box>
                     <DeploymentVectorStore/>
