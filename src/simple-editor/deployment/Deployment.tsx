@@ -3,7 +3,7 @@ import { Box, Paper, Typography } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
-    useOptionsStore, CONFIGURE_DOCUMENT_RAG
+    useOptionsStore, CONFIGURE_DOCUMENT_RAG, CONFIGURE_WORKBENCH,
 } from '../state/Options';
 
 import DockerCompose from './DockerCompose';
@@ -43,6 +43,14 @@ import PineconeCompose from './PineconeCompose';
 import PineconeKube from './PineconeKube';
 
 import FalkorDb from './FalkorDb';
+
+import GatewayKube from './GatewayKube';
+
+import Workbench from './Workbench';
+import NoWorkbench from './NoWorkbench';
+
+import ApplicationCompose from './ApplicationCompose';
+import ApplicationKube from './ApplicationKube';
 
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
@@ -161,11 +169,23 @@ const Deployment: React.FC<DeploymentProps> = ({
         if (config.vectorDB == "pinecone")
             deploymentProcedures.push(<PineconeKube/>);
 
+        deploymentProcedures.push(<GatewayKube/>);
+
     }
 
     if (config.graphStore == "falkordb")
         deploymentProcedures.push(<FalkorDb/>);
 
+    if (options.has(CONFIGURE_WORKBENCH))
+        deploymentProcedures.push(<Workbench/>);
+    else
+        deploymentProcedures.push(<NoWorkbench/>);
+
+    if (config.platform == "docker-compose" ||
+        config.platform == "podman-compose")
+        deploymentProcedures.push(<ApplicationCompose/>);
+    else
+        deploymentProcedures.push(<ApplicationKube/>);
 
     return (
         <Box className="deployment">
@@ -179,22 +199,6 @@ const Deployment: React.FC<DeploymentProps> = ({
     return (
         <>
             <Box className="deployment">
-
-                <Box>
-                    <DeploymentGraphStore/>
-                </Box>
-
-                <Box>
-                    <DeploymentConfig/>
-                </Box>
-
-                <Box>
-                    <DeploymentGateway/>
-                </Box>
-
-                <Box>
-                    <DeploymentWorkbench/>
-                </Box>
 
                 {
                     options.has(CONFIGURE_DOCUMENT_RAG) && (
