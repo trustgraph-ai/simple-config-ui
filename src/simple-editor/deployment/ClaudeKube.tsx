@@ -7,22 +7,24 @@ import { Psychology } from '@mui/icons-material';
 import DeploymentSection from './DeploymentSection';
 import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
+import DeploymentCode from './DeploymentCode';
 
-const OpenaiCompose: React.FC<{}> = () => {
+const ClaudeKube: React.FC<{}> = () => {
     return (
         <DeploymentSection
             avatar={<Psychology color="primary" fontSize="large"/>}
-            title="OpenAI LLMs">
+            title="Anthropic Claude LLM">
 
-            <Typography variant="body2">
-                To use OpenAI APIs, you need an API
-                token which must be provided in an environment variable.
-            </Typography>
+            <DeploymentStep>
+                To use Anthropic Claude, you need a Claude API key.
+                Provide the Claude API key in an environment variable
+                when runnging the Docker Compose configuration.
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[
                     {
-                        name: "OPENAI_TOKEN",
+                        name: "CLAUDE_KEY",
                         value: "TOKEN-GOES-HERE"
                     }
                 ]}
@@ -34,5 +36,5 @@ const OpenaiCompose: React.FC<{}> = () => {
 
 };
 
-export default OpenaiCompose;
+export default ClaudeKube;
 

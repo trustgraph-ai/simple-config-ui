@@ -26,6 +26,19 @@ import OllamaCompose from './OllamaCompose';
 import OpenaiCompose from './OpenaiCompose';
 import VertexAiCompose from './VertexAiCompose';
 
+import AzureKube from './AzureKube';
+import AzureOpenaiKube from './AzureOpenaiKube';
+import BedrockKube from './BedrockKube';
+import ClaudeKube from './ClaudeKube';
+import CohereKube from './CohereKube';
+import GoogleAiStudioKube from './GoogleAiStudioKube';
+import LlamafileKube from './LlamafileKube';
+import LmstudioKube from './LmstudioKube';
+import MistralKube from './MistralKube';
+import OllamaKube from './OllamaKube';
+import OpenaiKube from './OpenaiKube';
+import VertexAiKube from './VertexAiKube';
+
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
@@ -80,6 +93,9 @@ const Deployment: React.FC<DeploymentProps> = ({
 
     if (config.platform == "docker-compose" ||
         config.platform == "podman-compose") {
+
+        // Compose platforms
+
         if (models.includes("azure"))
             deploymentProcedures.push(<AzureCompose/>);
         if (models.includes("azure-openai"))
@@ -104,6 +120,35 @@ const Deployment: React.FC<DeploymentProps> = ({
             deploymentProcedures.push(<OpenaiCompose/>);
         if (models.includes("vertexai"))
             deploymentProcedures.push(<VertexAiCompose/>);
+
+    } else {
+
+        // Kubernetes platforms
+
+        if (models.includes("azure"))
+            deploymentProcedures.push(<AzureKube/>);
+        if (models.includes("azure-openai"))
+            deploymentProcedures.push(<AzureOpenaiKube/>);
+        if (models.includes("bedrock"))
+            deploymentProcedures.push(<BedrockKube/>);
+        if (models.includes("claude"))
+            deploymentProcedures.push(<ClaudeKube/>);
+        if (models.includes("cohere"))
+            deploymentProcedures.push(<CohereKube/>);
+        if (models.includes("googleaistudio"))
+            deploymentProcedures.push(<GoogleAiStudioKube/>);
+        if (models.includes("llamafile"))
+            deploymentProcedures.push(<LlamafileKube/>);
+        if (models.includes("lmstudio"))
+            deploymentProcedures.push(<LmstudioKube/>);
+        if (models.includes("mistral"))
+            deploymentProcedures.push(<MistralKube/>);
+        if (models.includes("ollama"))
+            deploymentProcedures.push(<OllamaKube/>);
+        if (models.includes("openai"))
+            deploymentProcedures.push(<OpenaiKube/>);
+        if (models.includes("vertexai"))
+            deploymentProcedures.push(<VertexAiKube/>);
     }
 
     return (

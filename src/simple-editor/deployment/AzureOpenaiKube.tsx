@@ -7,8 +7,9 @@ import { Psychology } from '@mui/icons-material';
 import DeploymentSection from './DeploymentSection';
 import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
+import DeploymentCode from './DeploymentCode';
 
-const AzureOpenaiCompose: React.FC<{}> = () => {
+const AzureOpenaiKube: React.FC<{}> = () => {
     return (
         <DeploymentSection
             avatar={<Psychology color="primary" fontSize="large"/>}
@@ -22,27 +23,14 @@ const AzureOpenaiCompose: React.FC<{}> = () => {
                 Name is set by the user, during the deployment within AzureAI.
              </Typography>
 
-
-            <DeploymentEnvVars
-                variables={[
-                    {
-                        name: "AZURE_ENDPOINT",
-                        value: "https://ENDPOINT.API.HOST.GOES.HERE/"
-                    },
-                    {
-                        name: "AZURE_TOKEN",
-                        value: "TOKEN-GOES-HERE"
-                    },
-                    {
-                        name: "API_VERSION",
-                        value: "API-VERSION-GOES-HERE"
-                    },
-                    {
-                        name: "OPENAI_MODEL",
-                        value: "USER-DEFINED-MODEL-NAME-HERE"
-                    }
-                ]}
-            />
+            <DeploymentCode>
+            kubectl -n trustgraph create secret \<br/>
+            {'    '}generic azure-openai-credentials \<br/>
+            {'    '}--from-literal=azure-endpoint=<span className="variable">https://ENDPOINT.API.HOST.GOES.HERE/</span> \<br/>
+            {'    '}--from-literal=azure-token=<span className="variable">TOKEN-GOES-HERE</span> \<br/>
+            {'    '}--from-literal=api-version=<span className="variable">API-VERSION-GOES-HERE</span> \<br/>
+            {'    '}--from-literal=openai-model=<span className="variable">USER-DEFINED-MODEL-NAME-HERE</span>
+            </DeploymentCode>
 
         </DeploymentSection>
 
@@ -50,5 +38,5 @@ const AzureOpenaiCompose: React.FC<{}> = () => {
 
 };
 
-export default AzureOpenaiCompose;
+export default AzureOpenaiKube;
 
