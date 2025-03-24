@@ -49,6 +49,8 @@ import GatewayKube from './GatewayKube';
 import Workbench from './Workbench';
 import NoWorkbench from './NoWorkbench';
 
+import DocumentRag from './DocumentRag';
+
 import ApplicationCompose from './ApplicationCompose';
 import ApplicationKube from './ApplicationKube';
 
@@ -186,6 +188,9 @@ const Deployment: React.FC<DeploymentProps> = ({
         deploymentProcedures.push(<ApplicationCompose/>);
     else
         deploymentProcedures.push(<ApplicationKube/>);
+
+    if (options.has(CONFIGURE_DOCUMENT_RAG))
+        deploymentProcedures.push(<DocumentRag/>);
 
     return (
         <Box className="deployment">

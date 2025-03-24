@@ -1,7 +1,6 @@
 
 import { create } from 'zustand';
-
-const TRUSTGRAPH_VERSION = "0.20.11";
+import { TRUSTGRAPH_VERSION } from './version';
 
 export interface ModelParams {
     deployment : string;
@@ -99,3 +98,4 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
 
     })
 );
+
