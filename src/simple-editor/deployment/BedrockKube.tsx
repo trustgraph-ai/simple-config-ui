@@ -1,11 +1,9 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 
@@ -15,12 +13,12 @@ const BedrockKube: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="AWS Bedrock LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use AWS Bedrock, you must have enabled models in the
                 AWS Bedrock console.  You must also provide an
                 AWS access key ID and secret key as a Kubernetes secret
                 before deploying the application.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>

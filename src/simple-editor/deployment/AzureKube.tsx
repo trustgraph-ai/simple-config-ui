@@ -1,11 +1,9 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 
@@ -15,12 +13,12 @@ const AzureKube: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Azure Endpoint LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Azure Serverless APIs, you need to have a serverless
                 endpoint deployed.  You must also provide
                 an Azure endpoint and token in a Kubernetes secret before
                 launching the application.
-             </Typography>
+             </DeploymentStep>
 
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>

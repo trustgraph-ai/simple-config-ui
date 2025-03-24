@@ -1,12 +1,10 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { RocketLaunch } from '@mui/icons-material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 

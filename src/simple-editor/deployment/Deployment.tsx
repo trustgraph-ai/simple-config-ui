@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
@@ -54,22 +54,14 @@ import DocumentRag from './DocumentRag';
 import ApplicationCompose from './ApplicationCompose';
 import ApplicationKube from './ApplicationKube';
 
-import DeploymentPlatform from './DeploymentPlatform';
-import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
-import DeploymentInstructions from './DeploymentInstructions';
-import DeploymentVectorStore from './DeploymentVectorStore';
-import DeploymentGraphStore from './DeploymentGraphStore';
-import DeploymentWorkbench from './DeploymentWorkbench';
-import DeploymentGateway from './DeploymentGateway';
-import DeploymentDocumentRag from './DeploymentDocumentRag';
 
 interface DeploymentProps {
 }
 
 const getPlatformProcedure = (platform : string) => {
 
-    const platforms = {
+    const platforms : { [key : string] : any } = {
         "docker-compose": <DockerCompose/>,
         "podman-compose": <PodmanCompose/>,
         "minikube-k8s": <Minikube/>,

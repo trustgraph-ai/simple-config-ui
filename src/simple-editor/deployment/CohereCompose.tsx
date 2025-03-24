@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,10 +13,10 @@ const CohereCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Cohere LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Cohere APIs, you need an API token which must
                 be provided in an environment variable.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[

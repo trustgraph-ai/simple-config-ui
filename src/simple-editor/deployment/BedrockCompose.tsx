@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,11 +13,11 @@ const BedrockCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="AWS Bedrock LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use AWS Bedrock, you must have enabled models in the
                 AWS Bedrock console.  You must also provide an
                 AWS access key ID and secret key.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[

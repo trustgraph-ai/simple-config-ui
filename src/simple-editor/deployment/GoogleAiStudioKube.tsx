@@ -5,7 +5,6 @@ import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
 import DeploymentStep from './DeploymentStep';
 import DeploymentCode from './DeploymentCode';
 
@@ -15,10 +14,10 @@ const GoogleAiStudioKube: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Google AI Studio LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Google AI Studio APIs, you need an API token which
                 must be provided in an environment variable.
-            </Typography>
+            </DeploymentStep>
 
             <DeploymentCode>
             kubectl -n trustgraph create secret \<br/>

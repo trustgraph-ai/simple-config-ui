@@ -1,11 +1,10 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
-import DeploymentEnvVars from './DeploymentEnvVars';
+import DeploymentCode from './DeploymentCode';
 import DeploymentStep from './DeploymentStep';
 
 const ClaudeCompose: React.FC<{}> = () => {
@@ -20,14 +19,11 @@ const ClaudeCompose: React.FC<{}> = () => {
                 when runnging the Docker Compose configuration.
             </DeploymentStep>
 
-            <DeploymentEnvVars
-                variables={[
-                    {
-                        name: "CLAUDE_KEY",
-                        value: "TOKEN-GOES-HERE"
-                    }
-                ]}
-            />
+            <DeploymentCode>
+                kubectl -n trustgraph create secret \<br/>
+                {'    '}generic claude-credentials \<br/>
+                {'    '}--from-literal=claude-key=<span className="variable">CLAUDE_KEY</span>
+            </DeploymentCode>
 
         </DeploymentSection>
 

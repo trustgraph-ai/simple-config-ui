@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,13 +13,13 @@ const AzureOpenaiCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Azure OpenAI LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Azure's OpenAI APIs, you need to have a serverless
                 OpenAI endpoint deployed, and you must also provide an endpoint
                 token as an environment variable. In addition, the OpenAI API
                 requires an API Version and Model Name to be set. The Model
                 Name is set by the user, during the deployment within AzureAI.
-             </Typography>
+             </DeploymentStep>
 
 
             <DeploymentEnvVars

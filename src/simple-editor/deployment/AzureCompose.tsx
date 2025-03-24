@@ -1,7 +1,6 @@
 
 import React from 'react';
 
-import { Typography } from '@mui/material';
 import { Psychology } from '@mui/icons-material';
 
 import DeploymentSection from './DeploymentSection';
@@ -14,12 +13,11 @@ const AzureCompose: React.FC<{}> = () => {
             avatar={<Psychology color="primary" fontSize="large"/>}
             title="Azure Endpoint LLM">
 
-            <Typography variant="body2">
+            <DeploymentStep>
                 To use Azure Serverless APIs, you need to have a serverless
                 endpoint deployed, and you must also provide an endpoint
                 token as an environment variable.
-             </Typography>
-
+             </DeploymentStep>
 
             <DeploymentEnvVars
                 variables={[
