@@ -1,7 +1,6 @@
 
-import {
-    Box, Radio,
-} from '@mui/material';
+import { useEffect } from 'react';
+import { Box, Radio } from '@mui/material';
 
 import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
@@ -17,10 +16,13 @@ const ConfigureOcr = ({
         (state) => state.setOcrEngine
     );
 
-    if ((ocrEngine != "pdf-decode") && 
-        (ocrEngine != "pdf-ocr") &&
-        (ocrEngine != "pdf-ocr-mistral"))
-        setOcrEngine("pdf-decode");
+    useEffect(() => {
+        if ((ocrEngine != "pdf-decode") && 
+            (ocrEngine != "pdf-ocr") &&
+            (ocrEngine != "pdf-ocr-mistral")) {
+            setOcrEngine("pdf-decode");
+        }
+    });
 
     return (<>
 
