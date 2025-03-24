@@ -190,10 +190,9 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureOcr}
                     title="OCR pipelines"
                 >
-                    Replaces the standard PDF decoding with an OCR processor.
-                    The open-source Tesseract engine is available, along
-                    with the commercial Mistral OCR which has excellent
-                    performance.
+                    Options for replacing the standard PDF decoding with an
+                    Optical Character Recognition (OCR) processor to allow
+                    handling PDF documents containing scans/images.
                 </Option>
 
                 <Option
@@ -201,8 +200,7 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureEmbeddings}
                     title="Embedding configuration"
                 >
-                    Opens configuration options to tailor the embeddings
-                    engine, and embeddings model in use.
+                    Options for configuration the embeddings engine.
                 </Option>
 
             </Stack>

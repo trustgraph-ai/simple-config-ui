@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Typography, Box, Stack, FormControl, FormLabel, InputLabel, Select,
     MenuItem, RadioGroup, FormControlLabel, Radio, ToggleButtonGroup,
@@ -34,33 +34,40 @@ const readOnly = false;
         (state) => state.embeddingsModel
     );
         
-    const setEmbeddingsEngine = useConfigurationStateStore(
+    const doSetEmbeddingsEngine = useConfigurationStateStore(
         (state) => state.setEmbeddingsEngine
     );
+
+    const setEmbeddingsEngine =
+        (engine) => {
+
+            doSetEmbeddingsEngine(engine);
+
+            if (engine in models) {
+                if (models[engine].length > 0) {
+                    if (!(models[engine].includes(embeddingsModel))) {
+                        setEmbeddingsModel(models[engine][0].id);
+                    }
+                }
+            }
+
+        };
 
     const setEmbeddingsModel = useConfigurationStateStore(
         (state) => state.setEmbeddingsModel
     );
 
-    if ((embeddingsEngine != "fastembed") && 
-        (embeddingsEngine != "huggingface")) {
-        setEmbeddingsEngine("fastembed");
-    }
+    useEffect(() => {
+        if ((embeddingsEngine != "fastembed") && 
+            (embeddingsEngine != "huggingface")) {
+            doSetEmbeddingsEngine("fastembed");
+            setEmbeddingsModel(models["fastembed"][0].id);
+        }
+    });
 
     let availModels : ModelDescriptor[] = [];
-
     if (embeddingsEngine in models) {
-
         availModels = models[embeddingsEngine];
-        const availModelIds = availModels.map(m => m.id);
-
-        if (!(availModelIds.includes(embeddingsModel))) {
-
-            if (availModelIds.length > 0) {
-                setEmbeddingsModel(availModels[0].id);
-            }
-        }
-
     }
 
     return (<>
@@ -139,7 +146,7 @@ const readOnly = false;
                         label="Model"
                         onChange={(e) => setEmbeddingsModel(e.target.value)}
                         inputProps={{ readOnly: readOnly }}
-                        sx={{minHeight: 120}}
+                        sx={{minHeight: '3rem'}}
                     >
                         {
                             availModels.map(
