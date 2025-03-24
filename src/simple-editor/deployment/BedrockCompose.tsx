@@ -38,9 +38,7 @@ const BedrockCompose: React.FC<{}> = () => {
             />
 
         </DeploymentSection>
-
     );
-
 };
 
 export default BedrockCompose;

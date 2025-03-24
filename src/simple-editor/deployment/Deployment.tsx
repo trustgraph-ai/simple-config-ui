@@ -39,6 +39,11 @@ import OllamaKube from './OllamaKube';
 import OpenaiKube from './OpenaiKube';
 import VertexAiKube from './VertexAiKube';
 
+import PineconeCompose from './PineconeCompose';
+import PineconeKube from './PineconeKube';
+
+import FalkorDb from './FalkorDb';
+
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
@@ -121,6 +126,9 @@ const Deployment: React.FC<DeploymentProps> = ({
         if (models.includes("vertexai"))
             deploymentProcedures.push(<VertexAiCompose/>);
 
+        if (config.vectorDB == "pinecone")
+            deploymentProcedures.push(<PineconeCompose/>);
+
     } else {
 
         // Kubernetes platforms
@@ -149,7 +157,15 @@ const Deployment: React.FC<DeploymentProps> = ({
             deploymentProcedures.push(<OpenaiKube/>);
         if (models.includes("vertexai"))
             deploymentProcedures.push(<VertexAiKube/>);
+
+        if (config.vectorDB == "pinecone")
+            deploymentProcedures.push(<PineconeKube/>);
+
     }
+
+    if (config.graphStore == "falkordb")
+        deploymentProcedures.push(<FalkorDb/>);
+
 
     return (
         <Box className="deployment">
@@ -163,10 +179,6 @@ const Deployment: React.FC<DeploymentProps> = ({
     return (
         <>
             <Box className="deployment">
-
-                <Box>
-                    <DeploymentVectorStore/>
-                </Box>
 
                 <Box>
                     <DeploymentGraphStore/>
