@@ -5,6 +5,8 @@ local prompts = import "prompts/mixtral.jsonnet";
 
 {
 
+    "document-rag-doc-limit":: 20,
+
     "document-rag" +: {
     
         create:: function(engine)
@@ -16,6 +18,8 @@ local prompts = import "prompts/mixtral.jsonnet";
                         "document-rag",
                         "-p",
                         url.pulsar,
+                        "--doc-limit",
+                        std.toString($["document-rag-doc-limit"]),
                         "--prompt-request-queue",
                         "non-persistent://tg/request/prompt-rag",
                         "--prompt-response-queue",
