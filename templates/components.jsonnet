@@ -11,6 +11,8 @@
    "claude": import "components/claude.jsonnet",
    "cohere": import "components/cohere.jsonnet",
    "googleaistudio": import "components/googleaistudio.jsonnet",
+   "lmstudio": import "components/lmstudio.jsonnet",
+   "mistral": import "components/mistral.jsonnet",
    "ollama": import "components/ollama.jsonnet",
    "openai": import "components/openai.jsonnet",
    "vertexai": import "components/vertexai.jsonnet",
@@ -22,6 +24,8 @@
    "claude-rag": import "components/claude-rag.jsonnet",
    "cohere-rag": import "components/cohere-rag.jsonnet",
    "googleaistudio-rag": import "components/googleaistudio-rag.jsonnet",
+   "lmstudio-rag": import "components/lmstudio-rag.jsonnet",
+   "mistral-rag": import "components/mistral-rag.jsonnet",
    "ollama-rag": import "components/ollama-rag.jsonnet",
    "openai-rag": import "components/openai-rag.jsonnet",
    "vertexai-rag": import "components/vertexai-rag.jsonnet",
@@ -29,10 +33,18 @@
    // Embeddings
    "embeddings-ollama": import "components/embeddings-ollama.jsonnet",
    "embeddings-hf": import "components/embeddings-hf.jsonnet",
+   "embeddings-fastembed": import "components/embeddings-fastembed.jsonnet",
 
    // Processing pipelines
    "graph-rag": import "components/graph-rag.jsonnet",
    "document-rag": import "components/document-rag.jsonnet",
+
+   // OCR options
+   "ocr": import "components/ocr.jsonnet",
+   "mistral-ocr": import "components/mistral-ocr.jsonnet",
+
+   // Librarian - document management
+   "librarian": import "components/librarian.jsonnet",
 
    // Vector stores
    "vector-store-milvus": import "components/milvus.jsonnet",
