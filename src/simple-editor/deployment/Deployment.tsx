@@ -6,6 +6,13 @@ import {
     useOptionsStore, CONFIGURE_DOCUMENT_RAG
 } from '../state/Options';
 
+import DockerCompose from './DockerCompose';
+import PodmanCompose from './PodmanCompose';
+import Minikube from './Minikube';
+import Gke from './Gke';
+import Eks from './Eks';
+import Aks from './Aks';
+
 import DeploymentPlatform from './DeploymentPlatform';
 import DeploymentModel from './DeploymentModel';
 import DeploymentConfig from './DeploymentConfig';
@@ -19,8 +26,27 @@ import DeploymentDocumentRag from './DeploymentDocumentRag';
 interface DeploymentProps {
 }
 
+const getPlatformProcedure = (platform : string) => {
+
+    const platforms = {
+        "docker-compose": <DockerCompose/>,
+        "podman-compose": <PodmanCompose/>,
+        "minikube-k8s": <Minikube/>,
+        "gcp-k8s": <Gke/>,
+        "eks-k8s": <Eks/>,
+        "aks-k8s": <Aks/>,
+    };
+
+    if (platform in platforms) return platforms[platform];
+
+    return null;
+
+}
+
 const Deployment: React.FC<DeploymentProps> = ({
 }) => {
+
+    const platform = useConfigurationStateStore((state) => state.platform);
 
     const options = useOptionsStore((state) => state.options);
 
@@ -29,22 +55,27 @@ const Deployment: React.FC<DeploymentProps> = ({
     );
 
     const mainModel = useConfigurationStateStore((state) => state.mainModel);
-//    const setMainModel = useConfigurationStateStore(
-//        (state) => state.setMainModel
-//    );
 
     const ragModel = useConfigurationStateStore((state) => state.ragModel);
-//    const setRagModel = useConfigurationStateStore(
-//        (state) => state.setRagModel
-//    );
 
+    let deploymentProcedures = [];
+
+    deploymentProcedures.push(<DeploymentConfig/>);
+
+    deploymentProcedures.push(getPlatformProcedure(platform));
+
+    return (
+        <Box className="deployment">
+        {
+            deploymentProcedures.map((c, ix) => <Box key={ix}>{c}</Box>)
+        }
+        </Box>
+    );
+    
+/*
     return (
         <>
             <Box className="deployment">
-
-                <Box>
-                    <DeploymentPlatform/>
-                </Box>
 
                 <Paper
                     elevation={8}
@@ -113,6 +144,7 @@ const Deployment: React.FC<DeploymentProps> = ({
             </Box>
         </>
     );
+*/
 };
 
 export default Deployment;
