@@ -200,27 +200,6 @@ const Deployment: React.FC<DeploymentProps> = ({
         </Box>
     );
     
-/*
-    return (
-        <>
-            <Box className="deployment">
-
-                {
-                    options.has(CONFIGURE_DOCUMENT_RAG) && (
-                        <Box>
-                            <DeploymentDocumentRag/>
-                        </Box>
-                    )
-                }
-
-                <Box>
-                    <DeploymentInstructions/>
-                </Box>
-
-            </Box>
-        </>
-    );
-*/
 };
 
 export default Deployment;
