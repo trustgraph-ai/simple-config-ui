@@ -5,7 +5,11 @@ local prompts = import "prompts/mixtral.jsonnet";
 
 {
 
-    "openai-key":: "${OPENAI_KEY}",
+    with:: function(key, value)
+        self + {
+            ["openai-" + key]:: value,
+        },
+
     "openai-max-output-tokens":: 4096,
     "openai-temperature":: 0.0,
     "openai-model":: "GPT-3.5-Turbo",
@@ -14,22 +18,24 @@ local prompts = import "prompts/mixtral.jsonnet";
     
         create:: function(engine)
 
+            local envSecrets = engine.envSecrets("openai-credentials")
+                .with_env_var("OPENAI_TOKEN", "openai-token");
+
             local container =
                 engine.container("text-completion")
-                    .with_image(images.trustgraph)
+                    .with_image(images.trustgraph_flow)
                     .with_command([
                         "text-completion-openai",
                         "-p",
                         url.pulsar,
-                        "-k",
-                        $["openai-key"],
                         "-x",
                         std.toString($["openai-max-output-tokens"]),
                         "-t",
-                        std.toString($["openai-temperature"]),
+                        "%0.3f" % $["openai-temperature"],
                         "-m",
                         $["openai-model"],
                     ])
+                    .with_env_var_secrets(envSecrets)
                     .with_limits("0.5", "128M")
                     .with_reservations("0.1", "128M");
 
@@ -42,54 +48,12 @@ local prompts = import "prompts/mixtral.jsonnet";
                 .with_port(8080, 8080, "metrics");
 
             engine.resources([
+                envSecrets,
                 containerSet,
                 service,
             ])
 
     },
-
-    "text-completion-rag" +: {
-    
-        create:: function(engine)
-
-            local container =
-                engine.container("text-completion-rag")
-                    .with_image(images.trustgraph)
-                    .with_command([
-                        "text-completion-openai",
-                        "-p",
-                        url.pulsar,
-                        "-k",
-                        $["openai-key"],
-                        "-x",
-                        std.toString($["openai-max-output-tokens"]),
-                        "-t",
-                        std.toString($["openai-temperature"]),
-                        "-m",
-                        $["openai-model"],
-                        "-i",
-                        "non-persistent://tg/request/text-completion-rag",
-                        "-o",
-                        "non-persistent://tg/response/text-completion-rag-response",
-                    ])
-                    .with_limits("0.5", "128M")
-                    .with_reservations("0.1", "128M");
-
-            local containerSet = engine.containers(
-                "text-completion-rag", [ container ]
-            );
-
-            local service =
-                engine.internalService(containerSet)
-                .with_port(8080, 8080, "metrics");
-
-            engine.resources([
-                containerSet,
-                service,
-            ])
-
-
-    }
 
 } + prompts
 

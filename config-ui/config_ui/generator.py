@@ -8,17 +8,24 @@ import logging
 logger = logging.getLogger("generator")
 logger.setLevel(logging.INFO)
 
+private_json = "Put your GCP private.json here"
+
 class Generator:
 
     def __init__(
-            self, config, base=None, resources=None,
+            self, config, templates=None, resources=None,
             version="0.0.0"
     ):
 
-        if base:
-            self.base = base
+        if templates:
+            self.templates = templates
         else:
-            self.base = pathlib.Path("templates")
+            self.templates = pathlib.Path("templates")
+
+        if resources:
+            self.resources = resources
+        else:
+            self.resources = pathlib.Path("resources")
 
         self.config = config
         self.version = f"\"{version}\"".encode("utf-8")
@@ -33,28 +40,29 @@ class Generator:
         logger.debug("Request jsonnet: %s %s", dir, filename)
 
         if filename == "config.json" and dir == "":
-            path = self.base.joinpath(dir, filename)
+            path = self.templates.joinpath(dir, filename)
             return str(path), self.config
         
         if filename == "version.jsonnet":
-            path = self.base.joinpath(dir, filename)
+            path = self.templates.joinpath(dir, filename)
             return str(path), self.version
 
         if dir:
             candidates = [
-                self.base.joinpath(dir, filename),
-                self.base.joinpath(filename)
+                self.templates.joinpath(dir, filename),
+                self.templates.joinpath(filename),
+                self.resources.joinpath(dir, filename),
+                self.resources.joinpath(filename),
             ]
         else:
             candidates = [
-                self.base.joinpath(filename)
+                self.templates.joinpath(filename)
             ]
 
         try:
 
             if filename == "vertexai/private.json":
-
-                return candidates[0], private_json.encode("utf-8")
+                return str(candidates[0]), (private_json.encode("utf-8"))
 
             for c in candidates:
                 logger.debug("Try: %s", c)
@@ -70,7 +78,7 @@ class Generator:
                 
         except:
 
-            path = os.path.join(self.base, filename)
+            path = os.path.join(self.templates, filename)
             logger.debug("Try: %s", path)
             with open(path, "rb") as f:
                 logger.debug("Loaded: %s", path)

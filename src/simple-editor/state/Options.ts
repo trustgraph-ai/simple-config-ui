@@ -1,12 +1,17 @@
 
 import { create } from 'zustand'
 
-export const DEFINITIONS_PROMPT = "definitions-prompt";
-export const RELATIONSHIPS_PROMPT = "relationships-prompt";
-export const TOPICS_PROMPT = "topics-prompt";
-export const KNOWLEDGE_QUERY_PROMPT = "knowledge-query-prompt";
-export const DOCUMENT_QUERY_PROMPT = "document-query-prompt";
-export const ROWS_PROMPT = "rows-prompt";
+export const CONFIGURE_PROMPTS = "configure-prompts";
+
+export const CONFIGURE_AGENTS = "configure-agents";
+
+export const CONFIGURE_WORKBENCH = "configure-workbench";
+
+export const CONFIGURE_DOCUMENT_RAG = "configure-document-rag";
+
+export const CONFIGURE_OCR = "configure-ocr";
+
+export const CONFIGURE_EMBEDDINGS = "configure-embeddings";
 
 export interface Options {
 
@@ -17,7 +22,7 @@ export interface Options {
 export const useOptionsStore = create<Options>()(
     (set) => ({
 
-        options: new Set<string>(""),
+        options: new Set<string>([CONFIGURE_WORKBENCH]),
 
         setOptions: (v) => set(() => ({
 	    options: v

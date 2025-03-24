@@ -6,9 +6,11 @@ local chunker = import "chunker-recursive.jsonnet";
 
 {
 
-    "aws-id-key":: "${AWS_ID_KEY}",
-    "aws-secret-key":: "${AWS_SECRET_KEY}",
-    "aws-region":: "us-west-2",
+    with:: function(key, value)
+        self + {
+            ["bedrock-" + key]:: value,
+        },
+
     "bedrock-max-output-tokens":: 4096,
     "bedrock-temperature":: 0.0,
     "bedrock-model":: "mistral.mixtral-8x7b-instruct-v0:1",
@@ -17,26 +19,26 @@ local chunker = import "chunker-recursive.jsonnet";
     
         create:: function(engine)
 
+            local envSecrets = engine.envSecrets("bedrock-credentials")
+                .with_env_var("AWS_ACCESS_KEY_ID", "aws-id-key")
+                .with_env_var("AWS_SECRET_ACCESS_KEY", "aws-secret")
+                .with_env_var("AWS_DEFAULT_REGION", "aws-region");
+
             local container =
                 engine.container("text-completion")
-                    .with_image(images.trustgraph)
+                    .with_image(images.trustgraph_bedrock)
                     .with_command([
                         "text-completion-bedrock",
                         "-p",
                         url.pulsar,
-                        "-z",
-                        $["aws-id-key"],
-                        "-k",
-                        $["aws-secret-key"],
-                        "-r",
-                        $["aws-region"],
                         "-x",
                         std.toString($["bedrock-max-output-tokens"]),
                         "-t",
-                        std.toString($["bedrock-temperature"]),
+                        "%0.3f" % $["bedrock-temperature"],
                         "-m",
                         $["bedrock-model"],
               	    ])
+                    .with_env_var_secrets(envSecrets)
                     .with_limits("0.5", "128M")
                     .with_reservations("0.1", "128M");
 
@@ -49,58 +51,12 @@ local chunker = import "chunker-recursive.jsonnet";
                 .with_port(8000, 8000, "metrics");
 
             engine.resources([
+                envSecrets,
                 containerSet,
                 service,
             ])
 
     },
-
-    "text-completion-rag" +: {
-    
-        create:: function(engine)
-
-            local container =
-                engine.container("text-completion-rag")
-                    .with_image(images.trustgraph)
-                    .with_command([
-                        "text-completion-bedrock",
-                        "-p",
-                        url.pulsar,
-                        "-z",
-                        $["aws-id-key"],
-                        "-k",
-                        $["aws-secret-key"],
-                        "-r",
-                        $["aws-region"],
-                        "-x",
-                        std.toString($["bedrock-max-output-tokens"]),
-                        "-t",
-                        std.toString($["bedrock-temperature"]),
-                        "-m",
-                        $["bedrock-model"],
-                        "-i",
-                        "non-persistent://tg/request/text-completion-rag",
-                        "-o",
-                        "non-persistent://tg/response/text-completion-rag-response",
-              	    ])
-                    .with_limits("0.5", "128M")
-                    .with_reservations("0.1", "128M");
-
-            local containerSet = engine.containers(
-                "text-completion-rag", [ container ]
-            );
-
-            local service =
-                engine.internalService(containerSet)
-                .with_port(8000, 8000, "metrics");
-
-            engine.resources([
-                containerSet,
-                service,
-            ])
-
-
-    }
 
 } + prompts + chunker
 

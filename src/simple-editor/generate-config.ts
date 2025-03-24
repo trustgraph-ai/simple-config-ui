@@ -1,116 +1,206 @@
 
-import { ModelParams } from './state/ModelParams';
+import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Prompts } from './state/Prompts';
+import { Agents } from './state/Agents';
 import {
-    Options, DEFINITIONS_PROMPT, RELATIONSHIPS_PROMPT, TOPICS_PROMPT,
-    KNOWLEDGE_QUERY_PROMPT, DOCUMENT_QUERY_PROMPT, ROWS_PROMPT,
+    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
+    CONFIGURE_DOCUMENT_RAG, CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
+
+const modelConfig = (m : ModelParams) => {
+    return {
+        temperature: m.temperature,
+        "max-output-tokens": m.maxOutputTokens,
+        model: m.modelName,
+    };
+}
 
 export const generateConfig =
 (
-    params : ModelParams, prompts : Prompts, options : Options,
+    config : ConfigurationState,
+    prompts : Prompts,
+    agents : Agents,
+    options : Options,
 ) => {
 
-    const depl = params.modelDeployment;
-    
-    let config =
-      [
-          {
-              "name": params.graphStore,
-              "parameters": {}
-          },
-          {
-              "name": "pulsar",
-              "parameters": {}
-          },
-          {
-              "name": params.vectorDB,
-              "parameters": {}
-          },
-          {
-              "name": "embeddings-hf",
-              "parameters": {}
-          },
-          {
-              "name": "graph-rag",
-              "parameters": {}
-          },
-          {
-              "name": "grafana",
-              "parameters": {}
-          },
-          {
-              "name": "trustgraph",
-              "parameters": {}
-          },
-          {
-              "name": depl,
-              "parameters": {}
-          },
-          {
-              "name": "prompt-template",
-              "parameters": {}
-          },
-      ];
+    let components = [
+        {
+            "name": "triple-store-" + config.graphStore,
+            "parameters": {}
+        },
+        {
+            "name": "pulsar",
+            "parameters": {}
+        },
+        {
+            "name": "vector-store-" + config.vectorDB,
+            "parameters": {}
+        },
+        {
+            "name": "graph-rag",
+            "parameters": {}
+        },
+        {
+            "name": "grafana",
+            "parameters": {}
+        },
+        {
+            "name": "trustgraph-base",
+            "parameters": {}
+        },
+        {
+            "name": "prompt-template",
+            "parameters": {}
+        },
+    ];
 
-      // Will collate some various parameters to apply to the config.
-      // These get put into the 'null' pattern.
+    // Will collate some various parameters to apply to the config.
+    // These get put into the 'null' pattern.
 
-      if (params.chunkerType == "chunker-recursive") {
-          config.push({
-              "name": "override-recursive-chunker",
-              "parameters": {}
-          });
-      }
+    if (config.chunkerType == "chunker-recursive") {
+        components.push({
+            "name": "override-recursive-chunker",
+            "parameters": {}
+        });
+    }
 
-      let parameters : { [k : string] : string | number } = {};
+    if (options.options.has(CONFIGURE_EMBEDDINGS)) {
 
-      parameters["chunk-size"] = params.chunkSize;
-      parameters["chunk-overlap"] = params.chunkOverlap;
-      parameters[depl + "-temperature"] = params.temperature;
-      parameters[depl + "-max-output-tokens"] = params.maxOutputTokens;
-      parameters[depl + "-model"] =  params.modelName;
+        if (config.embeddingsEngine == "fastembed") 
+            components.push({
+                "name": "embeddings-fastembed",
+                "parameters": {
+                    "embeddings-model": config.embeddingsModel,
+                }
+            });
+        else
+            components.push({
+                "name": "embeddings-hf",
+                "parameters": {
+                    "embeddings-model": config.embeddingsModel,
+                }
+            });
+          
+    } else {
+        components.push({
+            "name": "embeddings-fastembed",
+            "parameters": {
+                "embeddings-model": "sentence-transformers/all-MiniLM-L6-v2",
+            }
+        });
+    }
 
-      if (options.options.has(DEFINITIONS_PROMPT)) {
-          parameters["prompt-definition-template"] = prompts.definitions;
-      }
+    if (options.options.has(CONFIGURE_OCR)) {
 
-      if (options.options.has(RELATIONSHIPS_PROMPT)) {
-          parameters["prompt-relationship-template"] = prompts.relationships;;
-      }
+        if (config.ocrEngine == "pdf-ocr") 
+            components.push({
+                "name": "ocr",
+                "parameters": {
+                }
+            });
+        else if (config.ocrEngine == "pdf-ocr-mistral") 
+            components.push({
+                "name": "ocr-mistral",
+                "parameters": {
+                }
+            });
 
-      if (options.options.has(TOPICS_PROMPT)) {
-          parameters["prompt-topic-template"] = prompts.topics;
-      }
+    }
 
-      if (options.options.has(KNOWLEDGE_QUERY_PROMPT)) {
-          parameters["prompt-knowledge-query-template"] = prompts.knowledgeQuery;
-      }
+    components.push({
+        name: config.mainModel.deployment,
+        parameters: modelConfig(config.mainModel)
+    });
 
-      if (options.options.has(DOCUMENT_QUERY_PROMPT)) {
-          parameters["prompt-document-query-template"] = prompts.documentQuery;
-      }
+    if (config.dualModelMode) {
+        components.push({
+            name: config.ragModel.deployment + "-rag",
+            parameters: modelConfig(config.ragModel)
+        });
+    } else {
+        components.push({
+            name: config.mainModel.deployment + "-rag",
+            parameters: modelConfig(config.mainModel)
+        });
+    }
 
-      if (options.options.has(ROWS_PROMPT)) {
-          parameters["prompt-rows-template"] = prompts.rows;
-      }
+    let parameters : { [k : string] : string | number } = {};
 
-      if (params.chunkerType == "chunker-recursive") {
-          config.push({
-              "name": "null",
-              "parameters": parameters,
-          });
-      }
+    parameters["chunk-size"] = config.chunkSize;
+    parameters["chunk-overlap"] = config.chunkOverlap;
 
-      const cnf = JSON.stringify(config, null, 4)
+    if (options.options.has(CONFIGURE_PROMPTS)) {
 
-      return fetch(
-          "/api/generate", {
-              body: cnf,
-              method: "POST",
-              headers: {
-              }
-           }
-      );
+        let promptParams = prompts.prompts.reduce(
+            (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
+        );
+  
+        components.push({
+            "name": "prompt-overrides",
+            "parameters": promptParams,
+        });
+          
+    }
+
+    if (options.options.has(CONFIGURE_AGENTS)) {
+
+        let toolParams = agents.tools;
+  
+        components.push({
+            "name": "agent-manager-react",
+            "parameters": {
+                "tools": toolParams
+            },
+        });
+          
+    } else {
+
+        components.push({
+            "name": "agent-manager-react",
+            "parameters": {
+            },
+        });
+
+    }
+
+    if (options.options.has(CONFIGURE_WORKBENCH)) {
+
+        components.push({
+            "name": "workbench-ui",
+            "parameters": {
+            },
+        });
+
+    }
+
+    if (options.options.has(CONFIGURE_DOCUMENT_RAG)) {
+
+        components.push({
+            "name": "document-rag",
+            "parameters": {
+            },
+        });
+
+    }
+
+    components.push({
+        "name": "null",
+        "parameters": parameters,
+    });
+
+    const componentsEnc = JSON.stringify(components, null, 4)
+
+    const platform = config.platform;
+    const version = config.trustgraphVersion;
+
+    return fetch(
+        "/api/generate/" + platform + "/" + version, {
+            body: componentsEnc,
+            method: "POST",
+            headers: {
+            }
+         }
+    );
 
 };
+

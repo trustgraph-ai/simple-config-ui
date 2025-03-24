@@ -12,7 +12,7 @@ cassandra + {
 
             local container =
                 engine.container("store-triples")
-                    .with_image(images.trustgraph)
+                    .with_image(images.trustgraph_flow)
                     .with_command([
                         "triples-write-cassandra",
                         "-p",
@@ -24,7 +24,7 @@ cassandra + {
                     .with_reservations("0.1", "128M");
 
             local containerSet = engine.containers(
-                "stop-triples", [ container ]
+                "store-triples", [ container ]
             );
 
             local service =
@@ -44,7 +44,7 @@ cassandra + {
 
             local container =
                 engine.container("query-triples")
-                    .with_image(images.trustgraph)
+                    .with_image(images.trustgraph_flow)
                     .with_command([
                         "triples-query-cassandra",
                         "-p",
