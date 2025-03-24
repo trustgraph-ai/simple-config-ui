@@ -25,28 +25,43 @@ const ConfigureEmbeddings = ({
 
 const value = "BAAI/bge-small-en-v1.5";
 const readOnly = false;
-  const [selectedValue, setSelectedValue] = React.useState('pdf-decode');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
 
     const embeddingsEngine = useConfigurationStateStore(
         (state) => state.embeddingsEngine
+    );
+        
+    const embeddingsModel = useConfigurationStateStore(
+        (state) => state.embeddingsModel
     );
         
     const setEmbeddingsEngine = useConfigurationStateStore(
         (state) => state.setEmbeddingsEngine
     );
 
+    const setEmbeddingsModel = useConfigurationStateStore(
+        (state) => state.setEmbeddingsModel
+    );
+
     if ((embeddingsEngine != "fastembed") && 
-        (embeddingsEngine != "huggingface"))
+        (embeddingsEngine != "huggingface")) {
         setEmbeddingsEngine("fastembed");
+    }
 
     let availModels : ModelDescriptor[] = [];
 
-    if (embeddingsEngine in models)
+    if (embeddingsEngine in models) {
+
         availModels = models[embeddingsEngine];
+        const availModelIds = availModels.map(m => m.id);
+
+        if (!(availModelIds.includes(embeddingsModel))) {
+
+            if (availModelIds.length > 0) {
+                setEmbeddingsModel(availModels[0].id);
+            }
+        }
+
+    }
 
     return (<>
 
@@ -70,7 +85,7 @@ const readOnly = false;
                         alignItems="flex-start"
                     >
                         <Radio
-                          checked={selectedValue === 'fastembed'}
+                          checked={embeddingsEngine === 'fastembed'}
                           onChange={x => setEmbeddingsEngine(x.target.value)}
                           value="fastembed"
                           name="radio-buttons"
@@ -81,8 +96,8 @@ const readOnly = false;
                         FastEmbed is a lightweight, fast, Python
                         library built for embedding generation, supporting
                         the popular text models.  Fastembed has a small
-                        set of dependencies, resulting in a rapid component
-                        start time.
+                        set of dependencies, resulting in a small container
+                        image size and quick component start time.
                     </Grid>
 
                     <Grid
@@ -91,7 +106,7 @@ const readOnly = false;
                         alignItems="flex-start"
                     >
                         <Radio
-                          checked={selectedValue === 'huggingface'}
+                          checked={embeddingsEngine === 'huggingface'}
                           onChange={x => setEmbeddingsEngine(x.target.value)}
                           value="huggingface"
                           name="radio-buttons"
@@ -102,36 +117,51 @@ const readOnly = false;
                         HuggingFace sentence-transformers ships a component
                         with support for a large number of open / community
                         models.  Use this component to deploy non-standard
-                        models.
+                        models.  Includes the PyTorch library, and other
+                        large dependencies so has a large container
+                        image size and longer component start time.
                     </Grid>
 
                 </Grid>
-{ /*
-                <FormControl fullWidth>
+
+                <Typography variant="h6" component="h3" gutterBottom>
+                    Embeddings model
+                </Typography>
+
+                <FormControl sx={{maxWidth: "50"}}>
 
                     <InputLabel id="model-name-label">Model</InputLabel>
-                <Select
-                    labelId="model-name-label"
-                    id="model-name-select"
-                    value={value}
-                    label="Model"
-                    onChange={(e) => onChange(e.target.value)}
-                    inputProps={{ readOnly: readOnly }}
-                >
-                    {
-                        availModels.map(
-                            (md) => (
-                                <MenuItem key={md.id}
-                                    value={md.id}>
-                                    {md.description}
-                                </MenuItem>
+
+                    <Select
+                        labelId="model-name-label"
+                        id="model-name-select"
+                        value={embeddingsModel}
+                        label="Model"
+                        onChange={(e) => setEmbeddingsModel(e.target.value)}
+                        inputProps={{ readOnly: readOnly }}
+                        sx={{minHeight: 120}}
+                    >
+                        {
+                            availModels.map(
+                                (md) => (
+                                    <MenuItem key={md.id}
+                                        value={md.id}>
+                                        <Box sx={{
+                                        }}>
+                                            <Typography variant="body2"
+                                                sx={{ whiteSpace: 'wrap' }}
+                                            >
+                                                {md.description}
+                                            </Typography>
+                                        </Box>
+                                    </MenuItem>
+                                )
                             )
-                        )
-                    }
+                        }
                     </Select>
 
                 </FormControl>
-*/ }
+
             </Box>
             
         </Stack>
