@@ -150,10 +150,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configurePrompts}
                     onChange={onConfigurePrompts}
-                    title="Data Extraction Prompts"
+                    title="LLM Prompt Manager"
                 >
                     Tailor the LLM system prompts, data extraction prompts,
-                    and RAG query prompts.
+                    RAG query prompts, and the Agent Tool Router.
                 </Option>
 
                 <Option
@@ -168,10 +168,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    title="Demo Workbench"
+                    title="Test Suite"
                 >
                     A UI providing tools to explore TrustGraph system
-                    performance.  Once launched, accessible on port 8888.
+                    performance. Once launched, accessible on port 8888.
                 </Option>
 
                 <Option
@@ -187,7 +187,7 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureOcr}
                     onChange={onConfigureOcr}
-                    title="OCR pipelines"
+                    title="OCR Pipelines"
                 >
                     Options for replacing the standard PDF decoding with an
                     Optical Character Recognition (OCR) processor to allow
@@ -197,7 +197,7 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureEmbeddings}
                     onChange={onConfigureEmbeddings}
-                    title="Embedding configuration"
+                    title="Embeddings Configuration"
                 >
                     Options for configuration the embeddings engine.
                 </Option>
