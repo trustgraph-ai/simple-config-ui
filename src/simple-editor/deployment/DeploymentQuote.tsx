@@ -1,28 +1,43 @@
 
-import React from 'react'
-
-import { Typography } from '@mui/material';
+import React from 'react';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 
 interface DeploymentQuoteProps extends React.PropsWithChildren {
-    children : React.ReactNode;
+    children: React.ReactNode;
 };
 
-const DeploymentQuote : React.FC<DeploymentQuoteProps> =
-({children}) => {
+const StyledPaper = styled(Paper)(({ theme }) => ({
+
+    // Deep grey background for dark theme
+    backgroundColor: theme.palette.grey[900], 
+
+    padding: theme.spacing(1), // Add some padding inside the paper
+
+    margin: theme.spacing(2), // Add some padding inside the paper
+
+    borderRadius: theme.shape.borderRadius, // Use theme's border radius
+
+    overflowX: 'auto', // Allow horizontal scrolling for long code blocks
+    
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+    color: theme.palette.grey[100], // Light grey color for code text
+    whiteSpace: 'pre-wrap',     // Allow line breaks within the pre tag
+    wordBreak: 'break-word',
+}));
+
+const DeploymentQuote: React.FC<DeploymentQuoteProps> = ({ children }) => {
     return (
-        <Typography
-            variant="body2"
-            sx={{
-                backgroundColor: '#f9fcff',
-                p: '1rem',
-                m: '1rem',
-                border: '1px solid #e0e0e0',
-            }}
-        >
+        <StyledPaper elevation={3}> 
+            <StyledTypography variant="body2">
             {children}
-        </Typography>
+            </StyledTypography>
+        </StyledPaper>
     );
-}
+};
 
 export default DeploymentQuote;
 

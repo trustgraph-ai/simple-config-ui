@@ -3,7 +3,8 @@ import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
-    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG,
+    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG, CONFIGURE_OCR,
+    CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 
 interface OptionProps extends React.PropsWithChildren {
@@ -68,8 +69,8 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) => {
     return (
         <StyledOption selected={enabled}>
-             <StyledOptionTitle  variant="h6">
-               <Typography variant="h6" component="h3">
+             <StyledOptionTitle>
+               <Typography variant="h6" component="span">
                      {title}
                  </Typography>
                 <StyledSwitch checked={enabled} onChange={onChange} inputProps={{ 'aria-label': 'controlled' }} />
@@ -77,7 +78,6 @@ const Option: React.FC<OptionProps> = ({ enabled, onChange, title, children }) =
             <StyledOptionDescription variant="body2">
                 {children}
             </StyledOptionDescription>
-
         </StyledOption>
     );
 };
@@ -96,6 +96,8 @@ const ParamsForm: React.FC = () => {
     const configureAgents = options.has(CONFIGURE_AGENTS);
     const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
     const configureDocumentRag = options.has(CONFIGURE_DOCUMENT_RAG);
+    const configureOcr = options.has(CONFIGURE_OCR);
+    const configureEmbeddings = options.has(CONFIGURE_EMBEDDINGS);
 
     const set = (o: string, value: boolean) => {
         if (value) {
@@ -127,6 +129,16 @@ const ParamsForm: React.FC = () => {
             set(CONFIGURE_DOCUMENT_RAG, event.target.checked);
         };
 
+    const onConfigureOcr =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_OCR, event.target.checked);
+        };
+
+    const onConfigureEmbeddings =
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            set(CONFIGURE_EMBEDDINGS, event.target.checked);
+        };
+
     return (
         <>
             <Stack
@@ -138,10 +150,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configurePrompts}
                     onChange={onConfigurePrompts}
-                    title="Data Extraction Prompts"
+                    title="LLM Prompt Manager"
                 >
                     Tailor the LLM system prompts, data extraction prompts,
-                    and RAG query prompts.
+                    RAG query prompts, and the Agent Tool Router.
                 </Option>
 
                 <Option
@@ -156,10 +168,10 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    title="Data Workbench"
+                    title="Test Suite"
                 >
-                    A UI providing tools to explore extracted
-                    data. Once launched, accessible on port 8888.
+                    A UI providing tools to explore TrustGraph system
+                    performance. Once launched, accessible on port 8888.
                 </Option>
 
                 <Option
@@ -167,10 +179,27 @@ const ParamsForm: React.FC = () => {
                     onChange={onConfigureDocumentRag}
                     title="Document RAG"
                 >
-                    Enables pipelines for Document RAG aka RAG.  This
-                    is typically an inferior experience to GraphRAG
-                    and is made available for comparison purposes.
-                    You don't need this.
+                    Enables pipelines for Document RAG aka Vector RAG. This
+                    is typically an inferior experience to Graph RAG
+                    and is made available for comparison testing purposes.
+                </Option>
+
+                <Option
+                    enabled={configureOcr}
+                    onChange={onConfigureOcr}
+                    title="OCR Pipelines"
+                >
+                    Options for replacing the standard PDF decoding with an
+                    Optical Character Recognition (OCR) processor to allow
+                    handling PDF documents containing scans/images.
+                </Option>
+
+                <Option
+                    enabled={configureEmbeddings}
+                    onChange={onConfigureEmbeddings}
+                    title="Embeddings Configuration"
+                >
+                    Options for configuration the embeddings engine.
                 </Option>
 
             </Stack>
@@ -179,3 +208,4 @@ const ParamsForm: React.FC = () => {
 };
 
 export default ParamsForm;
+
