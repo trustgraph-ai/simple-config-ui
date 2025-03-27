@@ -161,7 +161,9 @@ class Api:
                 return await self.generate_docker_compose(
                     "docker-compose", version, config
                 )
-            elif platform in set(["minikube-k8s", "gcp-k8s"]):
+            elif platform in set([
+                    "minikube-k8s", "gcp-k8s", "eks-k8s", "aks-k8s",
+            ]):
                 return await self.generate_k8s(
                     platform, version, config
                 )
