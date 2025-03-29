@@ -1,4 +1,6 @@
+
 import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,10 +16,9 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
-import AppTheme from './theme/AppTheme';
-import ColorModeSelect from './theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 
+import { signin } from './auth';
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -27,7 +28,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   gap: theme.spacing(2),
   margin: 'auto',
   [theme.breakpoints.up('sm')]: {
-    maxWidth: '450px',
+    width: '450px',
   },
   boxShadow:
     'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
@@ -76,15 +77,15 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (emailError || passwordError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    signin(data.get("email"), data.get("password")).then(
+        () => console.log("Signin succesful")
+    );
   };
 
   const validateInputs = () => {
@@ -115,10 +116,9 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   };
 
   return (
-    <AppTheme {...props}>
+      <>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           <SitemarkIcon />
           <Typography
@@ -227,6 +227,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </SignInContainer>
-    </AppTheme>
+      </>
   );
 }
