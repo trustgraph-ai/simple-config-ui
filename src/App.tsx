@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import SimpleEditor from './simple-editor/SimpleEditor';
+import SignIn from './SignIn';
 import './App.scss';
 import {
     onAuthStateChange, signin, register as authRegister, logout
@@ -19,7 +20,6 @@ const App = () => {
 
     useEffect(
        () => {
-
             onAuthStateChange(
                 (state, auth) => {
                    console.log("AUTHSTATE", state);
@@ -30,12 +30,9 @@ const App = () => {
     );
 
     const submit = () => {
-
-        console.log("SUBMIT");
         signin(username, password).then(
             () => console.log("SIGNIN WORKED")
         );
-
     }
 
     const register = () => {
@@ -49,35 +46,7 @@ const App = () => {
        <>
 
        {
-           authState == "not-authenticated" && ( <>
-
-               <div>
-                   Username:
-                   <input
-                       value={username}
-                       onChange={(e) => setUsername(e.target.value)}/>
-               </div>
-               <div>
-                   Password:
-                   <input
-                       value={password}
-                       onChange={(e) => setPassword(e.target.value)}/>
-               </div>
-               <div>
-                    <button onClick={() => submit()}>Submit</button>
-               </div>
-               <div>
-                    <button onClick={() => register()}>Register</button>
-               </div>
-               <div>
-                    <button onClick={() => logout()}>Signout</button>
-               </div>
-
-               <div>
-                   Authstate: {authState}
-               </div>
-
-           </> )
+           authState == "not-authenticated" && <SignIn/>
        }
 
        {
@@ -89,10 +58,6 @@ const App = () => {
        {
            authState == "authenticated" && <SimpleEditor/>
        }
-
-               <div>
-                   Authstate: {authState}
-               </div>
 
        </>
 
