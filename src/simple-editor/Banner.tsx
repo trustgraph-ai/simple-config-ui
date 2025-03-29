@@ -1,9 +1,14 @@
 
 import React from 'react';
+import  { logout as authLogout } from '../auth';
 
-import { Typography, Box, Stack } from '@mui/material';
+import { Typography, Box, Stack, Button } from '@mui/material';
 
 const Banner: React.FC = () => {
+
+    const logout = () => {
+        authLogout().then(() => console.log("Logged out"));
+    }
 
     return (
 
@@ -20,6 +25,11 @@ const Banner: React.FC = () => {
                 <Typography variant="h4" component="h1">
                     Configuration Builder
                 </Typography>
+                <Box sx={{flexGrow: 10}}>
+                </Box>
+                <Box>
+                    <Button onClick={() => logout()}>Logout</Button>
+                </Box>
         </Stack>
     );
 
