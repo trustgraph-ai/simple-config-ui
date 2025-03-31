@@ -51,43 +51,47 @@ export const ForgotPassword : ForgotPasswordProps = ({
                 },
             }}
         >
-          <DialogTitle>Reset password</DialogTitle>
-          <DialogContent
-              sx={{
-                  display: 'flex', flexDirection: 'column', gap: 2,
-                  width: '100%'
-              }}
-          >
-              <DialogContentText>
-                  Enter your account&apos;s email address, and we&apos;ll
-                  send you a link to reset your password.
-              </DialogContentText>
+            <DialogTitle>Reset password</DialogTitle>
+            <DialogContent
+                sx={{
+                    display: 'flex', flexDirection: 'column', gap: 2,
+                    width: '100%'
+                }}
+            >
 
+                <DialogContentText>
+                    Enter your account&apos;s email address, and we&apos;ll
+                    send you a link to reset your password.
+                </DialogContentText>
 
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-              />
-            </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <TextField
+                        error={emailError}
+                        helperText={emailErrorMessage}
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        placeholder="your@email.com"
+                        autoComplete="email"
+                        autoFocus
+                        required
+                        fullWidth
+                        variant="outlined"
+                    />
+                </FormControl>
 
-          </DialogContent>
-          <DialogActions sx={{ pb: 3, px: 3 }}>
-              <Button onClick={close}>Cancel</Button>
-              <Button variant="contained" type="submit">
-                  Continue
-              </Button>
+            </DialogContent>
+
+            <DialogActions sx={{ pb: 3, px: 3 }}>
+
+                <Button onClick={close}>Cancel</Button>
+
+                <Button variant="contained" type="submit">
+                    Continue
+                </Button>
+
             </DialogActions>
         </Dialog>
     );

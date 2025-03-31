@@ -35,33 +35,34 @@ export const Register : RegisterProps = ({
 
     const validateInputs = () => {
 
-      let isValid = true;
+        let isValid = true;
 
-      if (!email || !/\S+@\S+\.\S+/.test(email)) {
-        setEmailError(true);
-        setEmailErrorMessage('Please enter a valid email address.');
-        isValid = false;
-      } else {
-        setEmailError(false);
-        setEmailErrorMessage('');
-      }
+        if (!email || !/\S+@\S+\.\S+/.test(email)) {
+            setEmailError(true);
+            setEmailErrorMessage('Please enter a valid email address.');
+            isValid = false;
+        } else {
+            setEmailError(false);
+            setEmailErrorMessage('');
+        }
 
-      if (password.length < 6) {
-          setPasswordError(true);
-          setPasswordErrorMessage(
-              'Password must be at least 6 characters long.'
-          );
-          isValid = false;
-      } else if (password != password2) {
-          setPasswordError(true);
-          setPasswordErrorMessage('Passwords must match.');
-          isValid = false;
-      } else {
-          setPasswordError(false);
-          setPasswordErrorMessage('');
-      }
+        if (password.length < 6) {
+            setPasswordError(true);
+            setPasswordErrorMessage(
+                'Password must be at least 6 characters long.'
+            );
+            isValid = false;
+        } else if (password != password2) {
+            setPasswordError(true);
+            setPasswordErrorMessage('Passwords must match.');
+            isValid = false;
+        } else {
+            setPasswordError(false);
+            setPasswordErrorMessage('');
+        }
 
-      return isValid;
+        return isValid;
+
     };
 
     const register = () => {
@@ -92,102 +93,104 @@ export const Register : RegisterProps = ({
             }}
         >
 
-          <DialogTitle>Register new account</DialogTitle>
+            <DialogTitle>Register new account</DialogTitle>
 
-          <DialogContent
-              sx={{
-                  display: 'flex', flexDirection: 'column', gap: 2,
-                  width: '100%'
-              }}
-          >
-              <DialogContentText>
-                  Enter your email address, and create a password to get
-                  started.
-              </DialogContentText>
+            <DialogContent
+                sx={{
+                    display: 'flex', flexDirection: 'column', gap: 2,
+                    width: '100%'
+                }}
+            >
+                <DialogContentText>
+                    Enter your email address, and create a password to get
+                    started.
+                </DialogContentText>
 
-            <FormControl>
-              <FormLabel htmlFor="email">Name</FormLabel>
-              <TextField
-                helperText="Enter your name (optional)"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Fred Bloggs"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-              />
-            </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="email">Name</FormLabel>
+                    <TextField
+                        helperText="Enter your name (optional)"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Fred Bloggs"
+                        autoFocus
+                        required
+                        fullWidth
+                        variant="outlined"
+                    />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={emailError ? 'error' : 'primary'}
-              />
-            </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <TextField
+                        error={emailError}
+                        helperText={emailErrorMessage}
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        name="email"
+                        placeholder="your@email.com"
+                        autoComplete="email"
+                        autoFocus
+                        required
+                        fullWidth
+                        variant="outlined"
+                        color={emailError ? 'error' : 'primary'}
+                    />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                name="password"
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <TextField
+                        error={passwordError}
+                        helperText={passwordErrorMessage}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        placeholder="••••••"
+                        type="password"
+                        id="password"
+                        autoFocus
+                        required
+                        fullWidth
+                        variant="outlined"
+                        color={passwordError ? 'error' : 'primary'}
+                    />
+                </FormControl>
 
-            <FormControl>
-              <FormLabel htmlFor="password2">Re-enter password</FormLabel>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                value={password2}
-                onChange={(e) => setPassword2(e.target.value)}
-                placeholder="••••••"
-                type="password"
-                id="password2"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="password2">Re-enter password</FormLabel>
+                  <TextField
+                    error={passwordError}
+                    helperText={passwordErrorMessage}
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
+                    placeholder="••••••"
+                    type="password"
+                    id="password2"
+                    autoFocus
+                    required
+                    fullWidth
+                    variant="outlined"
+                    color={passwordError ? 'error' : 'primary'}
+                  />
+                </FormControl>
 
-          </DialogContent>
-          <DialogActions sx={{ pb: 3, px: 3 }}>
-              <Button onClick={close}>Cancel</Button>
-              <Button
-                  variant="contained"
-                  type="submit"
-                  onClick={validateInputs}
-              >
-                  Register
-              </Button>
+            </DialogContent>
+
+            <DialogActions sx={{ pb: 3, px: 3 }}>
+                <Button onClick={close}>Cancel</Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    onClick={validateInputs}
+                >
+                    Register
+                </Button>
             </DialogActions>
+
         </Dialog>
     );
 

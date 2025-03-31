@@ -90,7 +90,7 @@ const VerifyEmail = (props: { disableCustomTheme?: boolean }) => {
     const [password, setPassword] = React.useState("");
 
     const openForgotPassword = () => {
-      setForgotPasswordOpen(true);
+        setForgotPasswordOpen(true);
     };
 
     const closeForgotPassword = () => {
@@ -98,7 +98,7 @@ const VerifyEmail = (props: { disableCustomTheme?: boolean }) => {
     };
 
     const openRegister = () => {
-      setRegisterOpen(true);
+        setRegisterOpen(true);
     };
 
     const closeRegister = () => {
@@ -106,88 +106,89 @@ const VerifyEmail = (props: { disableCustomTheme?: boolean }) => {
     };
 
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      if (emailError || passwordError) {
-          event.preventDefault();
-          return;
-      }
-      const data = new FormData(event.currentTarget);
-      signin(email, password).then(
-          () => console.log("Signin succesful")
-      );
+        event.preventDefault();
+        if (emailError || passwordError) {
+            event.preventDefault();
+            return;
+        }
+        const data = new FormData(event.currentTarget);
+        signin(email, password).then(
+            () => console.log("Signin succesful")
+        );
     };
 
-  const validateInputs = () => {
+    const validateInputs = () => {
 
-    let isValid = true;
+      let isValid = true;
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+          setEmailError(true);
+          setEmailErrorMessage('Please enter a valid email address.');
+          isValid = false;
+      } else {
+          setEmailError(false);
+          setEmailErrorMessage('');
+      }
 
-    if (!password || password.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
+      if (!password || password.length < 6) {
+          setPasswordError(true);
+          setPasswordErrorMessage(
+              'Password must be at least 6 characters long.'
+          );
+          isValid = false;
+      } else {
+          setPasswordError(false);
+          setPasswordErrorMessage('');
+      }
 
-    return isValid;
-  };
+      return isValid;
+    };
 
-  return (
-      <>
-      <CssBaseline enableColorScheme />
-      <SignInContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+    return (<>
+        <SignInContainer direction="column" justifyContent="space-between">
+            <Card variant="outlined">
 
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-          >
-            Verify email
-          </Typography>
+                <Typography
+                    component="h1"
+                    variant="h4"
+                    sx={{
+                        width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)'
+                    }}
+                >
+                    Verify email
+                </Typography>
 
-          <Typography
-            variant="body2"
-            sx={{ width: '100%'}}
-          >
-              Responsd to the last email verification, or click
-              VERIFY EMAIL to send a new verification email.
-          </Typography>
+                <Typography
+                    variant="body2"
+                    sx={{ width: '100%'}}
+                >
+                    Responsd to the last email verification, or click
+                    VERIFY EMAIL to send a new verification email.
+                </Typography>
 
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-            }}
-          >
-            <Button
-              variant="contained"
-              onClick={verify}
-            >
-              Verify Email
-            </Button>
-            <Button
-              variant="contained"
-              onClick={logout}
-            >
-              Logout
-            </Button>
-          </Box>
-        </Card>
-      </SignInContainer>
-      </>
-  );
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        onClick={verify}
+                    >
+                        Verify Email
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={logout}
+                    >
+                        Logout
+                    </Button>
+                </Box>
+            </Card>
+        </SignInContainer>
+    </>);
 }
 
 
