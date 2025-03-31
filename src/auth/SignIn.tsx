@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -73,6 +74,8 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
     const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false);
     const [registerOpen, setRegisterOpen] = React.useState(false);
+    const [error, setError] = React.useState("");
+    const [status, setStatus] = React.useState("");
 
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -83,15 +86,25 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
 
     const closeForgotPassword = () => {
         setForgotPasswordOpen(false);
+        setStatus("");
+        setError("");
     };
 
     const openRegister = () => {
-      setRegisterOpen(true);
+        setRegisterOpen(true);
     };
 
     const closeRegister = () => {
         setRegisterOpen(false);
+        setStatus("");
+        setError("");
     };
+
+    const completeRegister = () => {
+        setRegisterOpen(false);
+        setStatus("Registration complete - check your email");
+        setError("");
+    }
 
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -102,6 +115,11 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
       const data = new FormData(event.currentTarget);
       signin(email, password).then(
           () => console.log("Signin succesful")
+      ).catch(
+          (err) => {
+              setError(err);
+              setStatus("");
+          }
       );
     };
 
@@ -216,6 +234,14 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
                 open={registerOpen}
                 close={closeRegister}
             />
+            {
+                error != "" &&
+                <Alert severity="error">{error}</Alert>
+            }
+            {
+                status != "" &&
+                <Alert severity="success">{status}</Alert>
+            }
             <Button
               type="submit"
               fullWidth

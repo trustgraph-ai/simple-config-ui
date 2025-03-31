@@ -12,7 +12,7 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
-import { register } from './auth';
+import { register as authRegister } from './auth';
 
 interface RegisterProps {
     open: boolean;
@@ -48,7 +48,9 @@ export const Register : RegisterProps = ({
 
       if (password.length < 6) {
           setPasswordError(true);
-          setPasswordErrorMessage('Password must be at least 6 characters long.');
+          setPasswordErrorMessage(
+              'Password must be at least 6 characters long.'
+          );
           isValid = false;
       } else if (password != password2) {
           setPasswordError(true);
@@ -62,6 +64,17 @@ export const Register : RegisterProps = ({
       return isValid;
     };
 
+    const register = () => {
+
+        if (emailError || passwordError)
+            return;
+
+        authRegister(email, password, name).then(
+            () => close()
+        );
+
+    }
+
     return (
         <Dialog
             open={open}
@@ -72,9 +85,7 @@ export const Register : RegisterProps = ({
                     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                         event.preventDefault();
                         event.stopPropagation();
-                        register(email, password, name).then(
-                            () => close()
-                        );
+                        register();
                     },
                     sx: { backgroundImage: 'none' },
                 },

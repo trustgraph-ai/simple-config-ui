@@ -160,9 +160,8 @@ const VerifyEmail = (props: { disableCustomTheme?: boolean }) => {
             variant="body2"
             sx={{ width: '100%'}}
           >
-
-              Enter your account&apos;s email address, and we&apos;ll
-              send you a link to reset your password.
+              Responsd to the last email verification, or click
+              VERIFY EMAIL to send a new verification email.
           </Typography>
 
           <Box

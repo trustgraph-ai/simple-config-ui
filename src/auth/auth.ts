@@ -17,9 +17,8 @@ export const logout = () => {
         }
     ).catch(
         (error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("Error3", errorMessage);
+            console.log("Error:", error);
+            throw `${error.code}: ${error.message}`;
         }
     )
 }
@@ -29,7 +28,6 @@ export const onAuthStateChange = (fn) => {
     onAuthStateChanged(
         auth,
         (user) => {
-            console.log("AUTH STATE CHANGE>>", user);
             if (user) {
                 if (!user.emailVerified) {
                     fn("not-verified", user);
@@ -49,7 +47,10 @@ export const signin = (email, password) => {
         (user) => {
         }
     ).catch(
-        (error) => { console.log(error); }
+        (error) => {
+            console.log("Error:", error.toString());
+            throw `${error.code}: ${error.message}`;
+        }
     );
 }
 
@@ -73,7 +74,10 @@ export const register = (email, password, displayName?) => {
             console.log("Verification email sent");
         }
     ).catch(
-        (error) => { console.log(error); }
+        (error) => {
+            console.log("Error:", error);
+            throw `${error.code}: ${error.message}`;
+        }
     );
 }
 
@@ -84,7 +88,10 @@ export const resendVerification = () => {
             console.log("Verification email sent");
         }
     ).catch(
-        (error) => { console.log(error); }
+        (error) => {
+            console.log("Error:", error);
+            throw `${error.code}: ${error.message}`;
+        }
     );
 }
 
@@ -95,7 +102,10 @@ export const resetPassword = (email) => {
             console.log("Verification email sent");
         }
     ).catch(
-        (error) => { console.log(error); }
+        (error) => {
+            console.log("Error:", error);
+            throw `${error.code}: ${error.message}`;
+        }
     );
 }
 
