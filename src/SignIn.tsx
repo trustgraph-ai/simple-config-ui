@@ -56,7 +56,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     backgroundRepeat: 'no-repeat',
     ...theme.applyStyles('dark', {
       backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
+        'radial-gradient(at 50% 50%, hsla(210, 100%, 56%, 0.5), hsl(220, 30%, 5%))',
     }),
   },
 }));
@@ -120,7 +120,19 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
-          <SitemarkIcon />
+          <Stack
+              alignItems="center"
+              direction="row"
+              gap={1}
+              sx={{ mb: 1 }}
+          >
+              <Box>
+                  <img src="/tg.svg" alt="Trustgraph logo" height="32"/>
+              </Box>
+              <Typography variant="body2" component="h1">
+                  <b>TrustGraph</b>
+              </Typography>
+          </Stack>
           <Typography
             component="h1"
             variant="h4"
@@ -198,6 +210,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           </Box>
           <Divider>or</Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+{/*
             <Button
               fullWidth
               variant="outlined"
@@ -214,6 +227,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             >
               Sign in with Facebook
             </Button>
+*/}
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link

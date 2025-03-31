@@ -57,3 +57,4 @@ export default function ForgotPassword({ open, handleClose }: ForgotPasswordProp
     </Dialog>
   );
 }
+
