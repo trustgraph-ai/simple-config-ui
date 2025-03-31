@@ -1,6 +1,6 @@
 
 import React from 'react';
-import  { logout as authLogout } from '../auth';
+import  { logout as authLogout } from '../auth/auth';
 
 import { Typography, Box, Stack, Button } from '@mui/material';
 

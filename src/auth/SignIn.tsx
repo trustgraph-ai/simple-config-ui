@@ -15,27 +15,31 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
+
 import ForgotPassword from './ForgotPassword';
+import Register from './Register';
+
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 
 import { signin } from './auth';
+
 const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  [theme.breakpoints.up('sm')]: {
-    width: '450px',
-  },
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-  ...theme.applyStyles('dark', {
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+    width: '100%',
+    padding: theme.spacing(4),
+    gap: theme.spacing(2),
+    margin: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      width: '450px',
+    },
     boxShadow:
-      'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  }),
+      'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
+    ...theme.applyStyles('dark', {
+      boxShadow:
+        'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
+    }),
 }));
 
 const SignInContainer = styled(Stack)(({ theme }) => ({
@@ -61,26 +65,36 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignIn(props: { disableCustomTheme?: boolean }) {
+const SignIn = (props: { disableCustomTheme?: boolean }) => {
+
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = React.useState(false);
+  const [registerOpen, setRegisterOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openForgotPassword = () => {
+    setForgotPasswordOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeForgotPassword = () => {
+      setForgotPasswordOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const openRegister = () => {
+    setRegisterOpen(true);
+  };
+
+  const closeRegister = () => {
+      setRegisterOpen(false);
+  };
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (emailError || passwordError) {
-      event.preventDefault();
-      return;
+        event.preventDefault();
+        return;
     }
     const data = new FormData(event.currentTarget);
     signin(data.get("email"), data.get("password")).then(
@@ -142,7 +156,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={submit}
             noValidate
             sx={{
               display: 'flex',
@@ -185,11 +199,20 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 color={passwordError ? 'error' : 'primary'}
               />
             </FormControl>
+{/*
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <ForgotPassword open={open} handleClose={handleClose} />
+*/}
+            <ForgotPassword
+                open={forgotPasswordOpen}
+                close={closeForgotPassword}
+            />
+            <Register
+                open={registerOpen}
+                close={closeRegister}
+            />
             <Button
               type="submit"
               fullWidth
@@ -201,7 +224,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             <Link
               component="button"
               type="button"
-              onClick={handleClickOpen}
+              onClick={openForgotPassword}
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >
@@ -231,11 +254,12 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                component="button"
+                onClick={openRegister}
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
-                Sign up
+                  Sign up
               </Link>
             </Typography>
           </Box>
@@ -244,3 +268,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       </>
   );
 }
+
+
+export default SignIn;
