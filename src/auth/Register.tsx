@@ -12,6 +12,8 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
+import { register } from './auth';
+
 interface RegisterProps {
     open: boolean;
     close: () => void;
@@ -26,6 +28,39 @@ export const Register : RegisterProps = ({
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
 
+    const [name, setName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [password2, setPassword2] = React.useState("");
+
+    const validateInputs = () => {
+
+      let isValid = true;
+
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        setEmailError(true);
+        setEmailErrorMessage('Please enter a valid email address.');
+        isValid = false;
+      } else {
+        setEmailError(false);
+        setEmailErrorMessage('');
+      }
+
+      if (password.length < 6) {
+          setPasswordError(true);
+          setPasswordErrorMessage('Password must be at least 6 characters long.');
+          isValid = false;
+      } else if (password != password2) {
+          setPasswordError(true);
+          setPasswordErrorMessage('Passwords must match.');
+          isValid = false;
+      } else {
+          setPasswordError(false);
+          setPasswordErrorMessage('');
+      }
+
+      return isValid;
+    };
 
     return (
         <Dialog
@@ -35,16 +70,19 @@ export const Register : RegisterProps = ({
                 paper: {
                     component: 'form',
                     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                    console.log(event);
                         event.preventDefault();
                         event.stopPropagation();
-                        close();
+                        register(email, password, name).then(
+                            () => close()
+                        );
                     },
                     sx: { backgroundImage: 'none' },
                 },
             }}
         >
+
           <DialogTitle>Register new account</DialogTitle>
+
           <DialogContent
               sx={{
                   display: 'flex', flexDirection: 'column', gap: 2,
@@ -61,7 +99,8 @@ export const Register : RegisterProps = ({
               <TextField
                 helperText="Enter your name (optional)"
                 id="name"
-                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Fred Bloggs"
                 autoFocus
                 required
@@ -76,6 +115,8 @@ export const Register : RegisterProps = ({
                 error={emailError}
                 helperText={emailErrorMessage}
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 name="email"
                 placeholder="your@email.com"
@@ -93,6 +134,8 @@ export const Register : RegisterProps = ({
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 name="password"
                 placeholder="••••••"
                 type="password"
@@ -110,7 +153,8 @@ export const Register : RegisterProps = ({
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
-                name="password2"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
                 placeholder="••••••"
                 type="password"
                 id="password2"
@@ -125,7 +169,11 @@ export const Register : RegisterProps = ({
           </DialogContent>
           <DialogActions sx={{ pb: 3, px: 3 }}>
               <Button onClick={close}>Cancel</Button>
-              <Button variant="contained" type="submit">
+              <Button
+                  variant="contained"
+                  type="submit"
+                  onClick={validateInputs}
+              >
                   Register
               </Button>
             </DialogActions>

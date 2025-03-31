@@ -21,7 +21,7 @@ import Register from './Register';
 
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 
-import { signin } from './auth';
+import { logout as authLogout, resendVerification } from './auth';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -65,7 +65,19 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-const SignIn = (props: { disableCustomTheme?: boolean }) => {
+const VerifyEmail = (props: { disableCustomTheme?: boolean }) => {
+
+    const logout = () => {
+        authLogout().then(
+            () => console.log("Logout worked")
+        );
+    }
+
+    const verify = () => {
+        resendVerification().then(
+            () => console.log("Resend verification worked")
+        );
+    }
 
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
@@ -135,136 +147,43 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
-          <Stack
-              alignItems="center"
-              direction="row"
-              gap={1}
-              sx={{ mb: 1 }}
-          >
-              <Box>
-                  <img src="/tg.svg" alt="Trustgraph logo" height="32"/>
-              </Box>
-              <Typography variant="body2" component="h1">
-                  <b>TrustGraph</b>
-              </Typography>
-          </Stack>
+
           <Typography
             component="h1"
             variant="h4"
             sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
           >
-            Sign in
+            Verify email
           </Typography>
+
+          <Typography
+            variant="body2"
+            sx={{ width: '100%'}}
+          >
+
+              Enter your account&apos;s email address, and we&apos;ll
+              send you a link to reset your password.
+          </Typography>
+
           <Box
-            component="form"
-            onSubmit={submit}
-            noValidate
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: '100%',
               gap: 2,
             }}
           >
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={emailError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
-{/*
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-*/}
-            <ForgotPassword
-                open={forgotPasswordOpen}
-                close={closeForgotPassword}
-            />
-            <Register
-                open={registerOpen}
-                close={closeRegister}
-            />
             <Button
-              type="submit"
-              fullWidth
               variant="contained"
-              onClick={validateInputs}
+              onClick={verify}
             >
-              Sign in
-            </Button>
-            <Link
-              component="button"
-              type="button"
-              onClick={openForgotPassword}
-              variant="body2"
-              sx={{ alignSelf: 'center' }}
-            >
-              Forgot your password?
-            </Link>
-          </Box>
-          <Divider>or</Divider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-{/*
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign in with Google')}
-              startIcon={<GoogleIcon />}
-            >
-              Sign in with Google
+              Verify Email
             </Button>
             <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign in with Facebook')}
-              startIcon={<FacebookIcon />}
+              variant="contained"
+              onClick={logout}
             >
-              Sign in with Facebook
+              Logout
             </Button>
-*/}
-            <Typography sx={{ textAlign: 'center' }}>
-              Don&apos;t have an account?{' '}
-              <Link
-                component="button"
-                onClick={openRegister}
-                variant="body2"
-                sx={{ alignSelf: 'center' }}
-              >
-                  Sign up
-              </Link>
-            </Typography>
           </Box>
         </Card>
       </SignInContainer>
@@ -273,4 +192,5 @@ const SignIn = (props: { disableCustomTheme?: boolean }) => {
 }
 
 
-export default SignIn;
+export default VerifyEmail;
+

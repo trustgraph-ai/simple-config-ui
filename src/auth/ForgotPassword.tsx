@@ -11,6 +11,8 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
+import { resetPassword } from './auth';
+
 interface ForgotPasswordProps {
     open: boolean;
     close: () => void;
@@ -22,6 +24,16 @@ export const ForgotPassword : ForgotPasswordProps = ({
 
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+    const [email, setEmail] = React.useState("");
+
+    const reset = () => {
+        resetPassword(email).then(
+            () => {
+                console.log("Password reset activated.");
+                close();
+            }
+        );
+    };
 
     return (
         <Dialog
@@ -31,10 +43,9 @@ export const ForgotPassword : ForgotPasswordProps = ({
                 paper: {
                     component: 'form',
                     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                    console.log(event);
                         event.preventDefault();
                         event.stopPropagation();
-                        close();
+                        reset();
                     },
                     sx: { backgroundImage: 'none' },
                 },
@@ -59,8 +70,9 @@ export const ForgotPassword : ForgotPasswordProps = ({
                 error={emailError}
                 helperText={emailErrorMessage}
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                name="email"
                 placeholder="your@email.com"
                 autoComplete="email"
                 autoFocus

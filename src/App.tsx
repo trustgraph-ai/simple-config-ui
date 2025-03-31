@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import SimpleEditor from './simple-editor/SimpleEditor';
 import SignIn from './auth/SignIn';
+import VerifyEmail from './auth/VerifyEmail';
 import './App.scss';
 import {
     onAuthStateChange, signin, register as authRegister, logout
@@ -50,9 +51,7 @@ const App = () => {
        }
 
        {
-           authState == "not-verified" && ( <>
-              <div>Not verified</div>
-           </>)
+           authState == "not-verified" && <VerifyEmail/>
        }
 
        {
