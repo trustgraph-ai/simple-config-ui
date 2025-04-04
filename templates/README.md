@@ -106,7 +106,7 @@ configuration above:
   llamafile, ollama, openai, vertexai.
 - You need an embeddings implementation, one of: embeddings-hf,
   embeddings-ollama
-- Optionally add the test suite tool: workbench-ui
+- Optionally add the Workbench tool: workbench-ui
 
 Components have over-ridable parameters, look in the component definition
 in `templates/components/` to see what you can override.

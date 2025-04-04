@@ -106,18 +106,6 @@ local url = import "values/url.jsonnet";
                     .with_port(6650, 6650, "pulsar")
                     .with_port(8080, 8080, "admin");
 
-            // Trustgraph Pulsar initialisation
-            local adminContainer =
-                engine.container("init-trustgraph")
-                    .with_image(images.trustgraph_flow)
-                    .with_command([
-                        "tg-init-pulsar",
-                        "-p",
-                        url.pulsar_admin,
-                    ])
-                    .with_limits("1", "128M")
-                    .with_reservations("0.1", "128M");
-
             // Container sets
             local zkContainerSet = engine.containers(
                 "zookeeper",
@@ -147,13 +135,6 @@ local url = import "values/url.jsonnet";
                 ]
             );
 
-            local adminContainerSet = engine.containers(
-                "init-pulsar",
-                [
-                    adminContainer
-                ]
-            );
-
             // Zookeeper service
             local zkService =
                 engine.service(zkContainerSet)
@@ -179,7 +160,6 @@ local url = import "values/url.jsonnet";
                 initContainerSet,
                 bookieContainerSet,
                 brokerContainerSet,
-                adminContainerSet,
                 zkService,
                 bookieService,
                 brokerService,

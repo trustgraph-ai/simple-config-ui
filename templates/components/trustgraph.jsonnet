@@ -2,6 +2,8 @@ local base = import "base/base.jsonnet";
 local images = import "values/images.jsonnet";
 local url = import "values/url.jsonnet";
 
+local config = import "configuration.jsonnet";
+
 {
 
     "api-gateway-port":: 8088,
@@ -75,6 +77,36 @@ local url = import "values/url.jsonnet";
 
             local containerSet = engine.containers(
                 "chunker", [ container ]
+            );
+
+            local service =
+                engine.internalService(containerSet)
+                .with_port(8000, 8000, "metrics");
+
+            engine.resources([
+                containerSet,
+                service,
+            ])
+
+    },
+
+    "config-svc" +: {
+    
+        create:: function(engine)
+
+            local container =
+                engine.container("config-svc")
+                    .with_image(images.trustgraph_flow)
+                    .with_command([
+                        "config-svc",
+                        "-p",
+                        url.pulsar,
+                    ])
+                    .with_limits("0.5", "128M")
+                    .with_reservations("0.1", "128M");
+
+            local containerSet = engine.containers(
+                "config-svc", [ container ]
             );
 
             local service =
@@ -180,5 +212,5 @@ local url = import "values/url.jsonnet";
 
     },
 
-}
+} + config
 

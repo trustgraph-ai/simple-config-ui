@@ -1,12 +1,8 @@
 local base = import "base/base.jsonnet";
 local images = import "values/images.jsonnet";
 local url = import "values/url.jsonnet";
-local prompts = import "prompts/mixtral.jsonnet";
-local default_prompts = import "prompts/default-prompts.jsonnet";
 
 {
-
-    tools:: [],
 
     "agent-manager" +: {
     
@@ -23,25 +19,7 @@ local default_prompts = import "prompts/default-prompts.jsonnet";
                         "non-persistent://tg/request/prompt-rag",
                         "--prompt-response-queue",
                         "non-persistent://tg/response/prompt-rag",
-                        "--tool-type",
-                    ] + [
-                        tool.id + "=" + tool.type
-                        for tool in $.tools
-                    ] + [
-                        "--tool-description"
-                    ] + [
-                        tool.id + "=" + tool.description
-                        for tool in $.tools
-                    ] + [
-                        "--tool-argument"
-                    ] + [
-                        "%s=%s:%s:%s" % [
-                            tool.id, arg.name, arg.type, arg.description
-                        ]
-                        for tool in $.tools
-                        for arg in tool.arguments
-                    ]
-                    )
+                    ])
                     .with_limits("0.5", "128M")
                     .with_reservations("0.1", "128M");
 
@@ -60,5 +38,5 @@ local default_prompts = import "prompts/default-prompts.jsonnet";
 
     },
 
-} + default_prompts
+}
 

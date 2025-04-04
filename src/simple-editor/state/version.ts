@@ -1,3 +1,3 @@
 
-export const TRUSTGRAPH_VERSION = "0.21.17";
+export const TRUSTGRAPH_VERSION = "0.22.5";
 
