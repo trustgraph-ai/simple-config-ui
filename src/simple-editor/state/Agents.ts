@@ -34,10 +34,10 @@ export const useAgentsStore = create<Agents>()(
                 name: "Sample query",
                 type: "knowledge-query",
                 config: {},
-                description: "This tool queries a knowledge base that holds information about XYZ.  The query should be a natural language question.",
+                description: "This tool queries a knowledge base that holds information about XYZ.  The question should be a natural language question.",
                 arguments: [
                     {
-                        name: "query",
+                        name: "question",
                         type: "string",
                         description: "A simple natural language question.",
                     }
@@ -48,7 +48,7 @@ export const useAgentsStore = create<Agents>()(
                 name: "Sample text completion",
                 type: "text-completion",
                 config: {},
-                description: "This tool queries an LLM for further information.  The query should be a natural language question.",
+                description: "This tool queries an LLM for further information.  The question should be a natural language question.",
                 arguments: [
                     {
                         name: "question",
