@@ -23,7 +23,7 @@ const Parameters = ({
         <Typography variant="body1" component="p" gutterBottom>
             For each category, select one option from the list of
             available components.
-            </Typography>
+        </Typography>
 
         <ParamsForm/>
 

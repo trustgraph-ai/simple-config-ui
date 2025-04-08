@@ -11,6 +11,8 @@ export interface ModelParams {
 
 export interface ConfigurationState {
 
+    version: string;
+    template: string;
     graphStore: string;
     vectorDB: string;
     chunkerType: string;
@@ -29,6 +31,8 @@ export interface ConfigurationState {
     embeddingsEngine : string;
     embeddingsModel : string;
 
+    setVersion: (v: string) => void;
+    setTemplate: (v: string) => void;
     setGraphStore: (v: string) => void;
     setVectorDB: (v: string) => void;
     setChunkerType: (v: string) => void;
@@ -51,6 +55,8 @@ export interface ConfigurationState {
 export const useConfigurationStateStore = create<ConfigurationState>()(
     (set) => ({
 
+        version: "",
+        template: "",
         graphStore: "cassandra",
         vectorDB: "qdrant",
         chunkerType: "chunker-recursive",
@@ -80,6 +86,8 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
         embeddingsEngine: "",
         embeddingsModel: "",
 
+        setVersion: (v) => set({ version: v }),
+        setTemplate: (v) => set({ template: v }),
         setGraphStore: (v) => set({ graphStore: v }),
         setVectorDB: (v) => set({ vectorDB: v }),
         setChunkerType: (v) => set({ chunkerType: v }),

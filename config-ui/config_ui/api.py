@@ -7,6 +7,7 @@ import importlib.resources
 import json
 
 from . generator import Generator
+from trustgraph_configurator import Index
 
 import logging
 logger = logging.getLogger("api")
@@ -27,6 +28,48 @@ class Api:
         self.ui = importlib.resources.files().joinpath("ui")
         self.templates = importlib.resources.files().joinpath("templates")
         self.resources = importlib.resources.files().joinpath("resources")
+
+        self.app.add_routes([
+            web.get("/api/latest-stable", self.latest_stable),
+            web.get("/api/latest", self.latest),
+            web.get("/api/versions", self.versions),
+        ])
+
+    def latest(self, request):
+
+        latest = Index.get_latest()
+
+        return web.json_response(
+            {
+                "template": latest.name,
+                "version": latest.version,
+            }
+        )
+
+    def latest_stable(self, request):
+
+        latest = Index.get_latest_stable()
+
+        return web.json_response(
+            {
+                "template": latest.name,
+                "version": latest.version,
+            }
+        )
+
+    def versions(self, request):
+
+        versions = Index.get_templates()
+
+        return web.json_response([
+            {
+                "template": v.name,
+                "version": v.version,
+                "description": v.description,
+                "status": v.status,
+            }
+            for v in versions
+        ])
 
     def open(self, path):
 
