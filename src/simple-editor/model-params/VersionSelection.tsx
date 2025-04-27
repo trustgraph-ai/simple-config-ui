@@ -18,8 +18,8 @@ const VersionSelection: React.FC<VersionSelectionProps> =
     const version
         = useConfigurationStateStore((state) => state.version);
 
-//    const template
-//        = useConfigurationStateStore((state) => state.template);
+    const template
+        = useConfigurationStateStore((state) => state.template);
 
     const setVersion
         = useConfigurationStateStore((state) => state.setVersion);
@@ -27,20 +27,25 @@ const VersionSelection: React.FC<VersionSelectionProps> =
     const setTemplate
         = useConfigurationStateStore((state) => state.setTemplate);
 
+console.log("> > >", template, version);
+
     useEffect(
         () => {
             fetch("/api/versions").then(
                 x => x.json()
             ).then(
                 x => {
+                console.log(x);
                     setVersions(x);
                     setTemplate(x[0].template);
                     setVersion(x[0].version);
+                    console.log(">>>", x[0]);
                 }
             ).catch(
                 err => console.log("Error:", err)
             );
-        }
+        },
+        []
     );
 
   return (
@@ -51,7 +56,7 @@ const VersionSelection: React.FC<VersionSelectionProps> =
             <InputLabel id="graph-store-label">Version</InputLabel>
 
                 <Select
-                    value={version}
+                    value={template}
                     label="Version"
                     onChange={(e) => setVersion(e.target.value)}
                 >
