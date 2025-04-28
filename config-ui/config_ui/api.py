@@ -19,14 +19,11 @@ class Api:
         self.port = int(config.get("port", "8080"))
         self.app = web.Application(middlewares=[])
 
-        self.app.add_routes([web.post("/api/generate", self.generate)])
         self.app.add_routes([
             web.post("/api/generate/{platform}/{template}", self.generate)
         ])
 
         self.ui = importlib.resources.files().joinpath("ui")
-        self.templates = importlib.resources.files().joinpath("templates")
-        self.resources = importlib.resources.files().joinpath("resources")
 
         self.app.add_routes([
             web.get("/api/latest-stable", self.latest_stable),
@@ -148,26 +145,6 @@ class Api:
             logging.error(f"Exception: {e}")
             raise web.HTTPInternalServerError()
 
-    def process(
-            self, config, version="0.0.0", platform="docker-compose",
-    ):
-
-        config = config.encode("utf-8")
-
-        gen = Generator(
-            config, templates=self.templates, resources=self.resources,
-            version=version
-        )
-
-        path = self.templates.joinpath(
-            f"config-to-{platform}.jsonnet"
-        )
-        wrapper = path.read_text()
-
-        processed = gen.process(wrapper)
-
-        return processed
-
     async def generate(self, request):
 
         logger.info("Generate...")
@@ -215,102 +192,9 @@ class Api:
                 content_type = "application/octet-stream"
             )
 
-            if platform in set(["docker-compose", "podman-compose"]):
-                return await self.generate_docker_compose(
-                    "docker-compose", template, config
-                )
-            elif platform in set([
-                    "minikube-k8s", "gcp-k8s", "eks-k8s", "aks-k8s",
-            ]):
-                return await self.generate_k8s(
-                    platform, template, config
-                )
-            else:
-                return web.HTTPBadRequest()
-
         except Exception as e:
             logging.error(f"Exception: {e}")
             return web.HTTPInternalServerError()
-
-    async def generate_docker_compose(self, platform, version, config):
-
-        processed = self.process(
-            config, platform=platform, version=version
-        )
-
-        y = yaml.dump(processed)
-
-        mem = BytesIO()
-
-        with zipfile.ZipFile(mem, mode='w') as out:
-
-            def output(name, content):
-                logger.info(f"Adding {name}...")
-                out.writestr(name, content)
-
-            fname = "docker-compose.yaml"
-
-            output(fname, y)
-
-            # Grafana config
-            path = self.resources.joinpath(
-                "grafana/dashboards/dashboard.json"
-            )
-            res = path.read_text()
-            output("grafana/dashboards/dashboard.json", res)
-
-            path = self.resources.joinpath(
-                "grafana/provisioning/dashboard.yml"
-            )
-            res = path.read_text()
-            output("grafana/provisioning/dashboard.yml", res)
-
-            path = self.resources.joinpath(
-                "grafana/provisioning/datasource.yml"
-            )
-            res = path.read_text()
-            output("grafana/provisioning/datasource.yml", res)
-
-            # Prometheus config
-            path = self.resources.joinpath(
-                "prometheus/prometheus.yml"
-            )
-            res = path.read_text()
-            output("prometheus/prometheus.yml", res)
-
-        logger.info("Generation complete.")
-
-        return web.Response(
-            body=mem.getvalue(),
-            content_type = "application/octet-stream"
-        )
-
-    async def generate_k8s(self, platform, version, config):
-
-        processed = self.process(
-            config, platform=platform, version=version
-        )
-
-        y = yaml.dump(processed)
-
-        mem = BytesIO()
-
-        with zipfile.ZipFile(mem, mode='w') as out:
-
-            def output(name, content):
-                logger.info(f"Adding {name}...")
-                out.writestr(name, content)
-
-            fname = "resources.yaml"
-
-            output(fname, y)
-
-        logger.info("Generation complete.")
-
-        return web.Response(
-            body=mem.getvalue(),
-            content_type = "application/octet-stream"
-        )
 
     def run(self):
 
