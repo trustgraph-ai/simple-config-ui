@@ -1,6 +1,5 @@
 
 import { create } from 'zustand';
-import { TRUSTGRAPH_VERSION } from './version';
 
 export interface ModelParams {
     deployment : string;
@@ -17,7 +16,6 @@ export interface ConfigurationState {
     chunkSize: number;
     chunkOverlap: number;
     platform: string;
-    trustgraphVersion: string;
 
     dualModelMode: boolean;
 
@@ -57,7 +55,6 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
         chunkSize: 1000,
         chunkOverlap: 50,
         platform: "docker-compose",
-        trustgraphVersion: TRUSTGRAPH_VERSION,
 
         dualModelMode: false,
 

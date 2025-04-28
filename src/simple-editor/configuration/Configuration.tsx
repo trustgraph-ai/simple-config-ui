@@ -9,6 +9,7 @@ import {
     CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
+import { useVersionStateStore } from '../state/Version';
 
 import ConfigurePrompts from '../prompts/ConfigurePrompts';
 import ConfigureAgents from '../agents/ConfigureAgents';
@@ -81,6 +82,10 @@ const Configuration: React.FC = () => {
         useDeploymentStore((state) => state.setConfigUrl);
 
     usePromptsStore.subscribe(() => {
+        setConfigUrl("");
+    });
+
+    useVersionStateStore.subscribe(() => {
         setConfigUrl("");
     });
 
