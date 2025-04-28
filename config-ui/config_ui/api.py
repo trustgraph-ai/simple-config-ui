@@ -7,7 +7,7 @@ import importlib.resources
 import json
 
 from . generator import Generator
-from trustgraph_configurator import Index
+from trustgraph_configurator import Index, Packager
 
 import logging
 logger = logging.getLogger("api")
@@ -16,14 +16,13 @@ logger.setLevel(logging.INFO)
 class Api:
     def __init__(self, **config):
 
-        self.port = int(config.get("port", "8081"))
+        self.port = int(config.get("port", "8080"))
         self.app = web.Application(middlewares=[])
 
         self.app.add_routes([web.post("/api/generate", self.generate)])
         self.app.add_routes([
-            web.post("/api/generate/{platform}/{version}", self.generate)
+            web.post("/api/generate/{platform}/{template}", self.generate)
         ])
-        self.app.add_routes([web.get("/{tail:.*}", self.everything)])
 
         self.ui = importlib.resources.files().joinpath("ui")
         self.templates = importlib.resources.files().joinpath("templates")
@@ -34,6 +33,8 @@ class Api:
             web.get("/api/latest", self.latest),
             web.get("/api/versions", self.versions),
         ])
+
+        self.app.add_routes([web.get("/{tail:.*}", self.everything)])
 
     def latest(self, request):
 
@@ -177,11 +178,11 @@ class Api:
             platform = "docker-compose"
 
         try:
-            version = request.match_info["version"]
+            template = request.match_info["template"]
         except:
-            version = "0.0.0"
+            return web.HTTPBadRequest()
 
-        logger.info(f"Generating for platform={platform} version={version}")
+        logger.info(f"Generating for platform={platform} template={template}")
 
         try:
 
@@ -199,16 +200,30 @@ class Api:
 
             logger.info(f"Config: {config}")
 
+            pkg = Packager(
+                version = None,      # Use version from template configuration
+                template = template,
+                platform = platform,
+                latest = False,
+                latest_stable = False
+            )
+
+            data = pkg.generate(config)
+
+            return web.Response(
+                body = data,
+                content_type = "application/octet-stream"
+            )
 
             if platform in set(["docker-compose", "podman-compose"]):
                 return await self.generate_docker_compose(
-                    "docker-compose", version, config
+                    "docker-compose", template, config
                 )
             elif platform in set([
                     "minikube-k8s", "gcp-k8s", "eks-k8s", "aks-k8s",
             ]):
                 return await self.generate_k8s(
-                    platform, version, config
+                    platform, template, config
                 )
             else:
                 return web.HTTPBadRequest()

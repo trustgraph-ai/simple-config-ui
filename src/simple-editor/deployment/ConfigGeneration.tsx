@@ -11,6 +11,7 @@ import { Close } from '@mui/icons-material';
 
 import { generateConfig } from '../generate-config';
 import { useConfigurationStateStore } from '../state/Configuration';
+import { useVersionStateStore } from '../state/Version';
 import { usePromptsStore } from '../state/Prompts';
 import { useAgentsStore } from '../state/Agents';
 import { useDeploymentStore } from '../state/Deployment';
@@ -31,6 +32,8 @@ const ConfigGeneration = () => {
 
     const agents = useAgentsStore((state) => state);
 
+    const version = useVersionStateStore((state) => state).version;
+
     const options
         = useOptionsStore((state) => state);
 
@@ -43,10 +46,16 @@ const ConfigGeneration = () => {
 
     const generate = () => {
 
+        // Shouldn't happen.
+        if (!version) {
+           console.log("Error: Null template selected?!");
+           return;
+        }
+
         setGenerating(true);
 
         generateConfig(
-            configuration, prompts, agents, options,
+            configuration, version, prompts, agents, options,
         ).then(
             response => {
                 if (response.ok) {

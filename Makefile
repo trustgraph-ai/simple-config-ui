@@ -31,7 +31,10 @@ update-package-versions:
 CONTAINER=localhost/config-ui
 DOCKER=podman
 
-container:
+container: service-package
 	${DOCKER} build -f Containerfile -t ${CONTAINER}:${VERSION} \
 	    --format docker
 
+# On port 8081
+run-container:
+	${DOCKER} run -i -t -p 8081:8080 ${CONTAINER}:${VERSION}
