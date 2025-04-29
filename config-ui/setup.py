@@ -39,6 +39,8 @@ setuptools.setup(
         "jsonnet",
         "aiohttp",
         "pyyaml",
+        "trustgraph-configurator",
+#         "trustgraph-configurator @ git+https://github.com/trustgraph-ai/trustgraph-templates",
     ],
     scripts=[
         "scripts/service",

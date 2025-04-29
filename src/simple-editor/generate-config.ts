@@ -2,6 +2,8 @@
 import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Prompts } from './state/Prompts';
 import { Agents } from './state/Agents';
+import { Version } from './state/Version';
+
 import {
     Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
     CONFIGURE_DOCUMENT_RAG, CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
@@ -18,6 +20,7 @@ const modelConfig = (m : ModelParams) => {
 export const generateConfig =
 (
     config : ConfigurationState,
+    template : Version,
     prompts : Prompts,
     agents : Agents,
     options : Options,
@@ -190,11 +193,8 @@ export const generateConfig =
 
     const componentsEnc = JSON.stringify(components, null, 4)
 
-    const platform = config.platform;
-    const version = config.trustgraphVersion;
-
     return fetch(
-        "/api/generate/" + platform + "/" + version, {
+        "/api/generate/" + config.platform + "/" + template.template, {
             body: componentsEnc,
             method: "POST",
             headers: {

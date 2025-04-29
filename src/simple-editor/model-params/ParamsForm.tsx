@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, FormControlLabel, Switch, Typography, Paper } from '@mui/material';
 
+import VersionSelection from './VersionSelection';
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
 import Chunker from './Chunker';
@@ -22,6 +23,7 @@ interface ParamsFormProps {
 
 const ParamsForm: React.FC<ParamsFormProps> = ({
 }) => {
+
     const setConfigUrl =
         useDeploymentStore((state) => state.setConfigUrl);
 
@@ -172,6 +174,10 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     return (
         <>
             <Box className="parameters">
+
+                <Box my={4}>
+                    <VersionSelection/>
+                </Box>
 
                 <Box my={4}>
                     <Platform

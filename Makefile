@@ -11,18 +11,7 @@ ui:
 	cp public/*.png config-ui/config_ui/ui/
 	cp public/*.svg config-ui/config_ui/ui/
 
-template-data:
-	rm -rf config-ui/config_ui/templates
-	mkdir -p config-ui/config_ui/templates
-	find templates -name '*.jsonnet' | cpio -pdm config-ui/config_ui/
-
-resources-data:
-	rm -rf config-ui/config_ui/resources
-	mkdir -p config-ui/config_ui/resources
-	cp -r grafana config-ui/config_ui/resources/
-	cp -r prometheus config-ui/config_ui/resources/
-
-service-package: ui template-data resources-data update-package-versions
+service-package: ui update-package-versions
 	cd config-ui && python3 setup.py sdist --dist-dir ../pkgs/
 
 update-package-versions:
@@ -31,7 +20,10 @@ update-package-versions:
 CONTAINER=localhost/config-ui
 DOCKER=podman
 
-container:
+container: service-package
 	${DOCKER} build -f Containerfile -t ${CONTAINER}:${VERSION} \
 	    --format docker
 
+# On port 8081
+run-container:
+	${DOCKER} run -i -t -p 8081:8080 ${CONTAINER}:${VERSION}

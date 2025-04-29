@@ -4,11 +4,13 @@ FROM alpine:3.20 AS build
 RUN apk add --update --no-cache --no-progress make g++ gcc linux-headers
 
 RUN apk add --update --no-cache --no-progress python3 py3-pip py3-wheel \
-   python3-dev
+   python3-dev git
 
 RUN mkdir /root/wheels
 
 RUN pip wheel -w /root/wheels --no-deps jsonnet
+
+RUN pip wheel -w /root/wheels --no-deps git+https://github.com/trustgraph-ai/trustgraph-templates
 
 COPY config-ui /root/config-ui/
 
@@ -23,7 +25,8 @@ COPY --from=build /root/wheels /root/wheels
 RUN apk add --update --no-cache --no-progress python3 py3-pip \
       py3-aiohttp
 
-RUN pip install /root/wheels/* && \
+RUN \
+    pip install /root/wheels/* && \
     pip cache purge && \
     rm -rf /root/wheels
 
