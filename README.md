@@ -56,9 +56,11 @@ Deployment is Github actions, automatic to Cloud Run.  Deployment kicks in
 automatically on anything with a version tag.  Version tags should be of
 form v1.2.3.
 
+## Actual template configuration
 
+Is in the trustgraph-templates repo.  Commit to master on that repo,
+then come back here and deploy here.
 
-
-
-
+FIXME: It appears you need to change something to get it to pick up the
+new version, it's not enough to just deploy the pipeline.
 
