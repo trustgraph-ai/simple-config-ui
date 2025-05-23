@@ -10,8 +10,12 @@ RUN mkdir /root/wheels
 
 RUN pip wheel -w /root/wheels --no-deps jsonnet
 
-RUN pip wheel -w /root/wheels --no-deps --no-cache-dir \
-    git+https://github.com/trustgraph-ai/trustgraph-templates
+RUN mkdir -p /root/src
+
+RUN git clone https://github.com/trustgraph-ai/trustgraph-templates \
+  /root/src/templates
+
+RUN pip wheel -w /root/wheels --no-deps /root/src/templates
 
 COPY config-ui /root/config-ui/
 
