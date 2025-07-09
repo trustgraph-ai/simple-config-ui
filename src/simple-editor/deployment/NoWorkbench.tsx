@@ -10,13 +10,13 @@ const Workbench: React.FC<{}> = () => {
     return (
         <DeploymentSection
             avatar={<Insights color="primary" fontSize="large"/>}
-            title="Test Suite">
+            title="Workbench">
 
                 <Alert severity="info">
                     You have selected to deploy <strong>without</strong> the
-                    Test Suite. The Test Suite provides a UI
+                    Workbench. The Workbench provides a UI
                     for testing TrustGraph performance and features. You
-                    can add the Test Suite to the deployment on
+                    can add the Workbench to the deployment on
                     the <strong>CUSTOMIZATION</strong> tab.
                 </Alert>
 

@@ -168,7 +168,7 @@ const ParamsForm: React.FC = () => {
                 <Option
                     enabled={configureWorkbench}
                     onChange={onConfigureWorkbench}
-                    title="Test Suite"
+                    title="Workbench"
                 >
                     A UI providing tools to explore TrustGraph system
                     performance. Once launched, accessible on port 8888.
