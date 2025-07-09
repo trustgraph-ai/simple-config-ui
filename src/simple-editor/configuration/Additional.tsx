@@ -22,7 +22,7 @@ const Additional = ({
             </Typography>
 
             <Typography variant="body2">
-                Note: Selecting the Test Suite requires no additional
+                Note: Selecting the Workbench requires no additional
                 configuration.
             </Typography>
 
