@@ -11,11 +11,11 @@ const Workbench: React.FC<{}> = () => {
     return (
         <DeploymentSection
             avatar={<Insights color="primary" fontSize="large"/>}
-            title="Test Suite">
+            title="Workbench">
 
                 <DeploymentStep>
                     Once the system is running, you can access the
-                    Test Suite on port 8888, or access using the
+                    Workbench on port 8888, or access using the
                     following URL:
                 </DeploymentStep>
 

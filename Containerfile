@@ -12,11 +12,6 @@ RUN pip wheel -w /root/wheels --no-deps jsonnet
 
 RUN mkdir -p /root/src
 
-RUN git clone https://github.com/trustgraph-ai/trustgraph-templates \
-  /root/src/templates
-
-RUN pip wheel -w /root/wheels --no-deps /root/src/templates
-
 COPY config-ui /root/config-ui/
 
 RUN (cd /root/config-ui && pip wheel -w /root/wheels --no-deps .)
@@ -29,6 +24,8 @@ COPY --from=build /root/wheels /root/wheels
 
 RUN apk add --update --no-cache --no-progress python3 py3-pip \
       py3-aiohttp
+
+RUN ls /root/wheels
 
 RUN \
     pip install /root/wheels/* && \
