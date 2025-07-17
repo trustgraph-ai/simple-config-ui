@@ -12,14 +12,6 @@ RUN pip wheel -w /root/wheels --no-deps jsonnet
 
 RUN mkdir -p /root/src
 
-RUN git clone https://github.com/trustgraph-ai/trustgraph-templates \
-  /root/src/templates
-
-# Just some debug to check right thing got build
-RUN cat /root/src/templates/trustgraph_configurator/templates/index.json
-
-RUN pip wheel -w /root/wheels --no-deps /root/src/templates
-
 COPY config-ui /root/config-ui/
 
 RUN (cd /root/config-ui && pip wheel -w /root/wheels --no-deps .)

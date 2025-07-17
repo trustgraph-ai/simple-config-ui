@@ -20,15 +20,15 @@ setuptools.setup(
     version=version,
     author="trustgraph.ai",
     author_email="security@trustgraph.ai",
-    description="Configuration creator for trustgraph.ai",
+    description="Config UI for trustgraph.ai",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/trustgraph-ai/simple-config-ui",
+    url="https://github.com/trustgraph-ai/config-ui",
     packages=setuptools.find_namespace_packages(
         where='./',
     ),
     include_package_data=True,
-    package_data={'': ["ui/**", "templates/**", "resources/**"]},
+    package_data={'': ["ui/**"]},
     classifiers=[ 
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
@@ -36,11 +36,9 @@ setuptools.setup(
     ],
     python_requires='>=3.8',
     install_requires=[
-        "jsonnet",
         "aiohttp",
-        "pyyaml",
-        "trustgraph-configurator",
-#         "trustgraph-configurator @ git+https://github.com/trustgraph-ai/trustgraph-templates",
+        "prometheus-client",
+        "websockets",
     ],
     scripts=[
         "scripts/service",

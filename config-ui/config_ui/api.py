@@ -1,73 +1,44 @@
 
+import asyncio
+import aiohttp
 from aiohttp import web
-import yaml
-import zipfile
-from io import BytesIO
 import importlib.resources
-import json
-
-from . generator import Generator
-from trustgraph_configurator import Index, Packager
+import websockets.asyncio.client as wsclient
 
 import logging
 logger = logging.getLogger("api")
 logger.setLevel(logging.INFO)
 
+class Running:
+    def __init__(self): self.running = True
+    def get(self): return self.running
+    def stop(self): self.running = False
+
 class Api:
     def __init__(self, **config):
 
         self.port = int(config.get("port", "8080"))
+        self.gateway = config.get("gateway", "https://config-svc.app.trustgraph.ai/")
+
+        print("PORT IS ", self.port)
+
+        if self.gateway[-1] != "/":
+            self.gateway += "/"
+
         self.app = web.Application(middlewares=[])
 
-        self.app.add_routes([
-            web.post("/api/generate/{platform}/{template}", self.generate)
-        ])
+        # Just pass-through some calls to the API back-end
+        self.app.add_routes([web.get("/api/latest", self.latest)])
+        self.app.add_routes([web.get("/api/latest-stable",
+                                     self.latest_stable)])
+        self.app.add_routes([web.get("/api/versions", self.versions)])
+        self.app.add_routes([web.post("/api/generate/{platform}/{version}",
+                                      self.generate)])
 
-        self.ui = importlib.resources.files().joinpath("ui")
-
-        self.app.add_routes([
-            web.get("/api/latest-stable", self.latest_stable),
-            web.get("/api/latest", self.latest),
-            web.get("/api/versions", self.versions),
-        ])
-
+        # Everything else gets matched for serving static resources
         self.app.add_routes([web.get("/{tail:.*}", self.everything)])
 
-    def latest(self, request):
-
-        latest = Index.get_latest()
-
-        return web.json_response(
-            {
-                "template": latest.name,
-                "version": latest.version,
-            }
-        )
-
-    def latest_stable(self, request):
-
-        latest = Index.get_latest_stable()
-
-        return web.json_response(
-            {
-                "template": latest.name,
-                "version": latest.version,
-            }
-        )
-
-    def versions(self, request):
-
-        versions = Index.get_templates()
-
-        return web.json_response([
-            {
-                "template": v.name,
-                "version": v.version,
-                "description": v.description,
-                "status": v.status,
-            }
-            for v in versions
-        ])
+        self.ui = importlib.resources.files().joinpath("ui")
 
     def open(self, path):
 
@@ -145,56 +116,91 @@ class Api:
             logging.error(f"Exception: {e}")
             raise web.HTTPInternalServerError()
 
+    async def latest(self, request):
+
+        url = self.gateway + "api/latest"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='application/json'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching latest: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def latest_stable(self, request):
+
+        url = self.gateway + "api/latest-stable"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='application/json'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching latest-stable: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def versions(self, request):
+
+        url = self.gateway + "api/versions"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='application/json'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching versions: {e}")
+            return web.Response(status=500, text=str(e))
+
     async def generate(self, request):
 
-        logger.info("Generate...")
+        platform = request.match_info['platform']
+        version = request.match_info['version']
+        url = self.gateway + f"api/generate/{platform}/{version}"
 
         try:
-            platform = request.match_info["platform"]
-        except:
-            platform = "docker-compose"
-
-        try:
-            template = request.match_info["template"]
-        except:
-            return web.HTTPBadRequest()
-
-        logger.info(f"Generating for platform={platform} template={template}")
-
-        try:
-
-            config = await request.text()
-
-            # This verifies/forces that the input is JSON.  Important because
-            # input is user-supplied, don't want to trust it.
-            try:
-                dec = json.loads(config)
-                config = json.dumps(dec)
-            except:
-                # Incorrectly formatted stuff is not our problem,
-                logger.info(f"Bad JSON")
-                return web.HTTPBadRequest()
-
-            logger.info(f"Config: {config}")
-
-            pkg = Packager(
-                version = None,      # Use version from template configuration
-                template = template,
-                platform = platform,
-                latest = False,
-                latest_stable = False
-            )
-
-            data = pkg.generate(config)
-
-            return web.Response(
-                body = data,
-                content_type = "application/octet-stream"
-            )
-
+            # Read the request body
+            body = await request.read()
+            
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, data=body, headers={'Content-Type': 'application/json'}) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='application/octet-stream'
+                        )
+                    else:
+                        error_text = await resp.text()
+                        return web.Response(status=resp.status, text=error_text)
         except Exception as e:
-            logging.error(f"Exception: {e}")
-            return web.HTTPInternalServerError()
+            logger.error(f"Error generating for {platform}/{version}: {e}")
+            return web.Response(status=500, text=str(e))
 
     def run(self):
 
