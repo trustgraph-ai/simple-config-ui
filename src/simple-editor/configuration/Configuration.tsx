@@ -5,8 +5,7 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_OCR,
-    CONFIGURE_EMBEDDINGS,
+  useOptionsStore, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 import { useVersionStateStore } from '../state/Version';

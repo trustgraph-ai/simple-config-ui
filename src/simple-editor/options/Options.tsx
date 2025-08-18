@@ -2,8 +2,7 @@ import React from 'react';
 import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
-    CONFIGURE_WORKBENCH, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
+    useOptionsStore, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 
 interface OptionProps extends React.PropsWithChildren {
@@ -91,9 +90,6 @@ const ParamsForm: React.FC = () => {
         setConfigUrl("");
     });
 
-    const configurePrompts = options.has(CONFIGURE_PROMPTS);
-    const configureAgents = options.has(CONFIGURE_AGENTS);
-    const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
     const configureOcr = options.has(CONFIGURE_OCR);
     const configureEmbeddings = options.has(CONFIGURE_EMBEDDINGS);
 
@@ -108,19 +104,6 @@ const ParamsForm: React.FC = () => {
             setOptions(opts);
         }
     }
-
-   const onConfigurePrompts = (event: React.ChangeEvent<HTMLInputElement>) => {
-        set(CONFIGURE_PROMPTS, event.target.checked);
-    };
-
-   const onConfigureAgents = (event: React.ChangeEvent<HTMLInputElement>) => {
-        set(CONFIGURE_AGENTS, event.target.checked);
-    };
-
-    const onConfigureWorkbench =
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            set(CONFIGURE_WORKBENCH, event.target.checked);
-        };
 
     const onConfigureOcr =
         (event: React.ChangeEvent<HTMLInputElement>) => {
