@@ -6,7 +6,7 @@ import { Version } from './state/Version';
 
 import {
     Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
-    CONFIGURE_DOCUMENT_RAG, CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
+    CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
 const modelConfig = (m : ModelParams) => {
@@ -176,15 +176,11 @@ export const generateConfig =
 
     }
 
-    if (options.options.has(CONFIGURE_DOCUMENT_RAG)) {
-
-        components.push({
-            "name": "document-rag",
-            "parameters": {
-            },
-        });
-
-    }
+    components.push({
+        "name": "document-rag",
+        "parameters": {
+        },
+    });
 
     components.push({
         "name": "null",

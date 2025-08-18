@@ -52,6 +52,7 @@ const VectorDB: React.FC<VectorDBProps> = ({ value, onChange }) => {
                                 sx={{ whiteSpace: 'wrap' }}
                             >
 
+                                <b>Recommended</b>.
                                 Qdrant is the most advanced vector
                                 database with highest RPS, minimal
                                 latency, fast indexing, high control

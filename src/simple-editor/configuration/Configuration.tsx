@@ -5,8 +5,7 @@ import { Box, Tabs, Tab } from '@mui/material';
 
 import { usePromptsStore } from '../state/Prompts';
 import {
-    useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_OCR,
-    CONFIGURE_EMBEDDINGS,
+  useOptionsStore, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 import { useVersionStateStore } from '../state/Version';
@@ -47,16 +46,6 @@ const tabs = (opts : Set<string>) => {
         <Tab key="model" value="model" label="Component Selection ✅"/>,
         <Tab key="more" value="more" label="Customization 🧰"/>
     ];
-
-    if (opts.has(CONFIGURE_PROMPTS))
-        tabs.push(
-            <Tab key="prompts" value="prompts" label="Configure Prompts 💬"/>
-        );
-
-    if (opts.has(CONFIGURE_AGENTS))
-        tabs.push(
-            <Tab key="agents" value="agents" label="Configure Agents 🧠"/>
-        );
 
     if (opts.has(CONFIGURE_OCR))
         tabs.push(

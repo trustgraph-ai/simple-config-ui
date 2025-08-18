@@ -3,8 +3,7 @@ import { Box } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
-    useOptionsStore, CONFIGURE_DOCUMENT_RAG, CONFIGURE_WORKBENCH,
-    CONFIGURE_OCR,
+    useOptionsStore, CONFIGURE_WORKBENCH, CONFIGURE_OCR,
 } from '../state/Options';
 
 import DockerCompose from './DockerCompose';
@@ -191,8 +190,7 @@ const Deployment: React.FC<DeploymentProps> = ({
     else
         deploymentProcedures.push(<ApplicationKube/>);
 
-    if (options.has(CONFIGURE_DOCUMENT_RAG))
-        deploymentProcedures.push(<DocumentRag/>);
+    deploymentProcedures.push(<DocumentRag/>);
 
     return (
         <Box className="deployment">
