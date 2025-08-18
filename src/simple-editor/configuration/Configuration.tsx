@@ -48,16 +48,6 @@ const tabs = (opts : Set<string>) => {
         <Tab key="more" value="more" label="Customization 🧰"/>
     ];
 
-    if (opts.has(CONFIGURE_PROMPTS))
-        tabs.push(
-            <Tab key="prompts" value="prompts" label="Configure Prompts 💬"/>
-        );
-
-    if (opts.has(CONFIGURE_AGENTS))
-        tabs.push(
-            <Tab key="agents" value="agents" label="Configure Agents 🧠"/>
-        );
-
     if (opts.has(CONFIGURE_OCR))
         tabs.push(
             <Tab key="ocr" value="ocr" label="OCR 🧮"/>

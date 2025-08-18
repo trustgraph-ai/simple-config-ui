@@ -3,8 +3,7 @@ import { Stack, Typography, Box, Switch, styled } from '@mui/material';
 import { useDeploymentStore } from '../state/Deployment';
 import {
     useOptionsStore, CONFIGURE_PROMPTS, CONFIGURE_AGENTS,
-    CONFIGURE_WORKBENCH, CONFIGURE_DOCUMENT_RAG, CONFIGURE_OCR,
-    CONFIGURE_EMBEDDINGS,
+    CONFIGURE_WORKBENCH, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 
 interface OptionProps extends React.PropsWithChildren {
@@ -95,7 +94,6 @@ const ParamsForm: React.FC = () => {
     const configurePrompts = options.has(CONFIGURE_PROMPTS);
     const configureAgents = options.has(CONFIGURE_AGENTS);
     const configureWorkbench = options.has(CONFIGURE_WORKBENCH);
-    const configureDocumentRag = options.has(CONFIGURE_DOCUMENT_RAG);
     const configureOcr = options.has(CONFIGURE_OCR);
     const configureEmbeddings = options.has(CONFIGURE_EMBEDDINGS);
 
@@ -124,11 +122,6 @@ const ParamsForm: React.FC = () => {
             set(CONFIGURE_WORKBENCH, event.target.checked);
         };
 
-    const onConfigureDocumentRag =
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            set(CONFIGURE_DOCUMENT_RAG, event.target.checked);
-        };
-
     const onConfigureOcr =
         (event: React.ChangeEvent<HTMLInputElement>) => {
             set(CONFIGURE_OCR, event.target.checked);
@@ -147,42 +140,6 @@ const ParamsForm: React.FC = () => {
                 sx={{ flexWrap: 'wrap', width: '100%' }}
                 useFlexGap
             >
-                <Option
-                    enabled={configurePrompts}
-                    onChange={onConfigurePrompts}
-                    title="LLM Prompt Manager"
-                >
-                    Tailor the LLM system prompts, data extraction prompts,
-                    RAG query prompts, and the Agent Tool Router.
-                </Option>
-
-                <Option
-                    enabled={configureAgents}
-                    onChange={onConfigureAgents}
-                    title="Agent Tools"
-                >
-                    Add Agents that use a ReAct approach. Customize the
-                    Agent definitions, options, and arguments.
-                </Option>
-
-                <Option
-                    enabled={configureWorkbench}
-                    onChange={onConfigureWorkbench}
-                    title="Workbench"
-                >
-                    A UI providing tools to explore TrustGraph system
-                    performance. Once launched, accessible on port 8888.
-                </Option>
-
-                <Option
-                    enabled={configureDocumentRag}
-                    onChange={onConfigureDocumentRag}
-                    title="Document RAG"
-                >
-                    Enables pipelines for Document RAG aka Vector RAG. This
-                    is typically an inferior experience to Graph RAG
-                    and is made available for comparison testing purposes.
-                </Option>
 
                 <Option
                     enabled={configureOcr}
