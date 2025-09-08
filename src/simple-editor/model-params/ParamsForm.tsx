@@ -4,6 +4,7 @@ import { Box, FormControlLabel, Switch, Typography, Paper } from '@mui/material'
 import VersionSelection from './VersionSelection';
 import GraphStore from './GraphStore';
 import VectorDB from './VectorDB';
+import ObjectStore from './ObjectStore';
 import Chunker from './Chunker';
 import Platform from './Platform';
 import ModelDeployment from './ModelDeployment';
@@ -11,6 +12,7 @@ import ModelParameters from './ModelParameters';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
+import { useVersionStateStore } from '../state/Version';
 
 type ModelDescriptor = { id : string, description : string };
 type ModelCatalog = { [ix : string] : ModelDescriptor[] };
@@ -37,6 +39,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const vectorDB
         = useConfigurationStateStore((state) => state.vectorDB);
 
+    const objectStore
+        = useConfigurationStateStore((state) => state.objectStore);
+
     const chunkerType
         = useConfigurationStateStore((state) => state.chunkerType);
 
@@ -55,6 +60,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const setVectorDB
         = useConfigurationStateStore((state) => state.setVectorDB);
 
+    const setObjectStore
+        = useConfigurationStateStore((state) => state.setObjectStore);
+
     const setChunkerType
         = useConfigurationStateStore((state) => state.setChunkerType);
 
@@ -66,6 +74,9 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
 
     const setPlatform
         = useConfigurationStateStore((state) => state.setPlatform);
+
+    const version
+        = useVersionStateStore((state) => state.version);
 
     // Dual Model Mode State
     const dualModelMode = useConfigurationStateStore(
@@ -192,6 +203,27 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                 <Box my={4}>
                     <VectorDB value={vectorDB} onChange={setVectorDB} />
                 </Box>
+
+                {(() => {
+                    // Parse version number from string like "1.3.0" or "1.2.1"
+                    const versionParts = version.version.split('.');
+                    const majorVersion = parseInt(versionParts[0]) || 0;
+                    const minorVersion = parseInt(versionParts[1]) || 0;
+                    const isVersion13OrHigher = majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3);
+                    
+                    // Show the selector if version is 1.3 or higher, otherwise don't render it
+                    if (isVersion13OrHigher) {
+                        return (
+                            <Box my={4}>
+                                <ObjectStore 
+                                    value={objectStore} 
+                                    onChange={setObjectStore}
+                                />
+                            </Box>
+                        );
+                    }
+                    return null;
+                })()}
 
                 <Box my={4}>
                     <Chunker

@@ -39,6 +39,20 @@ export const generateConfig =
             "name": "vector-store-" + config.vectorDB,
             "parameters": {}
         },
+    ];
+
+    // Add object store component only for version 1.3+
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    if (majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3)) {
+        components.push({
+            "name": "object-store-" + config.objectStore,
+            "parameters": {}
+        });
+    }
+
+    components.push(
         {
             "name": "graph-rag",
             "parameters": {}
@@ -54,8 +68,8 @@ export const generateConfig =
         {
             "name": "prompt-template",
             "parameters": {}
-        },
-    ];
+        }
+    );
 
     // Will collate some various parameters to apply to the config.
     // These get put into the 'null' pattern.
