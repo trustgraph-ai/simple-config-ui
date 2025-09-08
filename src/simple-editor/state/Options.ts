@@ -1,10 +1,6 @@
 
 import { create } from 'zustand'
 
-export const CONFIGURE_PROMPTS = "configure-prompts";
-
-export const CONFIGURE_AGENTS = "configure-agents";
-
 export const CONFIGURE_WORKBENCH = "configure-workbench";
 
 export const CONFIGURE_OCR = "configure-ocr";
@@ -21,8 +17,7 @@ export const useOptionsStore = create<Options>()(
     (set) => ({
 
         options: new Set<string>([
-            CONFIGURE_WORKBENCH, CONFIGURE_PROMPTS,
-            CONFIGURE_AGENTS,
+            CONFIGURE_WORKBENCH,
         ]),
 
         setOptions: (v) => set(() => ({

@@ -3,15 +3,11 @@ import React from 'react';
 
 import { Box, Tabs, Tab } from '@mui/material';
 
-import { usePromptsStore } from '../state/Prompts';
 import {
   useOptionsStore, CONFIGURE_OCR, CONFIGURE_EMBEDDINGS,
 } from '../state/Options';
 import { useDeploymentStore } from '../state/Deployment';
 import { useVersionStateStore } from '../state/Version';
-
-import ConfigurePrompts from '../prompts/ConfigurePrompts';
-import ConfigureAgents from '../agents/ConfigureAgents';
 import ConfigureOcr from '../ocr/ConfigureOcr';
 import ConfigureEmbeddings from '../embeddings/ConfigureEmbeddings';
 import Additional from './Additional';
@@ -70,10 +66,6 @@ const Configuration: React.FC = () => {
     const setConfigUrl =
         useDeploymentStore((state) => state.setConfigUrl);
 
-    usePromptsStore.subscribe(() => {
-        setConfigUrl("");
-    });
-
     useVersionStateStore.subscribe(() => {
         setConfigUrl("");
     });
@@ -106,14 +98,6 @@ const Configuration: React.FC = () => {
 
             <CustomTabPanel value={value} tabId="more">
                 <Additional/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="prompts">
-                <ConfigurePrompts/>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} tabId="agents">
-                <ConfigureAgents/>
             </CustomTabPanel>
 
             <CustomTabPanel value={value} tabId="ocr">
