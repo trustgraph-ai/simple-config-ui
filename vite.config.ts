@@ -18,6 +18,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/api/generate": {
+        target: "https://config-ui.demo.trustgraph.ai/",
+        changeOrigin: true,
+        secure: false,
+      },
       "/api/build/versions": {
         target: "https://config-ui.demo.trustgraph.ai/",
         changeOrigin: true,
