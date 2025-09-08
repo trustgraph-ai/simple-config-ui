@@ -46,7 +46,7 @@ import FalkorDb from './FalkorDb';
 
 import GatewayKube from './GatewayKube';
 
-import NoWorkbench from './NoWorkbench';
+import Workbench from './Workbench';
 
 import DocumentRag from './DocumentRag';
 
