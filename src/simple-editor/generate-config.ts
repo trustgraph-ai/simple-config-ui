@@ -3,7 +3,7 @@ import { ConfigurationState, ModelParams } from './state/Configuration';
 import { Version } from './state/Version';
 
 import {
-    Options, CONFIGURE_WORKBENCH,
+    Options,
     CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
@@ -49,10 +49,6 @@ export const generateConfig =
     }
 
     components.push(
-        {
-            "name": "graph-rag",
-            "parameters": {}
-        },
         {
             "name": "grafana",
             "parameters": {}
@@ -138,21 +134,7 @@ export const generateConfig =
     parameters["chunk-size"] = config.chunkSize;
     parameters["chunk-overlap"] = config.chunkOverlap;
 
-    if (options.options.has(CONFIGURE_WORKBENCH)) {
-
-        components.push({
-            "name": "workbench-ui",
-            "parameters": {
-            },
-        });
-
-    }
-
-    components.push({
-        "name": "document-rag",
-        "parameters": {
-        },
-    });
+    // Removed workbench-ui and document-rag as they are no-ops
 
     components.push({
         "name": "null",
