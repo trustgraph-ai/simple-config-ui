@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import {
     FormControl, InputLabel, Select, MenuItem, Chip, Typography
@@ -15,13 +15,20 @@ interface VersionSelectionProps {
 const VersionSelection: React.FC<VersionSelectionProps> =
 ({}) => {
 
-    const [versions, setVersions] = useState<Version[]>([]);
-
     const version
         = useVersionStateStore((state) => state.version);
 
+    const versions
+        = useVersionStateStore((state) => state.versions);
+
+    const versionsLoaded
+        = useVersionStateStore((state) => state.versionsLoaded);
+
     const setVersion
         = useVersionStateStore((state) => state.setVersion);
+
+    const setVersions
+        = useVersionStateStore((state) => state.setVersions);
 
     const selectVersion = (templ : string) => {
         versions.map(
@@ -33,28 +40,32 @@ const VersionSelection: React.FC<VersionSelectionProps> =
 
     useEffect(
         () => {
-            fetch("/api/versions").then(
-                x => x.json()
-            ).then(
-                x => {
+            // Only fetch versions if they haven't been loaded yet
+            if (!versionsLoaded) {
+                fetch("/api/versions").then(
+                    x => x.json()
+                ).then(
+                    x => {
 
-                    let latest : Version | null = null;
+                        let latest : Version | null = null;
 
-                    // Get latest stable.
-                    for (let v of x) {
-                        if (v.status == "stable") latest = v;
+                        // Get latest stable.
+                        for (let v of x) {
+                            if (v.status == "stable") latest = v;
+                        }
+
+                        setVersions(x);
+
+                        // Only set version if no version is currently selected
+                        if (latest && !version.template) setVersion(latest);
+
                     }
-
-                    setVersions(x);
-
-                    if (latest) setVersion(latest);
-
-                }
-            ).catch(
-                err => console.log("Error:", err)
-            );
+                ).catch(
+                    err => console.log("Error:", err)
+                );
+            }
         },
-        []
+        [versionsLoaded, version.template, setVersions, setVersion]
     );
 
   return (
