@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import {
-    useOptionsStore, CONFIGURE_WORKBENCH, CONFIGURE_OCR,
+    useOptionsStore, CONFIGURE_OCR,
 } from '../state/Options';
 
 import DockerCompose from './DockerCompose';
@@ -46,7 +46,6 @@ import FalkorDb from './FalkorDb';
 
 import GatewayKube from './GatewayKube';
 
-import Workbench from './Workbench';
 import NoWorkbench from './NoWorkbench';
 
 import DocumentRag from './DocumentRag';
@@ -179,10 +178,7 @@ const Deployment: React.FC<DeploymentProps> = ({
     if (config.graphStore == "falkordb")
         deploymentProcedures.push(<FalkorDb/>);
 
-    if (options.has(CONFIGURE_WORKBENCH))
-        deploymentProcedures.push(<Workbench/>);
-    else
-        deploymentProcedures.push(<NoWorkbench/>);
+    deploymentProcedures.push(<NoWorkbench/>);
 
     if (config.platform == "docker-compose" ||
         config.platform == "podman-compose")
