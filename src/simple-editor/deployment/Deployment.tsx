@@ -178,7 +178,7 @@ const Deployment: React.FC<DeploymentProps> = ({
     if (config.graphStore == "falkordb")
         deploymentProcedures.push(<FalkorDb/>);
 
-    deploymentProcedures.push(<NoWorkbench/>);
+    deploymentProcedures.push(<Workbench/>);
 
     if (config.platform == "docker-compose" ||
         config.platform == "podman-compose")
