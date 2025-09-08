@@ -1,11 +1,9 @@
 
 import { ConfigurationState, ModelParams } from './state/Configuration';
-import { Prompts } from './state/Prompts';
-import { Agents } from './state/Agents';
 import { Version } from './state/Version';
 
 import {
-    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
+    Options, CONFIGURE_WORKBENCH,
     CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
@@ -21,8 +19,6 @@ export const generateConfig =
 (
     config : ConfigurationState,
     template : Version,
-    prompts : Prompts,
-    agents : Agents,
     options : Options,
 ) => {
 
@@ -63,10 +59,6 @@ export const generateConfig =
         },
         {
             "name": "trustgraph-base",
-            "parameters": {}
-        },
-        {
-            "name": "prompt-template",
             "parameters": {}
         }
     );
@@ -145,40 +137,6 @@ export const generateConfig =
 
     parameters["chunk-size"] = config.chunkSize;
     parameters["chunk-overlap"] = config.chunkOverlap;
-
-    if (options.options.has(CONFIGURE_PROMPTS)) {
-
-        let promptParams = prompts.prompts.reduce(
-            (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
-        );
-  
-        components.push({
-            "name": "prompt-overrides",
-            "parameters": promptParams,
-        });
-          
-    }
-
-    if (options.options.has(CONFIGURE_AGENTS)) {
-
-        let toolParams = agents.tools;
-  
-        components.push({
-            "name": "agent-manager-react",
-            "parameters": {
-                "tools": toolParams
-            },
-        });
-          
-    } else {
-
-        components.push({
-            "name": "agent-manager-react",
-            "parameters": {
-            },
-        });
-
-    }
 
     if (options.options.has(CONFIGURE_WORKBENCH)) {
 
