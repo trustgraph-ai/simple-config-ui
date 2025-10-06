@@ -78,6 +78,12 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
     const version
         = useVersionStateStore((state) => state.version);
 
+    // Parse version number to check if >= 1.4.0
+    const versionParts = version.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    const isVersion14OrHigher = majorVersion > 1 || (majorVersion === 1 && minorVersion >= 4);
+
     // Dual Model Mode State
     const dualModelMode = useConfigurationStateStore(
         (state) => state.dualModelMode
@@ -210,13 +216,13 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     const majorVersion = parseInt(versionParts[0]) || 0;
                     const minorVersion = parseInt(versionParts[1]) || 0;
                     const isVersion13OrHigher = majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3);
-                    
+
                     // Show the selector if version is 1.3 or higher, otherwise don't render it
                     if (isVersion13OrHigher) {
                         return (
                             <Box my={4}>
-                                <ObjectStore 
-                                    value={objectStore} 
+                                <ObjectStore
+                                    value={objectStore}
                                     onChange={setObjectStore}
                                 />
                             </Box>
@@ -225,30 +231,34 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                     return null;
                 })()}
 
-                <Box my={4}>
-                    <Chunker
-                        type={chunkerType}
-                        chunkSize={chunkSize}
-                        chunkOverlap={chunkOverlap}
-                        onTypeChange={setChunkerType}
-                        onChunkSizeChange={setChunkSize}
-                        onChunkOverlapChange={setChunkOverlap}
-                    />
-                </Box>
+                {!isVersion14OrHigher && (
+                    <Box my={4}>
+                        <Chunker
+                            type={chunkerType}
+                            chunkSize={chunkSize}
+                            chunkOverlap={chunkOverlap}
+                            onTypeChange={setChunkerType}
+                            onChunkSizeChange={setChunkSize}
+                            onChunkOverlapChange={setChunkOverlap}
+                        />
+                    </Box>
+                )}
 
-                <Box my={2} display="flex" alignItems="center">
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={dualModelMode}
-                                onChange={handleDualModelModeChange}
-                                name="dualModelMode"
-                                color="primary"
-                            />
-                        }
-                        label="Dual Model Mode"
-                    />
-                </Box>
+                {!isVersion14OrHigher && (
+                    <Box my={2} display="flex" alignItems="center">
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={dualModelMode}
+                                    onChange={handleDualModelModeChange}
+                                    name="dualModelMode"
+                                    color="primary"
+                                />
+                            }
+                            label="Dual Model Mode"
+                        />
+                    </Box>
+                )}
 
                 <Paper
                     elevation={3}
@@ -276,7 +286,7 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                 </Paper>
 
                 {
-                    dualModelMode &&
+                    !isVersion14OrHigher && dualModelMode &&
                     <Paper elevation={3} style={{ padding: '16px' }}>
                         <Typography variant="h6" gutterBottom>
                             RAG Model Configuration
