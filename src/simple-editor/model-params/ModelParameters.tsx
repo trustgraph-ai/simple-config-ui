@@ -10,6 +10,7 @@ import modelsRaw from './models.json';
 const models = modelsRaw as ModelCatalog;
 
 import { ModelParams } from '../state/Configuration';
+import { useVersionStateStore } from '../state/Version';
 
 interface ModelParametersProps {
     value : ModelParams;
@@ -19,6 +20,14 @@ interface ModelParametersProps {
 const ModelParameters: React.FC<ModelParametersProps> = ({
     value, onChange,
 }) => {
+
+    const version = useVersionStateStore((state) => state.version);
+
+    // Parse version number to check if >= 1.4.0
+    const versionParts = version.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    const isVersion14OrHigher = majorVersion > 1 || (majorVersion === 1 && minorVersion >= 4);
 
     const availModels = models[value.deployment];
 
@@ -87,32 +96,36 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
     return (
         <div>
 
-            <ModelList
-                value={value.modelName} modelList={availModels}
-                onChange={
-                    (m : string) => onChange({
-                        ...value,
-                        modelName: m
-                    })
-                }
-            />
+            {!isVersion14OrHigher && (
+                <>
+                    <ModelList
+                        value={value.modelName} modelList={availModels}
+                        onChange={
+                            (m : string) => onChange({
+                                ...value,
+                                modelName: m
+                            })
+                        }
+                    />
 
-            <div>
-                <p>Temperature: {value.temperature}</p>
-                <Slider
-                    value={value.temperature}
-                    onChange={
-                        (_, temp) => onChange({
-                            ...value,
-                            temperature: (temp as number),
-                        })
-                    }
-                    min={0}
-                    max={2}
-                    step={0.01}
-                />
-            </div>
-            
+                    <div>
+                        <p>Temperature: {value.temperature}</p>
+                        <Slider
+                            value={value.temperature}
+                            onChange={
+                                (_, temp) => onChange({
+                                    ...value,
+                                    temperature: (temp as number),
+                                })
+                            }
+                            min={0}
+                            max={2}
+                            step={0.01}
+                        />
+                    </div>
+                </>
+            )}
+
             <TextField
                 fullWidth
                 label="Max output tokens"
@@ -126,7 +139,7 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
                 }
                 margin="normal"
             />
-            
+
         </div>
     );
 };

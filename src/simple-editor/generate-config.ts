@@ -7,7 +7,29 @@ import {
     CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
-const modelConfig = (m : ModelParams) => {
+const isVersion14OrHigher = (template : Version) => {
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 4);
+};
+
+const isVersion13OrHigher = (template : Version) => {
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3);
+};
+
+const modelConfig = (m : ModelParams, template : Version) => {
+    if (isVersion14OrHigher(template)) {
+        // For v1.4+, only include max-output-tokens
+        return {
+            "max-output-tokens": m.maxOutputTokens,
+        };
+    }
+
+    // For versions < 1.4, include all parameters
     return {
         temperature: m.temperature,
         "max-output-tokens": m.maxOutputTokens,
@@ -38,10 +60,7 @@ export const generateConfig =
     ];
 
     // Add object store component only for version 1.3+
-    const versionParts = template.version.split('.');
-    const majorVersion = parseInt(versionParts[0]) || 0;
-    const minorVersion = parseInt(versionParts[1]) || 0;
-    if (majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3)) {
+    if (isVersion13OrHigher(template)) {
         components.push({
             "name": "object-store-" + config.objectStore,
             "parameters": {}
@@ -62,11 +81,14 @@ export const generateConfig =
     // Will collate some various parameters to apply to the config.
     // These get put into the 'null' pattern.
 
-    if (config.chunkerType == "chunker-recursive") {
-        components.push({
-            "name": "override-recursive-chunker",
-            "parameters": {}
-        });
+    // For versions < 1.4, add chunker configuration
+    if (!isVersion14OrHigher(template)) {
+        if (config.chunkerType == "chunker-recursive") {
+            components.push({
+                "name": "override-recursive-chunker",
+                "parameters": {}
+            });
+        }
     }
 
     if (options.options.has(CONFIGURE_EMBEDDINGS)) {
@@ -114,25 +136,31 @@ export const generateConfig =
 
     components.push({
         name: config.mainModel.deployment,
-        parameters: modelConfig(config.mainModel)
+        parameters: modelConfig(config.mainModel, template)
     });
 
-    if (config.dualModelMode) {
-        components.push({
-            name: config.ragModel.deployment + "-rag",
-            parameters: modelConfig(config.ragModel)
-        });
-    } else {
-        components.push({
-            name: config.mainModel.deployment + "-rag",
-            parameters: modelConfig(config.mainModel)
-        });
+    // For v1.4+, don't add the -rag component at all
+    if (!isVersion14OrHigher(template)) {
+        if (config.dualModelMode) {
+            components.push({
+                name: config.ragModel.deployment + "-rag",
+                parameters: modelConfig(config.ragModel, template)
+            });
+        } else {
+            components.push({
+                name: config.mainModel.deployment + "-rag",
+                parameters: modelConfig(config.mainModel, template)
+            });
+        }
     }
 
     let parameters : { [k : string] : string | number } = {};
 
-    parameters["chunk-size"] = config.chunkSize;
-    parameters["chunk-overlap"] = config.chunkOverlap;
+    // For versions < 1.4, add chunk parameters
+    if (!isVersion14OrHigher(template)) {
+        parameters["chunk-size"] = config.chunkSize;
+        parameters["chunk-overlap"] = config.chunkOverlap;
+    }
 
     // Removed workbench-ui and document-rag as they are no-ops
 
