@@ -1,15 +1,35 @@
 
 import { ConfigurationState, ModelParams } from './state/Configuration';
-import { Prompts } from './state/Prompts';
-import { Agents } from './state/Agents';
 import { Version } from './state/Version';
 
 import {
-    Options, CONFIGURE_PROMPTS, CONFIGURE_AGENTS, CONFIGURE_WORKBENCH,
-    CONFIGURE_DOCUMENT_RAG, CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
+    Options,
+    CONFIGURE_EMBEDDINGS, CONFIGURE_OCR,
 } from './state/Options';
 
-const modelConfig = (m : ModelParams) => {
+const isVersion14OrHigher = (template : Version) => {
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 4);
+};
+
+const isVersion13OrHigher = (template : Version) => {
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3);
+};
+
+const modelConfig = (m : ModelParams, template : Version) => {
+    if (isVersion14OrHigher(template)) {
+        // For v1.4+, only include max-output-tokens
+        return {
+            "max-output-tokens": m.maxOutputTokens,
+        };
+    }
+
+    // For versions < 1.4, include all parameters
     return {
         temperature: m.temperature,
         "max-output-tokens": m.maxOutputTokens,
@@ -21,8 +41,6 @@ export const generateConfig =
 (
     config : ConfigurationState,
     template : Version,
-    prompts : Prompts,
-    agents : Agents,
     options : Options,
 ) => {
 
@@ -39,10 +57,17 @@ export const generateConfig =
             "name": "vector-store-" + config.vectorDB,
             "parameters": {}
         },
-        {
-            "name": "graph-rag",
+    ];
+
+    // Add object store component only for version 1.3+
+    if (isVersion13OrHigher(template)) {
+        components.push({
+            "name": "object-store-" + config.objectStore,
             "parameters": {}
-        },
+        });
+    }
+
+    components.push(
         {
             "name": "grafana",
             "parameters": {}
@@ -50,21 +75,20 @@ export const generateConfig =
         {
             "name": "trustgraph-base",
             "parameters": {}
-        },
-        {
-            "name": "prompt-template",
-            "parameters": {}
-        },
-    ];
+        }
+    );
 
     // Will collate some various parameters to apply to the config.
     // These get put into the 'null' pattern.
 
-    if (config.chunkerType == "chunker-recursive") {
-        components.push({
-            "name": "override-recursive-chunker",
-            "parameters": {}
-        });
+    // For versions < 1.4, add chunker configuration
+    if (!isVersion14OrHigher(template)) {
+        if (config.chunkerType == "chunker-recursive") {
+            components.push({
+                "name": "override-recursive-chunker",
+                "parameters": {}
+            });
+        }
     }
 
     if (options.options.has(CONFIGURE_EMBEDDINGS)) {
@@ -112,78 +136,30 @@ export const generateConfig =
 
     components.push({
         name: config.mainModel.deployment,
-        parameters: modelConfig(config.mainModel)
+        parameters: modelConfig(config.mainModel, template)
     });
 
-    if (config.dualModelMode) {
-        components.push({
-            name: config.ragModel.deployment + "-rag",
-            parameters: modelConfig(config.ragModel)
-        });
-    } else {
-        components.push({
-            name: config.mainModel.deployment + "-rag",
-            parameters: modelConfig(config.mainModel)
-        });
+    // For v1.4+, don't add the -rag component at all
+    if (!isVersion14OrHigher(template)) {
+        if (config.dualModelMode) {
+            components.push({
+                name: config.ragModel.deployment + "-rag",
+                parameters: modelConfig(config.ragModel, template)
+            });
+        } else {
+            components.push({
+                name: config.mainModel.deployment + "-rag",
+                parameters: modelConfig(config.mainModel, template)
+            });
+        }
     }
 
     let parameters : { [k : string] : string | number } = {};
 
-    parameters["chunk-size"] = config.chunkSize;
-    parameters["chunk-overlap"] = config.chunkOverlap;
-
-    if (options.options.has(CONFIGURE_PROMPTS)) {
-
-        let promptParams = prompts.prompts.reduce(
-            (obj, elt) => ({ ...obj, [elt.id]: elt.prompt }), {}
-        );
-  
-        components.push({
-            "name": "prompt-overrides",
-            "parameters": promptParams,
-        });
-          
-    }
-
-    if (options.options.has(CONFIGURE_AGENTS)) {
-
-        let toolParams = agents.tools;
-  
-        components.push({
-            "name": "agent-manager-react",
-            "parameters": {
-                "tools": toolParams
-            },
-        });
-          
-    } else {
-
-        components.push({
-            "name": "agent-manager-react",
-            "parameters": {
-            },
-        });
-
-    }
-
-    if (options.options.has(CONFIGURE_WORKBENCH)) {
-
-        components.push({
-            "name": "workbench-ui",
-            "parameters": {
-            },
-        });
-
-    }
-
-    if (options.options.has(CONFIGURE_DOCUMENT_RAG)) {
-
-        components.push({
-            "name": "document-rag",
-            "parameters": {
-            },
-        });
-
+    // For versions < 1.4, add chunk parameters
+    if (!isVersion14OrHigher(template)) {
+        parameters["chunk-size"] = config.chunkSize;
+        parameters["chunk-overlap"] = config.chunkOverlap;
     }
 
     components.push({

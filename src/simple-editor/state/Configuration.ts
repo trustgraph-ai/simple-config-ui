@@ -12,6 +12,7 @@ export interface ConfigurationState {
 
     graphStore: string;
     vectorDB: string;
+    objectStore: string;
     chunkerType: string;
     chunkSize: number;
     chunkOverlap: number;
@@ -29,6 +30,7 @@ export interface ConfigurationState {
 
     setGraphStore: (v: string) => void;
     setVectorDB: (v: string) => void;
+    setObjectStore: (v: string) => void;
     setChunkerType: (v: string) => void;
     setChunkSize: (v: number) => void;
     setChunkOverlap: (v: number) => void;
@@ -51,6 +53,7 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
 
         graphStore: "cassandra",
         vectorDB: "qdrant",
+        objectStore: "cassandra",
         chunkerType: "chunker-recursive",
         chunkSize: 1000,
         chunkOverlap: 50,
@@ -79,6 +82,7 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
 
         setGraphStore: (v) => set({ graphStore: v }),
         setVectorDB: (v) => set({ vectorDB: v }),
+        setObjectStore: (v) => set({ objectStore: v }),
         setChunkerType: (v) => set({ chunkerType: v }),
         setChunkSize: (v) => set({ chunkSize: v }),
         setChunkOverlap: (v) => set({ chunkOverlap: v }),

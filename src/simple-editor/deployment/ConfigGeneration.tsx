@@ -12,8 +12,6 @@ import { Close } from '@mui/icons-material';
 import { generateConfig } from '../generate-config';
 import { useConfigurationStateStore } from '../state/Configuration';
 import { useVersionStateStore } from '../state/Version';
-import { usePromptsStore } from '../state/Prompts';
-import { useAgentsStore } from '../state/Agents';
 import { useDeploymentStore } from '../state/Deployment';
 import { useOptionsStore } from '../state/Options';
 
@@ -27,10 +25,6 @@ const ConfigGeneration = () => {
 
     const configuration
         = useConfigurationStateStore((state) => state);
-
-    const prompts = usePromptsStore((state) => state);
-
-    const agents = useAgentsStore((state) => state);
 
     const version = useVersionStateStore((state) => state).version;
 
@@ -55,7 +49,7 @@ const ConfigGeneration = () => {
         setGenerating(true);
 
         generateConfig(
-            configuration, version, prompts, agents, options,
+            configuration, version, options,
         ).then(
             response => {
                 if (response.ok) {

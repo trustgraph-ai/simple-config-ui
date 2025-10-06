@@ -71,6 +71,8 @@ const Chunker: React.FC<ChunkerProps> = ({
                             </Stack>
                             <Box sx={{ width: '36rem' }}>
                                 <Typography variant="body2" sx={{ whiteSpace: 'wrap' }}>
+
+                                    <b>Recommended</b>.
                                     This chunker tries different chunk separators until the
                                     chosen chunk size is achieved. The chunk size and
                                     overlap values are counted in characters. Values such

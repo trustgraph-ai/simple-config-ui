@@ -59,6 +59,7 @@ const GraphStore: React.FC<GraphStoreProps> = ({ value, onChange }) => {
                             <Typography variant="body2"
                                 sx={{ whiteSpace: 'wrap' }}
                             >
+                                <b>Recommended</b>.
                                 Apache Cassandra is an open-source, NoSQL
                                 database that stores data for
                                 applications that need fast read and write
