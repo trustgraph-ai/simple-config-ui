@@ -21,6 +21,13 @@ const isVersion13OrHigher = (template : Version) => {
     return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 3);
 };
 
+const isVersion15OrHigher = (template : Version) => {
+    const versionParts = template.version.split('.');
+    const majorVersion = parseInt(versionParts[0]) || 0;
+    const minorVersion = parseInt(versionParts[1]) || 0;
+    return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 5);
+};
+
 const modelConfig = (m : ModelParams, template : Version) => {
     if (isVersion14OrHigher(template)) {
         // For v1.4+, only include max-output-tokens
@@ -93,25 +100,25 @@ export const generateConfig =
 
     if (options.options.has(CONFIGURE_EMBEDDINGS)) {
 
-        if (config.embeddingsEngine == "fastembed") 
+        if (config.embeddingsEngine == "fastembed")
             components.push({
                 "name": "embeddings-fastembed",
-                "parameters": {
+                "parameters": isVersion15OrHigher(template) ? {} : {
                     "embeddings-model": config.embeddingsModel,
                 }
             });
         else
             components.push({
                 "name": "embeddings-hf",
-                "parameters": {
+                "parameters": isVersion15OrHigher(template) ? {} : {
                     "embeddings-model": config.embeddingsModel,
                 }
             });
-          
+
     } else {
         components.push({
             "name": "embeddings-fastembed",
-            "parameters": {
+            "parameters": isVersion15OrHigher(template) ? {} : {
                 "embeddings-model": "sentence-transformers/all-MiniLM-L6-v2",
             }
         });

@@ -14,21 +14,32 @@ import modelsRaw from './models.json';
 const models = modelsRaw as ModelCatalog;
 
 import { useConfigurationStateStore } from '../state/Configuration';
+import { useVersionStateStore } from '../state/Version';
 
 const ConfigureEmbeddings = ({
 }) => {
 
+    const version = useVersionStateStore((state) => state.version);
+
     const embeddingsEngine = useConfigurationStateStore(
         (state) => state.embeddingsEngine
     );
-        
+
     const embeddingsModel = useConfigurationStateStore(
         (state) => state.embeddingsModel
     );
-        
+
     const doSetEmbeddingsEngine = useConfigurationStateStore(
         (state) => state.setEmbeddingsEngine
     );
+
+    // Check if version is 1.5.0 or higher
+    const isVersion15OrHigher = () => {
+        const versionParts = version.version.split('.');
+        const majorVersion = parseInt(versionParts[0]) || 0;
+        const minorVersion = parseInt(versionParts[1]) || 0;
+        return majorVersion > 1 || (majorVersion === 1 && minorVersion >= 5);
+    };
 
     const setEmbeddingsEngine =
 
@@ -127,42 +138,46 @@ const ConfigureEmbeddings = ({
 
                 </Grid>
 
-                <Typography variant="h6" component="h3" gutterBottom>
-                    Embeddings model
-                </Typography>
+                {!isVersion15OrHigher() && (
+                    <>
+                        <Typography variant="h6" component="h3" gutterBottom>
+                            Embeddings model
+                        </Typography>
 
-                <FormControl sx={{maxWidth: "50"}}>
+                        <FormControl sx={{maxWidth: "50"}}>
 
-                    <InputLabel id="model-name-label">Model</InputLabel>
+                            <InputLabel id="model-name-label">Model</InputLabel>
 
-                    <Select
-                        labelId="model-name-label"
-                        id="model-name-select"
-                        value={embeddingsModel}
-                        label="Model"
-                        onChange={(e) => setEmbeddingsModel(e.target.value)}
-                        sx={{minHeight: '3rem'}}
-                    >
-                        {
-                            availModels.map(
-                                (md) => (
-                                    <MenuItem key={md.id}
-                                        value={md.id}>
-                                        <Box sx={{
-                                        }}>
-                                            <Typography variant="body2"
-                                                sx={{ whiteSpace: 'wrap' }}
-                                            >
-                                                {md.description}
-                                            </Typography>
-                                        </Box>
-                                    </MenuItem>
-                                )
-                            )
-                        }
-                    </Select>
+                            <Select
+                                labelId="model-name-label"
+                                id="model-name-select"
+                                value={embeddingsModel}
+                                label="Model"
+                                onChange={(e) => setEmbeddingsModel(e.target.value)}
+                                sx={{minHeight: '3rem'}}
+                            >
+                                {
+                                    availModels.map(
+                                        (md) => (
+                                            <MenuItem key={md.id}
+                                                value={md.id}>
+                                                <Box sx={{
+                                                }}>
+                                                    <Typography variant="body2"
+                                                        sx={{ whiteSpace: 'wrap' }}
+                                                    >
+                                                        {md.description}
+                                                    </Typography>
+                                                </Box>
+                                            </MenuItem>
+                                        )
+                                    )
+                                }
+                            </Select>
 
-                </FormControl>
+                        </FormControl>
+                    </>
+                )}
 
             </Box>
             
