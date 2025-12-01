@@ -395,6 +395,39 @@ const ModelDeployment: React.FC<ModelDeploymentProps> = ({
                     </Stack>
                 </MenuItem>
 
+                <MenuItem value="vllm">
+                    <Stack
+                        direction="row" spacing={2}
+                        divider={
+                            <Divider orientation="vertical"
+                            flexItem
+                        />}>
+                        <Stack sx={{width: 100}} direction="row"
+                            alignItems="center" justifyContent="center"
+                        >
+                            vLLM
+                        </Stack>
+                        <Box sx={{
+                            width: '36rem'
+                        }}>
+
+                        <Typography variant="body2"
+                            sx={{ whiteSpace: 'wrap' }}
+                        >
+
+                            vLLM is an open-source library for fast LLM
+                            inference and serving. It uses innovations like
+                            PagedAttention and continuous batching to optimize
+                            memory usage and maximize throughput when
+                            deploying large language models.
+
+                            A good choice for self-hosting production loads.
+ 
+                        </Typography>
+                        </Box>
+                    </Stack>
+                </MenuItem>
+
             </Select>
         </FormControl>
 

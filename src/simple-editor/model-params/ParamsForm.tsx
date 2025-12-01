@@ -8,7 +8,6 @@ import ObjectStore from './ObjectStore';
 import Chunker from './Chunker';
 import Platform from './Platform';
 import ModelDeployment from './ModelDeployment';
-import ModelParameters from './ModelParameters';
 
 import { useConfigurationStateStore } from '../state/Configuration';
 import { useDeploymentStore } from '../state/Deployment';
@@ -16,9 +15,6 @@ import { useVersionStateStore } from '../state/Version';
 
 type ModelDescriptor = { id : string, description : string };
 type ModelCatalog = { [ix : string] : ModelDescriptor[] };
-
-import modelsRaw from './models.json';
-const models = modelsRaw as ModelCatalog;
 
 interface ParamsFormProps {
 }
@@ -123,71 +119,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
             setDualModelMode(event.target.checked);
         };
 
-    // Remove the useEffect and update the state directly in the onChange
-    // handlers
-    useConfigurationStateStore.subscribe(
-        // n is new, o is old
-        (n, o) => {
-
-            // Has main model deployment changed?
-            if (n.mainModel.deployment != o.mainModel.deployment) {
-
-                // Get valid models
-                const validModels = models[n.mainModel.deployment];
-                const validModelIds = validModels.map(m => m.id);
-
-                // Is current model name valid for the deployment?
-                if (!(n.mainModel.modelName in validModelIds)) {
-
-                    // Does the deployment use model settings?  If not,
-                    // null out the model name.  Otherwise use the
-                    // first valid model
-                    if (validModels.length == 0)
-                        setMainModel({
-                            ...n.mainModel,
-                            modelName: "",
-                        })
-                    else
-                        setMainModel({
-                            ...n.mainModel,
-                            modelName: models[n.mainModel.deployment][0].id,
-                        })
-                }
-
-            }
-
-            // Do the same for RAG model...
-
-            // Has rag model deployment changed?
-            if (n.ragModel.deployment != o.ragModel.deployment) {
-
-                // Get valid models
-                const validModels = models[n.ragModel.deployment];
-                const validModelIds = validModels.map(m => m.id);
-
-                // Is current model name valid for the deployment?
-                if (!(n.ragModel.modelName in validModelIds)) {
-
-                    // Does the deployment use model settings?  If not,
-                    // null out the model name.  Otherwise use the
-                    // first valid model
-                    if (validModels.length == 0)
-                        setRagModel({
-                            ...n.ragModel,
-                            modelName: "",
-                        })
-                    else
-                        setRagModel({
-                            ...n.ragModel,
-                            modelName: models[n.ragModel.deployment][0].id,
-                        })
-                }
-
-            }
-
-        }
-    );
-
     return (
         <>
             <Box className="parameters">
@@ -277,12 +208,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             onChange={setMainModelDeployment}
                         />
                     </Box>
-                    <Box my={2}>
-                        <ModelParameters
-                            value={mainModel}
-                            onChange={setMainModel}
-                        />
-                    </Box>
                 </Paper>
 
                 {
@@ -295,12 +220,6 @@ const ParamsForm: React.FC<ParamsFormProps> = ({
                             <ModelDeployment
                                 value={ragModel.deployment}
                                 onChange={setRagModelDeployment}
-                            />
-                        </Box>
-                        <Box my={2}>
-                            <ModelParameters
-                                value={ragModel}
-                                onChange={setRagModel}
                             />
                         </Box>
                     </Paper>

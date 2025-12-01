@@ -23,6 +23,7 @@ import LlamafileCompose from './LlamafileCompose';
 import LmstudioCompose from './LmstudioCompose';
 import MistralCompose from './MistralCompose';
 import OllamaCompose from './OllamaCompose';
+import VllmCompose from './VllmCompose';
 import OpenaiCompose from './OpenaiCompose';
 import VertexAiCompose from './VertexAiCompose';
 
@@ -36,6 +37,7 @@ import LlamafileKube from './LlamafileKube';
 import LmstudioKube from './LmstudioKube';
 import MistralKube from './MistralKube';
 import OllamaKube from './OllamaKube';
+import VllmKube from './VllmKube';
 import OpenaiKube from './OpenaiKube';
 import VertexAiKube from './VertexAiKube';
 
@@ -131,6 +133,8 @@ const Deployment: React.FC<DeploymentProps> = ({
             deploymentProcedures.push(<MistralCompose/>);
         if (models.includes("ollama"))
             deploymentProcedures.push(<OllamaCompose/>);
+        if (models.includes("vllm"))
+            deploymentProcedures.push(<VllmCompose/>);
         if (models.includes("openai"))
             deploymentProcedures.push(<OpenaiCompose/>);
         if (models.includes("vertexai"))
@@ -163,6 +167,8 @@ const Deployment: React.FC<DeploymentProps> = ({
             deploymentProcedures.push(<MistralKube/>);
         if (models.includes("ollama"))
             deploymentProcedures.push(<OllamaKube/>);
+        if (models.includes("vllm"))
+            deploymentProcedures.push(<VllmKube/>);
         if (models.includes("openai"))
             deploymentProcedures.push(<OpenaiKube/>);
         if (models.includes("vertexai"))
