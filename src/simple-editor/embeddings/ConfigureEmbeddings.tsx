@@ -10,9 +10,6 @@ import Grid from '@mui/material/Grid2';
 type ModelDescriptor = { id : string, description : string };
 type ModelCatalog = { [ix : string] : ModelDescriptor[] };
 
-import modelsRaw from './models.json';
-const models = modelsRaw as ModelCatalog;
-
 import { useConfigurationStateStore } from '../state/Configuration';
 import { useVersionStateStore } from '../state/Version';
 
@@ -47,35 +44,11 @@ const ConfigureEmbeddings = ({
 
             doSetEmbeddingsEngine(engine);
 
-            if (engine in models) {
-                if (models[engine].length > 0) {
-
-                    const availModelIds = models[engine].map(m => m.id);
-
-                    if (!(availModelIds.includes(embeddingsModel))) {
-                        setEmbeddingsModel(models[engine][0].id);
-                    }
-                }
-            }
-
         };
 
     const setEmbeddingsModel = useConfigurationStateStore(
         (state) => state.setEmbeddingsModel
     );
-
-    useEffect(() => {
-        if ((embeddingsEngine != "fastembed") && 
-            (embeddingsEngine != "huggingface")) {
-            doSetEmbeddingsEngine("fastembed");
-            setEmbeddingsModel(models["fastembed"][0].id);
-        }
-    });
-
-    let availModels : ModelDescriptor[] = [];
-    if (embeddingsEngine in models) {
-        availModels = models[embeddingsEngine];
-    }
 
     return (<>
 
@@ -147,34 +120,6 @@ const ConfigureEmbeddings = ({
                         <FormControl sx={{maxWidth: "50"}}>
 
                             <InputLabel id="model-name-label">Model</InputLabel>
-
-                            <Select
-                                labelId="model-name-label"
-                                id="model-name-select"
-                                value={embeddingsModel}
-                                label="Model"
-                                onChange={(e) => setEmbeddingsModel(e.target.value)}
-                                sx={{minHeight: '3rem'}}
-                            >
-                                {
-                                    availModels.map(
-                                        (md) => (
-                                            <MenuItem key={md.id}
-                                                value={md.id}>
-                                                <Box sx={{
-                                                }}>
-                                                    <Typography variant="body2"
-                                                        sx={{ whiteSpace: 'wrap' }}
-                                                    >
-                                                        {md.description}
-                                                    </Typography>
-                                                </Box>
-                                            </MenuItem>
-                                        )
-                                    )
-                                }
-                            </Select>
-
                         </FormControl>
                     </>
                 )}

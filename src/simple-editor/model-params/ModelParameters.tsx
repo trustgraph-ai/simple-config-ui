@@ -6,9 +6,6 @@ import {
 type ModelDescriptor = { id : string, description : string };
 type ModelCatalog = { [ix : string] : ModelDescriptor[] };
 
-import modelsRaw from './models.json';
-const models = modelsRaw as ModelCatalog;
-
 import { ModelParams } from '../state/Configuration';
 import { useVersionStateStore } from '../state/Version';
 
@@ -28,8 +25,6 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
     const majorVersion = parseInt(versionParts[0]) || 0;
     const minorVersion = parseInt(versionParts[1]) || 0;
     const isVersion14OrHigher = majorVersion > 1 || (majorVersion === 1 && minorVersion >= 4);
-
-    const availModels = models[value.deployment];
 
     const ModelList : React.FC<{
         value : string;
@@ -98,16 +93,6 @@ const ModelParameters: React.FC<ModelParametersProps> = ({
 
             {!isVersion14OrHigher && (
                 <>
-                    <ModelList
-                        value={value.modelName} modelList={availModels}
-                        onChange={
-                            (m : string) => onChange({
-                                ...value,
-                                modelName: m
-                            })
-                        }
-                    />
-
                     <div>
                         <p>Temperature: {value.temperature}</p>
                         <Slider
