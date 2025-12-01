@@ -646,5 +646,11 @@
 	    "id": "open-codestral-mamba",
 	    "description": "open-codestral-mamba (research)"
 	}
+    ],
+    "vllm": [
+        {
+	    "id": "gemma3:1b",
+	    "description": "gemma3:1b"
+	}
     ]
 }
