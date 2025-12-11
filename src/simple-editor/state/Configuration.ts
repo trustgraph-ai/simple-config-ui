@@ -65,14 +65,14 @@ export const useConfigurationStateStore = create<ConfigurationState>()(
             deployment: "ollama",
             modelName: "gemma2:9b",
             temperature: 0.3,
-            maxOutputTokens: 2048,
+            maxOutputTokens: 8192,
         },
 
         ragModel: {
             deployment: "ollama",
             modelName: "gemma2:9b",
             temperature: 0.3,
-            maxOutputTokens: 2048,
+            maxOutputTokens: 8192,
         },
 
         ocrEngine: "",
