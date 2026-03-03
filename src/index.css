@@ -1,41 +1,243 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+/* =============================================================================
+   CSS Variables - Semantic naming for theme-swapping
+   ============================================================================= */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Backgrounds */
+  --bg: #0a0a0f;
+  --bg-alt: #12121a;
+
+  /* Surfaces */
+  --surface: #1a1a24;
+  --surface-hover: #22222e;
+
+  /* Borders */
+  --border: #2a2a3a;
+  --border-bright: #3a3a4a;
+
+  /* Accent (primary interactive) */
+  --accent: #00d4d4;
+  --accent-dim: #00a8a8;
+
+  /* Secondary */
+  --secondary: #d455d4;
+  --secondary-dim: #aa44aa;
+
+  /* Success */
+  --success: #00c46a;
+  --success-dim: #009e55;
+
+  /* Warning */
+  --warning: #ffff00;
+
+  /* Danger */
+  --danger: #ff3366;
+
+  /* Text */
+  --text: #ffffff;
+  --text-muted: #a0a0b0;
+  --text-subtle: #606070;
+
+  /* Glow effects */
+  --accent-glow: 0 0 20px rgba(0, 212, 212, 0.4), 0 0 40px rgba(0, 212, 212, 0.2);
+  --secondary-glow: 0 0 20px rgba(212, 85, 212, 0.4), 0 0 40px rgba(212, 85, 212, 0.2);
+  --success-glow: 0 0 20px rgba(0, 196, 106, 0.4), 0 0 40px rgba(0, 196, 106, 0.2);
+
+  font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: var(--text);
+  background-color: var(--bg);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
 body {
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grid overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 212, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 212, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 2.8em;
-  line-height: 1.1;
+/* =============================================================================
+   Neon Text Glow Utilities
+   ============================================================================= */
+.neon-accent {
+  color: var(--accent);
+  text-shadow: var(--accent-glow);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  cursor: pointer;
-  transition: background-color 0.25s, color 0.25s;
-  margin: 0.2em 0.4em 0.2em 0.4em;
+.neon-secondary {
+  color: var(--secondary);
+  text-shadow: var(--secondary-glow);
 }
 
-button:hover {
-    background-color: #40607f;
-    color: white;
+.neon-success {
+  color: var(--success);
+  text-shadow: var(--success-glow);
 }
 
-button:focus, button:focus-visible {
-  outline: 4px auto;
+/* =============================================================================
+   Neon Border Glow Utilities
+   ============================================================================= */
+.neon-border-accent {
+  border-color: var(--accent);
+  box-shadow: var(--accent-glow), inset 0 0 20px rgba(0, 212, 212, 0.1);
 }
 
+.neon-border-secondary {
+  border-color: var(--secondary);
+  box-shadow: var(--secondary-glow), inset 0 0 20px rgba(212, 85, 212, 0.1);
+}
+
+.neon-border-success {
+  border-color: var(--success);
+  box-shadow: var(--success-glow), inset 0 0 20px rgba(0, 196, 106, 0.1);
+}
+
+/* =============================================================================
+   Animations
+   ============================================================================= */
+
+/* Glitch animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Pulse animation for active elements */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 212, 212, 0.5), 0 0 10px rgba(0, 212, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 212, 0.8), 0 0 40px rgba(0, 212, 212, 0.4);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Typing cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+
+/* =============================================================================
+   Browser Defaults Override
+   ============================================================================= */
+
+/* Selection styling */
+::selection {
+  background: rgba(0, 212, 212, 0.3);
+  color: var(--text);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-bright);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dim);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
