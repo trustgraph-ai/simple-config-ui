@@ -8,8 +8,7 @@ ui:
 	npm run build
 	rm -rf config-ui/config_ui/ui/
 	cp -r dist/ config-ui/config_ui/ui/
-	cp public/*.png config-ui/config_ui/ui/
-	cp public/*.svg config-ui/config_ui/ui/
+	cp public/* config-ui/config_ui/ui/
 
 service-package: ui update-package-versions
 	cd config-ui && python3 setup.py sdist --dist-dir ../pkgs/
