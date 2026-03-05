@@ -1,0 +1,414 @@
+{
+  "documentation": {
+    "id": "trustgraph-deployment-guide",
+    "title": "TrustGraph Deployment Guide",
+    "version": "1.0",
+    "categories": [
+      {
+        "id": "platform",
+        "title": "Platform Setup",
+        "priority": 1
+      },
+      {
+        "id": "model",
+        "title": "Model Configuration",
+        "priority": 2
+      },
+      {
+        "id": "storage",
+        "title": "Storage Setup",
+        "priority": 3
+      },
+      {
+        "id": "gateway",
+        "title": "API Gateway",
+        "priority": 4
+      },
+      {
+        "id": "deployment",
+        "title": "Deployment",
+        "priority": 5
+      },
+      {
+        "id": "verification",
+        "title": "Verification & Testing",
+        "priority": 6
+      }
+    ],
+    "instructions": [
+      {
+        "id": "platform-setup",
+        "goal": "Install and configure Docker Compose",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/docker-compose.md",
+        "when": "platform = 'docker-compose'"
+      },
+      {
+        "id": "platform-setup",
+        "goal": "Install and configure Podman Compose",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/podman-compose.md",
+        "when": "platform = 'podman-compose'"
+      },
+      {
+        "id": "platform-setup",
+        "goal": "Install and configure Minikube",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/minikube.md",
+        "when": "platform = 'minikube'"
+      },
+      {
+        "id": "platform-setup",
+        "goal": "Configure Google Kubernetes Engine",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/gke.md",
+        "when": "platform = 'gke'"
+      },
+      {
+        "id": "platform-setup",
+        "goal": "Configure AWS EKS",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/eks.md",
+        "when": "platform = 'eks'"
+      },
+      {
+        "id": "platform-setup",
+        "goal": "Configure Azure AKS",
+        "category": "platform",
+        "priority": 1,
+        "file": "docs/platform/aks.md",
+        "when": "platform = 'aks'"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up Ollama model server",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/ollama-compose.md",
+        "when": "model_deployment = 'ollama' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure OpenAI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/openai-compose.md",
+        "when": "model_deployment = 'openai' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Claude (Anthropic) integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/claude-compose.md",
+        "when": "model_deployment = 'claude' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Mistral integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/mistral-compose.md",
+        "when": "model_deployment = 'mistral' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Cohere integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/cohere-compose.md",
+        "when": "model_deployment = 'cohere' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Azure AI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/azure-compose.md",
+        "when": "model_deployment = 'azure' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Azure OpenAI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/azure-openai-compose.md",
+        "when": "model_deployment = 'azure-openai' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Amazon Bedrock integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/bedrock-compose.md",
+        "when": "model_deployment = 'bedrock' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Google AI Studio integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/google-ai-studio-compose.md",
+        "when": "model_deployment = 'google-ai-studio' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Vertex AI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/vertex-ai-compose.md",
+        "when": "model_deployment = 'vertex-ai' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up Llamafile",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/llamafile-compose.md",
+        "when": "model_deployment = 'llamafile' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up LM Studio",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/lm-studio-compose.md",
+        "when": "model_deployment = 'lm-studio' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up vLLM",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/vllm-compose.md",
+        "when": "model_deployment = 'vllm' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up Ollama model server",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/ollama-k8s.md",
+        "when": "model_deployment = 'ollama' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure OpenAI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/openai-k8s.md",
+        "when": "model_deployment = 'openai' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Claude (Anthropic) integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/claude-k8s.md",
+        "when": "model_deployment = 'claude' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Mistral integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/mistral-k8s.md",
+        "when": "model_deployment = 'mistral' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Cohere integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/cohere-k8s.md",
+        "when": "model_deployment = 'cohere' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Azure AI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/azure-k8s.md",
+        "when": "model_deployment = 'azure' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Azure OpenAI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/azure-openai-k8s.md",
+        "when": "model_deployment = 'azure-openai' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Amazon Bedrock integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/bedrock-k8s.md",
+        "when": "model_deployment = 'bedrock' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Google AI Studio integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/google-ai-studio-k8s.md",
+        "when": "model_deployment = 'google-ai-studio' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Configure Vertex AI integration",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/vertex-ai-k8s.md",
+        "when": "model_deployment = 'vertex-ai' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up Llamafile",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/llamafile-k8s.md",
+        "when": "model_deployment = 'llamafile' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up LM Studio",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/lm-studio-k8s.md",
+        "when": "model_deployment = 'lm-studio' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "model-setup",
+        "goal": "Set up vLLM",
+        "category": "model",
+        "priority": 1,
+        "file": "docs/model/vllm-k8s.md",
+        "when": "model_deployment = 'vllm' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "vector-db-setup",
+        "goal": "Configure Pinecone connection",
+        "category": "storage",
+        "priority": 1,
+        "file": "docs/storage/pinecone-compose.md",
+        "when": "vector_db = 'pinecone' and platform in ['docker-compose', 'podman-compose']"
+      },
+      {
+        "id": "vector-db-setup",
+        "goal": "Configure Pinecone connection",
+        "category": "storage",
+        "priority": 1,
+        "file": "docs/storage/pinecone-k8s.md",
+        "when": "vector_db = 'pinecone' and platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "graph-store-setup",
+        "goal": "Understand FalkorDB license",
+        "category": "storage",
+        "priority": 2,
+        "file": "docs/storage/falkordb.md",
+        "when": "graph_store = 'falkordb'"
+      },
+      {
+        "id": "gateway-setup",
+        "goal": "Configure API gateway secret",
+        "category": "gateway",
+        "priority": 1,
+        "file": "docs/gateway/gateway-k8s.md",
+        "when": "platform in ['gke', 'eks', 'aks', 'minikube']",
+        "vars": {
+          "namespace": "k8s.namespace"
+        }
+      },
+      {
+        "id": "deploy",
+        "goal": "Deploy with Docker Compose",
+        "category": "deployment",
+        "priority": 1,
+        "file": "docs/deploy/docker-compose-deploy.md",
+        "when": "platform = 'docker-compose'"
+      },
+      {
+        "id": "deploy",
+        "goal": "Deploy with Podman Compose",
+        "category": "deployment",
+        "priority": 1,
+        "file": "docs/deploy/podman-compose-deploy.md",
+        "when": "platform = 'podman-compose'"
+      },
+      {
+        "id": "deploy",
+        "goal": "Deploy to Kubernetes cluster",
+        "category": "deployment",
+        "priority": 1,
+        "file": "docs/deploy/k8s-deploy.md",
+        "when": "platform in ['gke', 'eks', 'aks', 'minikube']"
+      },
+      {
+        "id": "workbench",
+        "goal": "Access the TrustGraph Workbench",
+        "category": "verification",
+        "priority": 1,
+        "file": "docs/features/workbench.md",
+        "always": true
+      },
+      {
+        "id": "document-rag",
+        "goal": "Test Document RAG",
+        "category": "verification",
+        "priority": 2,
+        "file": "docs/features/document-rag.md",
+        "always": true
+      }
+    ]
+  }
+}
