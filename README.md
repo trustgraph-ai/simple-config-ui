@@ -50,6 +50,21 @@ podman run -i -t -p 8080:8080 localhost/config-ui:0.0.0
 
 Go to http://localhost:8080
 
+## Push changes
+
+Branch off of `environment/dev` and create a pull request.
+Branches have tags like `fix/some-stuff`, `maint/update-instructions`
+or `feature/nice-ux`.
+
+Then do a pull request onto `environment/dev` to test.
+
+Pull request from your branch onto `environment/dev` to test at
+`test.config-ui.demo.trustgraph.ai`.
+
+When ready to go live, do a pull request from `environment/dev`
+to `environment/prod` to go live.  Don't delete the `environment/dev`
+branch if Github offers that.
+
 ## Deploy it
 
 Deployment is Github actions, automatic to Cloud Run.  Deployment kicks in
