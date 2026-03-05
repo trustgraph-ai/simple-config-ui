@@ -66,10 +66,10 @@ export const generateConfig =
         },
     ];
 
-    // Add object store component only for version 1.3+
+    // Add row store component only for version 1.3+
     if (isVersion13OrHigher(template)) {
         components.push({
-            "name": "object-store-" + config.objectStore,
+            "name": "row-store-" + config.objectStore,
             "parameters": {}
         });
     }

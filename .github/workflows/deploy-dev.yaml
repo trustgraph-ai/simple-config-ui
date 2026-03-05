@@ -8,7 +8,7 @@ on:
     # Deploys on version tag beginning v.  Note there's a branch filter
     # below, locks to the dev branch
     branches:
-      dev
+      environment/dev
 
 permissions:
   contents: read

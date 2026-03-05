@@ -34,6 +34,10 @@ class Api:
         self.app.add_routes([web.get("/api/versions", self.versions)])
         self.app.add_routes([web.post("/api/generate/{platform}/{version}",
                                       self.generate)])
+        self.app.add_routes([web.get("/api/dialog-flow", self.dialog_flow)])
+        self.app.add_routes([web.get("/api/config-prepare", self.config_prepare)])
+        self.app.add_routes([web.get("/api/docs-manifest", self.docs_manifest)])
+        self.app.add_routes([web.get("/api/docs/{path:.*}", self.docs)])
 
         # Everything else gets matched for serving static resources
         self.app.add_routes([web.get("/{tail:.*}", self.everything)])
@@ -185,7 +189,7 @@ class Api:
         try:
             # Read the request body
             body = await request.read()
-            
+
             async with aiohttp.ClientSession() as session:
                 async with session.post(url, data=body, headers={'Content-Type': 'application/json'}) as resp:
                     if resp.status == 200:
@@ -200,6 +204,87 @@ class Api:
                         return web.Response(status=resp.status, text=error_text)
         except Exception as e:
             logger.error(f"Error generating for {platform}/{version}: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def dialog_flow(self, request):
+
+        url = self.gateway + "api/dialog-flow"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='text/yaml'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching dialog-flow: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def config_prepare(self, request):
+
+        url = self.gateway + "api/config-prepare"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='text/plain'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching config-prepare: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def docs_manifest(self, request):
+
+        url = self.gateway + "api/docs-manifest"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='text/yaml'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching docs-manifest: {e}")
+            return web.Response(status=500, text=str(e))
+
+    async def docs(self, request):
+
+        path = request.match_info['path']
+        url = self.gateway + f"api/docs/{path}"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        data = await resp.read()
+                        return web.Response(
+                            body=data,
+                            status=resp.status,
+                            content_type='text/plain'
+                        )
+                    else:
+                        return web.Response(status=resp.status)
+        except Exception as e:
+            logger.error(f"Error fetching docs/{path}: {e}")
             return web.Response(status=500, text=str(e))
 
     def run(self):
