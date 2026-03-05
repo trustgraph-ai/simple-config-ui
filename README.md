@@ -53,8 +53,14 @@ Go to http://localhost:8080
 ## Deploy it
 
 Deployment is Github actions, automatic to Cloud Run.  Deployment kicks in
-automatically on anything with a version tag.  Version tags should be of
-form v1.2.3.
+automatically on anything with an environment tag.
+
+Tags are:
+
+```
+environment/dev
+environment/prod
+```
 
 ## Actual template configuration
 
@@ -63,5 +69,4 @@ then come back here and deploy here.
 
 FIXME: It appears you need to change something to get it to pick up the
 new version, it's not enough to just deploy the pipeline.
-
 
