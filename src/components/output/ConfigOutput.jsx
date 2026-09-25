@@ -86,7 +86,10 @@ export const ConfigOutput = () => {
 
       const response = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+        },
         body: JSON.stringify(templates),
       });
 
