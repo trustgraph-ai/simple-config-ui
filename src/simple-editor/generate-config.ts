@@ -183,6 +183,7 @@ export const generateConfig =
             body: componentsEnc,
             method: "POST",
             headers: {
+                "X-Timezone": Intl.DateTimeFormat().resolvedOptions().timeZone,
             }
          }
     );

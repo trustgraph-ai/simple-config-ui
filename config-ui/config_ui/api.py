@@ -190,8 +190,25 @@ class Api:
             # Read the request body
             body = await request.read()
 
+            headers = {'Content-Type': 'application/json'}
+
+            forwarded_for = request.headers.get('X-Forwarded-For')
+            peer = request.remote
+            if forwarded_for:
+                headers['X-Forwarded-For'] = f"{forwarded_for}, {peer}"
+            else:
+                headers['X-Forwarded-For'] = peer
+
+            user_agent = request.headers.get('User-Agent')
+            if user_agent:
+                headers['User-Agent'] = user_agent
+
+            timezone = request.headers.get('X-Timezone')
+            if timezone:
+                headers['X-Timezone'] = timezone
+
             async with aiohttp.ClientSession() as session:
-                async with session.post(url, data=body, headers={'Content-Type': 'application/json'}) as resp:
+                async with session.post(url, data=body, headers=headers) as resp:
                     if resp.status == 200:
                         data = await resp.read()
                         return web.Response(
