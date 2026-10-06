@@ -1,4 +1,4 @@
-import { Box, Text, VStack, HStack, Badge } from '@chakra-ui/react';
+import { Box, Text, VStack, HStack, Badge, SimpleGrid } from '@chakra-ui/react';
 import { ChevronRight } from 'lucide-react';
 
 export const SelectInput = ({ options, value, defaultValue, onChange }) => {
@@ -6,15 +6,19 @@ export const SelectInput = ({ options, value, defaultValue, onChange }) => {
     ?? options.find(o => o.recommended)?.value
     ?? options[0]?.value;
 
+  const isCompact = options.length > 4;
+  const columns = isCompact ? { base: 1, md: 2, xl: 3 } : 1;
+
   return (
-    <VStack gap={3} align="stretch">
+    <SimpleGrid columns={columns} gap={2}>
       {options.map((option) => {
         const isSelected = option.value === effectiveValue;
 
         return (
           <Box
             key={option.value}
-            p={4}
+            px={3}
+            py={isCompact ? 2 : 4}
             borderWidth={1}
             borderRadius="md"
             borderColor={isSelected ? 'accent' : 'border'}
@@ -43,11 +47,12 @@ export const SelectInput = ({ options, value, defaultValue, onChange }) => {
             } : {}}
           >
             <HStack justify="space-between" align="flex-start">
-              <VStack align="flex-start" gap={2}>
-                <HStack gap={3}>
+              <VStack align="flex-start" gap={1}>
+                <HStack gap={2}>
                   <Text
                     fontWeight="medium"
                     fontFamily="mono"
+                    fontSize={isCompact ? 'sm' : 'md'}
                     color={isSelected ? 'accent' : 'text'}
                   >
                     {option.label}
@@ -82,7 +87,7 @@ export const SelectInput = ({ options, value, defaultValue, onChange }) => {
                   )}
                 </HStack>
                 {option.description && (
-                  <Text fontSize="sm" color="text.subtle">
+                  <Text fontSize="xs" color="text.subtle" lineHeight="short">
                     {option.description}
                   </Text>
                 )}
@@ -97,12 +102,12 @@ export const SelectInput = ({ options, value, defaultValue, onChange }) => {
                 color={isSelected ? 'accent' : 'text.subtle'}
                 transition="all 0.2s"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={isCompact ? 16 : 20} />
               </Box>
             </HStack>
           </Box>
         );
       })}
-    </VStack>
+    </SimpleGrid>
   );
 };
