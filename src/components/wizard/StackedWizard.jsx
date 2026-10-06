@@ -58,7 +58,7 @@ export const StackedWizard = () => {
 
   return (
     <Box minH="100vh" bg="bg" py={8} px={4}>
-      <Box maxW="2xl" mx="auto">
+      <Box maxW="5xl" mx="auto">
         {/* Header */}
         <HStack gap={3} mb={8} justify="center">
           <Terminal size={20} color="var(--accent)" />
