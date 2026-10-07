@@ -130,10 +130,9 @@
   );
 
   /* ─────────────────────────────────────────────────────────────
-   * API Configuration
+   * API Configuration (relative path — clients prepend their base URL)
    * ───────────────────────────────────────────────────────────── */
-  $api_base := "https://config-ui.demo.trustgraph.ai/api/generate";
-  $api_url := $api_base & "/" & platform & "/" & version;
+  $api_path := "generate/" & platform & "/" & version;
 
   /* ─────────────────────────────────────────────────────────────
    * Final Output
@@ -141,7 +140,7 @@
   {
     "version": version,
     "platform": platform,
-    "api_url": $api_url,
+    "api_path": $api_path,
     "templates": $templates
   }
 )
