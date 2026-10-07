@@ -4,15 +4,6 @@ import { ArrowLeft, Download, RotateCcw, Package, CheckCircle, AlertTriangle, Fi
 import { useWizardStore } from '../../state/wizard';
 import { transformToConfig, generateInstallationDocs } from '../../model/transforms';
 
-// Convert external API URL to local proxy path for development
-const toProxyUrl = (apiUrl) => {
-  try {
-    const url = new URL(apiUrl);
-    return url.pathname;
-  } catch {
-    return apiUrl;
-  }
-};
 
 // Get human-readable labels for configuration values
 const getConfigSummary = (wizardState, steps) => {
@@ -81,10 +72,9 @@ export const ConfigOutput = () => {
     setDownloadError(null);
 
     try {
-      const { api_url, templates } = config;
-      const url = toProxyUrl(api_url);
+      const { api_path, templates } = config;
 
-      const response = await fetch(url, {
+      const response = await fetch('/api/' + api_path, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
